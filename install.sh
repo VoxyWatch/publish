@@ -1,10 +1,9 @@
 #!/bin/bash
 # ─────────────────────────────────────────────────────────────────────────────
 # VoxyWatch — Instalador
-# Servido desde: https://voxywatch.com/install.sh
 #
 # Uso:
-#   curl -fsSL https://voxywatch.com/install.sh | sudo bash
+#   curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | sudo bash
 #   — ó —
 #   sudo bash install.sh [--version 1.2.0]
 #
@@ -40,7 +39,7 @@ echo "════════════════════════�
 echo ""
 
 # ── Verificaciones previas ────────────────────────────────────────────────────
-[ "$EUID" -ne 0 ] && err "Ejecutar como root: curl -fsSL https://voxywatch.com/install.sh | sudo bash"
+[ "$EUID" -ne 0 ] && err "Ejecutar como root: curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | sudo bash"
 
 command -v curl   &>/dev/null || err "curl es requerido: apt install curl  ó  yum install curl"
 command -v gpg    &>/dev/null || { warn "gpg no disponible — se omitirá verificación de firma"; GPG_AVAILABLE=false; }

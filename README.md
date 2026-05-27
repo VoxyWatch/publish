@@ -100,14 +100,20 @@ If you prefer not to use the install script, follow these steps for your distrib
 
 Before installing, make sure the following packages are present on your system:
 
-| Package | Debian / Ubuntu | RHEL / Rocky / Alma |
-|---|---|---|
-| `curl` | `apt-get install -y curl` | `dnf install -y curl` |
-| `sudo` | `apt-get install -y sudo` | `dnf install -y sudo` |
-| `node` (≥ 18) | see [NodeSource](https://github.com/nodesource/distributions) | see [NodeSource](https://github.com/nodesource/distributions) |
+| Package | Debian / Ubuntu | RHEL / Rocky / Alma | Purpose |
+|---|---|---|---|
+| `curl` | `apt-get install -y curl` | `dnf install -y curl` | Download packages |
+| `sudo` | `apt-get install -y sudo` | `dnf install -y sudo` | Required package dependency |
+| `gpg` | `apt-get install -y gnupg` | `dnf install -y gnupg2` | GPG signature verification (recommended) |
+| `node` (≥ 18) | see [NodeSource](https://github.com/nodesource/distributions) | see [NodeSource](https://github.com/nodesource/distributions) | Hardware ID tool |
 
 > **Running as root?** `sudo` is declared as a package dependency but is not functionally required if you are already root.  
 > Install it anyway to satisfy the package manager: `apt-get install -y sudo` / `dnf install -y sudo`.
+
+> **`gpg` is optional but strongly recommended.**  
+> Without it, the installer skips GPG signature verification and only checks the SHA-256 checksum.  
+> The SHA-256 confirms the file was not corrupted in transit, but only the GPG signature proves the package was actually signed by VoxyWatch and has not been tampered with.  
+> On minimal server images, install it with: `apt-get install -y gnupg` / `dnf install -y gnupg2`.
 
 ---
 
@@ -116,7 +122,7 @@ Before installing, make sure the following packages are present on your system:
 ```bash
 # 1. Install dependencies
 apt-get update
-apt-get install -y curl sudo
+apt-get install -y curl sudo gnupg
 
 # 2. Download the package
 VERSION=1.2.0
@@ -133,8 +139,8 @@ apt-get install -y "./voxywatch_${VERSION}_amd64.deb"
 
 ```bash
 # 1. Install dependencies
-dnf install -y curl sudo        # RHEL 8+ / Rocky / Alma / Fedora
-# yum install -y curl sudo      # CentOS 7 / RHEL 7 — uncomment if dnf is unavailable
+dnf install -y curl sudo gnupg2        # RHEL 8+ / Rocky / Alma / Fedora
+# yum install -y curl sudo gnupg2     # CentOS 7 / RHEL 7 — uncomment if dnf is unavailable
 
 # 2. Download the package
 VERSION=1.2.0

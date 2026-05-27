@@ -16,6 +16,15 @@ The installer auto-detects your distro and installs the correct package.
 
 After installation, open your browser at `http://YOUR-IP:3080`.
 
+**Default credentials:**
+
+| Field | Value |
+|---|---|
+| Username | `admin` |
+| Password | `voxywatch` |
+
+> ⚠️ **Change the default password immediately** after first login: **Settings → Security → Users**
+
 ---
 
 ## What's Included

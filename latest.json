@@ -3,7 +3,7 @@
   "release_date": "2026-05-27",
   "linux_x64": {
     "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.14/voxywatch-v1.2.14-linux-x64.tar.gz",
-    "sha256": "40697fc85ab180534e33351957d72454353e5607b4fce5b6ba9a8eddb22a65dd"
+    "sha256": "e13b8fb4c1cfb9ea75660a28ace8d392439e5ffc685c986222e2191a5669bbe6"
   },
   "linux_arm64": {
     "url": "",

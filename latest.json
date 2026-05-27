@@ -1,19 +1,14 @@
 {
-  "version": "1.2.0",
-  "release_date": "2026-05-26",
+  "version": "1.2.8",
+  "release_date": "2026-05-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.0/voxywatch-v1.2.0-linux-x64.tar.gz",
-    "sha256": "498a91b850f9316cac926fc6f18f9ebae7da8bf5b27969b1d4262e5d771ecc4d"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.8/voxywatch-v1.2.8-linux-x64.tar.gz",
+    "sha256": "2263d955e68f80cc7a72a4676cb1794d2c67cee47f35e687006863b32281e997"
   },
   "linux_arm64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.0/voxywatch-v1.2.0-linux-arm64.tar.gz",
+    "url": "",
     "sha256": ""
   },
-  "changelog": [
-    "i18n: 5 idiomas (ES, EN, PT, FR, DE) con selector dropdown",
-    "Free tier: 50 llamadas simultáneas / 1,000 CDRs con banner y bloqueo",
-    "Base CDR: columnas de origen y destino, columnas redimensionables, cabeceras ordenables, filtro 3-campos",
-    "Sistema de actualizaciones automáticas desde el portal web"
-  ],
+  "changelog": [],
   "min_upgrade_from": "1.0.0"
 }

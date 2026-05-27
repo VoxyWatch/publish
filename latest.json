@@ -1,16 +1,14 @@
 {
-  "version": "1.2.13",
+  "version": "1.2.14",
   "release_date": "2026-05-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.13/voxywatch-v1.2.13-linux-x64.tar.gz",
-    "sha256": "85955534da8f81c832bdd3f3519c881d0fccf11eed8295a30eee0c5355f937b7"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.14/voxywatch-v1.2.14-linux-x64.tar.gz",
+    "sha256": "40697fc85ab180534e33351957d72454353e5607b4fce5b6ba9a8eddb22a65dd"
   },
   "linux_arm64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.13/voxywatch-v1.2.13-linux-arm64.tar.gz",
+    "url": "",
     "sha256": ""
   },
-  "changelog": [
-    "Fix: activación de licencia por GUI ahora funciona aunque /etc/voxywatch no tenga permisos de escritura (fallback automático a DATA_DIR)"
-  ],
+  "changelog": [],
   "min_upgrade_from": "1.0.0"
 }

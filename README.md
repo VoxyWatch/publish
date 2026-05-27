@@ -46,7 +46,7 @@ After installation, open your browser at `http://YOUR-IP:3080`.
 - 📊 **Live dashboard** — ASR, NER, ACD, MOS, PDD, jitter, packet loss — all in real time
 - 🗂 **CDR base** — sortable, filterable, exportable call records with caller/callee resolution
 - 🔊 **Audio reconstruction** — stereo SIPREC playback directly in the browser
-- 🌐 **5 languages** — ES · EN · PT · FR · DE
+- 🌐 **2 languages** — English · Spanish (Settings → General)
 - 🔐 **Auth & RBAC** — JWT sessions, admin/operator/viewer roles, SSO via OIDC (Google, Microsoft, Okta, Keycloak, Auth0)
 - 🏷️ **IP label directory** — map IPs and subnets to friendly names
 - 💬 **AI assistant** — built-in chat proxy to OpenAI, Anthropic, Google or OpenRouter
@@ -134,7 +134,7 @@ apt-get update
 apt-get install -y curl sudo gnupg
 
 # 2. Download the package
-VERSION=1.2.8
+VERSION=1.2.14
 curl -fsSL "https://github.com/VoxyWatch/publish/releases/download/v${VERSION}/voxywatch_${VERSION}_amd64.deb" \
      -o "voxywatch_${VERSION}_amd64.deb"
 
@@ -152,7 +152,7 @@ dnf install -y curl sudo gnupg2        # RHEL 8+ / Rocky / Alma / Fedora
 # yum install -y curl sudo gnupg2     # CentOS 7 / RHEL 7 — uncomment if dnf is unavailable
 
 # 2. Download the package
-VERSION=1.2.8
+VERSION=1.2.14
 curl -fsSL "https://github.com/VoxyWatch/publish/releases/download/v${VERSION}/voxywatch-${VERSION}-1.x86_64.rpm" \
      -o "voxywatch-${VERSION}-1.x86_64.rpm"
 
@@ -163,7 +163,44 @@ dnf install -y "./voxywatch-${VERSION}-1.x86_64.rpm"
 
 ---
 
-### Troubleshooting — Common Errors
+## Administration
+
+### Reset Admin Password
+
+If you are locked out or have forgotten the admin password, reset it from the command line:
+
+```bash
+sudo systemctl stop voxywatch
+sudo /opt/voxywatch/voxywatch-portal --reset-admin
+sudo systemctl start voxywatch
+```
+
+This resets **all admin accounts** to the default password (`voxywatch`) and forces a password change on next login. No data is lost.
+
+**Example output:**
+
+```
+  VoxyWatch — Admin Reset
+  ─────────────────────────────────────
+  Password reset for: admin
+    New password : voxywatch
+  You will be prompted to change it
+  on next login.
+  ─────────────────────────────────────
+```
+
+After running the command, log in at `http://YOUR-IP:3080` with:
+
+| Field | Value |
+|---|---|
+| Username | `admin` |
+| Password | `voxywatch` |
+
+You will be prompted to set a new password immediately.
+
+---
+
+## Troubleshooting — Common Errors
 
 **`dpkg: dependency problems — sudo is not installed`**
 
@@ -171,7 +208,7 @@ You ran `dpkg -i` directly instead of `apt-get install -y ./file.deb`.
 `dpkg` does not resolve dependencies. Use `apt-get`:
 
 ```bash
-apt-get install -y ./voxywatch_1.2.8_amd64.deb
+apt-get install -y ./voxywatch_1.2.14_amd64.deb
 ```
 
 Or install the missing dependency first, then fix the broken state:
@@ -188,8 +225,14 @@ dpkg --configure -a
 Same issue on RPM systems — use `dnf` / `yum` instead of `rpm -Uvh`:
 
 ```bash
-dnf install -y ./voxywatch-1.2.8-1.x86_64.rpm
+dnf install -y ./voxywatch-1.2.14-1.x86_64.rpm
 ```
+
+---
+
+**Forgot admin password / locked out**
+
+See [Reset Admin Password](#reset-admin-password) above.
 
 ---
 
@@ -209,14 +252,14 @@ Every release is signed with GPG. To verify before installing:
 curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/voxywatch-release.gpg.pub | gpg --import
 
 # Download package + signature
-curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.8/voxywatch_1.2.8_amd64.deb -O
-curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.8/voxywatch_1.2.8_amd64.deb.asc -O
+curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.14/voxywatch_1.2.14_amd64.deb -O
+curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.14/voxywatch_1.2.14_amd64.deb.asc -O
 
 # Verify
-gpg --verify voxywatch_1.2.8_amd64.deb.asc voxywatch_1.2.8_amd64.deb
+gpg --verify voxywatch_1.2.14_amd64.deb.asc voxywatch_1.2.14_amd64.deb
 ```
 
-SHA-256 checksums are available in [SHA256SUMS](../../releases/download/v1.2.8/SHA256SUMS).
+SHA-256 checksums are available in [SHA256SUMS](../../releases/download/v1.2.14/SHA256SUMS).
 
 **Signing key fingerprint:**
 ```

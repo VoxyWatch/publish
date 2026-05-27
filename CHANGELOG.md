@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.2.17] — 2026-05-27
+
+### Fixed
+- **Sniffer service name auto-detection** — `server.js` hardcoded `voxywatch-sniffer.service` everywhere; the service is now detected at startup by probing `voxywatch-sniffer.service` first (production package installs) and falling back to `hep-sniffer.service` (source/dev installs); all status, restart, and diagnostics calls use the detected name
+- **Sniffer restart fallback** — `POST /api/sniffer/restart` now tries `busctl` D-Bus first (required when `NoNewPrivileges=true`); if `busctl` fails due to a missing polkit rule, it automatically falls back to `sudo systemctl restart`, so the button works on both production and development environments
+
+---
+
 ## [1.2.16] — 2026-05-27
 
 ### Added

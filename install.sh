@@ -5,7 +5,7 @@
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | sudo bash
 #   — or —
-#   sudo bash install.sh [--version 1.2.0] [--port 3080]
+#   sudo bash install.sh [--version 1.2.10] [--port 3080]
 #
 # Supports: Debian 11+, Ubuntu 20.04+, RHEL / CentOS / Rocky / AlmaLinux 8+
 # ─────────────────────────────────────────────────────────────────────────────
@@ -18,10 +18,14 @@ set -euo pipefail
 GITHUB_ORG="VoxyWatch"
 GITHUB_REPO="publish"
 VERSION_MANIFEST="https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main/latest.json"
-GPG_KEY_URL="https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main/voxywatch-release.gpg.pub"
-RELEASES_BASE="https://github.com/${GITHUB_ORG}/${GITHUB_REPO}/releases/download"
 INSTALL_URL="https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main/install.sh"
-CONF_FILE="/etc/voxywatch/voxywatch.conf"
+RELEASES_BASE="https://github.com/${GITHUB_ORG}/${GITHUB_REPO}/releases/download"
+
+INSTALL_DIR="/opt/voxywatch"
+DATA_DIR="/var/lib/voxywatch"
+CONF_DIR="/etc/voxywatch"
+CONF_FILE="${CONF_DIR}/voxywatch.conf"
+SERVICE_USER="voxywatch"
 
 # ── Colors ────────────────────────────────────────────────────────────────────
 if [ -t 1 ]; then
@@ -42,46 +46,9 @@ echo "════════════════════════�
 echo ""
 
 # ── Pre-flight checks ─────────────────────────────────────────────────────────
-[ "$EUID" -ne 0 ] && err "Must run as root:  curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | sudo bash"
-
+[ "$EUID" -ne 0 ] && err "Must run as root:  curl -fsSL https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main/install.sh | sudo bash"
 command -v curl    &>/dev/null || err "curl is required:  apt install curl   or   yum install curl"
 command -v python3 &>/dev/null || err "python3 is required:  apt install python3   or   yum install python3"
-command -v gpg     &>/dev/null || { warn "gpg not available — package signature verification will be skipped"; GPG_AVAILABLE=false; }
-GPG_AVAILABLE="${GPG_AVAILABLE:-true}"
-
-# ── Detect distribution ───────────────────────────────────────────────────────
-detect_distro() {
-  if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    DISTRO_ID="${ID:-unknown}"
-    DISTRO_ID_LIKE="${ID_LIKE:-}"
-  else
-    DISTRO_ID="unknown"; DISTRO_ID_LIKE=""
-  fi
-
-  case "$DISTRO_ID" in
-    debian|ubuntu|linuxmint|pop|kali|raspbian)
-      PKG_TYPE="deb"
-      PKG_MGR="apt-get"
-      ;;
-    rhel|centos|fedora|rocky|almalinux|ol|amzn)
-      PKG_TYPE="rpm"
-      PKG_MGR=$(command -v dnf &>/dev/null && echo "dnf" || echo "yum")
-      ;;
-    *)
-      if echo "$DISTRO_ID_LIKE" | grep -qE "debian|ubuntu"; then
-        PKG_TYPE="deb"; PKG_MGR="apt-get"
-      elif echo "$DISTRO_ID_LIKE" | grep -qE "rhel|fedora|centos"; then
-        PKG_TYPE="rpm"; PKG_MGR=$(command -v dnf &>/dev/null && echo "dnf" || echo "yum")
-      else
-        err "Unsupported distribution: ${DISTRO_ID}. Supported: Debian/Ubuntu and RHEL/CentOS/Rocky/AlmaLinux."
-      fi
-      ;;
-  esac
-  ok "Distribution detected: ${DISTRO_ID} → .${PKG_TYPE} package"
-}
-
-detect_distro
 
 # ── Parse arguments ───────────────────────────────────────────────────────────
 VERSION=""
@@ -94,12 +61,18 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-# ── Fetch latest version ──────────────────────────────────────────────────────
+# ── Fetch latest version and asset info ───────────────────────────────────────
 if [ -z "$VERSION" ]; then
   info "Fetching latest version..."
-  VERSION=$(curl -fsSL "$VERSION_MANIFEST" \
-    | python3 -c "import json,sys; print(json.load(sys.stdin)['version'])" 2>/dev/null \
+  MANIFEST_JSON=$(curl -fsSL --max-time 15 "$VERSION_MANIFEST" 2>/dev/null \
     || err "Could not fetch version manifest from ${VERSION_MANIFEST}")
+  VERSION=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['version'])" 2>/dev/null \
+    || err "Could not parse version from manifest")
+  EXPECTED_SHA256=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('linux_x64',{}).get('sha256',''))" 2>/dev/null || echo "")
+else
+  # Version specified manually — fetch its sha256 from the manifest anyway
+  MANIFEST_JSON=$(curl -fsSL --max-time 15 "$VERSION_MANIFEST" 2>/dev/null || echo "{}")
+  EXPECTED_SHA256=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('linux_x64',{}).get('sha256',''))" 2>/dev/null || echo "")
 fi
 ok "Version to install: v${VERSION}"
 
@@ -107,7 +80,6 @@ ok "Version to install: v${VERSION}"
 if [ -n "$PORT_ARG" ]; then
   PORT="$PORT_ARG"
 else
-  # Interactive prompt — works even when piped via curl (reads from /dev/tty)
   echo ""
   if [ -e /dev/tty ]; then
     printf "  ${BOLD}Web portal port${NC} [3080]: "
@@ -117,8 +89,6 @@ else
   fi
   PORT="${PORT_INPUT:-3080}"
 fi
-
-# Validate
 if ! echo "$PORT" | grep -qE '^[0-9]+$' || [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65535 ]; then
   warn "Invalid port '${PORT}' — using default 3080"
   PORT="3080"
@@ -126,103 +96,158 @@ fi
 ok "Web portal port: ${PORT}"
 echo ""
 
-# ── Package filenames ─────────────────────────────────────────────────────────
-if [ "$PKG_TYPE" = "deb" ]; then
-  PKG_FILE="voxywatch_${VERSION}_amd64.deb"
-  INSTALL_CMD="${PKG_MGR} install -y"   # apt-get resolves all dependencies automatically
-else
-  PKG_FILE="voxywatch-${VERSION}-1.x86_64.rpm"
-  INSTALL_CMD="${PKG_MGR} install -y"   # dnf/yum resolve all dependencies automatically
-fi
+# ── Download tarball ──────────────────────────────────────────────────────────
+TARBALL_NAME="voxywatch-v${VERSION}-linux-x64.tar.gz"
+TARBALL_DIR="voxywatch-v${VERSION}-linux-x64"
+DOWNLOAD_URL="${RELEASES_BASE}/v${VERSION}/${TARBALL_NAME}"
 
-DOWNLOAD_URL="${RELEASES_BASE}/v${VERSION}/${PKG_FILE}"
-SIG_URL="${DOWNLOAD_URL}.asc"
-
-# ── Download package & signature ──────────────────────────────────────────────
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
 
-info "Downloading ${PKG_FILE}..."
-curl -fsSL --progress-bar "$DOWNLOAD_URL" -o "${TMPDIR}/${PKG_FILE}" \
+info "Downloading ${TARBALL_NAME}..."
+curl -fsSL --progress-bar "$DOWNLOAD_URL" -o "${TMPDIR}/${TARBALL_NAME}" \
   || err "Failed to download ${DOWNLOAD_URL}"
-ok "Download complete: $(du -sh "${TMPDIR}/${PKG_FILE}" | cut -f1)"
+ok "Download complete: $(du -sh "${TMPDIR}/${TARBALL_NAME}" | cut -f1)"
 
-# ── Verify SHA-256 checksum ───────────────────────────────────────────────────
-info "Verifying SHA-256 checksum..."
-curl -fsSL "${RELEASES_BASE}/v${VERSION}/SHA256SUMS" -o "${TMPDIR}/SHA256SUMS" 2>/dev/null || {
-  warn "SHA256SUMS not available — skipping checksum verification"
-}
+# ── Verify SHA-256 ────────────────────────────────────────────────────────────
+ACTUAL_SHA256=$(python3 -c "import hashlib; print(hashlib.sha256(open('${TMPDIR}/${TARBALL_NAME}','rb').read()).hexdigest())")
+if [ -n "$EXPECTED_SHA256" ] && [ "$EXPECTED_SHA256" != "$ACTUAL_SHA256" ]; then
+  err "SHA-256 mismatch — package may be corrupted or tampered with.
+    Expected: ${EXPECTED_SHA256}
+    Got:      ${ACTUAL_SHA256}"
+fi
+ok "SHA-256 verified: ${ACTUAL_SHA256:0:16}…"
 
-if [ -f "${TMPDIR}/SHA256SUMS" ]; then
-  cd "$TMPDIR"
-  if grep "$PKG_FILE" SHA256SUMS | sha256sum --check --status; then
-    ok "SHA-256 checksum verified"
-  else
-    err "SHA-256 checksum FAILED — package may be corrupted or tampered with"
-  fi
-  cd - > /dev/null
+# ── Extract ───────────────────────────────────────────────────────────────────
+info "Extracting..."
+tar -xzf "${TMPDIR}/${TARBALL_NAME}" -C "$TMPDIR"
+EXTRACTED="${TMPDIR}/${TARBALL_DIR}"
+[ -d "$EXTRACTED" ] || err "Unexpected tarball layout — expected directory: ${TARBALL_DIR}"
+ok "Extracted OK"
+
+# ── Create service user ───────────────────────────────────────────────────────
+if ! id "$SERVICE_USER" &>/dev/null; then
+  info "Creating system user '${SERVICE_USER}'..."
+  useradd --system --no-create-home --shell /usr/sbin/nologin "$SERVICE_USER"
+  ok "User '${SERVICE_USER}' created"
+else
+  ok "User '${SERVICE_USER}' already exists"
 fi
 
-# ── Verify GPG signature ──────────────────────────────────────────────────────
-if [ "$GPG_AVAILABLE" = "true" ]; then
-  info "Verifying GPG signature..."
-  curl -fsSL "$GPG_KEY_URL" -o "${TMPDIR}/voxywatch.gpg.pub" 2>/dev/null && \
-  curl -fsSL "$SIG_URL"     -o "${TMPDIR}/${PKG_FILE}.asc"   2>/dev/null || {
-    warn "Could not download GPG signature — skipping verification"
-    GPG_AVAILABLE=false
-  }
-fi
+# ── Stop existing services (ignore errors if not installed yet) ───────────────
+systemctl stop voxywatch voxywatch-sniffer 2>/dev/null || true
 
-if [ "$GPG_AVAILABLE" = "true" ]; then
-  GPG_KEYRING="${TMPDIR}/voxywatch-keyring.gpg"
-  gpg --no-default-keyring --keyring "$GPG_KEYRING" \
-      --import "${TMPDIR}/voxywatch.gpg.pub" &>/dev/null
-  if gpg --no-default-keyring --keyring "$GPG_KEYRING" \
-         --verify "${TMPDIR}/${PKG_FILE}.asc" "${TMPDIR}/${PKG_FILE}" &>/dev/null; then
-    ok "GPG signature verified"
-  else
-    err "GPG signature INVALID — aborting installation. Download may be compromised."
-  fi
-fi
+# ── Create directories ────────────────────────────────────────────────────────
+info "Setting up directories..."
+mkdir -p "$INSTALL_DIR" "$DATA_DIR" "$CONF_DIR"
 
-# ── Install package ───────────────────────────────────────────────────────────
-info "Installing VoxyWatch v${VERSION}..."
-$INSTALL_CMD "${TMPDIR}/${PKG_FILE}"
-ok "Package installed"
+# INSTALL_DIR: root owns, readable by voxywatch
+chown root:voxywatch "$INSTALL_DIR"
+chmod 750 "$INSTALL_DIR"
 
-# ── Apply port configuration ──────────────────────────────────────────────────
-# Always write config file (used by auto-updater too)
-mkdir -p /etc/voxywatch
-# Asegurar que el usuario de servicio pueda escribir licencias desde la GUI
-if id voxywatch &>/dev/null; then
-  chown root:voxywatch /etc/voxywatch
-  chmod 775 /etc/voxywatch
-fi
+# DATA_DIR: voxywatch owns (binario escribe capturas, DB, settings aquí)
+chown voxywatch:voxywatch "$DATA_DIR"
+chmod 750 "$DATA_DIR"
+
+# CONF_DIR: root:voxywatch — el proceso puede escribir license.key desde la GUI
+chown root:voxywatch "$CONF_DIR"
+chmod 775 "$CONF_DIR"
+ok "Directories ready"
+
+# ── Install files ─────────────────────────────────────────────────────────────
+info "Installing files to ${INSTALL_DIR}..."
+install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-portal"   "${INSTALL_DIR}/voxywatch-portal"
+install -o root -g voxywatch -m 640 "${EXTRACTED}/hep_sniffer.py"     "${INSTALL_DIR}/hep_sniffer.py"
+install -o root -g voxywatch -m 640 "${EXTRACTED}/get-hwid.js"        "${INSTALL_DIR}/get-hwid.js"
+install -o root -g voxywatch -m 640 "${EXTRACTED}/migrate_to_db.js"   "${INSTALL_DIR}/migrate_to_db.js" 2>/dev/null || true
+install -o root -g voxywatch -m 640 "${EXTRACTED}/generate_pcap.py"   "${INSTALL_DIR}/generate_pcap.py" 2>/dev/null || true
+install -o root -g voxywatch -m 640 "${EXTRACTED}/reconstruct_audio.py" "${INSTALL_DIR}/reconstruct_audio.py" 2>/dev/null || true
+install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTALL_DIR}/WIKI_INTEGRATION.md" 2>/dev/null || true
+
+# Frontend assets — van junto al binario en INSTALL_DIR.
+# El binario los sirve desde path.dirname(process.execPath) = /opt/voxywatch/
+install -o root -g voxywatch -m 640 "${EXTRACTED}/styles.css" "${INSTALL_DIR}/styles.css" 2>/dev/null || true
+install -o root -g voxywatch -m 640 "${EXTRACTED}/app.js"     "${INSTALL_DIR}/app.js"     2>/dev/null || true
+ok "Files installed"
+
+# ── Write config file ─────────────────────────────────────────────────────────
 cat > "$CONF_FILE" << EOF
 # VoxyWatch configuration
 # Generated by installer on $(date -u '+%Y-%m-%d %H:%M UTC')
 PORT=${PORT}
 VERSION=${VERSION}
 EOF
+chown root:voxywatch "$CONF_FILE"
+chmod 640 "$CONF_FILE"
+ok "Config written: ${CONF_FILE}"
 
-# If port differs from service default (3080), create a systemd drop-in override
-if [ "$PORT" != "3080" ]; then
-  info "Applying port override → ${PORT}..."
-  mkdir -p /etc/systemd/system/voxywatch.service.d
-  cat > /etc/systemd/system/voxywatch.service.d/port.conf << EOF
+# ── Install systemd unit files ────────────────────────────────────────────────
+info "Installing systemd units..."
+
+cat > /etc/systemd/system/voxywatch.service << EOF
+[Unit]
+Description=VoxyWatch SIP Capture Portal
+Documentation=https://voxywatch.com/docs
+After=network.target voxywatch-sniffer.service
+
 [Service]
+Type=simple
+User=${SERVICE_USER}
+Group=${SERVICE_USER}
+WorkingDirectory=${DATA_DIR}
+ExecStart=${INSTALL_DIR}/voxywatch-portal
 Environment=PORT=${PORT}
+Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=${DATA_DIR} ${CONF_DIR} /tmp
+PrivateTmp=yes
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=voxywatch
+
+[Install]
+WantedBy=multi-user.target
 EOF
-  systemctl daemon-reload
-  ok "Port override applied"
-fi
+
+cat > /etc/systemd/system/voxywatch-sniffer.service << EOF
+[Unit]
+Description=VoxyWatch HEP Sniffer (HEPv1/v2/v3)
+Documentation=https://voxywatch.com/docs
+After=network.target
+Before=voxywatch.service
+
+[Service]
+Type=simple
+User=${SERVICE_USER}
+Group=${SERVICE_USER}
+WorkingDirectory=${DATA_DIR}
+ExecStart=/usr/bin/python3 -u ${INSTALL_DIR}/hep_sniffer.py --quiet
+Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=${DATA_DIR}
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=voxywatch-sniffer
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable voxywatch voxywatch-sniffer
+ok "Systemd units installed and enabled"
 
 # ── Install auto-updater ──────────────────────────────────────────────────────
-install_autoupdater() {
-  info "Setting up auto-updater..."
+info "Setting up auto-updater..."
 
-  # Update script — runs daily via systemd timer
-  cat > /opt/voxywatch/voxywatch-update.sh << 'UPDATER_SCRIPT'
+cat > "${INSTALL_DIR}/voxywatch-update.sh" << 'UPDATER_SCRIPT'
 #!/bin/bash
 # VoxyWatch Auto-Updater — called daily by voxywatch-update.timer
 set -euo pipefail
@@ -235,7 +260,6 @@ LOG_TAG="voxywatch-update"
 log()  { echo "[$LOG_TAG] $*"; logger -t "$LOG_TAG" "$*" 2>/dev/null || true; }
 warn() { echo "[$LOG_TAG] WARNING: $*"; logger -t "$LOG_TAG" "WARNING: $*" 2>/dev/null || true; }
 
-# Read current configuration
 PORT="3080"
 CURRENT_VERSION=""
 if [ -f "$CONF_FILE" ]; then
@@ -243,21 +267,11 @@ if [ -f "$CONF_FILE" ]; then
   CURRENT_VERSION=$(grep -oP '(?<=^VERSION=)\S+' "$CONF_FILE" 2>/dev/null || echo "")
 fi
 
-# Fallback: query package manager
-if [ -z "$CURRENT_VERSION" ]; then
-  if command -v dpkg &>/dev/null; then
-    CURRENT_VERSION=$(dpkg -l voxywatch 2>/dev/null | awk '/^ii/{print $3}' | head -1 || echo "")
-  elif command -v rpm &>/dev/null; then
-    CURRENT_VERSION=$(rpm -q --queryformat '%{VERSION}' voxywatch 2>/dev/null || echo "")
-  fi
-fi
-
 if [ -z "$CURRENT_VERSION" ]; then
   warn "Could not determine installed version. Skipping update check."
   exit 0
 fi
 
-# Fetch latest version from manifest
 LATEST_VERSION=$(curl -fsSL --max-time 15 "$MANIFEST_URL" \
   | python3 -c "import json,sys; print(json.load(sys.stdin)['version'])" 2>/dev/null || echo "")
 
@@ -268,7 +282,6 @@ fi
 
 log "Installed: v${CURRENT_VERSION} | Latest: v${LATEST_VERSION}"
 
-# Compare versions using sort -V (handles semver correctly)
 if [ "$(printf '%s\n%s' "$CURRENT_VERSION" "$LATEST_VERSION" | sort -V | tail -1)" = "$CURRENT_VERSION" ]; then
   log "Already up to date (v${CURRENT_VERSION})."
   exit 0
@@ -279,13 +292,12 @@ curl -fsSL --max-time 60 "$INSTALL_URL" | bash -s -- --version "$LATEST_VERSION"
 log "Update to v${LATEST_VERSION} completed successfully."
 UPDATER_SCRIPT
 
-  chmod 755 /opt/voxywatch/voxywatch-update.sh
+chmod 755 "${INSTALL_DIR}/voxywatch-update.sh"
 
-  # Systemd service (one-shot, runs the update script)
-  cat > /etc/systemd/system/voxywatch-update.service << 'EOF'
+cat > /etc/systemd/system/voxywatch-update.service << 'EOF'
 [Unit]
 Description=VoxyWatch Auto-Updater
-Documentation=https://voxywatch.com/wiki/
+Documentation=https://voxywatch.com/docs
 After=network-online.target
 Wants=network-online.target
 
@@ -297,11 +309,10 @@ StandardError=journal
 SyslogIdentifier=voxywatch-update
 EOF
 
-  # Systemd timer — runs daily with up to 1h random delay to spread load
-  cat > /etc/systemd/system/voxywatch-update.timer << 'EOF'
+cat > /etc/systemd/system/voxywatch-update.timer << 'EOF'
 [Unit]
 Description=VoxyWatch Daily Update Check
-Documentation=https://voxywatch.com/wiki/
+Documentation=https://voxywatch.com/docs
 
 [Timer]
 OnCalendar=daily
@@ -312,18 +323,21 @@ Persistent=true
 WantedBy=timers.target
 EOF
 
-  systemctl daemon-reload
-  systemctl enable --now voxywatch-update.timer
-  ok "Auto-updater installed (daily check, randomized delay up to 1h)"
-}
+systemctl daemon-reload
+systemctl enable --now voxywatch-update.timer
+ok "Auto-updater installed (daily check)"
 
-install_autoupdater
+# ── Start services ────────────────────────────────────────────────────────────
+info "Starting services..."
+systemctl start voxywatch-sniffer
+systemctl start voxywatch
+ok "Services started"
 
-# ── Get server IP and Hardware ID ─────────────────────────────────────────────
+# ── Get HWID ──────────────────────────────────────────────────────────────────
 SERVER_IP=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "YOUR-IP")
 HWID=""
-if command -v node &>/dev/null && [ -f /opt/voxywatch/get-hwid.js ]; then
-  HWID=$(node /opt/voxywatch/get-hwid.js 2>/dev/null | grep -oP '[0-9a-f]{32}' | head -1 || true)
+if command -v node &>/dev/null && [ -f "${INSTALL_DIR}/get-hwid.js" ]; then
+  HWID=$(node "${INSTALL_DIR}/get-hwid.js" 2>/dev/null | grep -oP '[0-9a-f]{32}' | head -1 || true)
 fi
 
 # ── Final summary ─────────────────────────────────────────────────────────────
@@ -347,20 +361,16 @@ if [ -n "$HWID" ]; then
 fi
 echo -e "  ${BOLD}License${NC} (optional — free tier works without one):"
 echo -e "  Purchase: ${CYAN}https://voxywatch.com${NC}"
-echo "    Install once received:"
-echo "    cp your_license.key /etc/voxywatch/license.key"
-echo "    chown root:voxywatch /etc/voxywatch/license.key && chmod 640 /etc/voxywatch/license.key"
-echo ""
-echo -e "  ${BOLD}Documentation & Wiki:${NC}"
-echo -e "  ${CYAN}https://voxywatch.com/wiki/${NC}"
-echo ""
-echo -e "  ${BOLD}Auto-updates:${NC} enabled — daily check via systemd timer"
-echo "    Status:  systemctl status voxywatch-update.timer"
-echo "    Run now: systemctl start voxywatch-update.service"
+echo "    Once received, upload from the portal: Settings → License"
+echo "    Or manually: cp your_license.key ${CONF_DIR}/license.key"
 echo ""
 echo -e "  ${BOLD}Service logs:${NC}"
 echo "    journalctl -fu voxywatch"
 echo "    journalctl -fu voxywatch-sniffer"
+echo ""
+echo -e "  ${BOLD}Auto-updates:${NC} enabled — daily check via systemd timer"
+echo "    Status:  systemctl status voxywatch-update.timer"
+echo "    Run now: systemctl start voxywatch-update.service"
 echo ""
 
 } # end of main()

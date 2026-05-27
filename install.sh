@@ -102,8 +102,8 @@ ok "Versión a instalar: v${VERSION}"
 # ── Nombres de archivo por tipo de paquete ────────────────────────────────────
 if [ "$PKG_TYPE" = "deb" ]; then
   PKG_FILE="voxywatch_${VERSION}_amd64.deb"
-  INSTALL_CMD_PREFIX="dpkg -i"
-  POST_INSTALL_CMD="apt-get install -f -y"  # resolver dependencias si las hay
+  INSTALL_CMD_PREFIX="apt-get install -y"   # resuelve dependencias automáticamente
+  POST_INSTALL_CMD=""
 else
   PKG_FILE="voxywatch-${VERSION}-1.x86_64.rpm"
   INSTALL_CMD_PREFIX="rpm -Uvh"
@@ -163,7 +163,6 @@ fi
 # ── Instalar paquete ──────────────────────────────────────────────────────────
 info "Instalando voxywatch v${VERSION}..."
 $INSTALL_CMD_PREFIX "${TMPDIR}/${PKG_FILE}"
-[ -n "$POST_INSTALL_CMD" ] && $POST_INSTALL_CMD || true
 ok "Paquete instalado"
 
 # ── Obtener IP del servidor ───────────────────────────────────────────────────

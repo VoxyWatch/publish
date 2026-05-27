@@ -94,19 +94,94 @@ Or find it in the portal under **Settings → License**.
 
 ## Manual Installation
 
-If you prefer to install manually instead of using the install script:
+If you prefer not to use the install script, follow these steps for your distribution.
 
-**Debian / Ubuntu:**
+### Prerequisites
+
+Before installing, make sure the following packages are present on your system:
+
+| Package | Debian / Ubuntu | RHEL / Rocky / Alma |
+|---|---|---|
+| `curl` | `apt-get install -y curl` | `dnf install -y curl` |
+| `sudo` | `apt-get install -y sudo` | `dnf install -y sudo` |
+| `node` (≥ 18) | see [NodeSource](https://github.com/nodesource/distributions) | see [NodeSource](https://github.com/nodesource/distributions) |
+
+> **Running as root?** `sudo` is declared as a package dependency but is not functionally required if you are already root.  
+> Install it anyway to satisfy the package manager: `apt-get install -y sudo` / `dnf install -y sudo`.
+
+---
+
+### Debian / Ubuntu
+
 ```bash
-curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.0/voxywatch_1.2.0_amd64.deb -O
-sudo dpkg -i voxywatch_1.2.0_amd64.deb
+# 1. Install dependencies
+apt-get update
+apt-get install -y curl sudo
+
+# 2. Download the package
+VERSION=1.2.0
+curl -fsSL "https://github.com/VoxyWatch/publish/releases/download/v${VERSION}/voxywatch_${VERSION}_amd64.deb" \
+     -o "voxywatch_${VERSION}_amd64.deb"
+
+# 3. Install (apt-get resolves all dependencies automatically)
+apt-get install -y "./voxywatch_${VERSION}_amd64.deb"
 ```
 
-**RHEL / CentOS / Rocky / AlmaLinux:**
+---
+
+### RHEL / CentOS / Rocky / AlmaLinux
+
 ```bash
-curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.0/voxywatch-1.2.0-1.x86_64.rpm -O
-sudo rpm -Uvh voxywatch-1.2.0-1.x86_64.rpm
+# 1. Install dependencies
+dnf install -y curl sudo        # RHEL 8+ / Rocky / Alma / Fedora
+# yum install -y curl sudo      # CentOS 7 / RHEL 7 — uncomment if dnf is unavailable
+
+# 2. Download the package
+VERSION=1.2.0
+curl -fsSL "https://github.com/VoxyWatch/publish/releases/download/v${VERSION}/voxywatch-${VERSION}-1.x86_64.rpm" \
+     -o "voxywatch-${VERSION}-1.x86_64.rpm"
+
+# 3. Install (dnf/yum resolves all dependencies automatically)
+dnf install -y "./voxywatch-${VERSION}-1.x86_64.rpm"
+# yum install -y "./voxywatch-${VERSION}-1.x86_64.rpm"   # CentOS 7 / RHEL 7
 ```
+
+---
+
+### Troubleshooting — Common Errors
+
+**`dpkg: dependency problems — sudo is not installed`**
+
+You ran `dpkg -i` directly instead of `apt-get install -y ./file.deb`.  
+`dpkg` does not resolve dependencies. Use `apt-get`:
+
+```bash
+apt-get install -y ./voxywatch_1.2.0_amd64.deb
+```
+
+Or install the missing dependency first, then fix the broken state:
+
+```bash
+apt-get install -y sudo
+dpkg --configure -a
+```
+
+---
+
+**`error: Failed dependencies: sudo is needed`**
+
+Same issue on RPM systems — use `dnf` / `yum` instead of `rpm -Uvh`:
+
+```bash
+dnf install -y ./voxywatch-1.2.0-1.x86_64.rpm
+```
+
+---
+
+**`systemctl: command not found`** (minimal containers / Docker)
+
+VoxyWatch runs as a systemd service. Minimal container images typically lack systemd.  
+For container deployments, contact [support@voxywatch.com](mailto:support@voxywatch.com) for the standalone run mode.
 
 ---
 

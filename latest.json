@@ -1,12 +1,12 @@
 {
-  "version": "1.2.11",
+  "version": "1.2.12",
   "release_date": "2026-05-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.11/voxywatch-v1.2.11-linux-x64.tar.gz",
-    "sha256": "672abc3c1d21128bbd299b6e6d34f197d9f94b01c9b7b911992e98118f32ad99"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.12/voxywatch-v1.2.12-linux-x64.tar.gz",
+    "sha256": "f967b0f973278fbd0f288f673c57ed63ac9163d81aec0ebc5c3f38402c0ef240"
   },
   "linux_arm64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.11/voxywatch-v1.2.11-linux-arm64.tar.gz",
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.12/voxywatch-v1.2.12-linux-arm64.tar.gz",
     "sha256": ""
   },
   "changelog": [

@@ -65,7 +65,7 @@ VoxyWatch works out of the box without a license:
 | CDR records | 1,000 |
 | Features | All features included |
 
-For production environments, purchase a license at **[voxywatch.com](https://voxywatch.com)**.
+For production environments, purchase a license at **[voxywatch.com/pricing](https://voxywatch.com/pricing/)**.
 
 ---
 
@@ -134,7 +134,7 @@ apt-get update
 apt-get install -y curl sudo gnupg
 
 # 2. Download the package
-VERSION=1.2.14
+VERSION=1.2.16
 curl -fsSL "https://github.com/VoxyWatch/publish/releases/download/v${VERSION}/voxywatch_${VERSION}_amd64.deb" \
      -o "voxywatch_${VERSION}_amd64.deb"
 
@@ -152,7 +152,7 @@ dnf install -y curl sudo gnupg2        # RHEL 8+ / Rocky / Alma / Fedora
 # yum install -y curl sudo gnupg2     # CentOS 7 / RHEL 7 — uncomment if dnf is unavailable
 
 # 2. Download the package
-VERSION=1.2.14
+VERSION=1.2.16
 curl -fsSL "https://github.com/VoxyWatch/publish/releases/download/v${VERSION}/voxywatch-${VERSION}-1.x86_64.rpm" \
      -o "voxywatch-${VERSION}-1.x86_64.rpm"
 
@@ -208,7 +208,7 @@ You ran `dpkg -i` directly instead of `apt-get install -y ./file.deb`.
 `dpkg` does not resolve dependencies. Use `apt-get`:
 
 ```bash
-apt-get install -y ./voxywatch_1.2.14_amd64.deb
+apt-get install -y ./voxywatch_1.2.16_amd64.deb
 ```
 
 Or install the missing dependency first, then fix the broken state:
@@ -225,7 +225,7 @@ dpkg --configure -a
 Same issue on RPM systems — use `dnf` / `yum` instead of `rpm -Uvh`:
 
 ```bash
-dnf install -y ./voxywatch-1.2.14-1.x86_64.rpm
+dnf install -y ./voxywatch-1.2.16-1.x86_64.rpm
 ```
 
 ---
@@ -239,7 +239,7 @@ See [Reset Admin Password](#reset-admin-password) above.
 **`systemctl: command not found`** (minimal containers / Docker)
 
 VoxyWatch runs as a systemd service. Minimal container images typically lack systemd.  
-For container deployments, contact [support@voxywatch.com](mailto:support@voxywatch.com) for the standalone run mode.
+For container deployments, contact [support@voxywatch.com](mailto:support@voxywatch.com).
 
 ---
 
@@ -252,14 +252,14 @@ Every release is signed with GPG. To verify before installing:
 curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/voxywatch-release.gpg.pub | gpg --import
 
 # Download package + signature
-curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.14/voxywatch_1.2.14_amd64.deb -O
-curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.14/voxywatch_1.2.14_amd64.deb.asc -O
+curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.16/voxywatch_1.2.16_amd64.deb -O
+curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.16/voxywatch_1.2.16_amd64.deb.asc -O
 
 # Verify
-gpg --verify voxywatch_1.2.14_amd64.deb.asc voxywatch_1.2.14_amd64.deb
+gpg --verify voxywatch_1.2.16_amd64.deb.asc voxywatch_1.2.16_amd64.deb
 ```
 
-SHA-256 checksums are available in [SHA256SUMS](../../releases/download/v1.2.14/SHA256SUMS).
+SHA-256 checksums are available in [SHA256SUMS](../../releases/download/v1.2.16/SHA256SUMS).
 
 **Signing key fingerprint:**
 ```
@@ -290,7 +290,7 @@ ufw allow 9910/udp && ufw allow 9911/udp
 ## Upgrade
 
 The portal shows an update banner automatically when a new version is available.  
-Click **Update now** — the portal downloads, installs and restarts itself.
+Click **Update now** — the portal downloads, verifies the SHA-256 checksum, installs and restarts itself.
 
 To upgrade manually:
 
@@ -327,6 +327,17 @@ systemctl restart voxywatch-sniffer
 
 ---
 
-## Support & Licenses
+## Support & Contact
 
-→ **[voxywatch.com](https://voxywatch.com)**
+| | |
+|---|---|
+| 🎫 Technical support | [support@voxywatch.com](mailto:support@voxywatch.com) |
+| 💼 Commercial inquiries & licensing | [contact@voxywatch.com](mailto:contact@voxywatch.com) |
+| 🌐 Website | [voxywatch.com](https://voxywatch.com) |
+| 💰 Pricing & plans | [voxywatch.com/pricing](https://voxywatch.com/pricing/) |
+
+---
+
+## Release Notes
+
+See [CHANGELOG.md](CHANGELOG.md) for a full history of changes per version.

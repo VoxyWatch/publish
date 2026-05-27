@@ -134,7 +134,7 @@ apt-get update
 apt-get install -y curl sudo gnupg
 
 # 2. Download the package
-VERSION=1.2.0
+VERSION=1.2.8
 curl -fsSL "https://github.com/VoxyWatch/publish/releases/download/v${VERSION}/voxywatch_${VERSION}_amd64.deb" \
      -o "voxywatch_${VERSION}_amd64.deb"
 
@@ -152,7 +152,7 @@ dnf install -y curl sudo gnupg2        # RHEL 8+ / Rocky / Alma / Fedora
 # yum install -y curl sudo gnupg2     # CentOS 7 / RHEL 7 — uncomment if dnf is unavailable
 
 # 2. Download the package
-VERSION=1.2.0
+VERSION=1.2.8
 curl -fsSL "https://github.com/VoxyWatch/publish/releases/download/v${VERSION}/voxywatch-${VERSION}-1.x86_64.rpm" \
      -o "voxywatch-${VERSION}-1.x86_64.rpm"
 
@@ -171,7 +171,7 @@ You ran `dpkg -i` directly instead of `apt-get install -y ./file.deb`.
 `dpkg` does not resolve dependencies. Use `apt-get`:
 
 ```bash
-apt-get install -y ./voxywatch_1.2.0_amd64.deb
+apt-get install -y ./voxywatch_1.2.8_amd64.deb
 ```
 
 Or install the missing dependency first, then fix the broken state:
@@ -188,7 +188,7 @@ dpkg --configure -a
 Same issue on RPM systems — use `dnf` / `yum` instead of `rpm -Uvh`:
 
 ```bash
-dnf install -y ./voxywatch-1.2.0-1.x86_64.rpm
+dnf install -y ./voxywatch-1.2.8-1.x86_64.rpm
 ```
 
 ---
@@ -209,14 +209,14 @@ Every release is signed with GPG. To verify before installing:
 curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/voxywatch-release.gpg.pub | gpg --import
 
 # Download package + signature
-curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.0/voxywatch_1.2.0_amd64.deb -O
-curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.0/voxywatch_1.2.0_amd64.deb.asc -O
+curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.8/voxywatch_1.2.8_amd64.deb -O
+curl -fsSL https://github.com/VoxyWatch/publish/releases/download/v1.2.8/voxywatch_1.2.8_amd64.deb.asc -O
 
 # Verify
-gpg --verify voxywatch_1.2.0_amd64.deb.asc voxywatch_1.2.0_amd64.deb
+gpg --verify voxywatch_1.2.8_amd64.deb.asc voxywatch_1.2.8_amd64.deb
 ```
 
-SHA-256 checksums are available in [SHA256SUMS](../../releases/download/v1.2.0/SHA256SUMS).
+SHA-256 checksums are available in [SHA256SUMS](../../releases/download/v1.2.8/SHA256SUMS).
 
 **Signing key fingerprint:**
 ```

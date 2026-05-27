@@ -63,14 +63,14 @@ detect_distro() {
       ;;
     rhel|centos|fedora|rocky|almalinux|ol|amzn)
       PKG_TYPE="rpm"
-      PKG_MGR="rpm"
+      PKG_MGR=$(command -v dnf &>/dev/null && echo "dnf" || echo "yum")
       ;;
     *)
       # Intentar por ID_LIKE
       if echo "$DISTRO_ID_LIKE" | grep -qE "debian|ubuntu"; then
         PKG_TYPE="deb"; PKG_MGR="dpkg"
       elif echo "$DISTRO_ID_LIKE" | grep -qE "rhel|fedora|centos"; then
-        PKG_TYPE="rpm"; PKG_MGR="rpm"
+        PKG_TYPE="rpm"; PKG_MGR=$(command -v dnf &>/dev/null && echo "dnf" || echo "yum")
       else
         err "Distribución no soportada: ${DISTRO_ID}. Soportadas: Debian/Ubuntu y RHEL/CentOS/Rocky/Alma."
       fi
@@ -106,7 +106,7 @@ if [ "$PKG_TYPE" = "deb" ]; then
   POST_INSTALL_CMD=""
 else
   PKG_FILE="voxywatch-${VERSION}-1.x86_64.rpm"
-  INSTALL_CMD_PREFIX="rpm -Uvh"
+  INSTALL_CMD_PREFIX="${PKG_MGR} install -y"  # dnf/yum resuelven dependencias automáticamente
   POST_INSTALL_CMD=""
 fi
 

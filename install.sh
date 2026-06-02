@@ -289,8 +289,10 @@ ${PSQL_SU} -tAc "SELECT 1 FROM pg_database WHERE datname='${DB_NAME}'" 2>/dev/nu
 # La extensión la crea el superusuario; el esquema (tabla/hypertable/políticas) lo
 # crea el rol voxywatch para que sea su dueño y pueda drop_chunks/TRUNCATE.
 ${PSQL_SU} -d "${DB_NAME}" -c "CREATE EXTENSION IF NOT EXISTS timescaledb;" >/dev/null
+# El SQL se pasa por STDIN (lo lee el shell de root); así voxywatch NO necesita
+# permiso de lectura sobre el archivo en el TMPDIR de root (mktemp es 700).
 sudo -u "${SERVICE_USER}" psql -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
-     -v ON_ERROR_STOP=1 -f "${EXTRACTED}/schema.sql" >/dev/null \
+     -v ON_ERROR_STOP=1 -f - < "${EXTRACTED}/schema.sql" >/dev/null \
   || err "No se pudo aplicar el esquema (schema.sql)"
 ok "PostgreSQL + TimescaleDB listo (cluster ${PG_VER}/${PG_CLUSTER}, :${PG_PORT}, socket peer)"
 

@@ -1,18 +1,17 @@
 {
-  "version": "2.0.1",
+  "version": "2.0.2",
   "release_date": "2026-06-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.1/voxywatch-v2.0.1-linux-x64.tar.gz",
-    "sha256": "df41d71e8bab8273fd5aaff7de5138af8d2e89de84e3d0348ce795f6811576cb"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.2/voxywatch-v2.0.2-linux-x64.tar.gz",
+    "sha256": "a3f6f0e439822d45b7928cd3768bbf2b1e715514576759f0ad065d254dffb96d"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "DB engine auto-updates: on each VoxyWatch update, refresh TimescaleDB/PostgreSQL packages and run ALTER EXTENSION UPDATE if a newer version shipped (idempotent; restart only when needed).",
-    "Major PostgreSQL version jumps stay manual.",
-    "(2.0.0 hotfix) schema.sql applied via stdin so it works as the unprivileged voxywatch role."
+    "Fix HEP parser: chunk 0x0009 (protocol type) with non-1-byte value (some SBCs send 4 bytes) made the sniffer classify everything as 'Otros'. Now falls back to payload auto-detection.",
+    "Affected sniffer stats/stored protocol_id only; the portal already re-classified from payload."
   ],
   "min_upgrade_from": "2.0.0"
 }

@@ -1,14 +1,18 @@
 {
-  "version": "1.2.19",
-  "release_date": "2026-05-27",
+  "version": "1.2.20",
+  "release_date": "2026-06-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.19/voxywatch-v1.2.19-linux-x64.tar.gz",
-    "sha256": "ad7fcc5d599852f0a8ca99f3500e48a0f3fdb8ed9a15da56a6ad4bee3bb5f7f5"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v1.2.20/voxywatch-v1.2.20-linux-x64.tar.gz",
+    "sha256": "3857bbe3aa51c3160207e9fe9622f83ebfce09494bf437de3d8ad371d2f82e2e"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
-  "changelog": [],
+  "changelog": [
+    "Fix: WAL de SQLite ya no crece sin límite (checkpoint TRUNCATE periódico en el sniffer).",
+    "Fix: sniffer reintenta el INSERT ante 'database is locked' en vez de perder paquetes.",
+    "Fix: auto-purga del portal borra en lotes + checkpoint (elimina el 'database is locked' durante la purga)."
+  ],
   "min_upgrade_from": "1.0.0"
 }

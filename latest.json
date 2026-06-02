@@ -1,20 +1,18 @@
 {
-  "version": "2.0.0",
+  "version": "2.0.1",
   "release_date": "2026-06-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.0/voxywatch-v2.0.0-linux-x64.tar.gz",
-    "sha256": "fc142971f28422a5ee744cc72c658032361ee9140cb6bdb3443824ab9913e34f"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.1/voxywatch-v2.0.1-linux-x64.tar.gz",
+    "sha256": "df41d71e8bab8273fd5aaff7de5138af8d2e89de84e3d0348ce795f6811576cb"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Migrated storage from SQLite to PostgreSQL + TimescaleDB (raw RTP preserved).",
-    "MVCC: eliminates 'database is locked' under concurrent sniffer/portal access.",
-    "Retention via drop_chunks + native compression of old data.",
-    "Fixed audio reconstruction (was reading a JSONL no longer written in production).",
-    "Breaking: installs a local PostgreSQL+TimescaleDB server; Debian/Ubuntu only; higher RAM/disk."
+    "DB engine auto-updates: on each VoxyWatch update, refresh TimescaleDB/PostgreSQL packages and run ALTER EXTENSION UPDATE if a newer version shipped (idempotent; restart only when needed).",
+    "Major PostgreSQL version jumps stay manual.",
+    "(2.0.0 hotfix) schema.sql applied via stdin so it works as the unprivileged voxywatch role."
   ],
   "min_upgrade_from": "2.0.0"
 }

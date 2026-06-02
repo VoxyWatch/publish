@@ -289,6 +289,25 @@ ${PSQL_SU} -tAc "SELECT 1 FROM pg_database WHERE datname='${DB_NAME}'" 2>/dev/nu
 # La extensión la crea el superusuario; el esquema (tabla/hypertable/políticas) lo
 # crea el rol voxywatch para que sea su dueño y pueda drop_chunks/TRUNCATE.
 ${PSQL_SU} -d "${DB_NAME}" -c "CREATE EXTENSION IF NOT EXISTS timescaledb;" >/dev/null
+
+# Mantener TimescaleDB al día, atado a cada update de VoxyWatch: el apt-get install
+# de arriba ya sube el PAQUETE a la última versión disponible (default_version en
+# disco). Si difiere de la versión cargada en la BD (extversion en el catálogo),
+# se reinicia PG para cargar la librería nueva y se migra el catálogo con
+# ALTER EXTENSION ... UPDATE. Los servicios ya están parados (systemctl stop al
+# inicio del install), así que el restart no interrumpe captura. Solo upgrades de
+# MISMA versión mayor de PostgreSQL; saltos de mayor (17→18) quedan manuales.
+INSTALLED_TS=$(${PSQL_SU} -tAc "SELECT extversion FROM pg_extension WHERE extname='timescaledb'" -d "${DB_NAME}" 2>/dev/null)
+AVAILABLE_TS=$(${PSQL_SU} -tAc "SELECT default_version FROM pg_available_extensions WHERE name='timescaledb'" -d "${DB_NAME}" 2>/dev/null)
+if [ -n "$INSTALLED_TS" ] && [ -n "$AVAILABLE_TS" ] && [ "$INSTALLED_TS" != "$AVAILABLE_TS" ]; then
+  info "Actualizando extensión TimescaleDB ${INSTALLED_TS} → ${AVAILABLE_TS}..."
+  systemctl restart "postgresql@${PG_VER}-${PG_CLUSTER}" 2>/dev/null \
+    || pg_ctlcluster "${PG_VER}" "${PG_CLUSTER}" restart 2>/dev/null || true
+  for i in $(seq 1 30); do pg_isready -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" >/dev/null 2>&1 && break; sleep 1; done
+  ${PSQL_SU} -d "${DB_NAME}" -c "ALTER EXTENSION timescaledb UPDATE;" >/dev/null 2>&1 \
+    && ok "TimescaleDB actualizado a ${AVAILABLE_TS}" \
+    || warn "ALTER EXTENSION timescaledb UPDATE falló — revisar a mano"
+fi
 # El SQL se pasa por STDIN (lo lee el shell de root); así voxywatch NO necesita
 # permiso de lectura sobre el archivo en el TMPDIR de root (mktemp es 700).
 sudo -u "${SERVICE_USER}" psql -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \

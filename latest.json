@@ -1,13 +1,13 @@
 {
-  "version": "2.9.0",
+  "version": "2.9.1",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.9.0/voxywatch-v2.9.0-linux-x64.tar.gz",
-    "sha256": "73ae185f7011ecfe8ff78ba4ed7cef5c036f11f1ade519c3f2e593505c5205b5"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.9.1/voxywatch-v2.9.1-linux-x64.tar.gz",
+    "sha256": "21ca2656f17352eef9a9a6edf3572a19ec243bf7d6a46b0bd55193d11f41d3b4"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "RTP en bloques (256 paquetes por fila) recorta ~256x el overhead por-fila de Postgres que saturaba el disco. Audio íntegro; reconstrucción/pcap desenmarcan los bloques y siguen leyendo el formato legado."
+    "El flujo SIP (/api/calls/:id/flow) ahora funciona para todo el historial (1.3M+): se reconstruye on-demand desde packets por call_id en vez de devolver vacío para llamadas fuera de la ventana en RAM."
   ],
   "min_upgrade_from": "1.0.0"
 }

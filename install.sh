@@ -333,6 +333,21 @@ sudo -u "${SERVICE_USER}" psql -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NA
   || err "No se pudo aplicar el esquema (schema.sql)"
 ok "PostgreSQL + TimescaleDB listo (cluster ${PG_VER}/${PG_CLUSTER}, :${PG_PORT}, socket peer)"
 
+# ── Kernel network tuning (v2.0.5) ────────────────────────────────────────────
+# El sniffer pide SO_RCVBUF de 8 MB, pero el kernel lo recorta a net.core.rmem_max
+# (default de fábrica 212992 ≈ 416 KB). Subimos los límites para absorber ráfagas de
+# RTP. NOTA: esto ayuda con picos, NO sustituye el desacople recv/insert del sniffer.
+info "Applying kernel network tuning..."
+cat > /etc/sysctl.d/99-voxywatch.conf << 'EOF'
+# VoxyWatch — buffers de recepción UDP para captura HEP/RTP de alto volumen
+net.core.rmem_max = 33554432
+net.core.rmem_default = 16777216
+net.core.netdev_max_backlog = 10000
+EOF
+sysctl -p /etc/sysctl.d/99-voxywatch.conf >/dev/null 2>&1 \
+  && ok "Kernel buffers aplicados (rmem_max=32M)" \
+  || warn "No se pudieron aplicar los sysctl ahora (se aplicarán al reiniciar)"
+
 # ── Install systemd unit files ────────────────────────────────────────────────
 info "Installing systemd units..."
 

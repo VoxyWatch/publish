@@ -82,9 +82,19 @@ while [ $# -gt 0 ]; do
     --version) VERSION="$2"; shift 2 ;;
     --port)    PORT_ARG="$2"; shift 2 ;;
     --service-control) SERVICE_CONTROL_ARG="$2"; shift 2 ;;
+    --replica-dsn) REPLICA_DSN="$2"; shift 2 ;;
     *) shift ;;
   esac
 done
+
+# P2 (opt-in): réplica de lectura. Si se pasa --replica-dsn o está la env VOXYWATCH_DB_REPLICA_DSN,
+# el portal enruta sus LECTURAS (UI/métricas/CDR) a la réplica; escrituras e ingesta van al primario.
+# El cliente configura la replicación streaming de PostgreSQL aparte; aquí solo se enchufa el DSN.
+REPLICA_DSN="${REPLICA_DSN:-${VOXYWATCH_DB_REPLICA_DSN:-}}"
+REPLICA_ENV=""
+if [ -n "$REPLICA_DSN" ]; then
+  REPLICA_ENV="Environment=VOXYWATCH_DB_REPLICA_DSN=${REPLICA_DSN}"
+fi
 
 # ── Fetch latest version and asset info ───────────────────────────────────────
 if [ -z "$VERSION" ]; then
@@ -372,6 +382,7 @@ Environment=PGHOST=${PG_SOCKET_DIR}
 Environment=PGPORT=${PG_PORT}
 Environment=PGDATABASE=${DB_NAME}
 Environment=PGUSER=${DB_USER}
+${REPLICA_ENV}
 Restart=always
 RestartSec=5
 LimitNOFILE=65536

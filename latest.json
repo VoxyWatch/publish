@@ -1,14 +1,13 @@
 {
-  "version": "2.0.7",
+  "version": "2.0.8",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.7/voxywatch-v2.0.7-linux-x64.tar.gz",
-    "sha256": "30810dc53c23a40b259f5e9eecc82a0bb586cc71bf99cdaa1d071bd12209421a"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.8/voxywatch-v2.0.8-linux-x64.tar.gz",
+    "sha256": "388cbf7a340f838825e12f0b605cabf2d8e8f688ea430299a469c622bc7342ff"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Disposición SIP precisa en el badge de Calls (200 OK, 603 Declined, 403 Forbidden, Not Answered, Ignored, etc.)",
-    "i18n: eliminados decenas de strings en español hardcodeados — el portal vuelve a ser 100% inglés por defecto y respeta el cambio de idioma"
+    "P0 escalabilidad: el portal ya no provoca pérdida de paquetes en la captura — se eliminaron los COUNT(*) full-scan (approximate_row_count + caché/single-flight + statement_timeout en un pool de lectura aparte)"
   ],
   "min_upgrade_from": "1.0.0"
 }

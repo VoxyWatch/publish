@@ -1,15 +1,13 @@
 {
-  "version": "2.6.5",
+  "version": "2.7.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.5/voxywatch-v2.6.5-linux-x64.tar.gz",
-    "sha256": "3e067de033371d898dbfa1bc07599e062e6a629b2d790ea31d643de60e79ffd5"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.7.0/voxywatch-v2.7.0-linux-x64.tar.gz",
+    "sha256": "6800a1ac04d2efdf3b3a37f64437d5bbd4c478c4a446e011129f4eca020d6a4c"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "AutoPurge: guard por piso de filas — recorta el chunk legacy sin reintroducir el wipe catastrófico; packets deja de crecer sin control",
-    "GUI ya no se queda en 401 tras update: el secreto JWT no se regenera por fallos transitorios (sesiones persistentes)",
-    "Buffer de recepción 8MB→16MB; corrección: RTCP es best-effort si comparte socket con RTP (garantizado: SIP/CDR)"
+    "/api/cdrs ahora sirve desde la tabla calls (historial completo y persistente), no desde RAM. El GUI ya no muestra solo la ventana reciente ni se pierde tras reiniciar."
   ],
   "min_upgrade_from": "1.0.0"
 }

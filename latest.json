@@ -1,13 +1,13 @@
 {
-  "version": "2.7.1",
+  "version": "2.7.2",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.7.1/voxywatch-v2.7.1-linux-x64.tar.gz",
-    "sha256": "4a5add02e9ede4396a0538397d66c6fa473025e27f245e6fb92c85c4f4cffe2e"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.7.2/voxywatch-v2.7.2-linux-x64.tar.gz",
+    "sha256": "826b602c02fc442531af609e67aab69812ea46ab1763693dfbdce27f7ca7b120"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Grabación: ya no se descarta audio en modo grabación (el shed adaptativo solo aplica en modo métricas). Se guarda todo el RTP que el host alcance; borrado por % de disco en Settings."
+    "Retención de audio: el RTP crudo se purga primero (umbral audio) y los WAV quedan protegidos (umbral CDR), para no borrar audio valioso junto con RTP desechable. Sin settings nuevos."
   ],
   "min_upgrade_from": "1.0.0"
 }

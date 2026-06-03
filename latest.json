@@ -1,17 +1,14 @@
 {
-  "version": "2.0.6",
-  "release_date": "2026-06-02",
+  "version": "2.0.7",
+  "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.6/voxywatch-v2.0.6-linux-x64.tar.gz",
-    "sha256": "3f6ccb4c3e576b6f3a492e0f589851067c864cfc602e4a7aa37e3d7885b4c58b"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.7/voxywatch-v2.0.7-linux-x64.tar.gz",
+    "sha256": "30810dc53c23a40b259f5e9eecc82a0bb586cc71bf99cdaa1d071bd12209421a"
   },
-  "linux_arm64": {
-    "url": "",
-    "sha256": ""
-  },
+  "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Vista de Calls: nuevo filtro Rejected (INVITE con respuesta final != 200 OK) junto a All y Completed",
-    "Completed ahora exige INVITE + BYE (las de solo-BYE ya no cuentan como completadas)"
+    "Disposición SIP precisa en el badge de Calls (200 OK, 603 Declined, 403 Forbidden, Not Answered, Ignored, etc.)",
+    "i18n: eliminados decenas de strings en español hardcodeados — el portal vuelve a ser 100% inglés por defecto y respeta el cambio de idioma"
   ],
   "min_upgrade_from": "1.0.0"
 }

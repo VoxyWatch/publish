@@ -61,6 +61,9 @@ echo ""
 [ "$EUID" -ne 0 ] && err "Must run as root:  curl -fsSL https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main/install.sh | sudo bash"
 command -v curl    &>/dev/null || err "curl is required:  apt install curl   or   yum install curl"
 command -v python3 &>/dev/null || err "python3 is required:  apt install python3   or   yum install python3"
+# sudo se usa para correr psql como los roles postgres/voxywatch (auth peer). Sin él, el
+# provisioning fallaría A MITAD (cluster creado, sin esquema) → chequeo fail-fast aquí.
+command -v sudo    &>/dev/null || err "sudo is required:  apt install sudo   or   yum install sudo"
 
 # ── Mutex de instalación (v2.0.4) ─────────────────────────────────────────────
 # Evita que una instalación MANUAL y el auto-updater (voxywatch-update.timer) corran

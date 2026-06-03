@@ -1,14 +1,14 @@
 {
-  "version": "2.1.1",
+  "version": "2.1.2",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.1.1/voxywatch-v2.1.1-linux-x64.tar.gz",
-    "sha256": "8c8a783881737112afaa5a31165bf6437d6e56f9b8734319bb87853c7fa711fd"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.1.2/voxywatch-v2.1.2-linux-x64.tar.gz",
+    "sha256": "3fdaa3952916d90fe909abe3a01d49e9bda1e6f0f0ca80282f97443d5eff6ced"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Desacople de RTP: el portal deja de cargar RTP crudo (~99% del volumen) → CPU/RAM independientes del tamaño de media; misma ventana cubre mucho más historial SIP",
-    "Audio/PCAP on-demand: reconstruct_audio.py auto-descubre SSRC por ventana de tiempo del call_id; audio servido por nombre determinístico (funciona en históricas)"
+    "Ingesta sin pérdida por atascos de BD: spool a disco (append-only) en vez de descartar; replay automático al recuperarse la BD (atasco = lag, no pérdida)",
+    "Cap de disco como último recurso; stats muestran spooled/replayed/db_down"
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -1,13 +1,14 @@
 {
-  "version": "2.9.1",
+  "version": "2.10.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.9.1/voxywatch-v2.9.1-linux-x64.tar.gz",
-    "sha256": "21ca2656f17352eef9a9a6edf3572a19ec243bf7d6a46b0bd55193d11f41d3b4"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.10.0/voxywatch-v2.10.0-linux-x64.tar.gz",
+    "sha256": "ca378ea1358709eaf4febca70c6c0d9f2e2a811fbd3dbdb9e2646a49d361691f"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "El flujo SIP (/api/calls/:id/flow) ahora funciona para todo el historial (1.3M+): se reconstruye on-demand desde packets por call_id en vez de devolver vacío para llamadas fuera de la ventana en RAM."
+    "El usuario logueado + botón de cerrar sesión (arriba a la derecha) ya aparece: los endpoints de auth pasan durante el warm-up y checkAuth ya no borra el token por un 503 transitorio.",
+    "i18n del header (default inglés): botón de cuenta/logout/limpiar-búsqueda con claves es/en."
   ],
   "min_upgrade_from": "1.0.0"
 }

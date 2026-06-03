@@ -1,14 +1,13 @@
 {
-  "version": "2.12.0",
+  "version": "2.13.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.12.0/voxywatch-v2.12.0-linux-x64.tar.gz",
-    "sha256": "e962fb6fd2d24bff0d909304fe1e92c392b5188bbc6055d4ee2419a1cbda1c58"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.13.0/voxywatch-v2.13.0-linux-x64.tar.gz",
+    "sha256": "6e6a191d2d172ccdb755cf16dc077b1e300ffe9e2d21d760f81c1fd7a85d5a03"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Sniffer con synchronous_commit=off (menos stalls de fsync en el write-path; captura efímera).",
-    "Retención SOLO por % de disco: se elimina la purga por nº de filas que se atascaba con el chunk legacy."
+    "Freeze del portal: el parse trae los paquetes por cursor en tandas (cede el event loop) en vez de un fetch sincrono gigante. Con los yields de 2.11.0, el parse ya no congela el portal."
   ],
   "min_upgrade_from": "1.0.0"
 }

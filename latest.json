@@ -1,17 +1,19 @@
 {
-  "version": "2.0.2",
+  "version": "2.0.3",
   "release_date": "2026-06-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.2/voxywatch-v2.0.2-linux-x64.tar.gz",
-    "sha256": "a3f6f0e439822d45b7928cd3768bbf2b1e715514576759f0ad065d254dffb96d"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.3/voxywatch-v2.0.3-linux-x64.tar.gz",
+    "sha256": "bdc1e7d823165e8da23cd7869b747571030eef24ed37a5e7216cadf26233c539"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Fix HEP parser: chunk 0x0009 (protocol type) with non-1-byte value (some SBCs send 4 bytes) made the sniffer classify everything as 'Otros'. Now falls back to payload auto-detection.",
-    "Affected sniffer stats/stored protocol_id only; the portal already re-classified from payload."
+    "Arranque ~35 min → segundos: correlación SIP→llamadas pasa de O(llamadas × paquetes) a ~lineal (índices precalculados)",
+    "Pantalla de carga (warm-up): el portal abre el puerto de inmediato y muestra el progreso del parse inicial",
+    "Nuevo setting parse_max_rows: tope absoluto de filas a cargar al inicio, independiente de la RAM",
+    "Arranque no bloqueante + endpoint GET /api/boot-status"
   ],
-  "min_upgrade_from": "2.0.0"
+  "min_upgrade_from": "1.0.0"
 }

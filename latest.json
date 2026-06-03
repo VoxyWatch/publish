@@ -1,13 +1,13 @@
 {
-  "version": "2.13.0",
+  "version": "2.14.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.13.0/voxywatch-v2.13.0-linux-x64.tar.gz",
-    "sha256": "6e6a191d2d172ccdb755cf16dc077b1e300ffe9e2d21d760f81c1fd7a85d5a03"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.14.0/voxywatch-v2.14.0-linux-x64.tar.gz",
+    "sha256": "125c6df4000e05090511c7b17f450c7e86468a203375290b2fd3d8cd45dfcf10"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Freeze del portal: el parse trae los paquetes por cursor en tandas (cede el event loop) en vez de un fetch sincrono gigante. Con los yields de 2.11.0, el parse ya no congela el portal."
+    "total_calls (stats/dashboard) ahora del historial real de calls (~2.7M) via estimacion O(1), no la ventana RAM. El dashboard se mantiene en RAM (no agregar calls en vivo evita re-saturar la BD)."
   ],
   "min_upgrade_from": "1.0.0"
 }

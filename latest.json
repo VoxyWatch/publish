@@ -1,15 +1,14 @@
 {
-  "version": "2.2.0",
+  "version": "2.3.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.2.0/voxywatch-v2.2.0-linux-x64.tar.gz",
-    "sha256": "8c93b725efe95bb759e8a801fcc432e8c2c2b6225a80de8ac135ecf02b028feb"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.3.0/voxywatch-v2.3.0-linux-x64.tar.gz",
+    "sha256": "03acad3fb581b04e7ec05a9978e413f446c41d28cd253061575105a613123237"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Sniffer multiproceso SO_REUSEPORT (opt-in hep_workers>1): el kernel reparte la captura entre N procesos y sube el techo de pps por encima de un solo núcleo; supervisor con cierre limpio y respawn",
-    "Cada worker con su propio escritor, conexión y spool; default monoproceso (sin cambios)",
-    "Réplica de lectura opt-in para el portal (VOXYWATCH_DB_REPLICA_DSN): lecturas a la réplica, escrituras e ingesta al primario"
+    "Modo de grabación de audio (recording_enabled): con grabación OFF el sniffer deja de almacenar RTP (~50x menos datos); la calidad sigue saliendo de RTCP. Default: graba (sin cambios)",
+    "Retención del CDR ahora borra la tabla persistente calls (antes solo el mapa en RAM y la tabla crecía sin límite)"
   ],
   "min_upgrade_from": "1.0.0"
 }

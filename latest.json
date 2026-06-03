@@ -1,14 +1,15 @@
 {
-  "version": "2.3.0",
+  "version": "2.4.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.3.0/voxywatch-v2.3.0-linux-x64.tar.gz",
-    "sha256": "03acad3fb581b04e7ec05a9978e413f446c41d28cd253061575105a613123237"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.4.0/voxywatch-v2.4.0-linux-x64.tar.gz",
+    "sha256": "db5d18470595aec9ceb5d23ee6917c6d17f7932a1d07eb0d625957b3ee7a3eca"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Modo de grabación de audio (recording_enabled): con grabación OFF el sniffer deja de almacenar RTP (~50x menos datos); la calidad sigue saliendo de RTCP. Default: graba (sin cambios)",
-    "Retención del CDR ahora borra la tabla persistente calls (antes solo el mapa en RAM y la tabla crecía sin límite)"
+    "RTP en hypertable propio (rtp_packets) → retención diferenciada real: RTP corto, SIP/CDR largo (imposible con una sola tabla)",
+    "Sniffer con ingesta dual y spool de resiliencia por tabla; sin pérdida ante caídas de BD",
+    "Audio/PCAP leen UNION de ambas tablas (migración transparente, sin backfill); retención reconciliada desde settings al arrancar"
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -1,18 +1,17 @@
 {
-  "version": "2.0.5",
+  "version": "2.0.6",
   "release_date": "2026-06-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.5/voxywatch-v2.0.5-linux-x64.tar.gz",
-    "sha256": "849fd12ffc8d496ddd0a0ad6140b92158eb895745f03df3f69881422cab2c0f5"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.6/voxywatch-v2.0.6-linux-x64.tar.gz",
+    "sha256": "3f6ccb4c3e576b6f3a492e0f589851067c864cfc602e4a7aa37e3d7885b4c58b"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Throughput del sniffer: desacople recv/insert + COPY → sube el techo muy por encima de 11k pps (antes ~86% de pérdida de RTP bajo carga)",
-    "Toggle solo-RTCP por fuente (rtcp_only_sources): descarta RTP crudo y recorta ~50x el ritmo de paquetes cuando no se necesita audio",
-    "Tuning de kernel desde el instalador (rmem_max=32M, netdev_max_backlog=10000)"
+    "Vista de Calls: nuevo filtro Rejected (INVITE con respuesta final != 200 OK) junto a All y Completed",
+    "Completed ahora exige INVITE + BYE (las de solo-BYE ya no cuentan como completadas)"
   ],
   "min_upgrade_from": "1.0.0"
 }

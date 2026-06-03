@@ -1,15 +1,15 @@
 {
-  "version": "2.6.0",
+  "version": "2.6.1",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.0/voxywatch-v2.6.0-linux-x64.tar.gz",
-    "sha256": "c33e58cbd46b9f3f3350a8340a6e0e5ba457f83b93a17105ce97bd862866ffe8"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.1/voxywatch-v2.6.1-linux-x64.tar.gz",
+    "sha256": "db827318fb82a6af24995892503d1193b76c0b2cc4fc336ec346a15855a580ae"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Retención simplificada: ÚNICAMENTE por % de disco (borra lo más viejo primero, prioridad RTP→trazas→CDR)",
-    "Eliminado por completo el tope de edad por días (settings y UI); los días no servían para administrar disco",
-    "Al arrancar se quitan políticas de retención nativas heredadas: solo manda el disco"
+    "Fix (auditoría): capture_size/lines y /api/status ahora suman packets + rtp_packets (antes subestimaban ~99% del volumen)",
+    "Fix (auditoría): la purga de CDR por disco ya no borra historial útil en vano; solo elimina CDRs huérfanos (sin SIP)",
+    "Fix (auditoría): la purga de WAV ya no llama df por archivo (evita bloquear el event-loop)"
   ],
   "min_upgrade_from": "1.0.0"
 }

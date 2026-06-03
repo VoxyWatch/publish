@@ -47,6 +47,9 @@ ok()   { echo -e "${GREEN}  ✓${NC} $1"; }
 warn() { echo -e "${YELLOW}  ⚠${NC}  $1"; }
 err()  { echo -e "${RED}  ✗${NC} $1"; exit 1; }
 info() { echo -e "${CYAN}  →${NC} $1"; }
+# tty_ok: ¿hay terminal interactiva para prompts? Silencioso si no la hay (timer,
+# ssh sin tty, curl|bash sin terminal) — evita el ruido "/dev/tty: No such device".
+tty_ok() { { true </dev/tty; } 2>/dev/null; }
 
 echo ""
 echo "══════════════════════════════════════════════"
@@ -58,6 +61,18 @@ echo ""
 [ "$EUID" -ne 0 ] && err "Must run as root:  curl -fsSL https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main/install.sh | sudo bash"
 command -v curl    &>/dev/null || err "curl is required:  apt install curl   or   yum install curl"
 command -v python3 &>/dev/null || err "python3 is required:  apt install python3   or   yum install python3"
+
+# ── Mutex de instalación (v2.0.4) ─────────────────────────────────────────────
+# Evita que una instalación MANUAL y el auto-updater (voxywatch-update.timer) corran
+# a la vez. Un solape provocó servicios caídos: un run hacía 'systemctl stop' mientras
+# el otro ya había arrancado el portal, y el segundo 'install' del binario en uso
+# fallaba (set -e → aborto antes de re-arrancar). Con el lock, el segundo sale limpio.
+if command -v flock &>/dev/null; then
+  exec 9>"/run/voxywatch-install.lock" 2>/dev/null || exec 9>"/tmp/voxywatch-install.lock"
+  if ! flock -n 9; then
+    err "Otra instalación/actualización de VoxyWatch está en curso — aborto para no colisionar. Reintenta en unos minutos."
+  fi
+fi
 
 # ── Parse arguments ───────────────────────────────────────────────────────────
 VERSION=""
@@ -101,7 +116,7 @@ if [ -n "$PORT_ARG" ]; then
   PORT="$PORT_ARG"
 else
   echo ""
-  if [ -e /dev/tty ]; then
+  if tty_ok; then
     printf "  ${BOLD}Web portal port${NC} [3080]: "
     read -r PORT_INPUT </dev/tty 2>/dev/null || PORT_INPUT=""
   else
@@ -128,7 +143,7 @@ if [ -n "${SERVICE_CONTROL_ARG:-}" ]; then
   case "$SERVICE_CONTROL_ARG" in yes|enabled|y) SERVICE_CONTROL="yes" ;; *) SERVICE_CONTROL="no" ;; esac
 elif [ "$PREV_SC" = "enabled" ]; then
   SERVICE_CONTROL="yes"   # keep prior grant across updates
-elif [ -e /dev/tty ]; then
+elif tty_ok; then
   echo -e "  ${BOLD}Service control${NC}"
   echo "  VoxyWatch can restart its own services (the HEP sniffer) and apply"
   echo "  timezone / NTP / DNS changes directly from the web portal."
@@ -206,7 +221,10 @@ ok "Directories ready"
 
 # ── Install files ─────────────────────────────────────────────────────────────
 info "Installing files to ${INSTALL_DIR}..."
-install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-portal"   "${INSTALL_DIR}/voxywatch-portal"
+# Binario: instalar a un nombre temporal y renombrar (atómico). 'mv' reemplaza aunque
+# el viejo siga mapeado/en uso, evitando 'File exists' / 'Text file busy' en updates.
+install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-portal"   "${INSTALL_DIR}/voxywatch-portal.new"
+mv -f "${INSTALL_DIR}/voxywatch-portal.new" "${INSTALL_DIR}/voxywatch-portal"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/hep_sniffer.py"     "${INSTALL_DIR}/hep_sniffer.py"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/get-hwid.js"        "${INSTALL_DIR}/get-hwid.js"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/migrate_to_db.js"   "${INSTALL_DIR}/migrate_to_db.js" 2>/dev/null || true
@@ -581,7 +599,24 @@ ok "Auto-updater installed (daily check)"
 info "Starting services..."
 systemctl start voxywatch-sniffer
 systemctl start voxywatch
-ok "Services started"
+
+# v2.0.4: verificar que ambos quedaron activos (un update no debe dejar el sistema
+# abajo). Si alguno no levantó, reintentar una vez y avisar dónde mirar.
+sleep 1
+for _svc in voxywatch-sniffer voxywatch; do
+  if systemctl is-active --quiet "$_svc"; then
+    ok "${_svc} activo"
+  else
+    warn "${_svc} no quedó activo — reintentando..."
+    systemctl restart "$_svc" 2>/dev/null || true
+    sleep 1
+    if systemctl is-active --quiet "$_svc"; then
+      ok "${_svc} activo (tras reintento)"
+    else
+      warn "${_svc} NO está activo — revisa: journalctl -u ${_svc} -n 50 --no-pager"
+    fi
+  fi
+done
 
 # ── Get HWID ──────────────────────────────────────────────────────────────────
 SERVER_IP=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "YOUR-IP")

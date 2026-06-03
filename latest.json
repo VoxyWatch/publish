@@ -1,13 +1,13 @@
 {
-  "version": "2.11.1",
+  "version": "2.11.2",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.11.1/voxywatch-v2.11.1-linux-x64.tar.gz",
-    "sha256": "584b794ebef3493b109013f32175914c1ad2ac5e66a46a16e24e5c9949f29714"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.11.2/voxywatch-v2.11.2-linux-x64.tar.gz",
+    "sha256": "133323784111f0a3b05fce390a6579e8008acc3697b23c4c79e9f8596a316d84"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Knobs internos de rendimiento (capture_max_lines, parse_ram_pct, parse_max_rows) ocultos del Settings: el software los auto-gestiona; el cliente no tunea parametros internos."
+    "Banner de cuello de botella en el GUI (i18n): muestra el % capturado, el recurso limitante y qué subir; antes solo en logs."
   ],
   "min_upgrade_from": "1.0.0"
 }

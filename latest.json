@@ -1,13 +1,14 @@
 {
-  "version": "2.0.8",
+  "version": "2.1.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.8/voxywatch-v2.0.8-linux-x64.tar.gz",
-    "sha256": "388cbf7a340f838825e12f0b605cabf2d8e8f688ea430299a469c622bc7342ff"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.1.0/voxywatch-v2.1.0-linux-x64.tar.gz",
+    "sha256": "8dffc8ee8b1b546cb5584a8c9759edb14e930f6d3edf15c8f2c657e144eaaf6b"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "P0 escalabilidad: el portal ya no provoca pérdida de paquetes en la captura — se eliminaron los COUNT(*) full-scan (approximate_row_count + caché/single-flight + statement_timeout en un pool de lectura aparte)"
+    "Fase 1 escalabilidad: CDR persistente (tabla calls) + lista de Calls servida desde BD con keyset pagination y filtros server-side (sin COUNT/OFFSET) → instantánea a cualquier escala, con historial e 'cargar más'",
+    "Continuous aggregate para el dashboard (rollups por minuto)"
   ],
   "min_upgrade_from": "1.0.0"
 }

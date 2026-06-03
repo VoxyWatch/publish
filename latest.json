@@ -1,15 +1,14 @@
 {
-  "version": "2.6.1",
+  "version": "2.6.2",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.1/voxywatch-v2.6.1-linux-x64.tar.gz",
-    "sha256": "db827318fb82a6af24995892503d1193b76c0b2cc4fc336ec346a15855a580ae"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.2/voxywatch-v2.6.2-linux-x64.tar.gz",
+    "sha256": "e0f191e9ac00e4c2c1975e793bc87343e8eeb5965d9cfab474329a9f0a7a5b0c"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Fix (auditoría): capture_size/lines y /api/status ahora suman packets + rtp_packets (antes subestimaban ~99% del volumen)",
-    "Fix (auditoría): la purga de CDR por disco ya no borra historial útil en vano; solo elimina CDRs huérfanos (sin SIP)",
-    "Fix (auditoría): la purga de WAV ya no llama df por archivo (evita bloquear el event-loop)"
+    "Fix: /api/stats total_rtp/total_packets ahora muestran el conteo REAL de la BD (antes total_rtp=0 porque el RTP no se carga en RAM desde P1.1)",
+    "Removido el continuous aggregate muerto pkt_stats_1m (se creaba pero nunca se consultaba)"
   ],
   "min_upgrade_from": "1.0.0"
 }

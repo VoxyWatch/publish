@@ -1,15 +1,15 @@
 {
-  "version": "2.4.0",
+  "version": "2.5.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.4.0/voxywatch-v2.4.0-linux-x64.tar.gz",
-    "sha256": "db5d18470595aec9ceb5d23ee6917c6d17f7932a1d07eb0d625957b3ee7a3eca"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.5.0/voxywatch-v2.5.0-linux-x64.tar.gz",
+    "sha256": "cf23f5dcf21101ae8c8298360538c323bb908d4c3defa03278e48f2d138d8e30"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "RTP en hypertable propio (rtp_packets) → retención diferenciada real: RTP corto, SIP/CDR largo (imposible con una sola tabla)",
-    "Sniffer con ingesta dual y spool de resiliencia por tabla; sin pérdida ante caídas de BD",
-    "Audio/PCAP leen UNION de ambas tablas (migración transparente, sin backfill); retención reconciliada desde settings al arrancar"
+    "Retención rediseñada: el % de disco es el control real (borra lo más viejo primero, prioridad RTP→trazas→CDR); siempre acota el disco",
+    "Los 'días' pasan a ser un tope de edad OPCIONAL (0 = apagado por default), solo para cumplimiento legal/privacidad",
+    "0 días desactiva de verdad la política nativa; la UI acepta 0 y se renombró el campo"
   ],
   "min_upgrade_from": "1.0.0"
 }

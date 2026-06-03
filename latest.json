@@ -1,14 +1,15 @@
 {
-  "version": "2.6.2",
+  "version": "2.6.3",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.2/voxywatch-v2.6.2-linux-x64.tar.gz",
-    "sha256": "e0f191e9ac00e4c2c1975e793bc87343e8eeb5965d9cfab474329a9f0a7a5b0c"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.3/voxywatch-v2.6.3-linux-x64.tar.gz",
+    "sha256": "b54f8f187727bdc2964839a16f7d891596434a39894abce485f033aaeeb74b6a"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Fix: /api/stats total_rtp/total_packets ahora muestran el conteo REAL de la BD (antes total_rtp=0 porque el RTP no se carga en RAM desde P1.1)",
-    "Removido el continuous aggregate muerto pkt_stats_1m (se creaba pero nunca se consultaba)"
+    "Fix: multiproceso del sniffer (hep_workers) ahora 'auto' por default — venía en 1 y un solo core perdía ~93% del RTP en pico",
+    "Fix: chunk_time_interval 6h→1h (packets y rtp_packets) para que el guard de AutoPurge pueda recortar",
+    "Fix: /api/health responde 200 (warming) durante el parse inicial en vez de 503"
   ],
   "min_upgrade_from": "1.0.0"
 }

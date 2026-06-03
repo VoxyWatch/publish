@@ -1,19 +1,19 @@
 {
-  "version": "2.0.3",
+  "version": "2.0.4",
   "release_date": "2026-06-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.3/voxywatch-v2.0.3-linux-x64.tar.gz",
-    "sha256": "bdc1e7d823165e8da23cd7869b747571030eef24ed37a5e7216cadf26233c539"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.0.4/voxywatch-v2.0.4-linux-x64.tar.gz",
+    "sha256": "1105a4cfde95d1164b3bba843aa9ef43f25f8049aa95baaf9879212a71423a9f"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Arranque ~35 min → segundos: correlación SIP→llamadas pasa de O(llamadas × paquetes) a ~lineal (índices precalculados)",
-    "Pantalla de carga (warm-up): el portal abre el puerto de inmediato y muestra el progreso del parse inicial",
-    "Nuevo setting parse_max_rows: tope absoluto de filas a cargar al inicio, independiente de la RAM",
-    "Arranque no bloqueante + endpoint GET /api/boot-status"
+    "AutoPurge ya no borra el histórico de golpe: guard que aborta si una purga eliminaría más de ~1/3 de las filas",
+    "Update no deja servicios caídos por solape: install.sh toma un lock (flock)",
+    "install.sh apto para one-liner: reemplazo atómico del binario y prompts solo con terminal real",
+    "Arranque robusto: el update verifica que portal y sniffer queden activos"
   ],
   "min_upgrade_from": "1.0.0"
 }

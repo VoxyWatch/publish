@@ -1,14 +1,15 @@
 {
-  "version": "2.1.2",
+  "version": "2.2.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.1.2/voxywatch-v2.1.2-linux-x64.tar.gz",
-    "sha256": "3fdaa3952916d90fe909abe3a01d49e9bda1e6f0f0ca80282f97443d5eff6ced"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.2.0/voxywatch-v2.2.0-linux-x64.tar.gz",
+    "sha256": "8c93b725efe95bb759e8a801fcc432e8c2c2b6225a80de8ac135ecf02b028feb"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Ingesta sin pérdida por atascos de BD: spool a disco (append-only) en vez de descartar; replay automático al recuperarse la BD (atasco = lag, no pérdida)",
-    "Cap de disco como último recurso; stats muestran spooled/replayed/db_down"
+    "Sniffer multiproceso SO_REUSEPORT (opt-in hep_workers>1): el kernel reparte la captura entre N procesos y sube el techo de pps por encima de un solo núcleo; supervisor con cierre limpio y respawn",
+    "Cada worker con su propio escritor, conexión y spool; default monoproceso (sin cambios)",
+    "Réplica de lectura opt-in para el portal (VOXYWATCH_DB_REPLICA_DSN): lecturas a la réplica, escrituras e ingesta al primario"
   ],
   "min_upgrade_from": "1.0.0"
 }

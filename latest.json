@@ -1,15 +1,15 @@
 {
-  "version": "2.5.0",
+  "version": "2.6.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.5.0/voxywatch-v2.5.0-linux-x64.tar.gz",
-    "sha256": "cf23f5dcf21101ae8c8298360538c323bb908d4c3defa03278e48f2d138d8e30"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.0/voxywatch-v2.6.0-linux-x64.tar.gz",
+    "sha256": "c33e58cbd46b9f3f3350a8340a6e0e5ba457f83b93a17105ce97bd862866ffe8"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Retención rediseñada: el % de disco es el control real (borra lo más viejo primero, prioridad RTP→trazas→CDR); siempre acota el disco",
-    "Los 'días' pasan a ser un tope de edad OPCIONAL (0 = apagado por default), solo para cumplimiento legal/privacidad",
-    "0 días desactiva de verdad la política nativa; la UI acepta 0 y se renombró el campo"
+    "Retención simplificada: ÚNICAMENTE por % de disco (borra lo más viejo primero, prioridad RTP→trazas→CDR)",
+    "Eliminado por completo el tope de edad por días (settings y UI); los días no servían para administrar disco",
+    "Al arrancar se quitan políticas de retención nativas heredadas: solo manda el disco"
   ],
   "min_upgrade_from": "1.0.0"
 }

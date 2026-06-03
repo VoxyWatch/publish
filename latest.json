@@ -1,13 +1,14 @@
 {
-  "version": "2.11.2",
+  "version": "2.12.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.11.2/voxywatch-v2.11.2-linux-x64.tar.gz",
-    "sha256": "133323784111f0a3b05fce390a6579e8008acc3697b23c4c79e9f8596a316d84"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.12.0/voxywatch-v2.12.0-linux-x64.tar.gz",
+    "sha256": "e962fb6fd2d24bff0d909304fe1e92c392b5188bbc6055d4ee2419a1cbda1c58"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Banner de cuello de botella en el GUI (i18n): muestra el % capturado, el recurso limitante y qué subir; antes solo en logs."
+    "Sniffer con synchronous_commit=off (menos stalls de fsync en el write-path; captura efímera).",
+    "Retención SOLO por % de disco: se elimina la purga por nº de filas que se atascaba con el chunk legacy."
   ],
   "min_upgrade_from": "1.0.0"
 }

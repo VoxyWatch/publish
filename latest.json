@@ -1,14 +1,15 @@
 {
-  "version": "2.6.4",
+  "version": "2.6.5",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.4/voxywatch-v2.6.4-linux-x64.tar.gz",
-    "sha256": "9e08fc15f783d53a2c804f4e9283bd69c9042ebc20c8b81014a76acb57144df0"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.5/voxywatch-v2.6.5-linux-x64.tar.gz",
+    "sha256": "3e067de033371d898dbfa1bc07599e062e6a629b2d790ea31d643de60e79ffd5"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Degradación adaptativa de RTP: bajo saturación del kernel el sniffer descarta solo RTP crudo (nunca SIP/RTCP) y se recupera solo. Captura de alto tráfico sin configuración por cliente.",
-    "SIP (CDR) y RTCP (calidad) siempre completos; el audio es best-effort solo bajo pico extremo."
+    "AutoPurge: guard por piso de filas — recorta el chunk legacy sin reintroducir el wipe catastrófico; packets deja de crecer sin control",
+    "GUI ya no se queda en 401 tras update: el secreto JWT no se regenera por fallos transitorios (sesiones persistentes)",
+    "Buffer de recepción 8MB→16MB; corrección: RTCP es best-effort si comparte socket con RTP (garantizado: SIP/CDR)"
   ],
   "min_upgrade_from": "1.0.0"
 }

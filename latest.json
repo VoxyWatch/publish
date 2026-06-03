@@ -1,13 +1,14 @@
 {
-  "version": "2.7.2",
+  "version": "2.8.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.7.2/voxywatch-v2.7.2-linux-x64.tar.gz",
-    "sha256": "826b602c02fc442531af609e67aab69812ea46ab1763693dfbdce27f7ca7b120"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.8.0/voxywatch-v2.8.0-linux-x64.tar.gz",
+    "sha256": "a2598a40097487776afafb7632b36b861fe9a01a8818d45173d176750348f0df"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Retención de audio: el RTP crudo se purga primero (umbral audio) y los WAV quedan protegidos (umbral CDR), para no borrar audio valioso junto con RTP desechable. Sin settings nuevos."
+    "Detección de cuello de botella en runtime + warnings accionables: el software dice qué recurso subir (CPU/disco/recepción/RAM) y el % de tráfico capturado. GET /api/bottleneck.",
+    "hep_workers=auto ya no sobre-suscribe (usa ~75% de cores, deja headroom)."
   ],
   "min_upgrade_from": "1.0.0"
 }

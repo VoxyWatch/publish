@@ -1,14 +1,13 @@
 {
-  "version": "2.10.1",
+  "version": "2.11.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.10.1/voxywatch-v2.10.1-linux-x64.tar.gz",
-    "sha256": "d0b2901c0ba266068f24f9f69ab8538a7a87127cd95a850bc14054366945d84a"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.11.0/voxywatch-v2.11.0-linux-x64.tar.gz",
+    "sha256": "a0165a39517cfb20847cdddb05147cedd9ba6a401a000f951a6194db3f27bbe3"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Pantalla de carga (warm-up) bilingüe (default inglés, español si el usuario lo eligió) — ya no estaba hardcodeada en español.",
-    "Confirmado: cambiar contraseña disponible para los 3 roles (admin/operator/viewer)."
+    "Se acabaron los congelamientos de 20-30s del portal: la correlación cede el event loop por tandas (el portal responde durante el parse) con swap atómico de los datos. Adiós al GUI en 0s."
   ],
   "min_upgrade_from": "1.0.0"
 }

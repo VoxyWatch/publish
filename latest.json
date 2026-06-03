@@ -1,14 +1,14 @@
 {
-  "version": "2.10.0",
+  "version": "2.10.1",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.10.0/voxywatch-v2.10.0-linux-x64.tar.gz",
-    "sha256": "ca378ea1358709eaf4febca70c6c0d9f2e2a811fbd3dbdb9e2646a49d361691f"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.10.1/voxywatch-v2.10.1-linux-x64.tar.gz",
+    "sha256": "d0b2901c0ba266068f24f9f69ab8538a7a87127cd95a850bc14054366945d84a"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "El usuario logueado + botón de cerrar sesión (arriba a la derecha) ya aparece: los endpoints de auth pasan durante el warm-up y checkAuth ya no borra el token por un 503 transitorio.",
-    "i18n del header (default inglés): botón de cuenta/logout/limpiar-búsqueda con claves es/en."
+    "Pantalla de carga (warm-up) bilingüe (default inglés, español si el usuario lo eligió) — ya no estaba hardcodeada en español.",
+    "Confirmado: cambiar contraseña disponible para los 3 roles (admin/operator/viewer)."
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -1,15 +1,14 @@
 {
-  "version": "2.6.3",
+  "version": "2.6.4",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.3/voxywatch-v2.6.3-linux-x64.tar.gz",
-    "sha256": "b54f8f187727bdc2964839a16f7d891596434a39894abce485f033aaeeb74b6a"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.6.4/voxywatch-v2.6.4-linux-x64.tar.gz",
+    "sha256": "9e08fc15f783d53a2c804f4e9283bd69c9042ebc20c8b81014a76acb57144df0"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Fix: multiproceso del sniffer (hep_workers) ahora 'auto' por default — venía en 1 y un solo core perdía ~93% del RTP en pico",
-    "Fix: chunk_time_interval 6h→1h (packets y rtp_packets) para que el guard de AutoPurge pueda recortar",
-    "Fix: /api/health responde 200 (warming) durante el parse inicial en vez de 503"
+    "Degradación adaptativa de RTP: bajo saturación del kernel el sniffer descarta solo RTP crudo (nunca SIP/RTCP) y se recupera solo. Captura de alto tráfico sin configuración por cliente.",
+    "SIP (CDR) y RTCP (calidad) siempre completos; el audio es best-effort solo bajo pico extremo."
   ],
   "min_upgrade_from": "1.0.0"
 }

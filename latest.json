@@ -1,4 +1,4 @@
-{ "version": "2.19.2", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.19.2/voxywatch-v2.19.2-linux-x64.tar.gz", "sha256": "12fbba88fffe23c2b9dcb5e4514693a91083f6c3bec0f06b23396747f58ba234" },
+{ "version": "2.19.3", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.19.3/voxywatch-v2.19.3-linux-x64.tar.gz", "sha256": "641b09d2406daf04c8e1a8c0e3f73513e1896a511aebb4664b4288beccd46c85" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["TICKET-001: sizing del sniffer derivado del hardware (sin hardcodes)."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Metricas de captura por capa+worker, bottleneck accionable (TICKET-002/005/006)."], "min_upgrade_from": "1.0.0" }

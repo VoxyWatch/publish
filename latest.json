@@ -1,4 +1,4 @@
-{ "version": "2.19.4", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.19.4/voxywatch-v2.19.4-linux-x64.tar.gz", "sha256": "50ec5971650ac9edb6bb6b22f88afd387b68731121e109f417e704709cc6db3f" },
+{ "version": "2.19.5", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.19.5/voxywatch-v2.19.5-linux-x64.tar.gz", "sha256": "188c9664cfc21c9d7401f559f4e7f717d2148367d1b972efa45546c5a5699710" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["/api/health publico expone capture (recurso/capa/peor worker) + re-log bottleneck. Re-fix TICKET-002/005/006."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["UI: peak_concurrent realista (TICKET-010) + quitar Google Fonts (TICKET-011); 007/008/009 falsos positivos del harness."], "min_upgrade_from": "1.0.0" }

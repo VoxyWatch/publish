@@ -1,8 +1,5 @@
-{
-  "version": "2.16.3",
-  "release_date": "2026-06-03",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.3/voxywatch-v2.16.3-linux-x64.tar.gz", "sha256": "b0799e09601acdbeaa7c588fc36370eb48f2e65fd6cf46ec136c6487cd142a7a" },
+{ "version": "2.16.4", "release_date": "2026-06-03",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.4/voxywatch-v2.16.4-linux-x64.tar.gz", "sha256": "aba9c1a42192f814bc80b43d32a2e2acef2a009a6964e8453e148d01a4190743" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Calls: quitado el boton 'cargar mas' del listado."],
-  "min_upgrade_from": "1.0.0"
-}
+  "changelog": ["Fix CDR: llamadas largas ya no salen incompletas/0.0s (upsertCalls fusiona fragmentos)."],
+  "min_upgrade_from": "1.0.0" }

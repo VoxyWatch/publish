@@ -1,4 +1,4 @@
-{ "version": "2.19.5", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.19.5/voxywatch-v2.19.5-linux-x64.tar.gz", "sha256": "188c9664cfc21c9d7401f559f4e7f717d2148367d1b972efa45546c5a5699710" },
+{ "version": "2.19.6", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.19.6/voxywatch-v2.19.6-linux-x64.tar.gz", "sha256": "7849e7c9e6e2332ed5f1e05cfbacc965538b8a81689aa2416bbc1d4ee4df74ff" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["UI: peak_concurrent realista (TICKET-010) + quitar Google Fonts (TICKET-011); 007/008/009 falsos positivos del harness."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["UI: re-hidratar post-login (fin pantalla stale) + Total calls global (TICKET-008/009/010/011)."], "min_upgrade_from": "1.0.0" }

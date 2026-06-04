@@ -1,4 +1,4 @@
-{ "version": "2.16.5", "release_date": "2026-06-03",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.5/voxywatch-v2.16.5-linux-x64.tar.gz", "sha256": "d508fbf1ab37d214d0f0404e4e633937646df06e36d7e4c92eb32249e5a55305" },
+{ "version": "2.16.6", "release_date": "2026-06-03",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.6/voxywatch-v2.16.6-linux-x64.tar.gz", "sha256": "7a54977f374ee073c874978161c60013c1455999638544a5fa6da1de133da14c" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Fix busqueda de Calls: indice GIN trigram (18s -> ms)."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Detalle de llamada: audio movido al fondo, debajo del flow SIP."], "min_upgrade_from": "1.0.0" }

@@ -1,4 +1,4 @@
-{ "version": "2.18.0", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.18.0/voxywatch-v2.18.0-linux-x64.tar.gz", "sha256": "9d9589fa32a76a98a34c3540ce0b181c56c8fcc2d1b33a9340eaa4412191fd49" },
+{ "version": "2.18.1", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.18.1/voxywatch-v2.18.1-linux-x64.tar.gz", "sha256": "ecc5a0e415c4cdf5dede337c8a7e84e3580f546de8b96d8f981f79af46fd9334" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Correlacion incremental (#6): O(llamadas tocadas) por tick en vez de O(ventana). Menos CPU. Validado por paridad."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Observabilidad de RAM (/api/debug/memory + log [mem])."], "min_upgrade_from": "1.0.0" }

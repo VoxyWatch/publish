@@ -1,4 +1,4 @@
-{ "version": "2.17.2", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.17.2/voxywatch-v2.17.2-linux-x64.tar.gz", "sha256": "e72a84d13bd9dfa288ce717b129c028043375468143c31e5d0335c12ef306c7e" },
+{ "version": "2.18.0", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.18.0/voxywatch-v2.18.0-linux-x64.tar.gz", "sha256": "9d9589fa32a76a98a34c3540ce0b181c56c8fcc2d1b33a9340eaa4412191fd49" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Fix OOM en reconstruccion de audio/PCAP: ventana de tiempo + cursor del lado servidor + tope de 4M paquetes."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Correlacion incremental (#6): O(llamadas tocadas) por tick en vez de O(ventana). Menos CPU. Validado por paridad."], "min_upgrade_from": "1.0.0" }

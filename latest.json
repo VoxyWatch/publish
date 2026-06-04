@@ -1,4 +1,4 @@
-{ "version": "2.16.7", "release_date": "2026-06-03",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.7/voxywatch-v2.16.7-linux-x64.tar.gz", "sha256": "56bfcbdc25f8e3c95f68ad02621d4192f635dc1741479a0db3494885cf45b0cd" },
+{ "version": "2.16.8", "release_date": "2026-06-03",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.8/voxywatch-v2.16.8-linux-x64.tar.gz", "sha256": "ea80db5eb79a850ab7b0090f70eaeb90005bc1aebbda30b0380678f4011d22ff" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Fix audio: reconstruccion segun payload-type (G.711 PCMU/PCMA ya no suenan a ruido)."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Soporte de audio G.729/G.729A/B en la reconstruccion (~12% de las llamadas)."], "min_upgrade_from": "1.0.0" }

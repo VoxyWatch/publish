@@ -1,4 +1,4 @@
-{ "version": "2.16.8", "release_date": "2026-06-03",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.8/voxywatch-v2.16.8-linux-x64.tar.gz", "sha256": "ea80db5eb79a850ab7b0090f70eaeb90005bc1aebbda30b0380678f4011d22ff" },
+{ "version": "2.16.9", "release_date": "2026-06-03",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.9/voxywatch-v2.16.9-linux-x64.tar.gz", "sha256": "970eb696a2b170fe3b96781b0c4b4396aaa562c9249374a74be07a6fcd046cf2" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Soporte de audio G.729/G.729A/B en la reconstruccion (~12% de las llamadas)."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Fundacion codec dinamico + AMR-NB/WB/GSM/G723.1 (pendiente validar con pcap real). G711/G722/G729 intactos."], "min_upgrade_from": "1.0.0" }

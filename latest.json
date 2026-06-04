@@ -1,4 +1,4 @@
-{ "version": "2.18.3", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.18.3/voxywatch-v2.18.3-linux-x64.tar.gz", "sha256": "bcb38ec4dd15111e930985ec13d94ab4c97560a9d10442afd358096ede2ee933" },
+{ "version": "2.19.0", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.19.0/voxywatch-v2.19.0-linux-x64.tar.gz", "sha256": "6c918e29d049aa7989e398daf1f6101b6b8c939318552a68340313c51a56d626" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Hardening del code-review: ventana audio/PCAP, guard incremental persiste, concurrencia dashboard sin sobre-conteo, caches/ssrc."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["#7 RTP a archivos (audio_storage, default db) + lector dual + parse +46%. Cambia el sniffer (lo reinicia)."], "min_upgrade_from": "1.0.0" }

@@ -1,4 +1,4 @@
-{ "version": "2.19.1", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.19.1/voxywatch-v2.19.1-linux-x64.tar.gz", "sha256": "8189b707bca9076638aeaa056addf9aa97d2901db157daabcab7f11a4e31953e" },
+{ "version": "2.19.2", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.19.2/voxywatch-v2.19.2-linux-x64.tar.gz", "sha256": "12fbba88fffe23c2b9dcb5e4514693a91083f6c3bec0f06b23396747f58ba234" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Observabilidad sniffer: logging por tiempo (anti-journald-suppress) + inventario real de spools."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["TICKET-001: sizing del sniffer derivado del hardware (sin hardcodes)."], "min_upgrade_from": "1.0.0" }

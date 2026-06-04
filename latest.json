@@ -1,4 +1,4 @@
-{ "version": "2.17.1", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.17.1/voxywatch-v2.17.1-linux-x64.tar.gz", "sha256": "c4a5a670aeab848a25d3428b1a57c33a515dd279e63ebdf30fe4ae55356c3ae3" },
+{ "version": "2.17.2", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.17.2/voxywatch-v2.17.2-linux-x64.tar.gz", "sha256": "e72a84d13bd9dfa288ce717b129c028043375468143c31e5d0335c12ef306c7e" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Rollup del dashboard excluye scanners; auto-rebuild por rollup_ver."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Fix OOM en reconstruccion de audio/PCAP: ventana de tiempo + cursor del lado servidor + tope de 4M paquetes."], "min_upgrade_from": "1.0.0" }

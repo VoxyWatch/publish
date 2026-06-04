@@ -1,13 +1,13 @@
 {
-  "version": "2.14.0",
+  "version": "2.14.1",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.14.0/voxywatch-v2.14.0-linux-x64.tar.gz",
-    "sha256": "125c6df4000e05090511c7b17f450c7e86468a203375290b2fd3d8cd45dfcf10"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.14.1/voxywatch-v2.14.1-linux-x64.tar.gz",
+    "sha256": "23c6d1659b3d2f828351d9d0f6ba4f40300e510ec53554860247c40de0edbe44"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "total_calls (stats/dashboard) ahora del historial real de calls (~2.7M) via estimacion O(1), no la ventana RAM. El dashboard se mantiene en RAM (no agregar calls en vivo evita re-saturar la BD)."
+    "Detector de cuello: sin falsos positivos (solo alerta con degradacion real: drops/spool/RAM) y recurso mas especifico (disco/cpu/recv/net/ingest)."
   ],
   "min_upgrade_from": "1.0.0"
 }

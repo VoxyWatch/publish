@@ -213,7 +213,21 @@ else
 fi
 
 # ── Stop existing services (ignore errors if not installed yet) ───────────────
-systemctl stop voxywatch voxywatch-sniffer 2>/dev/null || true
+# v2.16.1 (captura sagrada): reiniciar el SNIFFER SOLO si hep_sniffer.py cambió.
+# En un update de solo-portal (lo más común: el binario del portal cambia pero el
+# sniffer no), dejar el sniffer corriendo → la captura NO se interrumpe (cero drops
+# por el update). El portal (voxywatch) sí se reinicia siempre: no captura tráfico.
+# `systemctl start voxywatch-sniffer` más abajo es no-op si el sniffer sigue activo.
+SNIFFER_CHANGED=1
+if [ -f "${INSTALL_DIR}/hep_sniffer.py" ] && cmp -s "${EXTRACTED}/hep_sniffer.py" "${INSTALL_DIR}/hep_sniffer.py" 2>/dev/null; then
+  SNIFFER_CHANGED=0
+fi
+if [ "$SNIFFER_CHANGED" = "1" ]; then
+  systemctl stop voxywatch voxywatch-sniffer 2>/dev/null || true
+else
+  info "hep_sniffer.py sin cambios → el sniffer sigue capturando (no se reinicia)"
+  systemctl stop voxywatch 2>/dev/null || true
+fi
 
 # ── Create directories ────────────────────────────────────────────────────────
 info "Setting up directories..."

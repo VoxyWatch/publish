@@ -1,5 +1,5 @@
-{ "version": "2.21.0", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.21.0/voxywatch-v2.21.0-linux-x64.tar.gz", "sha256": "71f47e5b561e9c70ab9b5fd952496d62dbcb6cfbe7c50727f6d78b518e674b63" },
+{ "version": "2.21.1", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.21.1/voxywatch-v2.21.1-linux-x64.tar.gz", "sha256": "8963d94d79916467382833d3ed6561322c543e37fdc7bf7ce9219b2045638fb6" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["API: comandos de traza/media (SIP JSON, PCAP con RTP, WAV) por endpoint con scope audio:read para contenido + salvaguardas de concurrencia. CDR base auto-propagable (campos nuevos salen por API por default, contrato aditivo)."],
+  "changelog": ["Salvaguardas interinas de media (PCAP/WAV): concurrencia 1 + timeout 300s. La extraccion de RTP escanea segmentos sin indice (lenta en alto volumen); indice de segmentos en roadmap. CDR y traza SIP no afectados."],
   "min_upgrade_from": "1.0.0" }

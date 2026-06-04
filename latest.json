@@ -1,4 +1,4 @@
-{ "version": "2.16.6", "release_date": "2026-06-03",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.6/voxywatch-v2.16.6-linux-x64.tar.gz", "sha256": "7a54977f374ee073c874978161c60013c1455999638544a5fa6da1de133da14c" },
+{ "version": "2.16.7", "release_date": "2026-06-03",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.7/voxywatch-v2.16.7-linux-x64.tar.gz", "sha256": "56bfcbdc25f8e3c95f68ad02621d4192f635dc1741479a0db3494885cf45b0cd" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Detalle de llamada: audio movido al fondo, debajo del flow SIP."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Fix audio: reconstruccion segun payload-type (G.711 PCMU/PCMA ya no suenan a ruido)."], "min_upgrade_from": "1.0.0" }

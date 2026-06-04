@@ -1,4 +1,4 @@
-{ "version": "2.16.9", "release_date": "2026-06-03",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.9/voxywatch-v2.16.9-linux-x64.tar.gz", "sha256": "970eb696a2b170fe3b96781b0c4b4396aaa562c9249374a74be07a6fcd046cf2" },
+{ "version": "2.17.0", "release_date": "2026-06-03",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.17.0/voxywatch-v2.17.0-linux-x64.tar.gz", "sha256": "c6518c20fcb1d5fe9c4c0cb04f9574b80856a551499ad62c90e0b79cb13d0cda" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Fundacion codec dinamico + AMR-NB/WB/GSM/G723.1 (pendiente validar con pcap real). G711/G722/G729 intactos."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Dashboard: graficas de tiempo desde historia completa (rollup horario). Antes solo mostraban la ultima hora."], "min_upgrade_from": "1.0.0" }

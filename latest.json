@@ -1,11 +1,8 @@
 {
-  "version": "2.16.2",
+  "version": "2.16.3",
   "release_date": "2026-06-03",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.2/voxywatch-v2.16.2-linux-x64.tar.gz", "sha256": "e8435240f755e648eee679242dfb431605fc89cd8c4d5e5f5922d42333bcdead" },
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.3/voxywatch-v2.16.3-linux-x64.tar.gz", "sha256": "b0799e09601acdbeaa7c588fc36370eb48f2e65fd6cf46ec136c6487cd142a7a" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [
-    "HOTFIX: corrige portal en blanco/sin datos (window.tr en carga del objeto i18n abortaba la init del frontend).",
-    "Arranque en 2 fases + aviso preventivo de CPU + updater sin cortar captura."
-  ],
+  "changelog": ["Calls: quitado el boton 'cargar mas' del listado."],
   "min_upgrade_from": "1.0.0"
 }

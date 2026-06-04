@@ -1,5 +1,5 @@
-{ "version": "2.21.2", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.21.2/voxywatch-v2.21.2-linux-x64.tar.gz", "sha256": "7087e8143109acc4f54a501dac90de7acec6c2938a95dbe36bfa4e075ee0e6bd" },
+{ "version": "2.21.3", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.21.3/voxywatch-v2.21.3-linux-x64.tar.gz", "sha256": "82a1fb76e2fa684414f98021c1b42aec3f24a80859e1b8c9262f6a38a24b10bb" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Indice de segmentos RTP (.idx por SSRC) + lectura en chunks: PCAP/WAV pasan de escanear ~95GB/hora a solo el segmento de la llamada (de minutos a segundos), RAM acotada. Fix has_audio (refleja RTP real capturado, no solo WAV ya reconstruido). El indice aplica a segmentos nuevos; requiere reinicio del sniffer."],
+  "changelog": ["Media: si el cliente se desconecta, se mata el proceso de generacion y se libera el slot (un request abandonado ya no bloquea PCAP/WAV). Portal-only."],
   "min_upgrade_from": "1.0.0" }

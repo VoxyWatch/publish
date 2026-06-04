@@ -1,5 +1,5 @@
-{ "version": "2.21.3", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.21.3/voxywatch-v2.21.3-linux-x64.tar.gz", "sha256": "82a1fb76e2fa684414f98021c1b42aec3f24a80859e1b8c9262f6a38a24b10bb" },
+{ "version": "2.21.4", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.21.4/voxywatch-v2.21.4-linux-x64.tar.gz", "sha256": "f65aa1f97ff987a5cd753cd8f9ff5aab6cf90da6e497eae220654b2efa2de7b1" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Media: si el cliente se desconecta, se mata el proceso de generacion y se libera el slot (un request abandonado ya no bloquea PCAP/WAV). Portal-only."],
+  "changelog": ["Tickets debugger: 401 pre-auth ya no limpia sesion (012), settings devuelve ignored_fields (014), OpenAPI en /api/v1/openapi.json y /api/openapi.json (015), AI chat deshabilitado sin API key (016), telemetria de AutoPurge en /api/disk.last_purge (017)."],
   "min_upgrade_from": "1.0.0" }

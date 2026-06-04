@@ -1,15 +1,11 @@
 {
-  "version": "2.16.1",
+  "version": "2.16.2",
   "release_date": "2026-06-03",
-  "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.1/voxywatch-v2.16.1-linux-x64.tar.gz",
-    "sha256": "53ac862709d7ffd49412085d6d40e99da7067c9de1ddbb303796f3203d81ad03"
-  },
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.2/voxywatch-v2.16.2-linux-x64.tar.gz", "sha256": "e8435240f755e648eee679242dfb431605fc89cd8c4d5e5f5922d42333bcdead" },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Updates sin interrumpir la captura: el sniffer no se reinicia en updates de solo-portal (0 drops por update).",
-    "Arranque en 2 fases: portal usable en ~1-2s tras restart.",
-    "Aviso preventivo de CPU al limite."
+    "HOTFIX: corrige portal en blanco/sin datos (window.tr en carga del objeto i18n abortaba la init del frontend).",
+    "Arranque en 2 fases + aviso preventivo de CPU + updater sin cortar captura."
   ],
   "min_upgrade_from": "1.0.0"
 }

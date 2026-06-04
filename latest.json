@@ -1,4 +1,4 @@
-{ "version": "2.18.2", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.18.2/voxywatch-v2.18.2-linux-x64.tar.gz", "sha256": "b22638ea00c9a3ac1a6b2b8e15fc5d8ee4bcee1a6c1a092aa4c6b5fcc4c5262b" },
+{ "version": "2.18.3", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.18.3/voxywatch-v2.18.3-linux-x64.tar.gz", "sha256": "bcb38ec4dd15111e930985ec13d94ab4c97560a9d10442afd358096ede2ee933" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Working-set derivado del hardware (sin hardcode). Portal ~734MB medido."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Hardening del code-review: ventana audio/PCAP, guard incremental persiste, concurrencia dashboard sin sobre-conteo, caches/ssrc."], "min_upgrade_from": "1.0.0" }

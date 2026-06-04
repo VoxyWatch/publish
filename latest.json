@@ -1,5 +1,5 @@
-{ "version": "2.20.1", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.20.1/voxywatch-v2.20.1-linux-x64.tar.gz", "sha256": "ce9472b6f8e68d067803ddcec87ddce84d0159e11c6ee7d8fbfb3d8eb945582b" },
+{ "version": "2.21.0", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.21.0/voxywatch-v2.21.0-linux-x64.tar.gz", "sha256": "71f47e5b561e9c70ab9b5fd952496d62dbcb6cfbe7c50727f6d78b518e674b63" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Hardening de la API de Integracion: allowlist de IP exacta/prefijo/CIDR, tope de mensajes en /trace, throttle por IP de fallos de auth, comparacion de key en tiempo constante."],
+  "changelog": ["API: comandos de traza/media (SIP JSON, PCAP con RTP, WAV) por endpoint con scope audio:read para contenido + salvaguardas de concurrencia. CDR base auto-propagable (campos nuevos salen por API por default, contrato aditivo)."],
   "min_upgrade_from": "1.0.0" }

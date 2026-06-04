@@ -1,13 +1,15 @@
 {
-  "version": "2.14.1",
+  "version": "2.16.0",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.14.1/voxywatch-v2.14.1-linux-x64.tar.gz",
-    "sha256": "23c6d1659b3d2f828351d9d0f6ba4f40300e510ec53554860247c40de0edbe44"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.0/voxywatch-v2.16.0-linux-x64.tar.gz",
+    "sha256": "df29152856dee5ca076113b26527f8daf2064eaa9afba1621f288d0255c86962"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Detector de cuello: sin falsos positivos (solo alerta con degradacion real: drops/spool/RAM) y recurso mas especifico (disco/cpu/recv/net/ingest)."
+    "Arranque en 2 fases: portal usable en ~1-2s tras restart (working-set completo en background).",
+    "Aviso preventivo de CPU al limite (banner cuando el CPU se satura sostenido aunque la captura siga 100%).",
+    "Detector de cuello afinado (sin falsos positivos; recurso especifico disco/cpu/recv/net/ingest)."
   ],
   "min_upgrade_from": "1.0.0"
 }

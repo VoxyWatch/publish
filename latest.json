@@ -1,4 +1,4 @@
-{ "version": "2.17.0", "release_date": "2026-06-03",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.17.0/voxywatch-v2.17.0-linux-x64.tar.gz", "sha256": "c6518c20fcb1d5fe9c4c0cb04f9574b80856a551499ad62c90e0b79cb13d0cda" },
+{ "version": "2.17.1", "release_date": "2026-06-03",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.17.1/voxywatch-v2.17.1-linux-x64.tar.gz", "sha256": "c4a5a670aeab848a25d3428b1a57c33a515dd279e63ebdf30fe4ae55356c3ae3" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Dashboard: graficas de tiempo desde historia completa (rollup horario). Antes solo mostraban la ultima hora."], "min_upgrade_from": "1.0.0" }
+  "changelog": ["Rollup del dashboard excluye scanners; auto-rebuild por rollup_ver."], "min_upgrade_from": "1.0.0" }

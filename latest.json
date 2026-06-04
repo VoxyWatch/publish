@@ -1,15 +1,15 @@
 {
-  "version": "2.16.0",
+  "version": "2.16.1",
   "release_date": "2026-06-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.0/voxywatch-v2.16.0-linux-x64.tar.gz",
-    "sha256": "df29152856dee5ca076113b26527f8daf2064eaa9afba1621f288d0255c86962"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.16.1/voxywatch-v2.16.1-linux-x64.tar.gz",
+    "sha256": "53ac862709d7ffd49412085d6d40e99da7067c9de1ddbb303796f3203d81ad03"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Arranque en 2 fases: portal usable en ~1-2s tras restart (working-set completo en background).",
-    "Aviso preventivo de CPU al limite (banner cuando el CPU se satura sostenido aunque la captura siga 100%).",
-    "Detector de cuello afinado (sin falsos positivos; recurso especifico disco/cpu/recv/net/ingest)."
+    "Updates sin interrumpir la captura: el sniffer no se reinicia en updates de solo-portal (0 drops por update).",
+    "Arranque en 2 fases: portal usable en ~1-2s tras restart.",
+    "Aviso preventivo de CPU al limite."
   ],
   "min_upgrade_from": "1.0.0"
 }

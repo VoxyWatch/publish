@@ -1,5 +1,5 @@
-{ "version": "2.22.3", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.22.3/voxywatch-v2.22.3-linux-x64.tar.gz", "sha256": "f30025391d2dbceee7c08715094f1b300bb7a58605dfb9e781e6c4d33e54fc2f" },
+{ "version": "2.22.4", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.22.4/voxywatch-v2.22.4-linux-x64.tar.gz", "sha256": "7cb819603258f55d544175b4f63dce492504a59dd912f103b3c5d387b6918c42" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["SNMP community visible (no enmascarada como contrasena); las claves v3 siguen ocultas."],
+  "changelog": ["UI: un solo boton de refresh general que actualiza la vista activa (dashboard/calls/cdr); quitados los individuales. Nuevo Auto-refresh ON/OFF cada 30s."],
   "min_upgrade_from": "1.0.0" }

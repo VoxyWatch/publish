@@ -1,5 +1,5 @@
-{ "version": "2.22.2", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.22.2/voxywatch-v2.22.2-linux-x64.tar.gz", "sha256": "e921c8f2929378d5d45a6faedfaa0cde9b93a600119677d96310b51d267c91f7" },
+{ "version": "2.22.3", "release_date": "2026-06-04",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.22.3/voxywatch-v2.22.3-linux-x64.tar.gz", "sha256": "f30025391d2dbceee7c08715094f1b300bb7a58605dfb9e781e6c4d33e54fc2f" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["Fix UI: en tema claro el texto de los inputs de login y cambiar-contrasena era invisible (oscuro sobre overlay oscuro). Ahora se ve al escribir."],
+  "changelog": ["SNMP community visible (no enmascarada como contrasena); las claves v3 siguen ocultas."],
   "min_upgrade_from": "1.0.0" }

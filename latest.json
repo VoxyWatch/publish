@@ -1,9 +1,10 @@
-{ "version": "2.26.1", "release_date": "2026-06-07",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.26.1/voxywatch-v2.26.1-linux-x64.tar.gz", "sha256": "186e0bb6058fed5c104e6f528970c72718bcff991376ff23d0702113e8fdea48" },
+{ "version": "2.26.2", "release_date": "2026-06-07",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.26.2/voxywatch-v2.26.2-linux-x64.tar.gz", "sha256": "ceb729cc5c0c8d31fc70daed164bb2ec1a3188f207a670be7ab888c059d2bb0e" },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Troncales: el país se calcula BORRANDO el prefijo técnico de la troncal y resolviendo el resto por E.164 (ej. 6005+52… → México).",
-    "Importar: el botón Import ahora muestra el formato del CSV y permite descargar una plantilla pre-llenada para llenar y subir.",
-    "Solo portal/UI — el sniffer no cambia (sin hueco de captura al actualizar)."
+    "Troncales: flag INTERNA (on-net, sin PSTN) — auto por nombre ONNET; no calcula país y no contamina dashboards/alarmas de PSTN.",
+    "Troncales: flag GENERAR ALARMAS por troncal (silenciar las que decidas).",
+    "Monitoring separa las internas y marca las silenciadas; columnas internal/alarms en import/export CSV.",
+    "Solo portal/UI — sin hueco de captura al actualizar."
   ],
   "min_upgrade_from": "1.0.0" }

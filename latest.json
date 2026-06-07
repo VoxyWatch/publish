@@ -1,10 +1,8 @@
-{ "version": "2.26.2", "release_date": "2026-06-07",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.26.2/voxywatch-v2.26.2-linux-x64.tar.gz", "sha256": "ceb729cc5c0c8d31fc70daed164bb2ec1a3188f207a670be7ab888c059d2bb0e" },
+{ "version": "2.26.3", "release_date": "2026-06-07",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.26.3/voxywatch-v2.26.3-linux-x64.tar.gz", "sha256": "d1ab5eb6dc9b4ea6bca0e6fb257801e6aae364620fc4ad20f5a134cc17ee4b25" },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Troncales: flag INTERNA (on-net, sin PSTN) — auto por nombre ONNET; no calcula país y no contamina dashboards/alarmas de PSTN.",
-    "Troncales: flag GENERAR ALARMAS por troncal (silenciar las que decidas).",
-    "Monitoring separa las internas y marca las silenciadas; columnas internal/alarms en import/export CSV.",
+    "Troncales: umbrales de salud CONFIGURABLES — global (pestaña Trunks) + override por troncal (ASR/NER/5xx/MOS/pérdida/PDD warn+crit, ventana, muestra mínima).",
     "Solo portal/UI — sin hueco de captura al actualizar."
   ],
   "min_upgrade_from": "1.0.0" }

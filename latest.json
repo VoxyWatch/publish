@@ -1,5 +1,13 @@
-{ "version": "2.22.4", "release_date": "2026-06-04",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.22.4/voxywatch-v2.22.4-linux-x64.tar.gz", "sha256": "7cb819603258f55d544175b4f63dce492504a59dd912f103b3c5d387b6918c42" },
+{ "version": "2.26.0", "release_date": "2026-06-07",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.26.0/voxywatch-v2.26.0-linux-x64.tar.gz", "sha256": "fc5e7945fdc41b3e53ce7ad32231280e5a7c97a4a52d029fd2f95eae4a299db2" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": ["UI: un solo boton de refresh general que actualiza la vista activa (dashboard/calls/cdr); quitados los individuales. Nuevo Auto-refresh ON/OFF cada 30s."],
+  "changelog": [
+    "Trunks: catálogo de carriers (nombre, dirección, IPs/CIDR, prefijos) + país por E.164.",
+    "Atribución llamada→carrier/país; dashboards por carrier y por país (ASR/NER/ACD/MOS/PDD).",
+    "Salud por troncal + pestaña Monitoring (métricas + alarmas en vivo).",
+    "Alertas de tráfico por webhook (global y por troncal), con prueba de envío.",
+    "Licencias por tier (free/production/telco); licencias antiguas = production ilimitado (sin cambios).",
+    "Agente SNMP embebido (v2c/v3 + traps) para el lado servidor.",
+    "Múltiples fixes acumulados desde v2.22.4 (captura, audio multi-códec, CDR, performance)."
+  ],
   "min_upgrade_from": "1.0.0" }

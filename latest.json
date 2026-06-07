@@ -1,13 +1,9 @@
-{ "version": "2.26.0", "release_date": "2026-06-07",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.26.0/voxywatch-v2.26.0-linux-x64.tar.gz", "sha256": "fc5e7945fdc41b3e53ce7ad32231280e5a7c97a4a52d029fd2f95eae4a299db2" },
+{ "version": "2.26.1", "release_date": "2026-06-07",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.26.1/voxywatch-v2.26.1-linux-x64.tar.gz", "sha256": "186e0bb6058fed5c104e6f528970c72718bcff991376ff23d0702113e8fdea48" },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Trunks: catálogo de carriers (nombre, dirección, IPs/CIDR, prefijos) + país por E.164.",
-    "Atribución llamada→carrier/país; dashboards por carrier y por país (ASR/NER/ACD/MOS/PDD).",
-    "Salud por troncal + pestaña Monitoring (métricas + alarmas en vivo).",
-    "Alertas de tráfico por webhook (global y por troncal), con prueba de envío.",
-    "Licencias por tier (free/production/telco); licencias antiguas = production ilimitado (sin cambios).",
-    "Agente SNMP embebido (v2c/v3 + traps) para el lado servidor.",
-    "Múltiples fixes acumulados desde v2.22.4 (captura, audio multi-códec, CDR, performance)."
+    "Troncales: el país se calcula BORRANDO el prefijo técnico de la troncal y resolviendo el resto por E.164 (ej. 6005+52… → México).",
+    "Importar: el botón Import ahora muestra el formato del CSV y permite descargar una plantilla pre-llenada para llenar y subir.",
+    "Solo portal/UI — el sniffer no cambia (sin hueco de captura al actualizar)."
   ],
   "min_upgrade_from": "1.0.0" }

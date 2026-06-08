@@ -5,6 +5,47 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.31.0] — 2026-06-07
+
+### Added
+- **Server/infra alerts in the header notification bell** — CPU high, RAM high, capture loss and "HEP source gone silent" now surface in the bell, alongside the existing disk and sniffer notifications. Backed by a new `GET /api/server-alerts` endpoint that shares the exact same thresholds (`snmp_thr_*`) and data source as the embedded SNMP agent, so the bell and the SNMP traps always agree. Bilingual, auto-clearing when the condition resolves.
+
+## [2.30.1] — 2026-06-07
+
+### Fixed
+- **Installer version accuracy** — the binary now answers `voxywatch-portal --version` (prints the baked-in version and exits before loading anything). `install.sh` records the version from the **installed binary itself** instead of the CDN-cached manifest string, so the recorded version always matches what is actually running.
+
+## [2.30.0] — 2026-06-07
+
+### Added
+- **NOC AI Copilot** — bring-your-own-key LLM analysis (OpenAI / Anthropic / Google Gemini / OpenRouter). A **per-trunk copilot** reads current KPIs, active alarms, the learned baseline, the 48-hour trend and top SIP codes/destinations and returns probable cause → recommended NOC actions → short-term risk. A **NOC summary copilot** prioritizes and groups all alarming trunks. Guardrailed (observe-only, never touches the SBC), cached to control token spend, bilingual. Off until enabled in Settings → AI Chat.
+
+## [2.29.1] — 2026-06-07
+
+### Fixed
+- **Zero transient 401s on startup** — a global auth gate now holds protected API requests until the session is ready (covering even parse-time fetches), and `/api/auth/me` returns a clean state instead of a 401 when there is no session. Verified headless: no 401 noise on login or reload.
+
+## [2.29.0] — 2026-06-07
+
+### Added
+- **Automatic per-trunk baselines** — each trunk learns its own normal (mean ± σ per hour, per metric) from its history and is flagged when a metric deviates beyond *N*·σ, catching gradual degradations a static threshold would miss (e.g. an ASR that normally sits at 90% drifting to 70%). Won't judge a metric until it has enough history. Configurable sensitivity; the learned "normal" is drawn over the drill-down charts.
+
+## [2.28.1] — 2026-06-07
+
+### Fixed
+- **Integration API contract** — unknown `/api/*` and `/api/v1/*` routes now return JSON / `problem+json` instead of HTML, with `405 + Allow` for wrong methods; out-of-contract query parameters (`limit`, `status`, `channel`) return `400` instead of being silently ignored.
+- **API keys** — `DELETE /api/apikeys/{id}` reports `revoked:true` and the list hides revoked keys by default.
+- **Diagnostics** — exposes cumulative kernel UDP `RcvbufErrors` (total + delta since start), not just the current interval.
+- **AI Chat** readiness — the widget no longer lets you send without a configured provider key.
+
+## [2.28.0] — 2026-06-07
+
+### Added
+- **Carrier & Country columns** in the CDR base (sortable; with direction and ONNET tagging).
+- **Non-blocking startup** — after a restart the UI, CDRs, traces and configuration are usable immediately; live KPIs and per-trunk health fill in as history loads in the background. Capture is never interrupted.
+
+> Trunk catalog, call→carrier attribution, E.164 country resolution, per-carrier/country dashboards, the per-trunk health engine, the Monitoring tab and per-trunk drill-down charts were introduced across the 2.23–2.27 line leading up to this release.
+
 ## [1.2.17] — 2026-05-27
 
 ### Fixed

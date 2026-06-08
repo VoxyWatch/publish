@@ -1,5 +1,5 @@
-{ "version": "2.29.1", "release_date": "2026-06-07",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.29.1/voxywatch-v2.29.1-linux-x64.tar.gz", "sha256": "db445522caf1841393ba29d016cf6b70cc59c3d3981a51035c52981c4b53c0cf" },
+{ "version": "2.30.0", "release_date": "2026-06-07",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.30.0/voxywatch-v2.30.0-linux-x64.tar.gz", "sha256": "c62059d50e0e855b1cb4da02527196624a35c5a9dac242fc694f9b98916c99b7" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "Gate de auth global al tope de app.js: retiene todo /api/* protegido hasta tener sesion (cubre fetch de parse-time como /api/time) -> CERO 401 de arranque.", "/api/auth/me sin token devuelve 200 {authenticated:false} en vez de 401. favicon 204. Verificado headless: 0 401 post-login y pre-login." ],
+  "changelog": [ "Copiloto NOC con LLM (BYO key): por troncal (causa probable + acciones + riesgo) y resumen NOC (prioriza troncales en alarma). 4 proveedores via helper unico.", "Guardrails: VoxyWatch solo observa, el copiloto no toca el SBC. Cache 5min, bilingue, modelo Google default gemini-2.5-flash." ],
   "min_upgrade_from": "1.0.0" }

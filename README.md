@@ -53,7 +53,7 @@ From "we have pcaps somewhere" to *"the trunk to Carrier X is degrading, likely 
 ### 📡 Universal multi-source capture
 - Receives **HEP v1 / v2 / v3** over **UDP and TCP** (port 9060 + configurable extras).
 - Works with virtually every SIP platform that speaks HEP: **Asterisk, Kamailio, OpenSIPS, FreeSWITCH, Oracle/ACME Packet, Ribbon/Sonus, AudioCodes, Cisco CUBE, RTPEngine, HEPlify, CaptAgent** and more.
-- Ships its own lightweight **capture probe** (`voxywatch-probe`, Go + libpcap, **amd64 & arm64**) for sources that can't emit HEP — it sniffs SIP/RTP/RTCP straight off the NIC and forwards HEP v3. A drop-in HEPlify replacement.
+- Ships its own lightweight **capture probe** (`voxywatch-probe`, Go + libpcap, **amd64 & arm64**) for sources that can't emit HEP — it sniffs SIP/RTP/RTCP straight off the NIC and forwards HEP v3 — a self-contained, no-dependency capture agent.
 - Auto-detects quirky SBCs that mix RTP into `protocol_id=1` or mint a new capture-id per call.
 
 ### 📞 Deep call & SIP analysis

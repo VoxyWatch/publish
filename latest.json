@@ -1,5 +1,5 @@
-{ "version": "2.34.1", "release_date": "2026-06-08",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.34.1/voxywatch-v2.34.1-linux-x64.tar.gz", "sha256": "fe9af8bf6f80456d9b484fc7e1475327b8f1641ee27437f431dcc206152c3001" },
+{ "version": "2.35.0", "release_date": "2026-06-08",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.35.0/voxywatch-v2.35.0-linux-x64.tar.gz", "sha256": "3ff7823cd8613c30d33b55341482c079de9d92dd63b7fba6579ee8a1a4f373b4" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "UI: KPI 'Total calls'/'Failed' del dashboard ya no se desborda con conteos grandes: notacion compacta (14.4M) + exacto en tooltip + guarda CSS. Portal-only." ],
+  "changelog": [ "UX: barra de carga global (top progress) amistosa y discreta mientras cargan datos de cualquier modulo (CDR, Calls, Dashboard, Troncales). Debounce 180ms, excluye polls de fondo. Portal-only." ],
   "min_upgrade_from": "1.0.0" }

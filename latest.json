@@ -1,5 +1,5 @@
-{ "version": "2.32.2", "release_date": "2026-06-08",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.32.2/voxywatch-v2.32.2-linux-x64.tar.gz", "sha256": "e1e0575cda6e408bf2f9c2002af7ac243e47c90747294904e70a30723dbe761f" },
+{ "version": "2.32.3", "release_date": "2026-06-08",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.32.3/voxywatch-v2.32.3-linux-x64.tar.gz", "sha256": "9f4bc294ec0b6c58c390f65f6a311ec0615daad81a01603490a07e9af1b1d3cc" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "Nombres de IP: el modulo de IPs internas (Settings) tiene prioridad y, si la IP no esta ahi, el nombre se toma del catalogo de troncales (exacto/CIDR/prefijo). Una sola fuente efectiva.", "Modulo renombrado a 'IPs internas' con leyenda de preferencia. Cache de nombres invalida al guardar troncales." ],
+  "changelog": [ "Import de IPs internas con modal: muestra el formato CSV (ip,name) + ejemplo JSON + boton Descargar template, igual que el import de troncales." ],
   "min_upgrade_from": "1.0.0" }

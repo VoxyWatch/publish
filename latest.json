@@ -1,5 +1,5 @@
-{ "version": "2.32.0", "release_date": "2026-06-08",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.32.0/voxywatch-v2.32.0-linux-x64.tar.gz", "sha256": "4f30babeb1dfbb5284b0542d680d3c5fb1fb364d9a75381594e39c7bbef2596d" },
+{ "version": "2.32.1", "release_date": "2026-06-08",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.32.1/voxywatch-v2.32.1-linux-x64.tar.gz", "sha256": "2213cb5af65081e7b3bc66df78af57ba46d7dac7920fad65c0001ba281570cda" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "Analisis SIP experto contra los RFC: linter determinista (headers obligatorios, branch z9hG4bK, tags, dialogo 200-sin-ACK, headers obsoletos, auth debil, SDP) con cita del RFC + veredicto + a que estandares esta alineada.", "SIP Expert LLM (BYO key) que redacta el analisis experto. Botones en el detalle de llamada. Endpoints /api/calls/:id/sip-analysis y /api/copilot/trace/:id." ],
+  "changelog": [ "Analisis SIP: mas reglas RFC de interconexion de carriers (3325 PAI, 3323 Privacy, 5806 Diversion->7044 History-Info, 4028 Session-Timers<90, 3262 PRACK/RAck, 3515 REFER/Refer-To, 3261 Max-Forwards=0 / ruteo estricto sin ;lr / Content-Type, 6086 INFO, 3264 m= puerto 0).", "Deteccion de alineacion ampliada y SIP Expert con el set ampliado." ],
   "min_upgrade_from": "1.0.0" }

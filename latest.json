@@ -1,5 +1,5 @@
-{ "version": "2.32.3", "release_date": "2026-06-08",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.32.3/voxywatch-v2.32.3-linux-x64.tar.gz", "sha256": "9f4bc294ec0b6c58c390f65f6a311ec0615daad81a01603490a07e9af1b1d3cc" },
+{ "version": "2.32.4", "release_date": "2026-06-08",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.32.4/voxywatch-v2.32.4-linux-x64.tar.gz", "sha256": "417e488882072389a1221644b2eab965087a555ff58971b76eef7dff88745c71" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "Import de IPs internas con modal: muestra el formato CSV (ip,name) + ejemplo JSON + boton Descargar template, igual que el import de troncales." ],
+  "changelog": [ "SNMP: OID base migrado al PEN oficial de IANA (enterprises.65985). Reemplaza el arbol provisional 99999; MIB, agente, traps y snmpwalk de ejemplo derivan del nuevo PEN. settings.snmp_base_oid permite override por cliente." ],
   "min_upgrade_from": "1.0.0" }

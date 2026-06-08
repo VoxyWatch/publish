@@ -1,8 +1,9 @@
-{ "version": "2.26.3", "release_date": "2026-06-07",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.26.3/voxywatch-v2.26.3-linux-x64.tar.gz", "sha256": "d1ab5eb6dc9b4ea6bca0e6fb257801e6aae364620fc4ad20f5a134cc17ee4b25" },
+{ "version": "2.27.0", "release_date": "2026-06-07",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.27.0/voxywatch-v2.27.0-linux-x64.tar.gz", "sha256": "d0468f8519caef88283dba796bef7a15754ecbe4092f14874b358149e99d7f72" },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Troncales: umbrales de salud CONFIGURABLES — global (pestaña Trunks) + override por troncal (ASR/NER/5xx/MOS/pérdida/PDD warn+crit, ventana, muestra mínima).",
-    "Solo portal/UI — sin hueco de captura al actualizar."
+    "Monitoring: clic en una troncal → modal con gráficas de toda su historia (volumen, ASR/NER, 5xx, ACD, minutos, MOS, pérdida, PDD, códigos SIP, países, in/out).",
+    "Rollup por troncal por hora (trunk_stats_hourly) con backfill gentil que cubre todo el histórico de CDRs retenido (la retención define la profundidad, no un cap).",
+    "Tabla nueva; sin cambios en el sniffer (sin hueco de captura)."
   ],
   "min_upgrade_from": "1.0.0" }

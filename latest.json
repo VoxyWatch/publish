@@ -1,5 +1,5 @@
-{ "version": "2.34.0", "release_date": "2026-06-08",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.34.0/voxywatch-v2.34.0-linux-x64.tar.gz", "sha256": "4751b6681bdb5eedbeb95d45a0854fd8edf974775a06f568b68596d3722770bd" },
+{ "version": "2.34.1", "release_date": "2026-06-08",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.34.1/voxywatch-v2.34.1-linux-x64.tar.gz", "sha256": "fe9af8bf6f80456d9b484fc7e1475327b8f1641ee27437f431dcc206152c3001" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "Tickets debugger 024-026 + cierre de 021/023: CSP script-src sin unsafe-inline (handlers a addEventListener, hover a CSS, scripts inline externalizados/nonce); .seg/.idx del sniffer 0640 (os.umask, reinicia sniffer); boot-status con elapsed/ETA/hitos; MOS con razon explicita + etiqueta estimado; Disconnect Causes por disposition_label/codigo SIP excluyendo answered/active." ],
+  "changelog": [ "UI: KPI 'Total calls'/'Failed' del dashboard ya no se desborda con conteos grandes: notacion compacta (14.4M) + exacto en tooltip + guarda CSS. Portal-only." ],
   "min_upgrade_from": "1.0.0" }

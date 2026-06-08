@@ -1,5 +1,5 @@
-{ "version": "2.32.1", "release_date": "2026-06-08",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.32.1/voxywatch-v2.32.1-linux-x64.tar.gz", "sha256": "2213cb5af65081e7b3bc66df78af57ba46d7dac7920fad65c0001ba281570cda" },
+{ "version": "2.32.2", "release_date": "2026-06-08",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.32.2/voxywatch-v2.32.2-linux-x64.tar.gz", "sha256": "e1e0575cda6e408bf2f9c2002af7ac243e47c90747294904e70a30723dbe761f" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "Analisis SIP: mas reglas RFC de interconexion de carriers (3325 PAI, 3323 Privacy, 5806 Diversion->7044 History-Info, 4028 Session-Timers<90, 3262 PRACK/RAck, 3515 REFER/Refer-To, 3261 Max-Forwards=0 / ruteo estricto sin ;lr / Content-Type, 6086 INFO, 3264 m= puerto 0).", "Deteccion de alineacion ampliada y SIP Expert con el set ampliado." ],
+  "changelog": [ "Nombres de IP: el modulo de IPs internas (Settings) tiene prioridad y, si la IP no esta ahi, el nombre se toma del catalogo de troncales (exacto/CIDR/prefijo). Una sola fuente efectiva.", "Modulo renombrado a 'IPs internas' con leyenda de preferencia. Cache de nombres invalida al guardar troncales." ],
   "min_upgrade_from": "1.0.0" }

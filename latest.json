@@ -1,5 +1,5 @@
-{ "version": "2.28.1", "release_date": "2026-06-07",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.28.1/voxywatch-v2.28.1-linux-x64.tar.gz", "sha256": "0c525e677575ee1c0befc34e73f8886c12a7aa987750870f39e9336d2c073c87" },
+{ "version": "2.29.0", "release_date": "2026-06-07",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.29.0/voxywatch-v2.29.0-linux-x64.tar.gz", "sha256": "6f07ecce826c058fb35dcfba78763403da568b09f53e02283c3566f10abd17f0" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "Contrato de error API: /api/* y /api/v1/* desconocidos en JSON/problem+json (no HTML); 405 con Allow.", "Validacion OpenAPI en /api/v1: limit/status/channel fuera de contrato -> 400.", "Gate de auth en UI: elimina la rafaga de 401 transitorios post-login.", "AI Chat: no envia sin API key. API keys: DELETE revoked:true + GET oculta revocadas.", "Diagnostics: bloque udp con RcvbufErrors total+delta del kernel." ],
+  "changelog": [ "Baselines auto por troncal: cada troncal aprende su normal (media/sigma por hora) desde el rollup y el motor marca desviaciones > z-sigma ademas de los umbrales fijos, solo cuando el umbral no alarmo ya esa metrica.", "Configurable (baseline_enabled/z/days/min_samples). Drill-down dibuja la linea del normal. Honesto: sin historia suficiente no juzga." ],
   "min_upgrade_from": "1.0.0" }

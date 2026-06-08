@@ -1,5 +1,5 @@
-{ "version": "2.31.0", "release_date": "2026-06-07",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.31.0/voxywatch-v2.31.0-linux-x64.tar.gz", "sha256": "fe58c447141c4a3edb121622918879e2bff48dc9efbd55f83a4dc59544c89ec5" },
+{ "version": "2.32.0", "release_date": "2026-06-08",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.32.0/voxywatch-v2.32.0-linux-x64.tar.gz", "sha256": "4f30babeb1dfbb5284b0542d680d3c5fb1fb364d9a75381594e39c7bbef2596d" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "Campana del header con alertas de servidor: CPU/RAM/captura/HEP-silencioso via /api/server-alerts (mismos umbrales snmp_thr_* que los traps SNMP).", "El agente SNMP ya trapeaba todas las metricas del host con datos reales." ],
+  "changelog": [ "Analisis SIP experto contra los RFC: linter determinista (headers obligatorios, branch z9hG4bK, tags, dialogo 200-sin-ACK, headers obsoletos, auth debil, SDP) con cita del RFC + veredicto + a que estandares esta alineada.", "SIP Expert LLM (BYO key) que redacta el analisis experto. Botones en el detalle de llamada. Endpoints /api/calls/:id/sip-analysis y /api/copilot/trace/:id." ],
   "min_upgrade_from": "1.0.0" }

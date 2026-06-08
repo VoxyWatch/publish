@@ -124,14 +124,32 @@ else
 fi
 ok "Version to install: v${VERSION}"
 
+# ── Prompt con cuenta regresiva ────────────────────────────────────────────────
+# read_countdown <segundos> <texto>  → escribe lo tecleado por stdout (vacío si expira).
+# Muestra una cuenta regresiva; al llegar a 0 devuelve vacío para que el llamador use
+# su valor por defecto. Enter (o teclear + Enter) antes de 0 toma la respuesta.
+read_countdown() {
+  local secs="$1" prompt="$2" input="" i
+  for (( i=secs; i>=1; i-- )); do
+    printf "\r\033[K  %s [auto en %2ds]: " "$prompt" "$i" >&2
+    if IFS= read -r -t 1 input </dev/tty 2>/dev/null; then
+      printf "\n" >&2
+      printf '%s' "$input"
+      return 0
+    fi
+  done
+  printf "\r\033[K  %s → (auto)\n" "$prompt" >&2
+  printf ''
+  return 0
+}
+
 # ── Port selection ────────────────────────────────────────────────────────────
 if [ -n "$PORT_ARG" ]; then
   PORT="$PORT_ARG"
 else
   echo ""
   if tty_ok; then
-    printf "  ${BOLD}Web portal port${NC} [3080]: "
-    read -r PORT_INPUT </dev/tty 2>/dev/null || PORT_INPUT=""
+    PORT_INPUT="$(read_countdown 10 "$(printf '%bWeb portal port%b [3080]' "$BOLD" "$NC")")"
   else
     PORT_INPUT=""
   fi
@@ -163,9 +181,9 @@ elif tty_ok; then
   echo "  This is a SCOPED permission — limited to VoxyWatch's own services, not"
   echo "  general root. If you decline, the portal will instead show you the exact"
   echo "  command to run by hand each time (you can enable it later)."
-  printf "  ${BOLD}Allow VoxyWatch to manage its own services?${NC} [y/N]: "
-  read -r SC_INPUT </dev/tty 2>/dev/null || SC_INPUT=""
-  case "$SC_INPUT" in [Yy]*) SERVICE_CONTROL="yes" ;; *) SERVICE_CONTROL="no" ;; esac
+  # Default = SÍ al expirar la cuenta regresiva (instalación desatendida).
+  SC_INPUT="$(read_countdown 10 "$(printf '%bAllow VoxyWatch to manage its own services?%b [Y/n]' "$BOLD" "$NC")")"
+  case "$SC_INPUT" in [Nn]*) SERVICE_CONTROL="no" ;; *) SERVICE_CONTROL="yes" ;; esac
 fi
 if [ "$SERVICE_CONTROL" = "yes" ]; then
   ok "Service control: ENABLED (portal can restart its services)"
@@ -265,6 +283,21 @@ install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTAL
 install -o root -g voxywatch -m 640 "${EXTRACTED}/styles.css" "${INSTALL_DIR}/styles.css" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/app.js"     "${INSTALL_DIR}/app.js"     2>/dev/null || true
 ok "Files installed"
+
+# ── Derivar la versión del BINARIO realmente instalado ────────────────────────
+# El conf debe reflejar lo que de verdad quedó en disco, no la cadena del manifest
+# (raw.githubusercontent tiene cache CDN ~5 min y puede ir atrasado). Preguntamos al
+# binario su versión horneada; si responde algo válido, esa manda.
+BIN_VERSION=$("${INSTALL_DIR}/voxywatch-portal" --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+[A-Za-z0-9.-]*' | head -1)
+if echo "$BIN_VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+'; then
+  if [ -n "$VERSION" ] && [ "$BIN_VERSION" != "$VERSION" ]; then
+    warn "Versión solicitada (${VERSION}) ≠ binario instalado (${BIN_VERSION}); el conf usa la del binario."
+  fi
+  VERSION="$BIN_VERSION"
+  ok "Binary reports version: v${VERSION}"
+else
+  warn "El binario no reportó versión (--version); se usa la del manifiesto: v${VERSION:-?}"
+fi
 
 # ── Write config file ─────────────────────────────────────────────────────────
 cat > "$CONF_FILE" << EOF
@@ -404,6 +437,10 @@ Restart=always
 RestartSec=5
 LimitNOFILE=65536
 NoNewPrivileges=true
+# SNMP: permitir bindear puertos privilegiados (161 estándar) corriendo como usuario no-root.
+# Compatible con NoNewPrivileges=true (la capability la otorga systemd al exec, no por setuid).
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
 ProtectSystem=strict
 ReadWritePaths=${DATA_DIR} ${CONF_DIR} /tmp ${PG_SOCKET_DIR}
 PrivateTmp=yes

@@ -1,9 +1,5 @@
-{ "version": "2.27.0", "release_date": "2026-06-07",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.27.0/voxywatch-v2.27.0-linux-x64.tar.gz", "sha256": "d0468f8519caef88283dba796bef7a15754ecbe4092f14874b358149e99d7f72" },
+{ "version": "2.27.1", "release_date": "2026-06-07",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.27.1/voxywatch-v2.27.1-linux-x64.tar.gz", "sha256": "05c468df64ade4f27016a95d1110d92dd8e7d316e925ea095f751ac0e88d68c0" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [
-    "Monitoring: clic en una troncal → modal con gráficas de toda su historia (volumen, ASR/NER, 5xx, ACD, minutos, MOS, pérdida, PDD, códigos SIP, países, in/out).",
-    "Rollup por troncal por hora (trunk_stats_hourly) con backfill gentil que cubre todo el histórico de CDRs retenido (la retención define la profundidad, no un cap).",
-    "Tabla nueva; sin cambios en el sniffer (sin hueco de captura)."
-  ],
+  "changelog": [ "Trazas SIP completas: el flow/traza une el ladder en RAM con los mensajes crudos de la BD (packets), deduplicado — corrige la traza incompleta de llamadas recientes (warm-up/evicción). Solo portal." ],
   "min_upgrade_from": "1.0.0" }

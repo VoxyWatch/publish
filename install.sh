@@ -289,6 +289,7 @@ install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTAL
 install -o root -g voxywatch -m 640 "${EXTRACTED}/styles.css" "${INSTALL_DIR}/styles.css" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/app.js"     "${INSTALL_DIR}/app.js"     2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/chart.umd.min.js" "${INSTALL_DIR}/chart.umd.min.js" 2>/dev/null || true  # Chart.js self-hosteado (TICKET-021)
+install -o root -g voxywatch -m 640 "${EXTRACTED}/update-checker.js" "${INSTALL_DIR}/update-checker.js" 2>/dev/null || true  # script externalizado (TICKET-021)
 ok "Files installed"
 
 # ── Derivar la versión del BINARIO realmente instalado ────────────────────────

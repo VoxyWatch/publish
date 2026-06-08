@@ -1,5 +1,5 @@
-{ "version": "2.33.0", "release_date": "2026-06-08",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.33.0/voxywatch-v2.33.0-linux-x64.tar.gz", "sha256": "d3d988500ccc1fdbb068ba87b5a2dd974ad65410750fb2922370ddfa901d43fe" },
+{ "version": "2.34.0", "release_date": "2026-06-08",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.34.0/voxywatch-v2.34.0-linux-x64.tar.gz", "sha256": "4751b6681bdb5eedbeb95d45a0854fd8edf974775a06f568b68596d3722770bd" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "Resuelve 6 tickets del debugger (018-023): trunk-rollup por cursor (no mas statement timeout) + lag en /api/diagnostics; /api/ai/chat valida payload local (400 invalid_payload); /api/license/status anonimo minimo (sin HWID/plan/capacity); Chart.js self-hosteado (sin CDN externo); settings.json 0600 + escritura atomica; media RTP/WAV/PCAP 0640 + UMask en units." ],
+  "changelog": [ "Tickets debugger 024-026 + cierre de 021/023: CSP script-src sin unsafe-inline (handlers a addEventListener, hover a CSS, scripts inline externalizados/nonce); .seg/.idx del sniffer 0640 (os.umask, reinicia sniffer); boot-status con elapsed/ETA/hitos; MOS con razon explicita + etiqueta estimado; Disconnect Causes por disposition_label/codigo SIP excluyendo answered/active." ],
   "min_upgrade_from": "1.0.0" }

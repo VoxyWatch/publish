@@ -1,5 +1,5 @@
-{ "version": "2.32.4", "release_date": "2026-06-08",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.32.4/voxywatch-v2.32.4-linux-x64.tar.gz", "sha256": "417e488882072389a1221644b2eab965087a555ff58971b76eef7dff88745c71" },
+{ "version": "2.33.0", "release_date": "2026-06-08",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.33.0/voxywatch-v2.33.0-linux-x64.tar.gz", "sha256": "d3d988500ccc1fdbb068ba87b5a2dd974ad65410750fb2922370ddfa901d43fe" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "SNMP: OID base migrado al PEN oficial de IANA (enterprises.65985). Reemplaza el arbol provisional 99999; MIB, agente, traps y snmpwalk de ejemplo derivan del nuevo PEN. settings.snmp_base_oid permite override por cliente." ],
+  "changelog": [ "Resuelve 6 tickets del debugger (018-023): trunk-rollup por cursor (no mas statement timeout) + lag en /api/diagnostics; /api/ai/chat valida payload local (400 invalid_payload); /api/license/status anonimo minimo (sin HWID/plan/capacity); Chart.js self-hosteado (sin CDN externo); settings.json 0600 + escritura atomica; media RTP/WAV/PCAP 0640 + UMask en units." ],
   "min_upgrade_from": "1.0.0" }

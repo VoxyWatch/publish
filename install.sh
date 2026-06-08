@@ -262,6 +262,12 @@ chmod 750 "$DATA_DIR"
 # CONF_DIR: root:voxywatch — el proceso puede escribir license.key desde la GUI
 chown root:voxywatch "$CONF_DIR"
 chmod 775 "$CONF_DIR"
+
+# TICKET-022/023: endurecer permisos de archivos sensibles ya existentes (upgrade). Settings con
+# secretos → 0600; media/trazas (RTP/WAV/PCAP/idx) y su carpeta → 0640/0750. Idempotente.
+chmod 600 "$DATA_DIR"/voxywatch_settings.json "$DATA_DIR"/voxywatch_settings.json.bak* 2>/dev/null || true
+if [ -d "$DATA_DIR/audio" ]; then chmod 750 "$DATA_DIR/audio" 2>/dev/null || true; fi
+find "$DATA_DIR" \( -name 'rtp-*.seg' -o -name '*.seg.idx' -o -name '*.wav' -o -name '*.pcap' -o -name '*.g722' \) -type f -exec chmod 640 {} + 2>/dev/null || true
 ok "Directories ready"
 
 # ── Install files ─────────────────────────────────────────────────────────────
@@ -282,6 +288,7 @@ install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTAL
 # El binario los sirve desde path.dirname(process.execPath) = /opt/voxywatch/
 install -o root -g voxywatch -m 640 "${EXTRACTED}/styles.css" "${INSTALL_DIR}/styles.css" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/app.js"     "${INSTALL_DIR}/app.js"     2>/dev/null || true
+install -o root -g voxywatch -m 640 "${EXTRACTED}/chart.umd.min.js" "${INSTALL_DIR}/chart.umd.min.js" 2>/dev/null || true  # Chart.js self-hosteado (TICKET-021)
 ok "Files installed"
 
 # ── Derivar la versión del BINARIO realmente instalado ────────────────────────
@@ -436,6 +443,8 @@ ${REPLICA_ENV}
 Restart=always
 RestartSec=5
 LimitNOFILE=65536
+# TICKET-023: media/trazas (WAV/PCAP) y archivos de estado nacen sin permisos para "otros".
+UMask=0027
 NoNewPrivileges=true
 # SNMP: permitir bindear puertos privilegiados (161 estándar) corriendo como usuario no-root.
 # Compatible con NoNewPrivileges=true (la capability la otorga systemd al exec, no por setuid).
@@ -474,6 +483,8 @@ Environment=PGDATABASE=${DB_NAME}
 Environment=PGUSER=${DB_USER}
 Restart=always
 RestartSec=5
+# TICKET-023: segmentos RTP (.seg/.idx) nacen sin permisos para "otros".
+UMask=0027
 NoNewPrivileges=true
 ProtectSystem=strict
 ReadWritePaths=${DATA_DIR} ${PG_SOCKET_DIR}

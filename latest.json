@@ -1,5 +1,5 @@
-{ "version": "2.35.0", "release_date": "2026-06-08",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.35.0/voxywatch-v2.35.0-linux-x64.tar.gz", "sha256": "3ff7823cd8613c30d33b55341482c079de9d92dd63b7fba6579ee8a1a4f373b4" },
+{ "version": "2.36.0", "release_date": "2026-06-08",
+  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.36.0/voxywatch-v2.36.0-linux-x64.tar.gz", "sha256": "624127be36a1cc596a8be4088c47e32705c17b8880c9a17e95be30f52c5a6e74" },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "UX: barra de carga global (top progress) amistosa y discreta mientras cargan datos de cualquier modulo (CDR, Calls, Dashboard, Troncales). Debounce 180ms, excluye polls de fondo. Portal-only." ],
+  "changelog": [ "Chat IA con conocimiento en vivo: snapshot operativo (KPIs, top clientes por PDD/volumen, top paises por trafico, salud por troncal, causas) inyectado al contexto. Responde 'que cliente tiene mayor PDD', 'que pais mas trafico', etc. con datos reales. Portal-only." ],
   "min_upgrade_from": "1.0.0" }

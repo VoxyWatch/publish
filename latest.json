@@ -1,5 +1,14 @@
-{ "version": "2.36.0", "release_date": "2026-06-08",
-  "linux_x64": { "url": "https://github.com/VoxyWatch/publish/releases/download/v2.36.0/voxywatch-v2.36.0-linux-x64.tar.gz", "sha256": "624127be36a1cc596a8be4088c47e32705c17b8880c9a17e95be30f52c5a6e74" },
+{
+  "version": "2.37.0",
+  "release_date": "2026-06-09",
+  "linux_x64": {
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.37.0/voxywatch-v2.37.0-linux-x64.tar.gz",
+    "sha256": "f9d72fbb42ab1b71f27996e0443d787b6ed3e39d99798ae61d250f689dd038ab"
+  },
   "linux_arm64": { "url": "", "sha256": "" },
-  "changelog": [ "Chat IA con conocimiento en vivo: snapshot operativo (KPIs, top clientes por PDD/volumen, top paises por trafico, salud por troncal, causas) inyectado al contexto. Responde 'que cliente tiene mayor PDD', 'que pais mas trafico', etc. con datos reales. Portal-only." ],
-  "min_upgrade_from": "1.0.0" }
+  "changelog": [
+    "Copiloto NOC agentico (tool-calling/ReAct): el chat de IA ahora consulta datos en vivo (KPIs, troncales, CDRs, flujo SIP) y encadena herramientas para diagnosticar, en vez de leer un snapshot estatico.",
+    "5 herramientas read-only (overview, salud de troncales, busqueda de CDRs, detalle y flujo SIP de llamada), loop multi-proveedor y autotest. VoxyWatch sigue siendo 100% observacion: nunca toca el SBC."
+  ],
+  "min_upgrade_from": "1.0.0"
+}

@@ -1,14 +1,14 @@
 {
-  "version": "2.39.0",
+  "version": "2.40.0",
   "release_date": "2026-06-09",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.39.0/voxywatch-v2.39.0-linux-x64.tar.gz",
-    "sha256": "66791ef3c8dff002b22df293e0e760e7451af344b34357fb2b7c4e585b9162d2"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.40.0/voxywatch-v2.40.0-linux-x64.tar.gz",
+    "sha256": "20846af3300d2bbe24bb568cdbce2356d36cdf025222bbeb9e527bb7d60c1fa8"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Alertas proactivas con diagnostico de IA: al entrar una troncal en alarma, el copiloto NOC redacta causa probable + accion y la adjunta al webhook (ai_analysis); opcional via alerts.ai_summary.",
-    "API de Integracion ampliada (scope metrics:read): /api/v1/health, /api/v1/stats, /api/v1/trunks/health para monitoreo externo (NOC/billing)."
+    "Menos CPU a alto volumen: (1) el upsert incremental de CDRs ordena por call_id para eliminar deadlocks y sus reintentos; (2) throttle del full-parse por cap-RAM que evitaba re-correlaciones completas en bucle saturando los cores.",
+    "La captura (sniffer) nunca se ve afectada; solo cambia el comportamiento del portal."
   ],
   "min_upgrade_from": "1.0.0"
 }

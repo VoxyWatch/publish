@@ -1,14 +1,14 @@
 {
-  "version": "2.37.0",
+  "version": "2.38.0",
   "release_date": "2026-06-09",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.37.0/voxywatch-v2.37.0-linux-x64.tar.gz",
-    "sha256": "f9d72fbb42ab1b71f27996e0443d787b6ed3e39d99798ae61d250f689dd038ab"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.38.0/voxywatch-v2.38.0-linux-x64.tar.gz",
+    "sha256": "71dfd4b15cd525ba7fdd93117fb8d1ea16260fa56aef40fc008b980206601920"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Copiloto NOC agentico (tool-calling/ReAct): el chat de IA ahora consulta datos en vivo (KPIs, troncales, CDRs, flujo SIP) y encadena herramientas para diagnosticar, en vez de leer un snapshot estatico.",
-    "5 herramientas read-only (overview, salud de troncales, busqueda de CDRs, detalle y flujo SIP de llamada), loop multi-proveedor y autotest. VoxyWatch sigue siendo 100% observacion: nunca toca el SBC."
+    "Warm-up del portal ~10000x mas rapido en alto volumen: el working-set se reconstruye ordenando por ts (clave de particion) en vez de por id, evitando un Sort de decenas de millones de filas sobre la hypertable comprimida. Medido 40ms vs ~512s. Arregla fast-boot y backfill.",
+    "Sin cambios de comportamiento: mismo working-set, solo arranca mucho mas rapido tras un reinicio/update."
   ],
   "min_upgrade_from": "1.0.0"
 }

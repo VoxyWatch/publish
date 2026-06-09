@@ -1,14 +1,14 @@
 {
-  "version": "2.40.0",
+  "version": "2.41.0",
   "release_date": "2026-06-09",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.40.0/voxywatch-v2.40.0-linux-x64.tar.gz",
-    "sha256": "20846af3300d2bbe24bb568cdbce2356d36cdf025222bbeb9e527bb7d60c1fa8"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.41.0/voxywatch-v2.41.0-linux-x64.tar.gz",
+    "sha256": "94fb04bf8425958131305784c15980789af44649251bae014f0a351230407ae6"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Menos CPU a alto volumen: (1) el upsert incremental de CDRs ordena por call_id para eliminar deadlocks y sus reintentos; (2) throttle del full-parse por cap-RAM que evitaba re-correlaciones completas en bucle saturando los cores.",
-    "La captura (sniffer) nunca se ve afectada; solo cambia el comportamiento del portal."
+    "Menos CPU a alto volumen: el rollup del dashboard (call_stats_hourly) ahora tiene guard de concurrencia → no se apilan ejecuciones que saturaban los cores.",
+    "Incluye v2.40.1 (chat de IA legible en modo claro) y v2.40.0 (anti-deadlock del upsert de CDRs + throttle del re-parse)."
   ],
   "min_upgrade_from": "1.0.0"
 }

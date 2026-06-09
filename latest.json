@@ -1,14 +1,14 @@
 {
-  "version": "2.38.0",
+  "version": "2.39.0",
   "release_date": "2026-06-09",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.38.0/voxywatch-v2.38.0-linux-x64.tar.gz",
-    "sha256": "71dfd4b15cd525ba7fdd93117fb8d1ea16260fa56aef40fc008b980206601920"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.39.0/voxywatch-v2.39.0-linux-x64.tar.gz",
+    "sha256": "66791ef3c8dff002b22df293e0e760e7451af344b34357fb2b7c4e585b9162d2"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Warm-up del portal ~10000x mas rapido en alto volumen: el working-set se reconstruye ordenando por ts (clave de particion) en vez de por id, evitando un Sort de decenas de millones de filas sobre la hypertable comprimida. Medido 40ms vs ~512s. Arregla fast-boot y backfill.",
-    "Sin cambios de comportamiento: mismo working-set, solo arranca mucho mas rapido tras un reinicio/update."
+    "Alertas proactivas con diagnostico de IA: al entrar una troncal en alarma, el copiloto NOC redacta causa probable + accion y la adjunta al webhook (ai_analysis); opcional via alerts.ai_summary.",
+    "API de Integracion ampliada (scope metrics:read): /api/v1/health, /api/v1/stats, /api/v1/trunks/health para monitoreo externo (NOC/billing)."
   ],
   "min_upgrade_from": "1.0.0"
 }

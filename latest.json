@@ -3,7 +3,7 @@
   "release_date": "2026-06-10",
   "linux_x64": {
     "url": "https://github.com/VoxyWatch/publish/releases/download/v2.49.2/voxywatch-v2.49.2-linux-x64.tar.gz",
-    "sha256": "cebbe7c37b3869b23899d7fcaa1e7b916f0183612bf07d9ba6bfb7bcb7724f35"
+    "sha256": "294a761cadf726eb5d48e241f4f42be84e6dac0de66f1c1f6063e18c6bda12a2"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [

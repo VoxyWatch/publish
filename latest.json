@@ -1,14 +1,14 @@
 {
-  "version": "2.41.0",
+  "version": "2.46.0",
   "release_date": "2026-06-09",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.41.0/voxywatch-v2.41.0-linux-x64.tar.gz",
-    "sha256": "94fb04bf8425958131305784c15980789af44649251bae014f0a351230407ae6"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.46.0/voxywatch-v2.46.0-linux-x64.tar.gz",
+    "sha256": "e7525f4c2c1812fb783c4217f2f91e6a36da4d4572a583a21dbf50ff607762bb"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Menos CPU a alto volumen: el rollup del dashboard (call_stats_hourly) ahora tiene guard de concurrencia → no se apilan ejecuciones que saturaban los cores.",
-    "Incluye v2.40.1 (chat de IA legible en modo claro) y v2.40.0 (anti-deadlock del upsert de CDRs + throttle del re-parse)."
+    "Fix VOXY-K: timeout al abrir el flujo/traza SIP on-demand en capturas grandes — la consulta se acota por tiempo para que TimescaleDB excluya chunks (sin statement timeout).",
+    "Acumula v2.45 (identidad de instalacion en telemetria para soporte), v2.44 (seleccion dinamica de modelos de IA), v2.43 (avisos unificados en la campana) y v2.42 (leyenda de CPU contextual)."
   ],
   "min_upgrade_from": "1.0.0"
 }

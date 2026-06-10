@@ -1,15 +1,15 @@
 {
-  "version": "2.46.3",
+  "version": "2.49.2",
   "release_date": "2026-06-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.46.3/voxywatch-v2.46.3-linux-x64.tar.gz",
-    "sha256": "50dc656e31d411bcd6525ce10822b969741a0a33a0c45636be4724e6d57c9deb"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.49.2/voxywatch-v2.49.2-linux-x64.tar.gz",
+    "sha256": "cebbe7c37b3869b23899d7fcaa1e7b916f0183612bf07d9ba6bfb7bcb7724f35"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "VOXY-C: /api/calls ya no da statement timeout al filtrar por status (indice keyset compuesto).",
-    "VOXY-D: se instala extract_dtmf.py (extraccion de DTMF dejaba de fallar).",
-    "VOXY-5: salida limpia ante EADDRINUSE. VOXY-K: timeout del flujo SIP on-demand. Identidad de instalacion en telemetria."
+    "Fix login en navegador limpio (#2): el overlay de login ya aparece cuando no hay sesion.",
+    "/api/calls valida el filtro status (#5). Disconnect Causes mas preciso (#6). SNMP seguro por defecto (#7).",
+    "getDbState con single-flight+cache (#4). Modo PCI pause/resume y purga incremental incluidos pero OFF por defecto."
   ],
   "min_upgrade_from": "1.0.0"
 }

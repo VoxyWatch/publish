@@ -5,7 +5,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
-## [2.49.0] — 2026-06-10
+## [2.49.0] — Unreleased (upcoming; not yet in `latest.json`)
 
 ### Added
 - **PCI-DSS pause/resume recording** — suppress call audio during the card/CVV window so it is never stored (PCI-DSS Req. 3.2). **Programmable on/off** via `pci.enabled` (OFF by default) and per-call through the API: `POST /api/v1/recording/suppress {call_id, action: "pause"|"resume"}` (scope `recording:control`). **Defense in depth across 3 layers, matched by SSRC:** the **Probe** drops the RTP at the source (the sensitive audio never leaves the secure environment), the **sniffer** never persists it (any HEP source), and the **portal** wipes anything that slips through. **Auto-trigger** for trunks/DIDs dedicated to payments (`pci.sensitive_trunks`/`sensitive_dids`); SIP/CDR metadata preserved; full audit log for attestation. With `pci.enabled=false` behavior is identical to before. (Also in this train: v2.46.x bug fixes K/5/C/D, v2.47.0 incremental purge.)

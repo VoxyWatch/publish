@@ -122,6 +122,9 @@ From "we have pcaps somewhere" to *"the trunk to Carrier X is degrading, likely 
 
 ## 🔒 PCI-DSS — pause/resume recording
 
+> 🚧 **Coming in v2.49.0** — not yet in the stable install channel (current: see `latest.json`).
+> The API/behavior below ships when v2.49.0 is published; it is OFF by default in any case.
+
 Capturing call audio in a contact center that takes **card payments by phone**? VoxyWatch can
 **suppress the audio during the card/CVV window** so it is never stored — required to stay
 PCI-DSS compliant (Req. 3.2: the CVV must never be retained).

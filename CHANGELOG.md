@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.49.3] — 2026-06-10
+
+### Fixed (revalidación pentest)
+- **#026** Disconnect Causes de raíz: 3xx (302 Moved Temporarily) → `redirected` con su razón SIP; `no-answer` usa la disposición específica en vez del genérico "Sin respuesta".
+- **#028** la UI ya no dispara endpoints protegidos antes de login (fin de la ráfaga de 401 pre-sesión).
+- **#029** aviso al arrancar si SNMP v2c queda expuesto fuera de loopback sin allowlist.
+- Incluye **2.49.0–2.49.2**: login visible en navegador limpio (#2), `/api/calls` valida el enum (#5), `getDbState` single-flight (#4), SNMP seguro por defecto (#7). Modo PCI y purga incremental incluidos pero **OFF**.
+
 ## [2.49.0] — Unreleased (upcoming; not yet in `latest.json`)
 
 ### Added

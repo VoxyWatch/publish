@@ -1,15 +1,18 @@
 {
-  "version": "2.49.2",
+  "version": "2.49.3",
   "release_date": "2026-06-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.49.2/voxywatch-v2.49.2-linux-x64.tar.gz",
-    "sha256": "294a761cadf726eb5d48e241f4f42be84e6dac0de66f1c1f6063e18c6bda12a2"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.49.3/voxywatch-v2.49.3-linux-x64.tar.gz",
+    "sha256": "b89781f9fcbfc76ea645ec9f4dd6ce3b726246644a2cbe1897c3063dee615d6b"
   },
-  "linux_arm64": { "url": "", "sha256": "" },
+  "linux_arm64": {
+    "url": "",
+    "sha256": ""
+  },
   "changelog": [
-    "Fix login en navegador limpio (#2): el overlay de login ya aparece cuando no hay sesion.",
-    "/api/calls valida el filtro status (#5). Disconnect Causes mas preciso (#6). SNMP seguro por defecto (#7).",
-    "getDbState con single-flight+cache (#4). Modo PCI pause/resume y purga incremental incluidos pero OFF por defecto."
+    "#026 Disconnect Causes de raiz (302 Moved Temporarily ya no cae en 'Sin respuesta').",
+    "#028 la UI no dispara endpoints protegidos antes de login. #029 aviso si SNMP v2c queda expuesto.",
+    "Incluye 2.49.0-2.49.2: login en navegador limpio, /api/calls valida enum, getDbState single-flight. PCI/purga OFF."
   ],
   "min_upgrade_from": "1.0.0"
 }

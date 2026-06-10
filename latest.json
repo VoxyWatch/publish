@@ -1,14 +1,15 @@
 {
-  "version": "2.46.0",
-  "release_date": "2026-06-09",
+  "version": "2.46.3",
+  "release_date": "2026-06-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.46.0/voxywatch-v2.46.0-linux-x64.tar.gz",
-    "sha256": "e7525f4c2c1812fb783c4217f2f91e6a36da4d4572a583a21dbf50ff607762bb"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.46.3/voxywatch-v2.46.3-linux-x64.tar.gz",
+    "sha256": "50dc656e31d411bcd6525ce10822b969741a0a33a0c45636be4724e6d57c9deb"
   },
   "linux_arm64": { "url": "", "sha256": "" },
   "changelog": [
-    "Fix VOXY-K: timeout al abrir el flujo/traza SIP on-demand en capturas grandes — la consulta se acota por tiempo para que TimescaleDB excluya chunks (sin statement timeout).",
-    "Acumula v2.45 (identidad de instalacion en telemetria para soporte), v2.44 (seleccion dinamica de modelos de IA), v2.43 (avisos unificados en la campana) y v2.42 (leyenda de CPU contextual)."
+    "VOXY-C: /api/calls ya no da statement timeout al filtrar por status (indice keyset compuesto).",
+    "VOXY-D: se instala extract_dtmf.py (extraccion de DTMF dejaba de fallar).",
+    "VOXY-5: salida limpia ante EADDRINUSE. VOXY-K: timeout del flujo SIP on-demand. Identidad de instalacion en telemetria."
   ],
   "min_upgrade_from": "1.0.0"
 }

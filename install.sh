@@ -262,12 +262,6 @@ chmod 750 "$DATA_DIR"
 # CONF_DIR: root:voxywatch — el proceso puede escribir license.key desde la GUI
 chown root:voxywatch "$CONF_DIR"
 chmod 775 "$CONF_DIR"
-
-# TICKET-022/023: endurecer permisos de archivos sensibles ya existentes (upgrade). Settings con
-# secretos → 0600; media/trazas (RTP/WAV/PCAP/idx) y su carpeta → 0640/0750. Idempotente.
-chmod 600 "$DATA_DIR"/voxywatch_settings.json "$DATA_DIR"/voxywatch_settings.json.bak* 2>/dev/null || true
-if [ -d "$DATA_DIR/audio" ]; then chmod 750 "$DATA_DIR/audio" 2>/dev/null || true; fi
-find "$DATA_DIR" \( -name 'rtp-*.seg' -o -name '*.seg.idx' -o -name '*.wav' -o -name '*.pcap' -o -name '*.g722' \) -type f -exec chmod 640 {} + 2>/dev/null || true
 ok "Directories ready"
 
 # ── Install files ─────────────────────────────────────────────────────────────
@@ -281,6 +275,7 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/get-hwid.js"        "${INSTALL
 install -o root -g voxywatch -m 640 "${EXTRACTED}/migrate_to_db.js"   "${INSTALL_DIR}/migrate_to_db.js" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/generate_pcap.py"   "${INSTALL_DIR}/generate_pcap.py" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/reconstruct_audio.py" "${INSTALL_DIR}/reconstruct_audio.py" 2>/dev/null || true
+install -o root -g voxywatch -m 640 "${EXTRACTED}/extract_dtmf.py"     "${INSTALL_DIR}/extract_dtmf.py" 2>/dev/null || true   # VOXY-D: faltaba instalarlo → [Errno 2] al llamarlo desde server.js
 install -o root -g voxywatch -m 640 "${EXTRACTED}/schema.sql"         "${INSTALL_DIR}/schema.sql" 2>/dev/null || true
 install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTALL_DIR}/WIKI_INTEGRATION.md" 2>/dev/null || true
 
@@ -288,24 +283,7 @@ install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTAL
 # El binario los sirve desde path.dirname(process.execPath) = /opt/voxywatch/
 install -o root -g voxywatch -m 640 "${EXTRACTED}/styles.css" "${INSTALL_DIR}/styles.css" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/app.js"     "${INSTALL_DIR}/app.js"     2>/dev/null || true
-install -o root -g voxywatch -m 640 "${EXTRACTED}/chart.umd.min.js" "${INSTALL_DIR}/chart.umd.min.js" 2>/dev/null || true  # Chart.js self-hosteado (TICKET-021)
-install -o root -g voxywatch -m 640 "${EXTRACTED}/update-checker.js" "${INSTALL_DIR}/update-checker.js" 2>/dev/null || true  # script externalizado (TICKET-021)
 ok "Files installed"
-
-# ── Derivar la versión del BINARIO realmente instalado ────────────────────────
-# El conf debe reflejar lo que de verdad quedó en disco, no la cadena del manifest
-# (raw.githubusercontent tiene cache CDN ~5 min y puede ir atrasado). Preguntamos al
-# binario su versión horneada; si responde algo válido, esa manda.
-BIN_VERSION=$("${INSTALL_DIR}/voxywatch-portal" --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+[A-Za-z0-9.-]*' | head -1)
-if echo "$BIN_VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+'; then
-  if [ -n "$VERSION" ] && [ "$BIN_VERSION" != "$VERSION" ]; then
-    warn "Versión solicitada (${VERSION}) ≠ binario instalado (${BIN_VERSION}); el conf usa la del binario."
-  fi
-  VERSION="$BIN_VERSION"
-  ok "Binary reports version: v${VERSION}"
-else
-  warn "El binario no reportó versión (--version); se usa la del manifiesto: v${VERSION:-?}"
-fi
 
 # ── Write config file ─────────────────────────────────────────────────────────
 cat > "$CONF_FILE" << EOF
@@ -444,8 +422,6 @@ ${REPLICA_ENV}
 Restart=always
 RestartSec=5
 LimitNOFILE=65536
-# TICKET-023: media/trazas (WAV/PCAP) y archivos de estado nacen sin permisos para "otros".
-UMask=0027
 NoNewPrivileges=true
 # SNMP: permitir bindear puertos privilegiados (161 estándar) corriendo como usuario no-root.
 # Compatible con NoNewPrivileges=true (la capability la otorga systemd al exec, no por setuid).
@@ -484,8 +460,6 @@ Environment=PGDATABASE=${DB_NAME}
 Environment=PGUSER=${DB_USER}
 Restart=always
 RestartSec=5
-# TICKET-023: segmentos RTP (.seg/.idx) nacen sin permisos para "otros".
-UMask=0027
 NoNewPrivileges=true
 ProtectSystem=strict
 ReadWritePaths=${DATA_DIR} ${PG_SOCKET_DIR}

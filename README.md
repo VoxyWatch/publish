@@ -120,6 +120,21 @@ From "we have pcaps somewhere" to *"the trunk to Carrier X is degrading, likely 
 
 ---
 
+## 🔒 PCI-DSS — pause/resume recording
+
+Capturing call audio in a contact center that takes **card payments by phone**? VoxyWatch can
+**suppress the audio during the card/CVV window** so it is never stored — required to stay
+PCI-DSS compliant (Req. 3.2: the CVV must never be retained).
+
+- **Programmable on/off** — master switch `pci.enabled` (OFF by default, affects no one) plus
+  per-call control via API: `POST /api/v1/recording/suppress {call_id, action: "pause"|"resume"}`.
+- **Defense in depth (3 layers, matched by SSRC):** the **Probe** drops the RTP *at the source*
+  (the sensitive audio never leaves your network), the **sniffer** never persists it, and the
+  **portal** wipes anything that slips through. SIP/CDR metadata is kept (no card data in it).
+- **Auto-trigger** for trunks/DIDs dedicated to payments, plus a full audit log for your attestation.
+
+---
+
 ## 🧩 What's installed
 
 | Component | Description |

@@ -2,13 +2,13 @@
 
 # 🛰️ VoxyWatch
 
-### The self-hosted SIP capture platform that became a NOC copilot.
+### The agentic NOC for your voice network.
 
-**Capture every call. Understand every carrier. Get told what's failing — before your customers call you.**
+**It doesn't just capture your calls. It watches them, investigates anomalies on its own, tells you the root cause — and learns from every incident.**
 
-VoxyWatch ingests HEP traffic from your entire VoIP estate, correlates it into calls, reconstructs the audio, attributes every call to its carrier and destination country, learns what "normal" looks like for each trunk, and — when something drifts — tells your NOC the *likely root cause and the action to take*, in plain language.
+VoxyWatch ingests HEP traffic from your entire VoIP estate, correlates it into calls with playable audio, attributes every call to its carrier and destination, and learns each trunk's statistical "normal". When something drifts, an **autonomous AI investigator** opens an incident, gathers the evidence (failing calls, dominant SIP codes, carrier-vs-local scope), writes the probable root cause, and pings your phone with **action buttons** — acknowledge, resolve, investigate deeper, or approve a safe remediation. Every resolution it sees makes the next diagnosis smarter.
 
-One self-contained binary. Your hardware. Your data. No cloud, ever.
+One self-contained binary. Your hardware. Your data. No cloud, ever. The AI never touches your SBC.
 
 </div>
 
@@ -36,15 +36,44 @@ Then open **`http://YOUR-IP:3080`**.
 
 ## 💡 Why VoxyWatch
 
-Most capture tools stop at *"here are the packets."* VoxyWatch keeps going:
+Most capture tools stop at *"here are the packets."* Most monitoring tools stop at *"here's a red light."* VoxyWatch closes the whole loop a NOC engineer would:
 
-- **It's passive and safe.** VoxyWatch only *observes* mirrored/HEP traffic. It never touches your SBC, never routes a call, never changes a thing. Zero risk to production.
-- **It speaks carrier, not just packets.** Load your trunks once and every call is attributed to its carrier, direction and destination country — turning raw SIP into business-level analytics.
-- **It learns.** Each trunk builds its own statistical baseline. A trunk whose ASR normally sits at 90% and quietly drops to 70% gets flagged — even though a static 50% threshold would never catch it.
-- **It explains.** The built-in NOC copilot reads the health, the baseline and the recent trend, and writes you the probable cause + the recommended action. Bring your own LLM key; your tokens, your control.
-- **It's honest.** When there isn't enough signal to judge, it says so instead of inventing an alarm.
+**DETECT → INVESTIGATE → DIAGNOSE → NOTIFY → ACT (with your approval) → LEARN**
 
-From "we have pcaps somewhere" to *"the trunk to Carrier X is degrading, likely a 5xx surge on their gateway — here's what to check"* — that's the jump.
+- **It's passive and safe.** VoxyWatch only *observes* mirrored/HEP traffic. It never touches your SBC, never routes a call. The AI has no tool to change your network — by design, not by promise.
+- **It speaks carrier, not just packets.** Every call is attributed to its carrier, direction and destination country — raw SIP becomes business-level analytics.
+- **It learns what's normal.** Each trunk builds its own statistical baseline. The trunk whose ASR quietly drops 90% → 70% gets flagged — even though a static threshold would never catch it. And a trunk that has *always* been mediocre doesn't wake you up at 3 AM.
+- **It investigates before it bothers you.** When an incident opens, the system gathers the evidence on its own — sample failing calls, dominant SIP codes, affected destinations, whether other trunks degraded at the same time (local vs carrier) — and the AI investigator writes the probable cause *citing that evidence*.
+- **It's statistically honest.** Critical alarms require real sample sizes, real measurement coverage and sustained degradation. Validated on production data: **−92% false-critical noise** versus naive thresholds — without losing a single record.
+
+From "we have pcaps somewhere" to *"Incident #41: trunk to Carrier X degrading, 91% of failures are 503s from their gateway, other trunks unaffected → carrier-side issue. [Ack] [Resolve] [Investigate]"* — delivered to your phone. That's the jump.
+
+---
+
+## 🤖 The Agentic NOC
+
+The flagship of VoxyWatch: a virtual NOC engineer that runs the incident loop end-to-end.
+
+### 🚨 Incident engine
+Every anomaly — trunk degradation, capture loss, sniffer down, silent HEP sources, system bottlenecks, global traffic drops, low audio retention — becomes a **persistent incident** with a lifecycle (`open → acknowledged → resolved`), deduplication (one live incident per problem, no alert storms), an **auditable timeline** of everything that happened, and stability-based auto-resolve. A dedicated **Incidents tab** with filters, detail view and one-click actions; open-incident badge in the nav and the notification bell.
+
+### 🔍 Autonomous investigator
+The moment an incident opens, VoxyWatch investigates it **by itself** — no human, no LLM needed yet: it collects sample failing calls, the dominant SIP failure codes, the failing IP paths, affected destinations, and whether *other* trunks degraded at the same time (the local-vs-carrier tell). Then, if you've configured an LLM key, an AI investigator with live tools produces a structured diagnosis: **probable root cause, confidence, scope (carrier / customer / local / capacity), recommended action — citing the evidence**. Budgeted and cached so it can't run up your token bill.
+
+### 📲 Actionable Telegram notifications
+Critical incidents reach your phone with the diagnosis attached and **inline buttons**: `✅ Ack` · `✔ Resolve` · `🔍 Investigate` · plus the **proposed remediation** when one applies. Actions come from a **closed, code-level catalog** (restart the capture sniffer, recompute baselines — never your SBC), execute only after *your* tap, and land in the incident timeline with who-approved-what. Only the configured chat is obeyed.
+
+### 📚 Runbooks + case memory
+Ships with field runbooks (low ASR, packet loss, capture down, traffic drop) that the investigator **follows and cites step by step** — and you can add your own as JSON. When you resolve an incident and write down the cause, that resolution becomes **institutional memory**: the next time the same pattern fires, the diagnosis references it — *"same as incident #123 (Jun 3), resolved: carrier maintenance"*.
+
+### 🛡️ Statistical confidence (anti-false-positives)
+Declaring CRITICAL requires earning it: a **minimum sample** of calls, **measurement coverage** for quality metrics (MOS/loss only alarm when actually measured on enough calls), **deviation from the trunk's own baseline** (chronic mediocrity ≠ incident), and **sustained degradation** across consecutive evaluations. Validated against production incidents: **−92% critical noise**. Everything stays recorded and visible — confidence only gates *what wakes you up*.
+
+### 📋 Capacity forecast & scheduled digest
+Audio retention is **measured, not guessed** (hours of recoverable audio + write rate, exposed in the API) and can open a capacity incident before you run out. A **daily/weekly digest** (incidents, trunk health, volume vs previous period, capacity) lands in Telegram or your webhook on schedule — or on demand via API.
+
+### 🔗 MCP server — your voice network, exposed to *your* agents
+VoxyWatch ships a standalone **Model Context Protocol server**: connect Claude Desktop, Claude Code or any MCP-compatible agent and let it query health, KPIs, trunk status, CDRs and incidents (with evidence and diagnosis) through 6 read-only tools. Authenticated with the same scoped API keys. Your corporate AI can now interrogate your voice network.
 
 ---
 
@@ -89,7 +118,7 @@ From "we have pcaps somewhere" to *"the trunk to Carrier X is degrading, likely 
 - Click any trunk → a **drill-down with charts of its entire history**: volume, ASR/NER, 5xx, ACD, minutes, MOS, loss, PDD, SIP-code & country distributions, inbound/outbound — with the learned **"normal" line** overlaid. Pick 24h / 7d / 30d / Max.
 - History depth is **not capped by code** — it's whatever your CDR retention holds. More disk → more history → a smarter copilot.
 
-### 🤖 NOC AI Copilot  *(bring your own key)*
+### 🤖 NOC AI Copilot — chat with your network  *(bring your own key)*
 - **Per-trunk copilot**: feeds the LLM a compact context (current KPIs + alarms + learned baseline + 48h trend + top SIP codes + destinations) and returns **probable cause → NOC actions → short-term risk**.
 - **NOC summary copilot**: prioritizes and groups all alarming trunks and suggests the action per group.
 - **You bring the key** (OpenAI, Anthropic, Google Gemini, or OpenRouter) — your tokens, your cost, your data path. Off until you enable it.
@@ -113,6 +142,7 @@ From "we have pcaps somewhere" to *"the trunk to Carrier X is degrading, likely 
 - **English & Spanish** UI, switchable per user.
 - **Non-blocking startup** — after a restart the UI and your CDRs/traces/config are usable instantly; live KPIs fill in as history loads in the background. **Capture is never interrupted.**
 - **Self-managing retention** — auto-purge by disk pressure: RTP/audio first, CDRs and recordings protected.
+- **Selective recording** — record audio only for the trunks that matter (SIP/CDR always kept) and stretch your audio retention from hours to days on the same disk.
 - **Hardware-adaptive** — working-set, parse budget and capture capacity derive from the machine's RAM/CPU/disk. No fixed caps; scales from a small VM to a 32-vCPU telco box.
 - **Storage**: PostgreSQL + **TimescaleDB** (hypertables for packets/RTP, a calls table for CDRs, hourly rollups) — provisioned and isolated by the installer on its own port.
 - **One-click auto-update** from the portal (signed, SHA-256 + GPG verified), or via the CLI updater.
@@ -121,9 +151,6 @@ From "we have pcaps somewhere" to *"the trunk to Carrier X is degrading, likely 
 ---
 
 ## 🔒 PCI-DSS — pause/resume recording
-
-> 🚧 **Coming in v2.49.0** — not yet in the stable install channel (current: see `latest.json`).
-> The API/behavior below ships when v2.49.0 is published; it is OFF by default in any case.
 
 Capturing call audio in a contact center that takes **card payments by phone**? VoxyWatch can
 **suppress the audio during the card/CVV window** so it is never stored — required to stay
@@ -134,7 +161,8 @@ PCI-DSS compliant (Req. 3.2: the CVV must never be retained).
 - **Defense in depth (3 layers, matched by SSRC):** the **Probe** drops the RTP *at the source*
   (the sensitive audio never leaves your network), the **sniffer** never persists it, and the
   **portal** wipes anything that slips through. SIP/CDR metadata is kept (no card data in it).
-- **Auto-trigger** for trunks/DIDs dedicated to payments, plus a full audit log for your attestation.
+- **Auto-triggers**: trunks/DIDs dedicated to payments, and **DTMF detection** (SIP INFO) — recording pauses while the customer keys in the card and resumes automatically when the tones stop.
+- Full audit log for your attestation. Configurable from the portal (Settings → Security).
 
 ---
 
@@ -148,6 +176,7 @@ PCI-DSS compliant (Req. 3.2: the CVV must never be retained).
 | `reconstruct_audio.py` | SIPREC stereo audio reconstruction (multi-codec) |
 | `generate_pcap.py` | Per-call PCAP export |
 | PostgreSQL + TimescaleDB | Dedicated, isolated capture database |
+| `voxywatch-mcp.js` | MCP server — expose VoxyWatch to Claude / any MCP-compatible agent (read-only) |
 | `get-hwid.js` | Hardware ID tool for license activation |
 
 ---

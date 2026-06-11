@@ -1,0 +1,116 @@
+# VoxyWatch — Feature Catalog (website source material)
+
+> Source of truth for the website, datasheets and sales decks. Updated for **v2.60** (2026-06-11).
+> Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
+
+---
+
+## 🎯 Positioning
+
+**Primary (EN):** *The agentic NOC for your voice network.*
+**Primary (ES):** *El NOC agéntico para tu red de voz.*
+
+**Subhead (EN):** It doesn't just capture your calls. It watches them, investigates anomalies on its own, tells you the root cause — and learns from every incident.
+**Subhead (ES):** No solo captura tus llamadas. Las vigila, investiga las anomalías por sí solo, te dice la causa raíz — y aprende de cada incidente.
+
+**One-liner alternates:**
+- "From packets to verdicts." / "De paquetes a veredictos."
+- "Your virtual NOC engineer — on your hardware, never in the cloud."
+- "The SIP capture platform that grew a brain."
+
+**The loop (hero diagram):**
+`DETECT → INVESTIGATE → DIAGNOSE → NOTIFY → ACT (human-approved) → LEARN`
+
+**Hard differentiators (vs Homer/VoIPmonitor/etc.):**
+1. Autonomous incident investigation with evidence-cited AI diagnosis.
+2. Per-trunk statistical baselines + anti-false-positive engine (−92% critical noise, validated on production data).
+3. Actionable Telegram notifications with human-approved remediation.
+4. MCP server: your own AI agents can interrogate the platform.
+5. Carrier/country attribution built-in (E.164 engine, 197 country codes).
+6. 100% self-hosted, single binary, the AI never touches the SBC.
+
+---
+
+## 📊 Proof points (real, from production)
+
+| Claim | Number |
+|---|---|
+| Peak traffic validated | ~200,000 calls/hour |
+| Capture loss at peak | 0 packets dropped (kernel drops = 0) |
+| False-critical reduction (anti-FP engine) | −92% vs naive thresholds |
+| Answered calls with playable audio | ~84% (SBC without RTP correlation IDs; 100% with compliant sources) |
+| Portal API latency | < 10 ms typical |
+| Boot to usable UI after update | seconds (non-blocking warm-up) |
+| Security hardening | 2 audits + 1 pentest, 50+ fixes; CSP without unsafe-inline; GPG-signed updates |
+
+---
+
+## 🧱 Feature blocks (website sections)
+
+### 1 · Agentic NOC *(flagship — lead with this)*
+
+| Feature | Copy |
+|---|---|
+| **Incident engine** | Every anomaly becomes a persistent incident with lifecycle (open → ack → resolved), deduplication, auditable timeline and stability-based auto-resolve. No alert storms — one live incident per problem. |
+| **Autonomous investigator** | The moment an incident opens, VoxyWatch gathers evidence by itself: failing call samples, dominant SIP codes, failing IP paths, affected countries, and the carrier-vs-local tell (did other trunks degrade too?). An AI investigator then writes the root cause **citing that evidence**. |
+| **Structured diagnosis** | Probable cause · confidence · scope (carrier / customer / local / capacity) · recommended action. Budgeted & cached LLM usage. Works without an LLM too — raw evidence is always collected. |
+| **Actionable Telegram** | Critical incidents hit your phone with the diagnosis and inline buttons: Ack · Resolve · Investigate · approve the proposed fix. Closed action catalog (never the SBC), full audit trail. |
+| **Runbooks** | Field procedures the investigator follows and cites step by step. Ships with 4; add your own as JSON. |
+| **Case memory** | Human resolutions become institutional memory: "same as incident #123 (Jun 3) — carrier maintenance". The system gets smarter with every incident you close. |
+| **Anti-false-positives** | CRITICAL must be earned: minimum sample size, measurement coverage, deviation from the trunk's *own* baseline, sustained degradation. −92% noise, zero lost records. |
+| **Capacity forecast** | Audio retention measured in hours + write rate; capacity incidents before you run out; daily/weekly digest via Telegram/webhook. |
+| **MCP server** | Standalone Model Context Protocol server: Claude (or any MCP agent) queries health, KPIs, trunks, CDRs and incidents through 6 read-only scoped tools. |
+
+### 2 · Capture & analysis
+
+| Feature | Copy |
+|---|---|
+| Universal HEP capture | HEP v1/v2/v3 over UDP+TCP. Asterisk, Kamailio, OpenSIPS, FreeSWITCH, Oracle/ACME, Ribbon, AudioCodes, Cisco CUBE, RTPEngine, HEPlify, CaptAgent… Auto-detects quirky SBCs. |
+| Own capture probe | `voxywatch-probe` (Go + libpcap, amd64/arm64): sniffs SIP/RTP/RTCP off the NIC and emits HEP v3 for sources that can't. |
+| SIP ladder & dialog analysis | Full request/response ladder, retransmissions, SDP/codec analysis, hold/re-INVITE/NAT detection, dialog-completeness scoring, RFC compliance audit. |
+| Quality metrics | MOS (E-model), jitter, loss, PDD, RTCP enrichment. Honest "not enough signal" instead of invented numbers. |
+| Playable stereo audio | SIPREC reconstruction, caller/callee channels, in-browser player. PCMU/PCMA, G.722, G.729 + AMR/GSM/G.723 via SDP hints. Per-call PCAP export. |
+| Carrier & country attribution | Trunk catalog (IPs/CIDRs/prefixes) → every call attributed to carrier, direction and destination country (ITU-T E.164, longest match). |
+| Trunk health + baselines | Rule engine (ok/warn/critical/idle) with plain-language reasons + per-trunk learned baselines (mean ± σ). Catches the 90%→70% drop a fixed threshold misses. |
+| Dashboard & CDR base | Live KPIs, time-series from continuous rollups, sortable/filterable/CSV CDR base at millions of rows (keyset + trigram search). |
+
+### 3 · Compliance & security
+
+| Feature | Copy |
+|---|---|
+| PCI-DSS recording pause | Audio suppressed during the card/CVV window (Req. 3.2) — 3 defense layers matched by SSRC (probe → sniffer → portal), DTMF auto-trigger, API control, full audit log. OFF by default. |
+| Selective recording | Record audio only for the trunks that matter; stretch audio retention from hours to days on the same disk. SIP/CDR always kept. |
+| Hardened | 2 security audits + pentest (50+ fixes). CSP without unsafe-inline, CSRF/Origin checks, JWT + RBAC, OIDC SSO (Google/Microsoft/Okta/Keycloak/Auth0), optional HTTPS. |
+| Signed supply chain | Releases GPG-signed; installer/updater verifies signature **and** SHA-256 before touching anything. |
+| Self-hosted, period | Your hardware, your data. No cloud dependency. LLM keys are yours (OpenAI/Anthropic/Google/OpenRouter) and optional. |
+
+### 4 · Integration & operations
+
+| Feature | Copy |
+|---|---|
+| REST API v1 | Read-only versioned API: CDRs, traces, audio, health, stats, trunk health, **incidents**. Scoped hashed API keys, IP allowlists, rate limits, problem+json, OpenAPI spec. |
+| SNMP agent | Embedded v2c+v3 agent, 30+ OIDs, edge-triggered traps, downloadable MIB (IANA PEN 65985). |
+| Webhooks | Per-trunk and global, transition-fired (no spam), rich JSON with incident_id. |
+| Self-managing | Hardware-adaptive limits (RAM/CPU/disk derived), retention auto-purge by disk pressure, non-blocking startup, capture never interrupted. |
+| Bilingual | English & Spanish UI, per user. |
+| Storage | PostgreSQL + TimescaleDB (hypertables, compression, hourly rollups) — provisioned and isolated by the installer. |
+
+---
+
+## 💬 FAQ seeds
+
+- **Does the AI touch my SBC?** Never. The action catalog is closed at code level and only contains VoxyWatch-internal operations (e.g. restart its own capture service). There is no tool to modify your network.
+- **Do I need an LLM key?** No. Detection, evidence collection, incidents, baselines and alerting are fully deterministic. The LLM only writes the narrative diagnosis — bring your own key to enable it.
+- **Cloud?** None. Single binary + PostgreSQL on your box. Telemetry is optional and contains no traffic content.
+- **What scale?** Validated at ~200k calls/hour on a 32 vCPU box; limits derive from your hardware, not from the code.
+- **Free tier?** Fully featured, 50 concurrent calls / 1,000 CDRs, no license needed.
+
+---
+
+## 🗒 Notes for the website build
+
+- Lead with the **agentic loop** (animated diagram of DETECT→…→LEARN works well as hero).
+- The Telegram screenshot (incident + buttons) is the single most convincing visual — capture one from production.
+- Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
+- Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.60.

@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.53.0] — 2026-06-11
+
+### Added — Motor de incidentes (NOC Agéntico F1, `docs/DESIGN_NOC_AGENTICO.md` §3)
+- **Toda anomalía se convierte en un incidente persistente** con ciclo de vida (open → ack → resolved), deduplicado por *fingerprint* (máx. 1 sin resolver por objeto) y con **timeline auditable** (`incidents` + `incident_events`, schema v7; el portal también crea las tablas al boot — idempotente).
+- **Detectores** (señales ya existentes, ahora con memoria): transiciones de salud de troncal (`runTrunkHealthAlerts` — registra warn/critical **aunque no haya webhook**), sniffer caído, 0 fuentes HEP, pérdida de captura sostenida (drops de kernel), cuello de sistema crítico sostenido (por recurso), y **caída de tráfico global** vs la norma histórica de la misma hora (14 días).
+- **Anti-flapping de 2º nivel:** la recuperación NO resuelve — marca `recovered` y el incidente se auto-resuelve tras `auto_resolve_stable_min` (default 30) estable; una recaída lo reactiva (evento `relapsed`) y una severidad mayor lo escala (evento `escalated`).
+- **API** `/api/incidents` (lista con filtros), `/summary`, `/:id` (detalle+timeline), `POST /:id/ack|resolve|comment` (roles viewer/operator).
+- **UI**: pestaña principal **Incidentes** (chips de resumen, filtros, tabla, modal de detalle con timeline y acciones) + **badge en el nav** + aviso en la campana. Bilingüe ES/EN (`title_key`+params — el server no fija idioma).
+- El **webhook de alarmas gana `incident_id`** (retro-compatible: el payload existente no cambia).
+- Settings `incidents{enabled,auto_resolve_stable_min,retention_days,volume_global_drop_pct}` — **default ON** (solo registra; notificar llega en F3). Retención de resueltos: 90 días.
+- Pruebas: `test/incidents.test.js` (13 casos del ciclo de vida contra BD real).
+
 ## [2.52.0] — 2026-06-11
 
 ### Security — `style-src` sin `unsafe-inline` (#031)

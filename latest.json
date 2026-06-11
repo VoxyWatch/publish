@@ -1,18 +1,18 @@
 {
-  "version": "2.55.0",
+  "version": "2.56.0",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.55.0/voxywatch-v2.55.0-linux-x64.tar.gz",
-    "sha256": "719be9c91bc84085a277fb5f71151ba7d028e907bd12461553287439f43c8a18",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.55.0/voxywatch-v2.55.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.56.0/voxywatch-v2.56.0-linux-x64.tar.gz",
+    "sha256": "56864a3931b8387834fe4dbd080b8f35fba60c6cfec2cff32c274ace68ab7625",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.56.0/voxywatch-v2.56.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "NOC Agentico F3 — Telegram accionable: incidentes con diagnostico + botones Ack/Resolver/Investigar/accion; catalogo de acciones cerrado con audit-trail. OFF por defecto.",
-    "Incluye F2 (investigador automatico) y F1 (motor de incidentes)."
+    "NOC Agentico F4 — Forecast de capacidad + digest: retencion real de audio en /api/v1/health, incidente capacity configurable, digest diario/semanal por Telegram/webhook + on-demand.",
+    "Incluye F3 (Telegram accionable), F2 (investigador) y F1 (motor de incidentes)."
   ],
   "min_upgrade_from": "1.0.0"
 }

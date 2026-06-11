@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.56.0] — 2026-06-11
+
+### Added — Forecast de capacidad + digest (NOC Agéntico F4, `docs/DESIGN_NOC_AGENTICO.md` §6)
+- **Retención real de audio medida y expuesta**: `computeAudioRetention()` (edad del segmento más viejo + ritmo GB/h) en `/api/v1/health` (campo `audio`) y en el digest. Si cae bajo `digest.capacity_min_audio_h` (default 0 = solo informativo) se abre un **incidente `capacity`** (warn) 1×/día, con recovery automático.
+- **Digest diario/semanal** (determinístico, bilingüe): incidentes del período, salud de troncales, volumen vs período anterior, retención de audio y disco. Envío programado por **Telegram y/o webhook** (`digest.enabled`, `hour`, `period`) y **on-demand**: `GET /api/reports/digest?period=day|week&lang=es|en`.
+- Settings `digest{}` persistibles vía POST /api/settings. OFF por defecto.
+
 ## [2.55.0] — 2026-06-11
 
 ### Added — Telegram accionable + acciones aprobadas (NOC Agéntico F3, `docs/DESIGN_NOC_AGENTICO.md` §5)

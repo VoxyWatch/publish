@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.55.0] — 2026-06-11
+
+### Added — Telegram accionable + acciones aprobadas (NOC Agéntico F3, `docs/DESIGN_NOC_AGENTICO.md` §5)
+- **Canal Telegram nativo opcional** (además del webhook): al abrir/escalar un incidente ≥ `alerts.notify_min_severity` se envía mensaje con KPIs y el 🤖 diagnóstico del investigador (la notificación espera 45 s para incluirlo), con **botones inline**: `✅ Ack` · `✔ Resolver` · `🔍 Investigar` · y la **acción propuesta aplicable**. Resolución automática también notifica.
+- **Catálogo de acciones CERRADO EN CÓDIGO** (allowlist; el SBC no existe aquí): `restart_sniffer` (solo incidentes de captura; reusa el mecanismo D-Bus/polkit existente) y `refresh_baselines`. **Toda aprobación y resultado queda en el timeline** del incidente (eventos `action: approved → done|failed`).
+- **Solo obedece al chat configurado** (`alerts.telegram_chat_id`); long-poll `getUpdates` con offset persistido (no re-procesa tras reinicios); token enmascarado en GET /api/settings.
+- `settings.alerts` ahora **se persiste vía POST /api/settings** (webhook + telegram; antes solo editable a mano).
+- OFF por defecto (`alerts.telegram_enabled=false`). Fix de robustez: el parser del diagnóstico LLM extrae el primer JSON balanceado (fences/texto alrededor ya no lo rompen).
+- Pendiente F3.1: UI de Settings para configurar el canal (hoy vía API/JSON) y acciones snooze/purge.
+
 ## [2.54.0] — 2026-06-11
 
 ### Added — Investigador automático de incidentes (NOC Agéntico F2, `docs/DESIGN_NOC_AGENTICO.md` §4)

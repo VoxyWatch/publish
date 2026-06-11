@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.54.0] — 2026-06-11
+
+### Added — Investigador automático de incidentes (NOC Agéntico F2, `docs/DESIGN_NOC_AGENTICO.md` §4)
+- **Al abrir/escalar un incidente, el sistema investiga solo**: `collectIncidentEvidence` junta evidencia **determinística** (sin LLM) del working-set y los rollups — llamadas de muestra afectadas, códigos SIP dominantes, rutas IP de los fallos, ¿otras troncales degradadas a la vez? (local vs carrier), última hora vs norma — y la guarda en el incidente (evento `evidence`).
+- **Diagnóstico LLM opcional**: un agente investigador (3 tools nuevas: `get_incident`, `get_error_breakdown`, `compare_baseline` + las 5 del copiloto) produce un JSON estructurado `{root_cause_hypothesis, confidence, scope: carrier|cliente|local|capacidad, recommended_action, evidence_cited}` que se guarda en el incidente y se muestra en el modal (🤖 Diagnóstico IA). **Sin API key, el incidente vale igual con la evidencia cruda.**
+- **Presupuesto anti-costo**: máx `incidents.ai_max_per_hour` (default 12) investigaciones/h + cache 5 min por fingerprint. Re-investigación manual: `POST /api/incidents/:id/investigate`.
+- El investigador **jamás propone tocar el SBC** (charter en el prompt y sin tool para ello).
+
 ## [2.53.0] — 2026-06-11
 
 ### Added — Motor de incidentes (NOC Agéntico F1, `docs/DESIGN_NOC_AGENTICO.md` §3)

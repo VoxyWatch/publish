@@ -1,18 +1,18 @@
 {
-  "version": "2.53.0",
+  "version": "2.54.0",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.53.0/voxywatch-v2.53.0-linux-x64.tar.gz",
-    "sha256": "9146d0fd02284de48a6de391e9d9e36ddb3e0b60d486c64d54064e168642c727",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.53.0/voxywatch-v2.53.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.54.0/voxywatch-v2.54.0-linux-x64.tar.gz",
+    "sha256": "1a261af1cc477ba0418cc9832cb3f84358648d6a1c4e17cb869eef70364d98ab",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.54.0/voxywatch-v2.54.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "NOC Agentico F1 — Motor de incidentes: anomalias (troncales/captura/sistema/volumen) → incidentes persistentes con ciclo de vida, dedup, timeline y auto-resolve. Pestaña Incidentes + API /api/incidents + webhook con incident_id.",
-    "Incluye 2.52.0 (CSP style-src sin unsafe-inline) y 2.51.0 (GPG + PCI F2)."
+    "NOC Agentico F2 — Investigador automatico: evidencia deterministica al abrir un incidente + diagnostico LLM estructurado (causa/confianza/scope/accion) con tools nuevas. Presupuesto por hora + cache.",
+    "Incluye 2.53.0 (motor de incidentes F1 + indice del rollup)."
   ],
   "min_upgrade_from": "1.0.0"
 }

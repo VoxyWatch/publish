@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.52.0] — 2026-06-11
+
+### Security — `style-src` sin `unsafe-inline` (#031)
+- Se elimina `'unsafe-inline'` de la directiva **`style-src`** del CSP principal (antes solo `script-src` lo había logrado). El portal endurece así su política contra inyección de estilos.
+- **~510 atributos `style=` inline → clases CSS** (transformación 1:1 con `!important` para preservar la especificidad del inline; **validado pixel-perfect** con Chrome headless: render idéntico salvo el reloj que avanza 1 s).
+- Los **estilos con valores dinámicos** (anchos/colores calculados en runtime) se emiten como `data-vstyle="…"` (un `data-*` no lo bloquea el CSP) y un **MutationObserver** en `app.js` los aplica vía CSSOM (`el.style.cssText`, permitido por CSP) en cuanto el nodo entra al DOM — sin tocar la lógica de cada render.
+- Los `<style>` inline de `index.html` y la página puente SSO reciben **nonce por respuesta** (vía header, no `<meta>`). `blocked.html` conserva su CSP propia con inline (página autónoma de error).
+- Header final: `style-src 'self' 'nonce-…'`. Las asignaciones `element.style.x=` por JS (CSSOM) nunca estuvieron sujetas a `style-src`, así que no se tocaron.
+
 ## [2.51.0] — 2026-06-11
 
 ### Added — firma GPG de releases (#030)

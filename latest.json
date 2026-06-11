@@ -1,19 +1,18 @@
 {
-  "version": "2.51.0",
+  "version": "2.52.0",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.51.0/voxywatch-v2.51.0-linux-x64.tar.gz",
-    "sha256": "3531b9a12896d7382cc54cedd1a8c70603f70964d95249bdfe29a4edaaf5e7f8",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.51.0/voxywatch-v2.51.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.52.0/voxywatch-v2.52.0-linux-x64.tar.gz",
+    "sha256": "5618fbc91c38c543380f903ab12c23d44d6589da12b56018d5bed02255d6cc6e",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.52.0/voxywatch-v2.52.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Firma GPG de releases (#030): install.sh verifica la firma del tarball con la clave embebida, ademas del SHA-256. Retrocompatible.",
-    "Modo PCI F2: auto-pausa de grabacion por DTMF (SIP INFO) + auto-resume + UI en Settings -> Seguridad. Flag OFF por defecto.",
-    "Incluye 2.50.0: audio en trazas con audio_storage='files' (correlacion por SDP)."
+    "style-src sin unsafe-inline (#031): ~510 estilos inline a clases CSS (validado pixel-perfect); dinamicos via data-vstyle + MutationObserver; <style> con nonce por header.",
+    "Incluye 2.51.0 (firma GPG de releases + PCI F2) y 2.50.0 (audio en modo files)."
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -1,18 +1,18 @@
 {
-  "version": "2.59.0",
+  "version": "2.60.0",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.59.0/voxywatch-v2.59.0-linux-x64.tar.gz",
-    "sha256": "c77934939c26a601e020116cbe32c20a278c4b181b2d701f754a0a349a6a4561",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.59.0/voxywatch-v2.59.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.60.0/voxywatch-v2.60.0-linux-x64.tar.gz",
+    "sha256": "3f8753cef8af56e2f6b2f670fa5cfeac483e19d2f2b493a56eb570c4b760440d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.60.0/voxywatch-v2.60.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Grabacion selectiva por troncal (estira retencion de audio), UI Settings→Alertas (Telegram/incidentes/digest desde el portal) y servidor MCP standalone (tools read-only para agentes externos).",
-    "Completa el roadmap NOC Agentico F1-F6."
+    "Anti-falsos-positivos: CRITICAL exige confianza estadistica (muestra >=100, baseline propio, cobertura de medicion MOS/perdida, persistencia 3 evaluaciones). -92% de notificaciones criticas validado vs datos reales.",
+    "Incluye el roadmap NOC Agentico completo (F1-F6)."
   ],
   "min_upgrade_from": "1.0.0"
 }

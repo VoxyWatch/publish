@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.60.0] — 2026-06-11
+
+### Changed — Anti-falsos-positivos: confianza estadística antes de CRITICAL
+Validado contra los 78 incidentes reales de C3ntro: **65 críticos → ~5 que de verdad ameritan despertar a alguien (−92% de ruido)**, sin perder registro ni visibilidad (las razones degradadas se conservan con flag `degraded`).
+1. **Muestra escalonada**: declarar CRITICAL exige ≥ `trunk_health.min_calls_critical` (default 100) llamadas en la ventana; con menos, las razones críticas bajan a warn. *(El 83% del ruido venía de troncales con <100 llamadas.)*
+2. **Severidad adaptativa por baseline**: con baseline maduro, una razón CRITICAL absoluta cuya métrica está dentro de su normal histórico (z < `baseline_z`) baja a warn — *"esa troncal siempre es así"* deja de ser incidente crítico.
+3. **Cobertura de medición**: MOS/pérdida solo alarman si se midieron en ≥ `quality_min_coverage_pct` (default 30%) de las llamadas — en deployments sin RTCP la muestra sesgada ya no domina (eran el 65% de las razones).
+4. **Persistencia**: el incidente de troncal nace warn y solo ESCALA a critical (y notifica) tras `incidents.crit_sustain_evals` (default 3) evaluaciones consecutivas en crítico — un pico de una ventana ya no suena.
+Todo configurable (global y por troncal vía `trunk.health`); afecta severidad de alarmas/incidentes, no las métricas mostradas.
+
 ## [2.59.0] — 2026-06-11
 
 ### Added — Grabación selectiva por troncal (#31)

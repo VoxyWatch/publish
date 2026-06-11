@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.51.0] — 2026-06-11
+
+### Added — firma GPG de releases (#030)
+- El tarball se firma con la clave del vendor (`releases@voxywatch.com`, `80EDE252…`) en `build.sh`/`sign-and-publish.sh` → `*.tar.gz.asc`; `latest.json` gana `linux_x64.signature`.
+- `install.sh` verifica la firma con la **clave pública embebida** (ancla de confianza en el propio script), **además** del SHA-256. Retrocompatible y best-effort: sin firma o sin `gpg` → sigue con SHA; **solo una firma INVÁLIDA aborta**. Protege contra un canal/Releases comprometido (el SHA viene del mismo manifiesto; la firma requiere la clave privada OFFLINE).
+
+### Added — Modo PCI F2: auto-pausa de grabación por DTMF (SIP INFO) + UI
+- `_pciAutoTrigger` gana trigger por **DTMF vía SIP INFO** (`application/dtmf*`, RFC 2976): pausa la grabación mientras llegan dígitos (el cliente teclea su tarjeta) y **auto-reanuda** tras `dtmf_resume_sec` sin tonos. Settings `pci.dtmf_trigger` / `pci.dtmf_resume_sec`.
+- POST `/api/settings` ahora **persiste el bloque `pci`** (merge con el actual → no pierde `sweep_interval_ms`; CSV→array).
+- **UI** en Settings → Seguridad: habilitar PCI, conservar SIP/CDR, trigger por DTMF, ventana de seguridad, troncales/DIDs sensibles. Bilingüe (ES/EN), con clases CSS (sin `style` inline).
+- `pci.enabled` sigue **OFF** por defecto. RFC 2833 (telephone-event en RTP) en modo `audio_storage='files'` queda como extensión (mismo bloqueador que el audio: RTP sin Call-ID en vivo).
+
 ## [2.50.0] — 2026-06-11
 
 ### Fixed — el audio se asocia a las trazas en modo `audio_storage='files'` (correlación por SDP)

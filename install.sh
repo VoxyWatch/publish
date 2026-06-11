@@ -51,6 +51,78 @@ info() { echo -e "${CYAN}  →${NC} $1"; }
 # ssh sin tty, curl|bash sin terminal) — evita el ruido "/dev/tty: No such device".
 tty_ok() { { true </dev/tty; } 2>/dev/null; }
 
+# Clave pública GPG del vendor (VoxyWatch Release Signing Key, 80EDE252…). Embebida AQUÍ a
+# propósito: la confianza se ancla en este install.sh (que el operador revisa al instalar),
+# no en un archivo descargable del mismo repo. Se usa para verificar la firma del tarball.
+_vw_release_pubkey() {
+cat <<'VWPUBKEY'
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+hjRBqQi7zxDox8s=
+=Gmjb
+-----END PGP PUBLIC KEY BLOCK-----
+VWPUBKEY
+}
+
 echo ""
 echo "══════════════════════════════════════════════"
 echo "   VoxyWatch — Installer"
@@ -107,6 +179,7 @@ if [ -z "$VERSION" ]; then
   VERSION=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['version'])" 2>/dev/null \
     || err "Could not parse version from manifest")
   EXPECTED_SHA256=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('linux_x64',{}).get('sha256',''))" 2>/dev/null || echo "")
+  EXPECTED_SIG_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('linux_x64',{}).get('signature',''))" 2>/dev/null || echo "")
 else
   # Version specified manually — fetch its sha256 from the manifest SOLO si el
   # manifiesto describe esa misma versión. El manifiesto es el canal "latest"; si
@@ -117,8 +190,10 @@ else
   MANIFEST_VERSION=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('version',''))" 2>/dev/null || echo "")
   if [ "$MANIFEST_VERSION" = "$VERSION" ]; then
     EXPECTED_SHA256=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('linux_x64',{}).get('sha256',''))" 2>/dev/null || echo "")
+  EXPECTED_SIG_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('linux_x64',{}).get('signature',''))" 2>/dev/null || echo "")
   else
     EXPECTED_SHA256=""
+    EXPECTED_SIG_URL=""
     info "Versión ${VERSION} difiere del canal (${MANIFEST_VERSION:-?}); se omite verificación SHA del manifiesto."
   fi
 fi
@@ -213,6 +288,32 @@ if [ -n "$EXPECTED_SHA256" ] && [ "$EXPECTED_SHA256" != "$ACTUAL_SHA256" ]; then
     Got:      ${ACTUAL_SHA256}"
 fi
 ok "SHA-256 verified: ${ACTUAL_SHA256:0:16}…"
+
+# ── Verify GPG signature (defensa en profundidad, más allá del SHA del manifiesto) ────────────
+# El SHA viene del MISMO manifiesto que la URL → no protege si el canal se compromete. La firma
+# GPG (clave privada del vendor, OFFLINE) sí: quien controle el repo/Releases no puede re-firmar.
+# RETROCOMPATIBLE y best-effort: si el manifiesto no trae firma o no hay gpg, se continúa (el SHA
+# ya validó integridad). SOLO una firma INVÁLIDA aborta la instalación.
+if [ -n "${EXPECTED_SIG_URL:-}" ]; then
+  if command -v gpg >/dev/null 2>&1; then
+    info "Verifying GPG signature..."
+    if curl -fsSL --max-time 30 "$EXPECTED_SIG_URL" -o "${TMPDIR}/${TARBALL_NAME}.asc" 2>/dev/null; then
+      GNUPGHOME_TMP=$(mktemp -d); chmod 700 "$GNUPGHOME_TMP"
+      _vw_release_pubkey | GNUPGHOME="$GNUPGHOME_TMP" gpg --quiet --import 2>/dev/null || true
+      if GNUPGHOME="$GNUPGHOME_TMP" gpg --quiet --verify "${TMPDIR}/${TARBALL_NAME}.asc" "${TMPDIR}/${TARBALL_NAME}" 2>/dev/null; then
+        ok "GPG signature verified (VoxyWatch Release Signing Key)"
+      else
+        rm -rf "$GNUPGHOME_TMP"
+        err "GPG signature INVALID — package tampered or wrong signing key. Aborting install."
+      fi
+      rm -rf "$GNUPGHOME_TMP"
+    else
+      warn "No se pudo descargar la firma; se continúa (SHA-256 ya verificado)."
+    fi
+  else
+    warn "gpg no instalado — se omite verificación de firma (SHA-256 ya verificado). Instala 'gnupg' para defensa en profundidad."
+  fi
+fi
 
 # ── Extract ───────────────────────────────────────────────────────────────────
 info "Extracting..."

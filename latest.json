@@ -1,18 +1,19 @@
 {
-  "version": "2.50.0",
+  "version": "2.51.0",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.50.0/voxywatch-v2.50.0-linux-x64.tar.gz",
-    "sha256": "9fc888e21ba52f10680d8861c394184fce0ea0a4b5966560fdf38d54e00ae9ab"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.51.0/voxywatch-v2.51.0-linux-x64.tar.gz",
+    "sha256": "3531b9a12896d7382cc54cedd1a8c70603f70964d95249bdfe29a4edaaf5e7f8",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.51.0/voxywatch-v2.51.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "AUDIO en trazas con audio_storage='files': el RTP en disco ahora SÍ se asocia a las llamadas.",
-    "Correlacion determinista por el c=/m= del SDP (RFC 3264): .idx enriquecido con dst_ip:dst_port+ventana; ssrc_caller/callee, packets y has_audio correctos. Sin RTCP no inventa MOS.",
-    "Incluye 2.49.4: HWID estable (ignora interfaces virtuales). Retrocompatible; modo 'db' sin cambios."
+    "Firma GPG de releases (#030): install.sh verifica la firma del tarball con la clave embebida, ademas del SHA-256. Retrocompatible.",
+    "Modo PCI F2: auto-pausa de grabacion por DTMF (SIP INFO) + auto-resume + UI en Settings -> Seguridad. Flag OFF por defecto.",
+    "Incluye 2.50.0: audio en trazas con audio_storage='files' (correlacion por SDP)."
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.59.0] — 2026-06-11
+
+### Added — Grabación selectiva por troncal (#31)
+- `recording_scope: {mode: all|trunks, trunks:[ids]}` — con `trunks`, **solo se persiste el RTP/audio de las troncales listadas** (SIP/CDR siempre se guardan) → estira la retención de audio sin comprar disco. Reusa la supresión por SSRC del sniffer (PCI F1b) vía el mismo `pci_suppress.json` — **sin tocar ni reiniciar el sniffer**. Las llamadas sin troncal atribuida se graban (conservador). Default `all` (sin cambio).
+
+### Added — UI de Settings → Alertas
+- Nueva sub-pestaña **Alertas**: webhook (+diagnóstico IA), **Telegram de incidentes** (token/chat/severidad), motor de incidentes (on/off, presupuesto IA/h), **digest** (hora/período/umbral de retención de audio) y **grabación selectiva** — todo lo de F1-F4 y #31 configurable desde el portal, bilingüe.
+
+### Added — Servidor MCP standalone (NOC Agéntico F6.1, `docs/MCP_SERVER.md`)
+- `voxywatch-mcp.js` (Node puro, stdio, JSON-RPC/MCP 2024-11-05): expone `get_health`, `get_stats`, `get_trunks_health`, `get_cdrs`, `get_incidents`, `get_incident` como tools MCP para Claude Desktop/Code u otros agentes. **Cliente del API v1** (hereda API keys/scopes/rate-limit); read-only por diseño. Se empaqueta e instala en `/opt/voxywatch/voxywatch-mcp.js`.
+
 ## [2.58.0] — 2026-06-11
 
 ### Added — Incidentes en la API de integración (NOC Agéntico F6 parcial, `docs/DESIGN_NOC_AGENTICO.md` §8)

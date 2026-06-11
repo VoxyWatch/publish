@@ -1,18 +1,18 @@
 {
-  "version": "2.58.0",
+  "version": "2.59.0",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.58.0/voxywatch-v2.58.0-linux-x64.tar.gz",
-    "sha256": "43395e2db01f5e941e13f882102074869b574dabca59c4489e4e5701fa06b52a",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.58.0/voxywatch-v2.58.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.59.0/voxywatch-v2.59.0-linux-x64.tar.gz",
+    "sha256": "c77934939c26a601e020116cbe32c20a278c4b181b2d701f754a0a349a6a4561",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.59.0/voxywatch-v2.59.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "NOC Agentico F5+F6: runbooks que el investigador sigue y cita, memoria de casos (resoluciones previas del mismo patron), y /api/v1/incidents (scope incidents:read) para ticketing/NOC externo.",
-    "Incluye F1-F4 (motor de incidentes, investigador, Telegram accionable, forecast+digest)."
+    "Grabacion selectiva por troncal (estira retencion de audio), UI Settings→Alertas (Telegram/incidentes/digest desde el portal) y servidor MCP standalone (tools read-only para agentes externos).",
+    "Completa el roadmap NOC Agentico F1-F6."
   ],
   "min_upgrade_from": "1.0.0"
 }

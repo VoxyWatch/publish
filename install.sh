@@ -373,6 +373,7 @@ install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-portal"   "${INSTALL
 mv -f "${INSTALL_DIR}/voxywatch-portal.new" "${INSTALL_DIR}/voxywatch-portal"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/hep_sniffer.py"     "${INSTALL_DIR}/hep_sniffer.py"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/get-hwid.js"        "${INSTALL_DIR}/get-hwid.js"
+[ -f "${EXTRACTED}/voxywatch-mcp.js" ] && install -o root -g voxywatch -m 644 "${EXTRACTED}/voxywatch-mcp.js" "${INSTALL_DIR}/voxywatch-mcp.js"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/migrate_to_db.js"   "${INSTALL_DIR}/migrate_to_db.js" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/generate_pcap.py"   "${INSTALL_DIR}/generate_pcap.py" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/reconstruct_audio.py" "${INSTALL_DIR}/reconstruct_audio.py" 2>/dev/null || true

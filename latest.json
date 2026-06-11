@@ -1,18 +1,18 @@
 {
-  "version": "2.56.0",
+  "version": "2.57.0",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.56.0/voxywatch-v2.56.0-linux-x64.tar.gz",
-    "sha256": "56864a3931b8387834fe4dbd080b8f35fba60c6cfec2cff32c274ace68ab7625",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.56.0/voxywatch-v2.56.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.57.0/voxywatch-v2.57.0-linux-x64.tar.gz",
+    "sha256": "298a4f90f51c01ab78cde4faf2fcbe79df1491f79aae83c2df20fe7a1d4e01a6",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.57.0/voxywatch-v2.57.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "NOC Agentico F4 — Forecast de capacidad + digest: retencion real de audio en /api/v1/health, incidente capacity configurable, digest diario/semanal por Telegram/webhook + on-demand.",
-    "Incluye F3 (Telegram accionable), F2 (investigador) y F1 (motor de incidentes)."
+    "NOC Agentico F5 — Runbooks que el investigador sigue y cita + memoria de casos (resoluciones humanas previas del mismo patron).",
+    "Incluye F4 (forecast+digest), F3 (Telegram accionable), F2 (investigador), F1 (motor de incidentes)."
   ],
   "min_upgrade_from": "1.0.0"
 }

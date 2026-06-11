@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.57.0] — 2026-06-11
+
+### Added — Runbooks + memoria de casos (NOC Agéntico F5, `docs/DESIGN_NOC_AGENTICO.md` §7)
+- **Runbooks**: 4 de fábrica embebidos (`trunk-asr-low`, `trunk-loss-high`, `capture-down`, `volume-drop`) + extensibles/override en `DATA_DIR/runbooks/*.json` (mismo formato `{id, match:{type, reason_prefix}, steps[], default_action}`). Cuando un incidente matchea, **el investigador sigue los pasos y los cita** en su diagnóstico; el runbook queda en la evidencia (`evidence.runbook`).
+- **Memoria de casos**: al investigar, se adjuntan los últimos incidentes **resueltos por humanos** del mismo fingerprint con su resolución (`evidence.similar_cases`) y el investigador los referencia — *"esto ya pasó el día X y se arregló así"*. Las resoluciones que escribes en la UI/Telegram se convierten en conocimiento reutilizable.
+
 ## [2.56.0] — 2026-06-11
 
 ### Added — Forecast de capacidad + digest (NOC Agéntico F4, `docs/DESIGN_NOC_AGENTICO.md` §6)

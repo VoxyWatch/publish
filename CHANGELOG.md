@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.58.0] — 2026-06-11
+
+### Added — Incidentes en la API de integración (NOC Agéntico F6 parcial, `docs/DESIGN_NOC_AGENTICO.md` §8)
+- **`GET /api/v1/incidents`** (lista con filtros) y **`GET /api/v1/incidents/:id`** (detalle + evidencia + diagnóstico + timeline) con **scope nuevo `incidents:read`** — el NOC/ticketing del cliente o un agente externo consume los incidentes con API key (mismo modelo problem+json del API v1).
+- Pendiente F6.1 (turno propio): servidor **MCP** standalone (`voxywatch-mcp`, stdio+SSE) exponiendo las tools del copiloto + incidentes a agentes externos.
+
 ## [2.57.0] — 2026-06-11
 
 ### Added — Runbooks + memoria de casos (NOC Agéntico F5, `docs/DESIGN_NOC_AGENTICO.md` §7)

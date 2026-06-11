@@ -1,18 +1,18 @@
 {
-  "version": "2.57.0",
+  "version": "2.58.0",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.57.0/voxywatch-v2.57.0-linux-x64.tar.gz",
-    "sha256": "298a4f90f51c01ab78cde4faf2fcbe79df1491f79aae83c2df20fe7a1d4e01a6",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.57.0/voxywatch-v2.57.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.58.0/voxywatch-v2.58.0-linux-x64.tar.gz",
+    "sha256": "43395e2db01f5e941e13f882102074869b574dabca59c4489e4e5701fa06b52a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.58.0/voxywatch-v2.58.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "NOC Agentico F5 — Runbooks que el investigador sigue y cita + memoria de casos (resoluciones humanas previas del mismo patron).",
-    "Incluye F4 (forecast+digest), F3 (Telegram accionable), F2 (investigador), F1 (motor de incidentes)."
+    "NOC Agentico F5+F6: runbooks que el investigador sigue y cita, memoria de casos (resoluciones previas del mismo patron), y /api/v1/incidents (scope incidents:read) para ticketing/NOC externo.",
+    "Incluye F1-F4 (motor de incidentes, investigador, Telegram accionable, forecast+digest)."
   ],
   "min_upgrade_from": "1.0.0"
 }

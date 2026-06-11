@@ -1,18 +1,18 @@
 {
-  "version": "2.49.3",
-  "release_date": "2026-06-10",
+  "version": "2.50.0",
+  "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.49.3/voxywatch-v2.49.3-linux-x64.tar.gz",
-    "sha256": "b89781f9fcbfc76ea645ec9f4dd6ce3b726246644a2cbe1897c3063dee615d6b"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.50.0/voxywatch-v2.50.0-linux-x64.tar.gz",
+    "sha256": "9fc888e21ba52f10680d8861c394184fce0ea0a4b5966560fdf38d54e00ae9ab"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "#026 Disconnect Causes de raiz (302 Moved Temporarily ya no cae en 'Sin respuesta').",
-    "#028 la UI no dispara endpoints protegidos antes de login. #029 aviso si SNMP v2c queda expuesto.",
-    "Incluye 2.49.0-2.49.2: login en navegador limpio, /api/calls valida enum, getDbState single-flight. PCI/purga OFF."
+    "AUDIO en trazas con audio_storage='files': el RTP en disco ahora SÍ se asocia a las llamadas.",
+    "Correlacion determinista por el c=/m= del SDP (RFC 3264): .idx enriquecido con dst_ip:dst_port+ventana; ssrc_caller/callee, packets y has_audio correctos. Sin RTCP no inventa MOS.",
+    "Incluye 2.49.4: HWID estable (ignora interfaces virtuales). Retrocompatible; modo 'db' sin cambios."
   ],
   "min_upgrade_from": "1.0.0"
 }

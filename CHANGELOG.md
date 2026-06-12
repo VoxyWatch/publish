@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.62.1] — 2026-06-12
+
+### Fixed — Modo claro legible en todo el portal
+- **Inputs oscuros en tema claro** (login, chat de IA, alta de usuario y otros formularios): la
+  variable `--bg-main` (fondo de campos) existía solo en el tema oscuro, y 9 variables CSS
+  "fantasma" (`--bg-primary`, `--border`, `--accent`… jamás definidas) caían siempre a sus
+  fallbacks oscuros. Todas mapeadas a las variables reales del design system (53 usos en CSS/JS/HTML)
+  y `--bg-main` definida también en claro → campos legibles en ambos temas.
+- El login ya no fuerza fondo oscuro "en ambos temas" (parche viejo): usa las variables del tema.
+- El botón de cambio de tema era casi invisible en modo claro (texto terciario sobre fondo pálido) —
+  ahora usa el color secundario, con buen contraste en ambos temas.
+
 ## [2.62.0] — 2026-06-11
 
 ### Fixed — Visor de flujo SIP: diagrama y estados a nivel experto

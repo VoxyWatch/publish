@@ -1,20 +1,20 @@
 {
-  "version": "2.65.0",
+  "version": "2.66.0",
   "release_date": "2026-06-12",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.65.0/voxywatch-v2.65.0-linux-x64.tar.gz",
-    "sha256": "c2b404893bc4b6d4a05bca87814144e9356f146e0cb2a2b913a0328411a2fd44",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.65.0/voxywatch-v2.65.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.66.0/voxywatch-v2.66.0-linux-x64.tar.gz",
+    "sha256": "5a919285fb21ceab3ec34e9ff08222aa817fbafe60933ac5ce43179ff3037830",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.66.0/voxywatch-v2.66.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Alarmas por patrones aprendidos (Fase 2: \"tu lunes se compara con TUS lunes\")",
-    "Baseline estacional de 168 buckets (día de la semana × hora) por troncal y global, aprendido",
-    "Aprendizaje honesto: sin 2+ semanas de datos el sistema calla (jamás inventa un \"normal\");",
-    "Emite por el motor de incidentes (tipo `pattern`): deduplicación, investigador IA, runbooks y"
+    "Detección temprana de FRAUDE (Fase 3: el caso \"empezó a mandar a Cuba\")",
+    "Destino jamás marcado: si una troncal (o el sistema) empieza a llamar a un país que NO aparece",
+    "Destinos de alto riesgo (IRSF/premium): lista editable con default de la industria (Cuba,",
+    "Tormenta de llamadas cortas: N llamadas contestadas de ≤10 s al mismo destino en la ventana"
   ],
   "min_upgrade_from": "1.0.0"
 }

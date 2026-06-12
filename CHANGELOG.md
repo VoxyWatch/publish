@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.67.0] — 2026-06-12
+
+### Added — UI de alarmas + simulador "¿qué habría alertado?" (Fase 4, cierra el sistema de 3 tipos)
+- **Settings → Alertas → Alarmas**: los 3 tipos ahora se configuran desde el portal, bilingüe:
+  · Tipo 1 (umbrales SIP): **editor de reglas** por clase/código con % warn/critical, filas
+    agregables/eliminables, ventana, muestra mínima y vigilancia de rechazos locales (SBC).
+  · Tipo 2 (patrones aprendidos): semanas de historia, sensibilidad z warn/critical, volumen mínimo.
+  · Tipo 3 (antifraude): umbral de destino nuevo, **lista editable de países de alto riesgo**,
+    tormenta de cortas (duración/llamadas) y país "casa" del % internacional (vacío = se aprende solo).
+- **Simulador integrado**: botón "¿qué habría alertado?" reproduce tus últimos 3/7/14 días de
+  historia real contra la configuración actual (read-only, no dispara nada) y muestra cuántos
+  incidentes habrían sonado por tipo, con ejemplos — calibra ANTES de encender, sin sorpresas.
+  Nuevo endpoint `POST /api/alarms/simulate` (admin, solo lectura).
+
 ## [2.66.0] — 2026-06-12
 
 ### Added — Detección temprana de FRAUDE (Fase 3: el caso "empezó a mandar a Cuba")

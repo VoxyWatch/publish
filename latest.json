@@ -1,20 +1,20 @@
 {
-  "version": "2.63.0",
+  "version": "2.63.1",
   "release_date": "2026-06-12",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.63.0/voxywatch-v2.63.0-linux-x64.tar.gz",
-    "sha256": "14a8f494d6e203b1481e8436fa05448320ba6fb6c37e365a95c8f506b796bb3e",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.63.0/voxywatch-v2.63.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.63.1/voxywatch-v2.63.1-linux-x64.tar.gz",
+    "sha256": "eeac54d5d5c67178bf285dd62ae1dd5993a1de92ff2325ae91854b5f59e0deb7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.63.1/voxywatch-v2.63.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Elementos invisibles desde la CSP: menú de usuario, HEP Sources y más",
-    "Calidad de vida en la UI",
-    "Menú de usuario (arriba a la derecha) restaurado: el bloque con tu usuario, Perfil y Cerrar",
-    "Las fechas de Active HEP Sources mostraban \"1/1970\" (timestamps en segundos tratados como"
+    "Notificaciones de incidentes legibles para humanos",
+    "El diagnóstico de IA llegaba como JSON crudo y cortado a media frase (\"🤖 {\"root_cause_hypothesis\": \"La causa…\"): el investigador tenía un presupuesto de",
+    "IDs internos fuera de los mensajes: el identificador interno de troncal (trk_…) ya no aparece ni en el título ni dentro del diagnóstico — solo el nombre r",
+    "Formato humano: \"Troncal WIND > BICD > DID\" en lugar de \"Trunk … warn (trk_…)\"; KPIs con nombre y unidad (ASR 76.7% · MOS 3.26 · Pérdida 1.3% · PDD 3.2"
   ],
   "min_upgrade_from": "1.0.0"
 }

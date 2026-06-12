@@ -1,20 +1,19 @@
 {
-  "version": "2.66.0",
+  "version": "2.67.0",
   "release_date": "2026-06-12",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.66.0/voxywatch-v2.66.0-linux-x64.tar.gz",
-    "sha256": "5a919285fb21ceab3ec34e9ff08222aa817fbafe60933ac5ce43179ff3037830",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.66.0/voxywatch-v2.66.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.67.0/voxywatch-v2.67.0-linux-x64.tar.gz",
+    "sha256": "f5aaa78a8d145bfdcf850db07b7e758d02460b5fd4ba873257c66754fbb45827",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.67.0/voxywatch-v2.67.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Detección temprana de FRAUDE (Fase 3: el caso \"empezó a mandar a Cuba\")",
-    "Destino jamás marcado: si una troncal (o el sistema) empieza a llamar a un país que NO aparece",
-    "Destinos de alto riesgo (IRSF/premium): lista editable con default de la industria (Cuba,",
-    "Tormenta de llamadas cortas: N llamadas contestadas de ≤10 s al mismo destino en la ventana"
+    "UI de alarmas + simulador \"¿qué habría alertado?\" (Fase 4, cierra el sistema de 3 tipos)",
+    "Settings → Alertas → Alarmas: los 3 tipos ahora se configuran desde el portal, bilingüe:",
+    "Simulador integrado: botón \"¿qué habría alertado?\" reproduce tus últimos 3/7/14 días de"
   ],
   "min_upgrade_from": "1.0.0"
 }

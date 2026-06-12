@@ -16,7 +16,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **Regresión de assets (CSP)**: `index.html` referenciaba Chart.js desde CDN y el update-checker inline — ambos bloqueados por la CSP estricta → gráficas del dashboard sin renderizar. Restaurados `chart.umd.min.js` (verificado contra hash SRI) y `update-checker.js` self-hosted, añadidos a build/install, y check permanente post-deploy.
 - `GET /api/alerts` ya no expone el token del bot de Telegram (solo devuelve la config del webhook).
 - Cambiar el token del bot invalida la identidad cacheada (getMe) y resetea el offset del long-poll (antes la vinculación quedaba muerta hasta 1 h).
-- `POST /api/alerts` preservaba… ahora preserva los campos de Telegram al guardar solo el webhook.
+- `POST /api/alerts` ya no borra los campos de Telegram al guardar solo el webhook.
 - `getMe` fallido se cachea 60 s — abrir "Mis notificaciones" sin salida a internet ya no cuelga 10 s por request.
 
 ## [2.60.0] — 2026-06-11

@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website source material)
 
-> Source of truth for the website, datasheets and sales decks. Updated for **v2.69** (2026-06-11).
+> Source of truth for the website, datasheets and sales decks. Updated for **v2.69** (2026-06-12).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -38,9 +38,10 @@
 | Peak traffic validated | ~200,000 calls/hour |
 | Capture loss at peak | 0 packets dropped (kernel drops = 0) |
 | False-critical reduction (anti-FP engine) | −92% vs naive thresholds |
-| Answered calls with playable audio | ~84% (SBC without RTP correlation IDs; 100% with compliant sources) |
+| Answered calls with playable audio | ~90% (SBC without RTP correlation IDs; 100% with compliant sources) |
+| Calls with BOTH audio directions correlated | ~85% (multi-leg correlation, B2BUA without RTP Call-ID) |
 | Portal API latency | < 10 ms typical |
-| Boot to usable UI after update | seconds (non-blocking warm-up) |
+| Boot to usable UI after update | ~8-11 s with full history visible (working-set snapshot) |
 | Security hardening | 2 audits + 1 pentest, 50+ fixes; CSP without unsafe-inline; GPG-signed updates |
 
 ---
@@ -72,6 +73,7 @@
 | Own capture probe | `voxywatch-probe` (Go + libpcap, amd64/arm64): sniffs SIP/RTP/RTCP off the NIC and emits HEP v3 for sources that can't. |
 | SIP ladder & dialog analysis | Full request/response ladder, retransmissions, SDP/codec analysis, hold/re-INVITE/NAT detection, dialog-completeness scoring, RFC compliance audit. |
 | Quality metrics | MOS (E-model), jitter, loss, PDD, RTCP enrichment. Honest "not enough signal" instead of invented numbers. |
+| **One-way audio detection** | Multi-leg media correlation (handles B2BUA SBCs that keep the Call-ID across legs) tags every answered call: two-way / **one-way** (with which side is missing) / not-correlated. Per-trunk one-way % feeds a configurable alarm with a learned baseline — chronic asymmetry (media bypass) never alerts, only the *change* does. Factory runbook: NAT/firewall tells, codec renegotiation, where to fix it. |
 | Playable stereo audio | SIPREC reconstruction, caller/callee channels, in-browser player. PCMU/PCMA, G.722, G.729 + AMR/GSM/G.723 via SDP hints. Per-call PCAP export. |
 | Carrier & country attribution | Trunk catalog (IPs/CIDRs/prefixes) → every call attributed to carrier, direction and destination country (ITU-T E.164, longest match). |
 | Trunk health + baselines | Rule engine (ok/warn/critical/idle) with plain-language reasons + per-trunk learned baselines (mean ± σ). Catches the 90%→70% drop a fixed threshold misses. |
@@ -95,6 +97,7 @@
 | SNMP agent | Embedded v2c+v3 agent, 30+ OIDs, edge-triggered traps, downloadable MIB (IANA PEN 65985). |
 | Webhooks | Per-trunk and global, transition-fired (no spam), rich JSON with incident_id. |
 | Self-managing | Hardware-adaptive limits (RAM/CPU/disk derived), retention auto-purge by disk pressure, non-blocking startup, capture never interrupted. |
+| Instant restarts | Persistent working-set snapshot: after any update/restart the full call history is visible in seconds (measured in production: ~40k calls restored at second 11) while the background sync converges. |
 | Bilingual | English & Spanish UI, per user. |
 | Storage | PostgreSQL + TimescaleDB (hypertables, compression, hourly rollups) — provisioned and isolated by the installer. |
 

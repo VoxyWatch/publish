@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.70.0] — 2026-06-12
+
+### Added — Perfilador de capacidad: tu servidor se mide solo
+- Cada 5 minutos VoxyWatch registra el par **tráfico ↔ recursos** de TU instalación: CPS,
+  llamadas simultáneas, paquetes/s, tasa de escritura de grabaciones, junto con CPU (sistema,
+  sniffer y portal por separado), RAM, disco (MB/s e IOPS) y red. Todo de `/proc`, costo
+  despreciable, retención 30 días (`settings.capacity_profiler`, apagable).
+- Export en `GET /api/capacity/samples?days=7&format=csv` — la base para dimensionar
+  crecimiento con datos PROPIOS en lugar de estimaciones de folleto (alimenta la calculadora
+  de sizing de VoxyWatch).
+
 ## [2.69.0] — 2026-06-12
 
 ### Added — Snapshot del working-set: la historia visible en segundos tras cada arranque

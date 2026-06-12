@@ -5,6 +5,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.65.0] — 2026-06-12
+
+### Added — Alarmas por patrones aprendidos (Fase 2: "tu lunes se compara con TUS lunes")
+- **Baseline estacional de 168 buckets** (día de la semana × hora) por troncal y global, aprendido
+  de las últimas 4 semanas de tráfico con estadística robusta (mediana/MAD — una falla histórica no
+  contamina el "normal"). Detecta cuando el patrón cambia:
+  · **Picos de volumen** ("martes 02:00 normal ~480 llamadas; van 2,900, z +6.1") — la firma clásica
+    del toll-fraud nocturno se detecta por diseño.
+  · **Silencio anómalo** (troncal que debería tener tráfico a esta hora y cayó) — ambos sentidos.
+  · **ASR que cae / PDD que sube** contra el normal de ESA hora (el ASR nocturno normal difiere del
+    diurno; los umbrales planos no lo saben — este baseline sí).
+- **Aprendizaje honesto**: sin 2+ semanas de datos el sistema calla (jamás inventa un "normal");
+  los buckets maduran solos con el tiempo. Sensibilidad configurable (z robusto warn/critical).
+- Emite por el motor de incidentes (tipo `pattern`): deduplicación, investigador IA, runbooks y
+  notificaciones por usuario. Nace OFF (`settings.pattern_alarms.enabled`).
+- Herramienta de calibración `tools/simulate_seasonal.js`: "¿cuántas alertas habría dado la última
+  semana?" contra los datos reales del cliente, antes de encender.
+
 ## [2.64.0] — 2026-06-12
 
 ### Added — Alarmas de señalización SIP (Fase 1 del sistema de alarmas de 3 tipos)

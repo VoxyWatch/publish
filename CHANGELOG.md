@@ -5,6 +5,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.68.0] — 2026-06-12
+
+### Added — Detección de audio de UN solo sentido (OWA) + correlación multi-leg
+- **Correlación multi-leg**: los SBC B2BUA conservan el Call-ID entre el leg interno y el del
+  carrier; antes el portal mezclaba el SDP de un leg con el del otro y "perdía" el segundo canal
+  de audio. Ahora se rastrean TODOS los endpoints de media de la llamada y se elige el leg con
+  más evidencia → **estéreo real en llamadas que antes salían con un solo canal**.
+- **`media_status` por llamada** (visible en el diagnóstico): `both` (dos sentidos), `one_way`
+  (un sentido fluye y el otro NO — con evidencia del índice de media, no adivinanzas) y
+  `uncorrelated` (la captura no permite afirmar nada — NO se cuenta como falla). También en el
+  API v1 (campos aditivos `media_status`/`owa_side`).
+- **Alarma OWA por troncal** (nace OFF — `owa_enabled` en los umbrales de salud): razón
+  "One-way audio X% of N evaluable" con umbral **configurable** (default warn 5% / critical 15%,
+  muestra mínima 20; global y por troncal, editable en la UI de umbrales) y **baseline
+  aprendido**: la asimetría crónica de una troncal (media bypass, espejado parcial) no alarma —
+  solo el CAMBIO contra su propia norma. El % se mide y el baseline aprende desde ya, aunque la
+  alarma esté apagada; enciéndela tras ver tus números reales. Entra al motor de incidentes con
+  notificaciones, diagnóstico IA y **runbook de fábrica** (qué lado falta, NAT/firewall,
+  renegociación de codecs, el fix va en el SBC del cliente).
+
 ## [2.67.1] — 2026-06-12
 
 ### Fixed — Audio recuperado en llamadas con UN solo sentido correlacionado

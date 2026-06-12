@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website source material)
 
-> Source of truth for the website, datasheets and sales decks. Updated for **v2.60** (2026-06-11).
+> Source of truth for the website, datasheets and sales decks. Updated for **v2.61** (2026-06-11).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -55,6 +55,7 @@
 | **Autonomous investigator** | The moment an incident opens, VoxyWatch gathers evidence by itself: failing call samples, dominant SIP codes, failing IP paths, affected countries, and the carrier-vs-local tell (did other trunks degrade too?). An AI investigator then writes the root cause **citing that evidence**. |
 | **Structured diagnosis** | Probable cause · confidence · scope (carrier / customer / local / capacity) · recommended action. Budgeted & cached LLM usage. Works without an LLM too — raw evidence is always collected. |
 | **Actionable Telegram** | Critical incidents hit your phone with the diagnosis and inline buttons: Ack · Resolve · Investigate · approve the proposed fix. Closed action catalog (never the SBC), full audit trail. |
+| **Per-user notifications** | One bot per installation; each user links their own Telegram with a one-time code (no tokens, no chat IDs) and/or enables email. Actions audited under the real username and gated by role; per-user severity threshold and digest opt-in. Global SMTP with Gmail/365 presets, in-product step-by-step guide and live test. |
 | **Runbooks** | Field procedures the investigator follows and cites step by step. Ships with 4; add your own as JSON. |
 | **Case memory** | Human resolutions become institutional memory: "same as incident #123 (Jun 3) — carrier maintenance". The system gets smarter with every incident you close. |
 | **Anti-false-positives** | CRITICAL must be earned: minimum sample size, measurement coverage, deviation from the trunk's *own* baseline, sustained degradation. −92% noise, zero lost records. |
@@ -113,4 +114,4 @@
 - The Telegram screenshot (incident + buttons) is the single most convincing visual — capture one from production.
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.60.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.61.

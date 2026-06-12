@@ -385,6 +385,9 @@ install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTAL
 # El binario los sirve desde path.dirname(process.execPath) = /opt/voxywatch/
 install -o root -g voxywatch -m 640 "${EXTRACTED}/styles.css" "${INSTALL_DIR}/styles.css" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/app.js"     "${INSTALL_DIR}/app.js"     2>/dev/null || true
+# TICKET-021: Chart.js self-hosted + update-checker externalizado (la CSP bloquea CDN/inline)
+install -o root -g voxywatch -m 640 "${EXTRACTED}/chart.umd.min.js"  "${INSTALL_DIR}/chart.umd.min.js"  2>/dev/null || true
+install -o root -g voxywatch -m 640 "${EXTRACTED}/update-checker.js" "${INSTALL_DIR}/update-checker.js" 2>/dev/null || true
 ok "Files installed"
 
 # ── Write config file ─────────────────────────────────────────────────────────

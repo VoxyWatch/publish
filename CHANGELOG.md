@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.61.0] — 2026-06-11
+
+### Added — Notificaciones POR USUARIO (Telegram + correo)
+- **Telegram por usuario**: un bot por instalación (wizard guiado de 2 minutos con validación en vivo del token) y cada usuario del portal vincula SU chat con un código de un solo uso `VW-XXXXXX` desde Perfil → Mis notificaciones — sin tokens ni chat IDs. Las acciones desde Telegram quedan auditadas con el username real del portal y **gateadas por rol** (viewer recibe sin botones). El chat de sala NOC global pasa a ser **opcional**.
+- **Correo por usuario**: sección **SMTP global** en Settings → Alertas con presets Gmail/Microsoft 365, guía paso a paso en pantalla y correo de prueba en vivo (el error del servidor se muestra tal cual para diagnóstico). Cada usuario activa "recibir incidentes por correo" con su email del perfil; los correos llevan link al portal (`portal_url`).
+- **Preferencias por usuario**: severidad mínima (critical/warn) y digest opt-in, por canal.
+
+### Fixed
+- **Regresión de assets (CSP)**: `index.html` referenciaba Chart.js desde CDN y el update-checker inline — ambos bloqueados por la CSP estricta → gráficas del dashboard sin renderizar. Restaurados `chart.umd.min.js` (verificado contra hash SRI) y `update-checker.js` self-hosted, añadidos a build/install, y check permanente post-deploy.
+- `GET /api/alerts` ya no expone el token del bot de Telegram (solo devuelve la config del webhook).
+- Cambiar el token del bot invalida la identidad cacheada (getMe) y resetea el offset del long-poll (antes la vinculación quedaba muerta hasta 1 h).
+- `POST /api/alerts` preservaba… ahora preserva los campos de Telegram al guardar solo el webhook.
+- `getMe` fallido se cachea 60 s — abrir "Mis notificaciones" sin salida a internet ya no cuelga 10 s por request.
+
 ## [2.60.0] — 2026-06-11
 
 ### Changed — Anti-falsos-positivos: confianza estadística antes de CRITICAL

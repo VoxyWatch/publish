@@ -60,6 +60,8 @@
 | **Case memory** | Human resolutions become institutional memory: "same as incident #123 (Jun 3) — carrier maintenance". The system gets smarter with every incident you close. |
 | **Anti-false-positives** | CRITICAL must be earned: minimum sample size, measurement coverage, deviation from the trunk's *own* baseline, sustained degradation. −92% noise, zero lost records. |
 | **Capacity forecast** | Audio retention measured in hours + write rate; capacity incidents before you run out; daily/weekly digest via Telegram/webhook. |
+| **Three-tier alarms** | (1) Manual thresholds — editable SIP failure-rate rules per class/code, global and per trunk, plus SBC-vs-carrier reject attribution. (2) Learned patterns — a 168-bucket seasonal baseline (day-of-week × hour, robust median/MAD) compares your Monday against *your* Mondays: traffic spikes, anomalous silence, ASR/PDD drift against that hour's normal. (3) Honest learning: without enough history the system stays silent instead of guessing. |
+| **Fraud early-warning** | The "suddenly calling Cuba" detector: alerts the first day a trunk calls a country absent from its last 4 weeks — critical if it's on the (editable) IRSF high-risk list. Plus short-call storms to one destination (premium-number sweeps, hacked PBX — active from day one), abnormal growth to high-risk destinations, and international-mix spikes vs the trunk's own history. Factory runbook included: who originates, time-of-day tells, block at *your* SBC, dispute with the carrier. |
 | **MCP server** | Standalone Model Context Protocol server: Claude (or any MCP agent) queries health, KPIs, trunks, CDRs and incidents through 6 read-only scoped tools. |
 
 ### 2 · Capture & analysis

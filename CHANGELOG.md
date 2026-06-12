@@ -5,6 +5,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.66.0] — 2026-06-12
+
+### Added — Detección temprana de FRAUDE (Fase 3: el caso "empezó a mandar a Cuba")
+- **Destino jamás marcado**: si una troncal (o el sistema) empieza a llamar a un país que NO aparece
+  en sus últimas 4 semanas de tráfico, alerta de inmediato — `warn` si es un país cualquiera,
+  `critical` si está en la lista de alto riesgo. El detector que atrapa la cuenta SIP comprometida
+  el primer día, no en la factura.
+- **Destinos de alto riesgo (IRSF/premium)**: lista editable con default de la industria (Cuba,
+  Somalia, Letonia, Maldivas, Papúa…); tráfico conocido pero MUY por encima de su ritmo típico
+  por ventana → `critical`.
+- **Tormenta de llamadas cortas**: N llamadas contestadas de ≤10 s al mismo destino en la ventana
+  (barrido de números premium / PBX hackeada) — activo desde el día 1, no necesita historial.
+- **Salto del % internacional**: la mezcla nacional/internacional de una troncal se dispara contra
+  su mediana histórica (país "casa" configurable o aprendido solo del tráfico).
+- Todo por el motor de incidentes (tipo `fraud`) con **runbook de fábrica** (quién origina, horario,
+  cortas vs largas, bloquear EN EL SBC del cliente y disputar con el carrier — VoxyWatch nunca toca
+  el SBC). Sin historial maduro los detectores históricos CALLAN (silencio honesto); nace OFF
+  (`settings.fraud_alarms.enabled`).
+- Calibrador `tools/simulate_fraud.js` contra los rollups reales del cliente antes de encender.
+
 ## [2.65.0] — 2026-06-12
 
 ### Added — Alarmas por patrones aprendidos (Fase 2: "tu lunes se compara con TUS lunes")

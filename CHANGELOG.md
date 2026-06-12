@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.62.0] — 2026-06-11
+
+### Fixed — Visor de flujo SIP: diagrama y estados a nivel experto
+- **Flechas y colores del diagrama interactivo restaurados**: el `<style>` embebido en el SVG quedaba bloqueado por la CSP desde v2.52 → el ladder se veía sin colores ni formato. Las reglas viven ahora en la hoja de estilos del portal.
+- **Estados de diálogo SIP correctos según RFC 3261**: los 6xx no estaban contemplados — un `603 Decline` se etiquetaba "en ruta". Ahora: BUSY (486) / BUSY EVERYWHERE (600) / DECLINED (603) / NOT FOUND (404/604) / REDIRECTED (3xx) / AUTH CHALLENGE (401/407 sin resolver) / SERVER ERROR (5xx) / GLOBAL FAILURE (6xx) / CANCELLED vs CANCELLED WHILE RINGING / PROCEEDING / NO RESPONSE — cada uno con su color.
+- **Idiomas**: los estados salían en español fijo ("COMPLETA", "HUÉRFANO") — ahora el servidor manda claves y la UI traduce (inglés primero, español como segundo idioma), consistente con el resto del producto.
+- **El `200 OK` al CANCEL contaba como llamada contestada** → una llamada cancelada mientras timbraba aparecía ACTIVE. El answer ahora exige `CSeq: INVITE`.
+- **Pings OPTIONS fuera del listado de llamadas**: la respuesta `200 OK` del keep-alive creaba una "llamada" Unknown que parecía activa. El diálogo OPTIONS completo (request y respuestas) se excluye de la captura visible.
+
+### Changed — Layout del visor
+- Botón **PCAP** junto a "SIP .txt" en la barra del diagrama; **WAV** al lado izquierdo del reproductor (a la derecha lo tapaba el chat de IA). Título sin "(HEP Trace)".
+
 ## [2.61.1] — 2026-06-11
 
 ### Fixed — Login y modales invisibles (regresión de la CSP v2.52)

@@ -1,18 +1,20 @@
 {
-  "version": "2.61.1",
+  "version": "2.62.0",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.61.1/voxywatch-v2.61.1-linux-x64.tar.gz",
-    "sha256": "3ac2bb877b7872d6474d4170ce77f02b143be317c92114c2db4bbcec593ea20f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.61.1/voxywatch-v2.61.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.62.0/voxywatch-v2.62.0-linux-x64.tar.gz",
+    "sha256": "cfc62d38489985c27e167e74455dee534890083cb38b54fac650cd838f60cbda",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.62.0/voxywatch-v2.62.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Login y modales invisibles (regresión de la CSP v2.52)",
-    "La conversión CSP de estilos inline a clases (v2.52) dejó `display:…!important` en 78 clases"
+    "Visor de flujo SIP: diagrama y estados a nivel experto",
+    "Layout del visor",
+    "Flechas y colores del diagrama interactivo restaurados: el `<style>` embebido en el SVG quedaba bloqueado por la CSP desde v2.52 → el ladder se veía sin colo",
+    "Estados de diálogo SIP correctos según RFC 3261: los 6xx no estaban contemplados — un `603 Decline` se etiquetaba \"en ruta\". Ahora: BUSY (486) / BUSY EVERYW"
   ],
   "min_upgrade_from": "1.0.0"
 }

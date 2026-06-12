@@ -12,7 +12,8 @@
   },
   "changelog": [
     "Notificaciones POR USUARIO (Telegram + correo)",
-    "Fixed"
+    "Correo por usuario: sección SMTP global en Settings → Alertas con presets Gmail/Microsoft 365, guía paso a paso en pantalla y correo de prueba en vivo (el e",
+    "Preferencias por usuario: severidad mínima (critical/warn) y digest opt-in, por canal."
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -1,20 +1,20 @@
 {
-  "version": "2.64.0",
+  "version": "2.65.0",
   "release_date": "2026-06-12",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.64.0/voxywatch-v2.64.0-linux-x64.tar.gz",
-    "sha256": "093d74f066e36f8834cb7aea3b82c528cadc595ab7bb3a59e54be0c762456150",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.64.0/voxywatch-v2.64.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.65.0/voxywatch-v2.65.0-linux-x64.tar.gz",
+    "sha256": "c2b404893bc4b6d4a05bca87814144e9356f146e0cb2a2b913a0328411a2fd44",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.65.0/voxywatch-v2.65.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Alarmas de señalización SIP (Fase 1 del sistema de alarmas de 3 tipos)",
-    "Tasas de fallas por clase y por código SIP, globales y por troncal, sobre ventana configurable:",
-    "¿El rechazo nació en TU SBC o en el carrier? Nueva señal `local_reject`: VoxyWatch sabe qué IP",
-    "Anti-falsos-positivos heredado y propio: muestra mínima por ventana (50 intentos default),"
+    "Alarmas por patrones aprendidos (Fase 2: \"tu lunes se compara con TUS lunes\")",
+    "Baseline estacional de 168 buckets (día de la semana × hora) por troncal y global, aprendido",
+    "Aprendizaje honesto: sin 2+ semanas de datos el sistema calla (jamás inventa un \"normal\");",
+    "Emite por el motor de incidentes (tipo `pattern`): deduplicación, investigador IA, runbooks y"
   ],
   "min_upgrade_from": "1.0.0"
 }

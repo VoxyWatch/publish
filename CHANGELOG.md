@@ -5,6 +5,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.64.0] — 2026-06-12
+
+### Added — Alarmas de señalización SIP (Fase 1 del sistema de alarmas de 3 tipos)
+- **Tasas de fallas por clase y por código SIP**, globales y por troncal, sobre ventana configurable:
+  5xx, 6xx, 4xx "útil" (excluye comportamiento de usuario: auth 401/407, ocupado 480/486, cancel 487)
+  y códigos vigilados con umbrales propios (503, 403, 500, 502, 504, 483 de fábrica — lista editable).
+  Ejemplo: "SIP 503 Service Unavailable: 18.2% de 240 intentos (Troncal X)".
+- **¿El rechazo nació en TU SBC o en el carrier?** Nueva señal `local_reject`: VoxyWatch sabe qué IP
+  emitió cada respuesta — si el rechazo final no vino de ninguna troncal del catálogo, lo generó un
+  elemento local (CAC, límites, auth, ruteo del SBC). Alarma propia: "Local rejects by SBC: 12%".
+- Anti-falsos-positivos heredado y propio: muestra mínima por ventana (50 intentos default),
+  critical solo sostenido (2 evaluaciones), silencio honesto sin muestra suficiente.
+- Todo emite por el motor de incidentes: deduplicación, timeline, investigador IA, runbooks y
+  notificaciones por usuario (Telegram/correo) sin configuración extra. Nace OFF
+  (`settings.sip_alarms.enabled`); reglas y umbrales 100% configurables.
+
 ## [2.63.1] — 2026-06-12
 
 ### Fixed — Notificaciones de incidentes legibles para humanos

@@ -1,20 +1,20 @@
 {
-  "version": "2.68.0",
+  "version": "2.68.1",
   "release_date": "2026-06-12",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.68.0/voxywatch-v2.68.0-linux-x64.tar.gz",
-    "sha256": "871e31ed82615428047c8bdb05a99e932e0a0154f77aba25ce8109faf7265585",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.68.0/voxywatch-v2.68.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.68.1/voxywatch-v2.68.1-linux-x64.tar.gz",
+    "sha256": "89b1cf88ef02fd5942ba003fb11fd10927fd20faa117807ce38f5c1a69fd0331",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.68.1/voxywatch-v2.68.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Detección de audio de UN solo sentido (OWA) + correlación multi-leg",
-    "Correlación multi-leg: los SBC B2BUA conservan el Call-ID entre el leg interno y el del",
-    "`media_status` por llamada (visible en el diagnóstico): `both` (dos sentidos), `one_way`",
-    "Alarma OWA por troncal (nace OFF — `owa_enabled` en los umbrales de salud): razón"
+    "Limpieza de deudas técnicas",
+    "Incidentes de patrones y antifraude ahora se muestran en tu idioma en el portal (antes",
+    "Eliminada la línea de error inofensiva del primer arranque tras actualizar (carrera entre el",
+    "OID base SNMP por defecto = enterprises.65985 (el PEN oficial de IANA de VoxyWatch) en"
   ],
   "min_upgrade_from": "1.0.0"
 }

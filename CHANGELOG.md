@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.63.1] — 2026-06-12
+
+### Fixed — Notificaciones de incidentes legibles para humanos
+- **El diagnóstico de IA llegaba como JSON crudo y cortado a media frase** ("🤖 {"root_cause_hypothesis": "La causa…"): el investigador tenía un presupuesto de tokens corto que truncaba la respuesta del LLM, el parser fallaba con el JSON incompleto y el texto crudo se guardaba tal cual. Triple fix: más presupuesto + prompt acotado a prosa breve, parser con rescate de JSON truncado (extrae los campos aunque venga cortado), y limpieza defensiva al mostrar — también para los diagnósticos antiguos ya guardados (Telegram, correo y portal).
+- **IDs internos fuera de los mensajes**: el identificador interno de troncal (trk_…) ya no aparece ni en el título ni dentro del diagnóstico — solo el nombre real de la troncal.
+- **Formato humano**: "Troncal WIND > BICD > DID" en lugar de "Trunk … warn (trk_…)"; KPIs con nombre y unidad (ASR 76.7% · MOS 3.26 · Pérdida 1.3% · PDD 3.2 s); ✅ en resueltos (antes 🟡); truncado al final de palabra, no a media frase.
+- Nota: los mensajes de incidente RESUELTO no llevan botones a propósito (no hay nada que accionar); los de incidente abierto/escalado conservan Ack · Resolver · Investigar · acción propuesta.
+
 ## [2.63.0] — 2026-06-12
 
 ### Fixed — Elementos invisibles desde la CSP: menú de usuario, HEP Sources y más

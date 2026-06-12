@@ -1,20 +1,20 @@
 {
-  "version": "2.62.0",
+  "version": "2.62.1",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.62.0/voxywatch-v2.62.0-linux-x64.tar.gz",
-    "sha256": "cfc62d38489985c27e167e74455dee534890083cb38b54fac650cd838f60cbda",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.62.0/voxywatch-v2.62.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.62.1/voxywatch-v2.62.1-linux-x64.tar.gz",
+    "sha256": "6a3bbd2ece99630eef52d648358a29fe40cd2a382fa7ba92893b961fbe3a8c63",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.62.1/voxywatch-v2.62.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Visor de flujo SIP: diagrama y estados a nivel experto",
-    "Layout del visor",
-    "Flechas y colores del diagrama interactivo restaurados: el `<style>` embebido en el SVG quedaba bloqueado por la CSP desde v2.52 → el ladder se veía sin colo",
-    "Estados de diálogo SIP correctos según RFC 3261: los 6xx no estaban contemplados — un `603 Decline` se etiquetaba \"en ruta\". Ahora: BUSY (486) / BUSY EVERYW"
+    "Modo claro legible en todo el portal",
+    "Inputs oscuros en tema claro (login, chat de IA, alta de usuario y otros formularios): la",
+    "El login ya no fuerza fondo oscuro \"en ambos temas\" (parche viejo): usa las variables del tema.",
+    "El botón de cambio de tema era casi invisible en modo claro (texto terciario sobre fondo pálido) —"
   ],
   "min_upgrade_from": "1.0.0"
 }

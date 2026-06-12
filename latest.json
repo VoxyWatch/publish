@@ -1,19 +1,19 @@
 {
-  "version": "2.69.0",
+  "version": "2.70.0",
   "release_date": "2026-06-12",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.69.0/voxywatch-v2.69.0-linux-x64.tar.gz",
-    "sha256": "c8b09bb8ebac24cffa8d9ffca8d38761c91f72f8f72d4f4a42146abebc2f626a",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.69.0/voxywatch-v2.69.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.70.0/voxywatch-v2.70.0-linux-x64.tar.gz",
+    "sha256": "73311de6304626619f52b1384c98c9e4350ba1166cedf85bccc1f233c461094f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.70.0/voxywatch-v2.70.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Snapshot del working-set: la historia visible en segundos tras cada arranque",
-    "El portal persiste periódicamente (y al detenerse) un snapshot comprimido del working-set",
-    "Diseño conservador: el snapshot es solo un cache de arranque — nada de lo restaurado se"
+    "Perfilador de capacidad: tu servidor se mide solo",
+    "Cada 5 minutos VoxyWatch registra el par tráfico ↔ recursos de TU instalación: CPS,",
+    "Export en `GET /api/capacity/samples?days=7&format=csv` — la base para dimensionar"
   ],
   "min_upgrade_from": "1.0.0"
 }

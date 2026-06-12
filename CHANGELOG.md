@@ -5,6 +5,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.63.0] — 2026-06-12
+
+### Fixed — Elementos invisibles desde la CSP: menú de usuario, HEP Sources y más
+- **Menú de usuario (arriba a la derecha) restaurado**: el bloque con tu usuario, Perfil y Cerrar
+  sesión era invisible desde v2.52 — el JS lo "mostraba" con un mecanismo que solo funcionaba con
+  los estilos antiguos. Mismo destino sufrían: el cuadro completo de **Active HEP Sources** en
+  Settings (por eso se veía vacío aunque hubiera fuentes), el **ícono del sol** del botón de tema,
+  el **badge de la campana** de notificaciones, el botón de SSO en el login y el panel de
+  diagnóstico del detalle de llamada. Barrido completo: 16 elementos resucitados, patrón erradicado
+  y candado automático para que no pueda volver a entrar.
+- Las fechas de Active HEP Sources mostraban "1/1970" (timestamps en segundos tratados como
+  milisegundos) — visible apenas revivió la tabla; corregido.
+
+### Changed — Calidad de vida en la UI
+- **KPIs con números grandes** (Total calls, Failed, re-INVITEs): notación compacta (41M, 154K)
+  con el número exacto en tooltip — ya no se desbordan de la tarjeta.
+- **La ventana de Settings ahora se puede mover y redimensionar**: arrastra el encabezado para
+  moverla, estira la esquina inferior derecha para cambiar el tamaño (mínimo 720×460, máximo el
+  96% de la pantalla); posición y tamaño se recuerdan, y doble clic en el encabezado restaura el
+  centrado por defecto. El contenido se reacomoda al cambiar el tamaño.
+
 ## [2.62.1] — 2026-06-12
 
 ### Fixed — Modo claro legible en todo el portal

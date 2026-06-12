@@ -11,9 +11,8 @@
     "sha256": ""
   },
   "changelog": [
-    "Notificaciones por usuario: Telegram vinculado con codigo VW- (un bot por instalacion, acciones auditadas por rol) y correo por usuario.",
-    "SMTP global en Settings con presets Gmail/Office365, guia paso a paso y correo de prueba.",
-    "Fix: Chart.js self-hosted y update-checker externalizado (la CSP bloqueaba el CDN y el script inline; graficas del dashboard restauradas)."
+    "Notificaciones POR USUARIO (Telegram + correo)",
+    "Fixed"
   ],
   "min_upgrade_from": "1.0.0"
 }

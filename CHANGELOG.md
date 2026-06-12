@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.68.1] — 2026-06-12
+
+### Fixed — Limpieza de deudas técnicas
+- Incidentes de patrones y antifraude ahora se muestran **en tu idioma** en el portal (antes
+  solo inglés); webhooks y correo conservan el texto EN como referencia estable.
+- Eliminada la línea de error inofensiva del primer arranque tras actualizar (carrera entre el
+  cálculo de baselines y la migración del rollup).
+- OID base SNMP por defecto = **enterprises.65985** (el PEN oficial de IANA de VoxyWatch) en
+  código, UI y ejemplos; instalaciones con OID configurado no cambian.
+- El build ahora ofusca/minifica en un staging — los fuentes del repo jamás se tocan (elimina
+  de raíz la ventana de carrera del empaquetado).
+
 ## [2.68.0] — 2026-06-12
 
 ### Added — Detección de audio de UN solo sentido (OWA) + correlación multi-leg

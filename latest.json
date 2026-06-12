@@ -1,20 +1,20 @@
 {
-  "version": "2.67.1",
+  "version": "2.68.0",
   "release_date": "2026-06-12",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.67.1/voxywatch-v2.67.1-linux-x64.tar.gz",
-    "sha256": "63e256802756f6ba1bdfc15a5796fc32f629f47b59d256bb6e982d7e4fbcbb86",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.67.1/voxywatch-v2.67.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.68.0/voxywatch-v2.68.0-linux-x64.tar.gz",
+    "sha256": "871e31ed82615428047c8bdb05a99e932e0a0154f77aba25ce8109faf7265585",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.68.0/voxywatch-v2.68.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Audio recuperado en llamadas con UN solo sentido correlacionado",
-    "Con SBCs que no etiquetan el RTP con Call-ID, muchas llamadas correlacionan solo el flujo del",
-    "Con un solo sentido se generan igualmente los WAV mono y estéreo (canal duplicado) que el",
-    "El auto-descubrimiento (elegir los 2 flujos más grandes) queda SOLO para llamadas sin ningún"
+    "Detección de audio de UN solo sentido (OWA) + correlación multi-leg",
+    "Correlación multi-leg: los SBC B2BUA conservan el Call-ID entre el leg interno y el del",
+    "`media_status` por llamada (visible en el diagnóstico): `both` (dos sentidos), `one_way`",
+    "Alarma OWA por troncal (nace OFF — `owa_enabled` en los umbrales de salud): razón"
   ],
   "min_upgrade_from": "1.0.0"
 }

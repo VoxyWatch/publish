@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.67.1] — 2026-06-12
+
+### Fixed — Audio recuperado en llamadas con UN solo sentido correlacionado
+- Con SBCs que no etiquetan el RTP con Call-ID, muchas llamadas correlacionan solo el flujo del
+  caller (callee desconocido). La reconstrucción exigía AMBOS SSRC: sin el segundo, apagaba el
+  filtro, cargaba TODOS los flujos de la ventana y "adivinaba" — a alto volumen eso era audio de
+  OTRA llamada, o un timeout que la UI mostraba como "sin audio" **aunque el RTP sí estuviera en
+  disco**. Ahora filtra por el/los SSRC conocidos aunque sea uno solo.
+- Con un solo sentido se generan igualmente los WAV mono y estéreo (canal duplicado) que el
+  reproductor espera — antes no se creaban y el player decía "sin audio".
+- El auto-descubrimiento (elegir los 2 flujos más grandes) queda SOLO para llamadas sin ningún
+  SSRC correlacionado, y jamás pisa un SSRC conocido.
+
 ## [2.67.0] — 2026-06-12
 
 ### Added — UI de alarmas + simulador "¿qué habría alertado?" (Fase 4, cierra el sistema de 3 tipos)

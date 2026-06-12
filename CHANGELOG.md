@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.61.1] — 2026-06-11
+
+### Fixed — Login y modales invisibles (regresión de la CSP v2.52)
+- La conversión CSP de estilos inline a clases (v2.52) dejó `display:…!important` en 78 clases
+  generadas → **ningún elemento mostrado/ocultado por JavaScript podía aparecer**: al expirar la
+  sesión, el login no se mostraba y el portal quedaba "en blanco" (dashboard en ceros, sin datos,
+  sin troncales, sin gráficas); los modales de perfil y cambio de contraseña tampoco abrían.
+  Fix: `display` sin `!important` en las clases generadas — el estado inicial es idéntico y el JS
+  recupera el control, que era la semántica original de los estilos inline. Verificado en vivo:
+  login aparece al expirar la sesión, modales abren y cierran.
+
 ## [2.61.0] — 2026-06-11
 
 ### Added — Notificaciones POR USUARIO (Telegram + correo)

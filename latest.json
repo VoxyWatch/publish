@@ -1,20 +1,19 @@
 {
-  "version": "2.68.1",
+  "version": "2.69.0",
   "release_date": "2026-06-12",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.68.1/voxywatch-v2.68.1-linux-x64.tar.gz",
-    "sha256": "89b1cf88ef02fd5942ba003fb11fd10927fd20faa117807ce38f5c1a69fd0331",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.68.1/voxywatch-v2.68.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.69.0/voxywatch-v2.69.0-linux-x64.tar.gz",
+    "sha256": "c8b09bb8ebac24cffa8d9ffca8d38761c91f72f8f72d4f4a42146abebc2f626a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.69.0/voxywatch-v2.69.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Limpieza de deudas técnicas",
-    "Incidentes de patrones y antifraude ahora se muestran en tu idioma en el portal (antes",
-    "Eliminada la línea de error inofensiva del primer arranque tras actualizar (carrera entre el",
-    "OID base SNMP por defecto = enterprises.65985 (el PEN oficial de IANA de VoxyWatch) en"
+    "Snapshot del working-set: la historia visible en segundos tras cada arranque",
+    "El portal persiste periódicamente (y al detenerse) un snapshot comprimido del working-set",
+    "Diseño conservador: el snapshot es solo un cache de arranque — nada de lo restaurado se"
   ],
   "min_upgrade_from": "1.0.0"
 }

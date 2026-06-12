@@ -1,19 +1,18 @@
 {
-  "version": "2.61.0",
+  "version": "2.61.1",
   "release_date": "2026-06-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.61.0/voxywatch-v2.61.0-linux-x64.tar.gz",
-    "sha256": "3bcab5990cc606619852087fa2b7a7827f9b3fb50a9c7e35bbcb7ea2669b1518",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.61.0/voxywatch-v2.61.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.61.1/voxywatch-v2.61.1-linux-x64.tar.gz",
+    "sha256": "3ac2bb877b7872d6474d4170ce77f02b143be317c92114c2db4bbcec593ea20f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.61.1/voxywatch-v2.61.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Notificaciones POR USUARIO (Telegram + correo)",
-    "Correo por usuario: sección SMTP global en Settings → Alertas con presets Gmail/Microsoft 365, guía paso a paso en pantalla y correo de prueba en vivo (el e",
-    "Preferencias por usuario: severidad mínima (critical/warn) y digest opt-in, por canal."
+    "Login y modales invisibles (regresión de la CSP v2.52)",
+    "La conversión CSP de estilos inline a clases (v2.52) dejó `display:…!important` en 78 clases"
   ],
   "min_upgrade_from": "1.0.0"
 }

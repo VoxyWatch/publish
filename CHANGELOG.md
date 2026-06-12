@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.69.0] — 2026-06-12
+
+### Added — Snapshot del working-set: la historia visible en segundos tras cada arranque
+- El portal persiste periódicamente (y al detenerse) un **snapshot comprimido del working-set**
+  y al arrancar lo usa para mostrar la historia completa de llamadas **de inmediato**, mientras
+  el backfill normal converge contra la base de datos en segundo plano. En servidores grandes
+  el "fondo" del dashboard ya no tarda minutos en aparecer tras una actualización.
+- Diseño conservador: el snapshot es **solo un cache de arranque** — nada de lo restaurado se
+  escribe jamás a la base de datos, lo activo/reciente siempre se reconstruye fresco desde BD,
+  y un snapshot corrupto/ilegible se descarta y elimina solo (auto-sanación), cayendo al
+  arranque normal. Configurable en `settings.ws_snapshot` (ON por defecto; apagable).
+
 ## [2.68.1] — 2026-06-12
 
 ### Fixed — Limpieza de deudas técnicas

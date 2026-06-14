@@ -5,6 +5,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.74.0] — 2026-06-14
+
+### Added — Evidencia accionable en cada incidente (qué troncal, quién origina, qué llamadas)
+- Los incidentes de **fraude** y **patrón** ahora muestran en el detalle la **evidencia que los
+  disparó**: las **troncales que originan** el tráfico al destino sospechoso, **quién lo origina**
+  (número/IP, top), y una **tabla de llamadas de muestra** (hora, origen→destino, resultado,
+  duración) — antes el incidente decía "destino de alto riesgo … global" sin decir de qué troncal
+  ni qué llamadas. Para incidentes de troncal también se muestran los códigos SIP de fallo, las
+  rutas con más fallos y otras troncales degradadas a la vez.
+- Esta evidencia ya se recolectaba para el diagnóstico de la IA pero **no se mostraba en pantalla**;
+  ahora es visible para el operador, con o sin IA.
+
+### Changed — La campana global solo avisa de incidentes del SISTEMA
+- El centro de notificaciones (campana) ahora solo levanta incidentes de **salud de la plataforma**
+  (captura, sistema, capacidad). Las **alarmas NOC de tráfico** (fraude, patrón estacional, salud de
+  troncal, volumen) viven en la vista **Incidentes** con su propio contador — dejan de mezclarse con
+  los avisos del sistema en la campana.
+
 ## [2.73.0] — 2026-06-14
 
 ### Changed — Incidentes más legibles y búsqueda en las vistas operativas

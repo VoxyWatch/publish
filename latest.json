@@ -1,20 +1,20 @@
 {
-  "version": "2.73.0",
+  "version": "2.74.0",
   "release_date": "2026-06-14",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.73.0/voxywatch-v2.73.0-linux-x64.tar.gz",
-    "sha256": "c35b3e753e12c1293a6e94a83a9b8f76ee38928c648b53d550c1a663abe4f4f6",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.73.0/voxywatch-v2.73.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.74.0/voxywatch-v2.74.0-linux-x64.tar.gz",
+    "sha256": "f5112dec374203e3d8ad9a23ad6f3bf9fcb98f5e7345ea2b93ba87c3261c2f41",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.74.0/voxywatch-v2.74.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Incidentes más legibles y búsqueda en las vistas operativas",
-    "Texto en español filtrado en Settings → IA (inglés)",
-    "En la lista de incidentes, la columna Objeto ya muestra el nombre de la troncal (o una",
-    "El detalle del incidente presenta los KPIs como tarjetas etiquetadas con unidad"
+    "Evidencia accionable en cada incidente (qué troncal, quién origina, qué llamadas)",
+    "La campana global solo avisa de incidentes del SISTEMA",
+    "Los incidentes de fraude y patrón ahora muestran en el detalle la evidencia que los",
+    "Esta evidencia ya se recolectaba para el diagnóstico de la IA pero no se mostraba en pantalla;"
   ],
   "min_upgrade_from": "1.0.0"
 }

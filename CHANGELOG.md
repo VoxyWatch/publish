@@ -5,6 +5,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.73.0] — 2026-06-14
+
+### Changed — Incidentes más legibles y búsqueda en las vistas operativas
+- En la lista de incidentes, la columna **Objeto** ya muestra el **nombre de la troncal** (o una
+  etiqueta clara para objetos del sistema: Captura, Recepción HEP, Sistema) en lugar del id
+  interno crudo tipo `trk_…` que no le decía nada al operador.
+- El **detalle del incidente** presenta los KPIs como **tarjetas etiquetadas con unidad**
+  (ASR %, PDD ms, MOS, Pérdida %, etc.) en vez de una sola línea con claves crípticas; el
+  diagnóstico de la IA va ahora en su propio bloque destacado.
+- Nuevo **buscador** en **Monitoreo** (por troncal) e **Incidentes** (por incidente o troncal),
+  complementando el que ya existía en Troncales — para llegar rápido a lo que importa.
+
+### Fixed — Texto en español filtrado en Settings → IA (inglés)
+- El consejo del modelo de IA (formato OpenRouter / "dejar vacío para el modelo por defecto")
+  estaba escrito a fuego en español y aparecía en inglés también. Ahora respeta el idioma del
+  usuario (EN/ES).
+
 ## [2.72.0] — 2026-06-14
 
 ### Added — Tour de descubrimiento para todos los usuarios

@@ -1,19 +1,20 @@
 {
-  "version": "2.72.0",
+  "version": "2.73.0",
   "release_date": "2026-06-14",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.72.0/voxywatch-v2.72.0-linux-x64.tar.gz",
-    "sha256": "13696e107bbf1f246dc79ed354fb66da6b9062e028416c374fed508046d67328",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.72.0/voxywatch-v2.72.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.73.0/voxywatch-v2.73.0-linux-x64.tar.gz",
+    "sha256": "c35b3e753e12c1293a6e94a83a9b8f76ee38928c648b53d550c1a663abe4f4f6",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.73.0/voxywatch-v2.73.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Tour de descubrimiento para todos los usuarios",
-    "La primera vez que cualquier usuario entra, un recorrido guiado resalta una por una las",
-    "Adaptado al rol: cada quien ve solo lo que su rol permite. Se muestra una sola vez por"
+    "Incidentes más legibles y búsqueda en las vistas operativas",
+    "Texto en español filtrado en Settings → IA (inglés)",
+    "En la lista de incidentes, la columna Objeto ya muestra el nombre de la troncal (o una",
+    "El detalle del incidente presenta los KPIs como tarjetas etiquetadas con unidad"
   ],
   "min_upgrade_from": "1.0.0"
 }

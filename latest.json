@@ -1,20 +1,19 @@
 {
-  "version": "2.71.0",
+  "version": "2.72.0",
   "release_date": "2026-06-14",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.71.0/voxywatch-v2.71.0-linux-x64.tar.gz",
-    "sha256": "87b412fb8e6a181d3759cf8a44cfb3fe4914c6980006d5671a2389588b4f15d5",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.71.0/voxywatch-v2.71.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.72.0/voxywatch-v2.72.0-linux-x64.tar.gz",
+    "sha256": "13696e107bbf1f246dc79ed354fb66da6b9062e028416c374fed508046d67328",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.72.0/voxywatch-v2.72.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Onboarding del primer admin: que no se te pase configurar nada",
-    "Nueva pestaña \"Primeros pasos\" en Settings con una checklist que se detecta a sí misma:",
-    "Recordatorio en la campana mientras falten los 3 esenciales — un canal de avisos",
-    "Además lista los recomendados (captura HEP recibiendo, cambiar contraseña por defecto, copiloto"
+    "Tour de descubrimiento para todos los usuarios",
+    "La primera vez que cualquier usuario entra, un recorrido guiado resalta una por una las",
+    "Adaptado al rol: cada quien ve solo lo que su rol permite. Se muestra una sola vez por"
   ],
   "min_upgrade_from": "1.0.0"
 }

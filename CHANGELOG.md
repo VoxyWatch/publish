@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.72.0] — 2026-06-14
+
+### Added — Tour de descubrimiento para todos los usuarios
+- La primera vez que cualquier usuario entra, un **recorrido guiado** resalta una por una las
+  funciones clave — Dashboard, Llamadas (escalera SIP/audio/PCAP), CDRs, Monitoreo de troncales,
+  Incidentes, copiloto de IA, avisos y **cómo vincular tu Telegram/correo** — para que nadie se
+  pierda lo que la herramienta puede hacer.
+- **Adaptado al rol**: cada quien ve solo lo que su rol permite. Se muestra una sola vez por
+  usuario (recordado en su perfil) y queda un botón **"?"** en la barra superior para repetirlo
+  cuando quieras. Bilingüe EN/ES.
+
 ## [2.71.0] — 2026-06-14
 
 ### Added — Onboarding del primer admin: que no se te pase configurar nada

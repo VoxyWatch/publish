@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.71.0] — 2026-06-14
+
+### Added — Onboarding del primer admin: que no se te pase configurar nada
+- Nueva pestaña **"Primeros pasos"** en Settings con una checklist que **se detecta a sí misma**:
+  marca lo que ya configuraste y resalta lo que falta, con una línea de "por qué importa" y un
+  botón que te lleva directo a cada sección. Barra de progreso de lo esencial.
+- **Recordatorio en la campana** mientras falten los 3 esenciales — un **canal de avisos**
+  (Telegram, correo o webhook), **al menos una troncal** y **al menos una alarma encendida** —;
+  desaparece solo cuando los tres están listos. No bloquea el uso del portal.
+- Además lista los recomendados (captura HEP recibiendo, cambiar contraseña por defecto, copiloto
+  IA, grabación, HTTPS, licencia) con su estado. Bilingüe EN/ES, solo para administradores.
+
 ## [2.70.1] — 2026-06-14
 
 ### Fixed — Telemetría: dejar de gastar cuota del vendor en métricas de rendimiento

@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.70.1] — 2026-06-14
+
+### Fixed — Telemetría: dejar de gastar cuota del vendor en métricas de rendimiento
+- El temporizador de operaciones (`startTimer`) mandaba un evento a Sentry CADA vez que el parse
+  incremental pasaba 500 ms — que en producción de alto volumen es lo NORMAL (2-3 s por ciclo).
+  Resultado: ~17 mil eventos/día de pura métrica (no errores) agotaban la cuota. La saturación
+  real ya la ve el operador EN EL PRODUCTO (detector de cuello + banner); el rendimiento dejó de
+  viajar como evento de error.
+- **Candado durable**: rate-limiter de cliente en la telemetría — un mismo error se reporta como
+  máximo 5 veces por hora; el resto se descarta antes de salir. Ninguna avalancha futura (un
+  `console.error` en bucle) puede volver a llenar la cuota.
+
 ## [2.70.0] — 2026-06-12
 
 ### Added — Perfilador de capacidad: tu servidor se mide solo

@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.75.1] — 2026-06-15
+
+### Fixed — Limpieza de UI (auditoría de "botones sueltos")
+- Eliminado código muerto de descarga de PCAP en el visor de reconstrucción de audio (apuntaba a
+  un botón inexistente; la descarga de PCAP sigue disponible en el visor de flujo SIP).
+- Agregada la traducción faltante del texto de ayuda "Límite de RAM de parseo" (se mostraba en
+  inglés en los demás idiomas).
+
 ## [2.75.0] — 2026-06-15
 
 ### Added — Alarma OWA "solo baseline" (para redes con audio unidireccional estructural)

@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.74.1] — 2026-06-15
+
+### Fixed — La evidencia de los incidentes de fraude/patrón salía vacía
+- El recolector de evidencia (v2.74.0) comparaba el timestamp de la llamada (en **segundos**) contra
+  una ventana calculada en **milisegundos**, así que descartaba TODAS las llamadas → `by_trunk`,
+  `quién origina` y `llamadas de muestra` salían vacíos aunque el incidente fuera real. Corregido a
+  segundos en fraude y patrón; ahora la evidencia muestra las troncales y llamadas que dispararon la
+  alarma.
+
 ## [2.74.0] — 2026-06-14
 
 ### Added — Evidencia accionable en cada incidente (qué troncal, quién origina, qué llamadas)

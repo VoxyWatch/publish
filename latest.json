@@ -1,20 +1,18 @@
 {
-  "version": "2.74.0",
+  "version": "2.74.1",
   "release_date": "2026-06-14",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.74.0/voxywatch-v2.74.0-linux-x64.tar.gz",
-    "sha256": "f5112dec374203e3d8ad9a23ad6f3bf9fcb98f5e7345ea2b93ba87c3261c2f41",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.74.0/voxywatch-v2.74.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.74.1/voxywatch-v2.74.1-linux-x64.tar.gz",
+    "sha256": "4d8a6a2fddda057922915d6ae9ec96f4e603e190c01445ee85f3a57bd56263c4",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.74.1/voxywatch-v2.74.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Evidencia accionable en cada incidente (qué troncal, quién origina, qué llamadas)",
-    "La campana global solo avisa de incidentes del SISTEMA",
-    "Los incidentes de fraude y patrón ahora muestran en el detalle la evidencia que los",
-    "Esta evidencia ya se recolectaba para el diagnóstico de la IA pero no se mostraba en pantalla;"
+    "La evidencia de los incidentes de fraude/patrón salía vacía",
+    "El recolector de evidencia (v2.74.0) comparaba el timestamp de la llamada (en segundos) contra"
   ],
   "min_upgrade_from": "1.0.0"
 }

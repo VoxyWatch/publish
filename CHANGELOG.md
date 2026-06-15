@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.75.0] — 2026-06-15
+
+### Added — Alarma OWA "solo baseline" (para redes con audio unidireccional estructural)
+- Nuevo flag **`owa_baseline_only`** (OFF por defecto) en los umbrales de salud de troncal. Cuando
+  está ON (con la alarma OWA encendida), VoxyWatch **ignora el umbral fijo de % one-way** y alerta
+  **únicamente cuando una troncal se sale de SU PROPIO normal histórico** (desviación del baseline).
+- Pensado para redes donde el audio unidireccional es **estructural** (media bypass / el SBC no
+  espeja ambas patas de RTP a la captura): ahí el % one-way crónico es normal y un umbral fijo
+  inundaría de falsos críticos. En modo solo-baseline el nivel crónico queda absorbido y solo
+  alerta el **cambio** — exactamente "la asimetría crónica nunca alerta, solo el cambio".
+- El % OWA se sigue midiendo y mostrando siempre; esto solo cambia cuándo **alarma**. Configurable
+  global y por troncal, bilingüe.
+
 ## [2.74.1] — 2026-06-15
 
 ### Fixed — La evidencia de los incidentes de fraude/patrón salía vacía

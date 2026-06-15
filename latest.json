@@ -1,18 +1,20 @@
 {
-  "version": "2.74.1",
+  "version": "2.75.0",
   "release_date": "2026-06-14",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.74.1/voxywatch-v2.74.1-linux-x64.tar.gz",
-    "sha256": "4d8a6a2fddda057922915d6ae9ec96f4e603e190c01445ee85f3a57bd56263c4",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.74.1/voxywatch-v2.74.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.75.0/voxywatch-v2.75.0-linux-x64.tar.gz",
+    "sha256": "ac32215ac6723666a843fd483253612ac15e628c8b4c2dd788b513f9fa3773cb",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.75.0/voxywatch-v2.75.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "La evidencia de los incidentes de fraude/patrón salía vacía",
-    "El recolector de evidencia (v2.74.0) comparaba el timestamp de la llamada (en segundos) contra"
+    "Alarma OWA \"solo baseline\" (para redes con audio unidireccional estructural)",
+    "Nuevo flag `owa_baseline_only` (OFF por defecto) en los umbrales de salud de troncal. Cuando",
+    "Pensado para redes donde el audio unidireccional es estructural (media bypass / el SBC no",
+    "El % OWA se sigue midiendo y mostrando siempre; esto solo cambia cuándo alarma. Configurable"
   ],
   "min_upgrade_from": "1.0.0"
 }

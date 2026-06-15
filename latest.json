@@ -1,19 +1,19 @@
 {
-  "version": "2.75.1",
+  "version": "2.76.0",
   "release_date": "2026-06-15",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.75.1/voxywatch-v2.75.1-linux-x64.tar.gz",
-    "sha256": "aa71afe8958d4fa0b92b2c60d19a41faa04b3f85ee85e5c52d33ad3865bc67b1",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.75.1/voxywatch-v2.75.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.76.0/voxywatch-v2.76.0-linux-x64.tar.gz",
+    "sha256": "3867191c86cc967cbc167404a1785bb8fe79e14b985453519931ffe1783998cf",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.76.0/voxywatch-v2.76.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Limpieza de UI (auditoría de \"botones sueltos\")",
-    "Eliminado código muerto de descarga de PCAP en el visor de reconstrucción de audio (apuntaba a",
-    "Agregada la traducción faltante del texto de ayuda \"Límite de RAM de parseo\" (se mostraba en"
+    "La traza SIP, el análisis RFC y el copiloto SIP ahora son para TODOS los roles",
+    "La escalera SIP, el análisis de cumplimiento RFC y el copiloto experto en SIP pasan de",
+    "El audio (reproducción/descarga/reconstrucción/PCAP) sigue siendo *operator+* (es contenido de"
   ],
   "min_upgrade_from": "1.0.0"
 }

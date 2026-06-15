@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.76.0] — 2026-06-15
+
+### Changed — La traza SIP, el análisis RFC y el copiloto SIP ahora son para TODOS los roles
+- La **escalera SIP**, el **análisis de cumplimiento RFC** y el **copiloto experto en SIP** pasan de
+  requerir rol *operator* a estar disponibles también para **viewer** — son funciones de
+  **solo-lectura** (ver/analizar una traza), coherentes con lo que un viewer ya puede consultar en
+  los CDRs. Así cualquier usuario diagnostica una llamada sin necesitar permisos elevados.
+- El **audio** (reproducción/descarga/reconstrucción/PCAP) sigue siendo *operator+* (es contenido de
+  llamada, más sensible). Descripciones de rol actualizadas en consecuencia.
+
 ## [2.75.1] — 2026-06-15
 
 ### Fixed — Limpieza de UI (auditoría de "botones sueltos")

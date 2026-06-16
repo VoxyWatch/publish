@@ -1,20 +1,19 @@
 {
-  "version": "2.77.0",
+  "version": "2.78.0",
   "release_date": "2026-06-16",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.77.0/voxywatch-v2.77.0-linux-x64.tar.gz",
-    "sha256": "c9c2a6b0e95dc8ed99709b44209e1d52abe898cc810f62009fbfe305fd206882",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.77.0/voxywatch-v2.77.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.78.0/voxywatch-v2.78.0-linux-x64.tar.gz",
+    "sha256": "d9869dbe0764d7f42b62a6670f1878ad1d7c72210d852d86e55d57ce7c808dfc",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.78.0/voxywatch-v2.78.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Importar troncales desde tu configuración de Asterisk",
-    "En Troncales → Importar, nueva opción \"¿Usas Asterisk?\": sube tu `sip.conf` /",
-    "Soporta chan_sip (peers `host=`) y PJSIP (cose endpoint↔aor↔identify), plantillas `(!)`",
-    "Vista previa antes de importar: muestra qué troncales/IPs/prefijos detectó y los avisos"
+    "Settings visible en solo-lectura para todos los roles",
+    "Ahora cualquier usuario (viewer/operator) puede ver la configuración (alarmas, IA,",
+    "Solo admin puede modificar: los guardados siguen bloqueados por RBAC en el backend; para"
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.78.0] — 2026-06-16
+
+### Changed — Settings visible en solo-lectura para todos los roles
+- Ahora **cualquier usuario** (viewer/operator) puede **ver** la configuración (alarmas, IA,
+  integraciones, notificaciones, SNMP, PCI…) en **modo solo-lectura** — antes era admin-only y ni
+  se veía. Ayuda a operadores (transparencia de cómo están configuradas las alarmas) y luce el
+  producto completo en demos.
+- **Solo admin puede modificar**: los guardados siguen bloqueados por RBAC en el backend; para
+  no-admin la UI muestra Settings deshabilitado con un aviso "Vista de solo lectura". Todos los
+  secretos (contraseñas, API keys, tokens, claves SNMP v3) siguen enmascarados para todos.
+
 ## [2.77.0] — 2026-06-16
 
 ### Added — Importar troncales desde tu configuración de Asterisk

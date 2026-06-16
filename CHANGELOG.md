@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.77.0] — 2026-06-16
+
+### Added — Importar troncales desde tu configuración de Asterisk
+- En **Troncales → Importar**, nueva opción **"¿Usas Asterisk?"**: sube tu `sip.conf` /
+  `pjsip.conf` / `extensions.conf` y VoxyWatch **detecta solo las troncales, sus IPs y sus
+  prefijos** — sin capturarlas a mano una por una. Pensado para clientes Asterisk.
+- Soporta **chan_sip** (peers `host=`) y **PJSIP** (cose endpoint↔aor↔identify), plantillas `(!)`
+  y herencia, y deriva los **prefijos** del dialplan siguiendo los `Dial(.../@troncal)`. Los
+  hostnames se resuelven a IP automáticamente (best-effort).
+- **Vista previa antes de importar**: muestra qué troncales/IPs/prefijos detectó y los avisos
+  (host dinámico, sin resolver, etc.) — tú confirmas el merge. Bilingüe EN/ES.
+
 ## [2.76.0] — 2026-06-15
 
 ### Changed — La traza SIP, el análisis RFC y el copiloto SIP ahora son para TODOS los roles

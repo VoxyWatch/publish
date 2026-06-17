@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.80.2] — 2026-06-17
+
+### Changed — Rango de tiempo por defecto: últimas 24 h (antes "Todo")
+El selector de tiempo global (Dashboard, CDRs y lista de Llamadas) ahora arranca en **24h** en vez de **Todo** — vista más rápida y relevante al abrir. El rango del detalle de troncal también arranca en 24h. "Todo" y los demás rangos siguen disponibles con un clic.
+
 ## [2.80.1] — 2026-06-17
 
 ### Fixed — Migración del updater se mataba a sí misma (hotfix de 2.80.0)

@@ -683,9 +683,13 @@ ok "Systemd units installed and enabled"
 #
 # MIGRACIÓN: si esta instalación venía con el auto-updater viejo (timer/servicio
 # diario que aplicaba solo), lo retiramos aquí. Idempotente: si no existe, no hace nada.
+# ⚠ OJO (lección v2.80.1): cuando el updater VIEJO dispara este install.sh, lo corre DENTRO
+# de `voxywatch-update.service`. Por eso NUNCA hacemos `systemctl stop voxywatch-update.service`
+# aquí — nos mataríamos a nosotros mismos (SIGTERM) a media instalación. Basta con deshabilitar
+# el TIMER (corta disparos futuros) y BORRAR los archivos de unidad: el oneshot en curso termina
+# solo y `daemon-reload` no mata procesos vivos.
 info "Removing legacy auto-updater (updates are now opt-in from the portal)..."
 systemctl disable --now voxywatch-update.timer >/dev/null 2>&1 || true
-systemctl stop voxywatch-update.service >/dev/null 2>&1 || true
 rm -f /etc/systemd/system/voxywatch-update.timer \
       /etc/systemd/system/voxywatch-update.service \
       "${INSTALL_DIR}/voxywatch-update.sh" 2>/dev/null || true

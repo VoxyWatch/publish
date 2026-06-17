@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.80.1] — 2026-06-17
+
+### Fixed — Migración del updater se mataba a sí misma (hotfix de 2.80.0)
+Cuando un cliente con el auto-updater VIEJO se actualizaba a 2.80, el instalador corría dentro de `voxywatch-update.service` y la migración hacía `systemctl stop voxywatch-update.service` → se enviaba SIGTERM a sí mismo a media instalación y el portal quedaba abajo. Ahora la migración solo deshabilita el timer y borra los archivos de unidad (el oneshot termina solo). Si te pasó: corre el instalador una vez desde shell y queda.
+
 ## [2.80.0] — 2026-06-17
 
 ### Changed — Actualizaciones opt-in: el portal avisa, tú actualizas con un clic

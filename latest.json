@@ -1,17 +1,17 @@
 {
-  "version": "2.80.0",
+  "version": "2.80.1",
   "release_date": "2026-06-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.80.0/voxywatch-v2.80.0-linux-x64.tar.gz",
-    "sha256": "6835dc222aaa3e1396505ddf324dd82bccb2ac0def02dd756ad9d69a68401224",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.80.0/voxywatch-v2.80.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.80.1/voxywatch-v2.80.1-linux-x64.tar.gz",
+    "sha256": "e7ae36dc2c9c6afc55cc305d4a7fe7c8d683276784b5f7870bbeaa6b24e60a8a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.80.1/voxywatch-v2.80.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Actualizaciones opt-in: el portal avisa, tú actualizas con un clic"
+    "Migración del updater se mataba a sí misma (hotfix de 2.80.0)"
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.81.1] — 2026-06-17
+
+### Security — El SRS SIPREC arranca apagado por default (hotfix de v2.81.0)
+En v2.81.0 el servidor SIPREC podía abrir el puerto `5060` aunque no hubieras activado SIPREC. Esta
+versión lo deja **apagado y deshabilitado** hasta que tú lo enciendas en Settings → SIPREC, y al
+actualizar lo apaga si venía corriendo. Sin impacto si nunca activaste SIPREC. **Recomendado actualizar.**
+
 ## [2.81.0] — 2026-06-17
 
 ### Added — Grabación SIPREC nativa: cualquier SBC graba directo en VoxyWatch (sin agente HEP)

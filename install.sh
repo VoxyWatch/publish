@@ -586,9 +586,12 @@ EOF
 
 # ── SIPREC SRS (grabación directa desde SBC) — proceso APARTE, OFF por default ──
 # v2.81: el SRS recibe SIPREC del SBC y escribe al MISMO almacén .seg/.idx que el sniffer.
-# Se instala DORMANTE: arranca, lee siprec_enabled de voxywatch_settings.json y si está OFF
-# (default) sale sin abrir puertos. El admin lo activa en Settings → SIPREC. Si el SRS cae,
-# la captura HEP NO se ve afectada (proceso separado). SRTP necesita pylibsrtp (best-effort).
+# Se instala DORMANTE y NI SIQUIERA se habilita/arranca: el unit queda en disco, detenido y
+# disabled. El admin lo activa explícitamente al prender SIPREC (siprec_enabled=true en
+# Settings → SIPREC  +  systemctl enable --now voxywatch-srs). Doble candado: aunque alguien
+# lo arranque, el flag siprec_enabled=false (default) hace que salga sin abrir puertos.
+# Así una instalación previa (cuyo settings.json no trae la clave) JAMÁS expone el 5060.
+# Si el SRS cae, la captura HEP NO se ve afectada (proceso separado). SRTP: pylibsrtp (best-effort).
 if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
   info "Provisioning SIPREC SRS (OFF por default)..."
   # venv con pylibsrtp para SRTP (best-effort: sin él, el SRS corre igual pero solo RTP en claro)
@@ -637,9 +640,10 @@ SyslogIdentifier=voxywatch-srs
 WantedBy=multi-user.target
 EOF
   systemctl daemon-reload 2>/dev/null || true
-  # enable + start: con siprec_enabled=false (default) el SRS sale solo (dormante, sin puertos).
-  systemctl enable --now voxywatch-srs.service >/dev/null 2>&1 || true
-  ok "SIPREC SRS instalado (DORMANTE; actívalo en Settings → SIPREC)"
+  # NO enable/start: el unit queda instalado pero detenido y disabled. Si una versión previa
+  # lo había dejado corriendo/enabled (bug v2.81.0), lo apagamos aquí en el --update.
+  systemctl disable --now voxywatch-srs.service >/dev/null 2>&1 || true
+  ok "SIPREC SRS instalado (DORMANTE y disabled; actívalo con siprec_enabled=true + systemctl enable --now voxywatch-srs)"
 fi
 
 # ── Service-control scripts (opt-in privilege grant) ──────────────────────────

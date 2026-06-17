@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.79.0] — 2026-06-16
+
+### Added — Mostrar/ocultar contraseñas (👁) y key de IA con pista de últimos caracteres
+- **Ojito 👁** en todos los campos de contraseña (login, perfil, cambio de contraseña, alta de
+  usuario y los secretos de Settings) para **verificar lo que escribes** antes de guardar.
+- La **API key de IA** ahora, una vez guardada, muestra solo los **últimos 4 caracteres** como pista
+  (`••••••3f9a`) — ni el admin recupera el valor, igual que el API token de integración. Los demás
+  secretos (contraseñas, tokens, claves SNMP) siguen totalmente enmascarados; solo admin puede
+  modificarlos.
+
 ## [2.78.0] — 2026-06-16
 
 ### Changed — Settings visible en solo-lectura para todos los roles

@@ -672,6 +672,12 @@ polkit.addRule(function(action, subject) {
         if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" || u == "systemd-timesyncd.service")
             return polkit.Result.YES;
     }
+    // enable/disable persistente SOLO del SRS (la pestaña Settings → SIPREC lo activa en boot).
+    if (action.id == "org.freedesktop.systemd1.manage-unit-files") {
+        var uf = action.lookup("unit");
+        if (uf == "voxywatch-srs.service")
+            return polkit.Result.YES;
+    }
     if (action.id == "org.freedesktop.timedate1.set-timezone" ||
         action.id == "org.freedesktop.timedate1.set-ntp")
         return polkit.Result.YES;

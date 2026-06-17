@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.81.2] — 2026-06-17
+
+### Added — SIPREC settings tab: configure ports and turn it on from the portal
+A new **Settings → SIPREC** tab lets you set up and control the recording server without editing files:
+- Enable/disable toggle, **configurable SIP (UDP) and RTP base ports**, TLS port + cert/key paths,
+  advertised media IP, SBC allowlist (with an open-allowlist warning) and a max-sessions cap.
+- Live status (off / listening / enabled-but-down) and a one-click **Save & apply** that starts or
+  stops the SRS service for you. SIPREC stays **OFF by default** until you enable it here.
+
 ## [2.81.1] — 2026-06-17
 
 ### Security — El SRS SIPREC arranca apagado por default (hotfix de v2.81.0)

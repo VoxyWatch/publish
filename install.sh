@@ -420,6 +420,12 @@ apt-get update >/dev/null 2>&1 || true
 apt-get install -y postgresql postgresql-common python3-psycopg2 >/dev/null 2>&1 \
   || err "No se pudo instalar postgresql / python3-psycopg2"
 
+# ffmpeg: REQUERIDO para reconstruir/reproducir audio (reconstruct_audio.py lo usa para
+# convertir el RTP crudo a WAV). Sin él, la reconstrucción escribe el .g722 pero NO genera
+# el WAV → el player da 404. Es una dependencia dura del audio, no opcional.
+command -v ffmpeg &>/dev/null || apt-get install -y ffmpeg >/dev/null 2>&1 || true
+command -v ffmpeg &>/dev/null || warn "ffmpeg NO disponible — la reproducción de audio no funcionará hasta instalarlo (apt-get install ffmpeg)."
+
 # Detectar la versión mayor instalada y el paquete TimescaleDB correspondiente
 PG_VER="$(ls /usr/lib/postgresql/ 2>/dev/null | sort -n | tail -1)"
 [ -n "$PG_VER" ] || err "No se detectó PostgreSQL instalado en /usr/lib/postgresql"

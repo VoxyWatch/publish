@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.79.1] — 2026-06-17
+
+### Fixed — Audio no se reproducía en instalaciones sin ffmpeg
+- El instalador ahora **instala `ffmpeg`** (dependencia dura: la reconstrucción de audio lo usa para
+  convertir el RTP a WAV). Antes, en una máquina sin ffmpeg, la reconstrucción escribía el audio
+  crudo pero **no generaba el WAV** → el reproductor daba 404.
+- `reconstruct_audio.py` ahora **falla claro** si ffmpeg no está o si no se generó ningún WAV
+  (antes reportaba "éxito" en falso y luego el player daba 404). Mensaje accionable.
+
 ## [2.79.0] — 2026-06-16
 
 ### Added — Mostrar/ocultar contraseñas (👁) y key de IA con pista de últimos caracteres

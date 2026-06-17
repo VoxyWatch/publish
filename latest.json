@@ -1,19 +1,19 @@
 {
-  "version": "2.79.0",
-  "release_date": "2026-06-16",
+  "version": "2.79.1",
+  "release_date": "2026-06-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.79.0/voxywatch-v2.79.0-linux-x64.tar.gz",
-    "sha256": "258481fce1417b42c162af84c32cc508a4b314ae3a6544975c5e39d83d3db2e9",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.79.0/voxywatch-v2.79.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.79.1/voxywatch-v2.79.1-linux-x64.tar.gz",
+    "sha256": "c9c4632765bbc0d74919ec28c1980e0a7361fdfa0aa86042f5cb8432078a6c3d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.79.1/voxywatch-v2.79.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Mostrar/ocultar contraseñas (👁) y key de IA con pista de últimos caracteres",
-    "Ojito 👁 en todos los campos de contraseña (login, perfil, cambio de contraseña, alta de",
-    "La API key de IA ahora, una vez guardada, muestra solo los últimos 4 caracteres como pista"
+    "Audio no se reproducía en instalaciones sin ffmpeg",
+    "El instalador ahora instala `ffmpeg` (dependencia dura: la reconstrucción de audio lo usa para",
+    "`reconstruct_audio.py` ahora falla claro si ffmpeg no está o si no se generó ningún WAV"
   ],
   "min_upgrade_from": "1.0.0"
 }

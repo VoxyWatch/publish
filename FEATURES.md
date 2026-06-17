@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website source material)
 
-> Source of truth for the website, datasheets and sales decks. Updated for **v2.80** (2026-06-12).
+> Source of truth for the website, datasheets and sales decks. Updated for **v2.81** (2026-06-17).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -71,6 +71,7 @@
 |---|---|
 | Universal HEP capture | HEP v1/v2/v3 over UDP+TCP. Asterisk, Kamailio, OpenSIPS, FreeSWITCH, Oracle/ACME, Ribbon, AudioCodes, Cisco CUBE, RTPEngine, HEPlify, CaptAgent… Auto-detects quirky SBCs. |
 | Own capture probe | `voxywatch-probe` (Go + libpcap, amd64/arm64): sniffs SIP/RTP/RTCP off the NIC and emits HEP v3 for sources that can't. |
+| **Native SIPREC recording** | Built-in **SRS** (Session Recording Server, RFC 7865/7866): any tier-1 SBC — Ribbon, Oracle/ACME, AudioCodes, Cisco CUBE, Avaya — streams its recording **straight into VoxyWatch over SIPREC**, no HEP agent or port mirroring needed. SIP over **UDP or TLS**, media **RTP or SRTP** (SDES). Reconstructs stereo caller/callee audio from `rs-metadata`; the call shows in the CDR like any other. Runs as a **separate service** (if it falls, HEP capture is untouched), **OFF by default**, with an SBC IP allowlist and anti-DoS limits. |
 | SIP ladder & dialog analysis | Full request/response ladder, retransmissions, SDP/codec analysis, hold/re-INVITE/NAT detection, dialog-completeness scoring, RFC compliance audit. |
 | Quality metrics | MOS (E-model), jitter, loss, PDD, RTCP enrichment. Honest "not enough signal" instead of invented numbers. |
 | **One-way audio detection** | Multi-leg media correlation (handles B2BUA SBCs that keep the Call-ID across legs) tags every answered call: two-way / **one-way** (with which side is missing) / not-correlated. Per-trunk one-way % feeds a configurable alarm with a learned baseline — chronic asymmetry (media bypass) never alerts, only the *change* does. Factory runbook: NAT/firewall tells, codec renegotiation, where to fix it. |
@@ -119,4 +120,4 @@
 - The Telegram screenshot (incident + buttons) is the single most convincing visual — capture one from production.
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.80.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.81.

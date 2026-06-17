@@ -86,6 +86,7 @@ VoxyWatch ships a standalone **Model Context Protocol server**: connect Claude D
 - Works with virtually every SIP platform that speaks HEP: **Asterisk, Kamailio, OpenSIPS, FreeSWITCH, Oracle/ACME Packet, Ribbon/Sonus, AudioCodes, Cisco CUBE, RTPEngine, HEPlify, CaptAgent** and more.
 - Ships its own lightweight **capture probe** (`voxywatch-probe`, Go + libpcap, **amd64 & arm64**) for sources that can't emit HEP — it sniffs SIP/RTP/RTCP straight off the NIC and forwards HEP v3 — a self-contained, no-dependency capture agent.
 - Auto-detects quirky SBCs that mix RTP into `protocol_id=1` or mint a new capture-id per call.
+- **Native SIPREC recording (RFC 7865/7866)** — a built-in **SRS** lets any tier-1 SBC stream its recording **straight into VoxyWatch over SIPREC**, no HEP agent or port mirroring required. SIP over **UDP or TLS**, media **RTP or SRTP** (SDES), stereo caller/callee audio reconstructed from `rs-metadata`. Runs as a **separate service** (HEP capture untouched if it falls), **OFF by default**, with an SBC IP allowlist and anti-DoS limits. Point your SBC's recording profile at the SRS host:port and the call shows in the CDR like any other.
 
 ### 📞 Deep call & SIP analysis
 - **Full SIP ladder diagram** per call — every request/response, retransmissions, timing.

@@ -1,17 +1,20 @@
 {
-  "version": "2.80.2",
+  "version": "2.81.0",
   "release_date": "2026-06-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.80.2/voxywatch-v2.80.2-linux-x64.tar.gz",
-    "sha256": "49ff453a5a1025732ce86e4ef7a7169c1457e2ed06cd2024a318bcdb1a463af4",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.80.2/voxywatch-v2.80.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.0/voxywatch-v2.81.0-linux-x64.tar.gz",
+    "sha256": "115c875f494c6553cb869d81b6b6d3c87159c8d5ebac280adf59a1907443ccdc",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.0/voxywatch-v2.81.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Rango de tiempo por defecto: últimas 24 h (antes \"Todo\")"
+    "Grabación SIPREC nativa: cualquier SBC graba directo en VoxyWatch (sin agente HEP)",
+    "Cómo funciona: el SBC (SRC) abre una sesión SIP de grabación hacia VoxyWatch; el SRS contesta,",
+    "Transportes: SIP por UDP o TLS; media RTP en claro o SRTP (SDES `AES_CM_128_HMAC_SHA1_80`).",
+    "Códecs: PCMU/PCMA/G722/G729 + dinámicos vía `rtpmap`. pause/resume vía re-INVITE."
   ],
   "min_upgrade_from": "1.0.0"
 }

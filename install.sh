@@ -379,6 +379,7 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/migrate_to_db.js"   "${INSTALL
 install -o root -g voxywatch -m 640 "${EXTRACTED}/generate_pcap.py"   "${INSTALL_DIR}/generate_pcap.py" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/reconstruct_audio.py" "${INSTALL_DIR}/reconstruct_audio.py" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/extract_dtmf.py"     "${INSTALL_DIR}/extract_dtmf.py" 2>/dev/null || true   # VOXY-D: faltaba instalarlo → [Errno 2] al llamarlo desde server.js
+install -o root -g voxywatch -m 640 "${EXTRACTED}/voxywatch_srs.py"   "${INSTALL_DIR}/voxywatch_srs.py" 2>/dev/null || true   # SIPREC SRS (proceso aparte, OFF por default)
 install -o root -g voxywatch -m 640 "${EXTRACTED}/schema.sql"         "${INSTALL_DIR}/schema.sql" 2>/dev/null || true
 install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTALL_DIR}/WIKI_INTEGRATION.md" 2>/dev/null || true
 
@@ -583,6 +584,64 @@ SyslogIdentifier=voxywatch-sniffer
 WantedBy=multi-user.target
 EOF
 
+# ── SIPREC SRS (grabación directa desde SBC) — proceso APARTE, OFF por default ──
+# v2.81: el SRS recibe SIPREC del SBC y escribe al MISMO almacén .seg/.idx que el sniffer.
+# Se instala DORMANTE: arranca, lee siprec_enabled de voxywatch_settings.json y si está OFF
+# (default) sale sin abrir puertos. El admin lo activa en Settings → SIPREC. Si el SRS cae,
+# la captura HEP NO se ve afectada (proceso separado). SRTP necesita pylibsrtp (best-effort).
+if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
+  info "Provisioning SIPREC SRS (OFF por default)..."
+  # venv con pylibsrtp para SRTP (best-effort: sin él, el SRS corre igual pero solo RTP en claro)
+  SRS_PY="/usr/bin/python3"
+  if python3 -m venv "${INSTALL_DIR}/srs-venv" >/dev/null 2>&1; then
+    if "${INSTALL_DIR}/srs-venv/bin/pip" install --quiet --disable-pip-version-check pylibsrtp >/dev/null 2>&1; then
+      SRS_PY="${INSTALL_DIR}/srs-venv/bin/python"
+      ok "SRS: pylibsrtp instalado (SRTP disponible)"
+    else
+      warn "SRS: pylibsrtp no se pudo instalar → SRTP no disponible (RTP en claro sí). Instálalo luego en ${INSTALL_DIR}/srs-venv."
+    fi
+    chown -R "${SERVICE_USER}:${SERVICE_USER}" "${INSTALL_DIR}/srs-venv" 2>/dev/null || true
+  else
+    warn "SRS: no se pudo crear venv (¿python3-venv?) → SRS correrá con python del sistema, sin SRTP."
+  fi
+  cat > /etc/systemd/system/voxywatch-srs.service << EOF
+[Unit]
+Description=VoxyWatch SRS (SIPREC Session Recording Server)
+Documentation=https://voxywatch.com/docs
+After=network-online.target postgresql@${PG_VER}-${PG_CLUSTER}.service voxywatch.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=${SERVICE_USER}
+Group=${SERVICE_USER}
+WorkingDirectory=${DATA_DIR}
+ExecStart=${SRS_PY} ${INSTALL_DIR}/voxywatch_srs.py
+Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
+Environment=PGHOST=${PG_SOCKET_DIR}
+Environment=PGPORT=${PG_PORT}
+Environment=PGDATABASE=${DB_NAME}
+Environment=PGUSER=${DB_USER}
+Restart=on-failure
+RestartSec=5
+UMask=0027
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+ReadWritePaths=${DATA_DIR} ${PG_SOCKET_DIR}
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=voxywatch-srs
+
+[Install]
+WantedBy=multi-user.target
+EOF
+  systemctl daemon-reload 2>/dev/null || true
+  # enable + start: con siprec_enabled=false (default) el SRS sale solo (dormante, sin puertos).
+  systemctl enable --now voxywatch-srs.service >/dev/null 2>&1 || true
+  ok "SIPREC SRS instalado (DORMANTE; actívalo en Settings → SIPREC)"
+fi
+
 # ── Service-control scripts (opt-in privilege grant) ──────────────────────────
 # Generated ALWAYS so the admin can enable/disable later without reinstalling.
 # Executed now only if the admin opted in above. The grant is scoped via a polkit
@@ -606,7 +665,7 @@ polkit.addRule(function(action, subject) {
     if (subject.user != "${SERVICE_USER}") return;
     if (action.id == "org.freedesktop.systemd1.manage-units") {
         var u = action.lookup("unit");
-        if (u == "voxywatch-sniffer.service" || u == "systemd-timesyncd.service")
+        if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" || u == "systemd-timesyncd.service")
             return polkit.Result.YES;
     }
     if (action.id == "org.freedesktop.timedate1.set-timezone" ||

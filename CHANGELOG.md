@@ -5,6 +5,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.81.0] — 2026-06-17
+
+### Added — Grabación SIPREC nativa: cualquier SBC graba directo en VoxyWatch (sin agente HEP)
+VoxyWatch ahora incluye un **SRS** (Session Recording Server, RFC 7865/7866): un SBC tier-1
+(Ribbon, Oracle/ACME, AudioCodes, Cisco CUBE, Avaya…) puede **enviar su grabación SIPREC directo**
+a VoxyWatch, sin necesidad de un agente HEP ni de espejo de puertos. Complementa al HEP que ya
+existía → cobertura del mercado completa.
+- **Cómo funciona:** el SBC (SRC) abre una sesión SIP de grabación hacia VoxyWatch; el SRS contesta,
+  recibe los flujos de media de cada pata y reconstruye el **audio estéreo** (caller=izquierda,
+  callee=derecha) usando la metadata `rs-metadata` para identificar la llamada y los participantes.
+  La llamada aparece en el portal/CDR como cualquier otra (fuente "SIPREC"), con audio, jitter/pérdida y PCAP.
+- **Transportes:** SIP por **UDP o TLS**; media **RTP en claro o SRTP** (SDES `AES_CM_128_HMAC_SHA1_80`).
+- **Códecs:** PCMU/PCMA/G722/G729 + dinámicos vía `rtpmap`. **pause/resume** vía re-INVITE.
+- **Seguro por diseño:** servicio **separado** del sniffer (si cae, la captura HEP sigue intacta),
+  **OFF por default**, allowlist de IPs de SBC, tope de sesiones, límites anti-DoS.
+- **Activación:** Settings → SIPREC (`siprec_enabled` + puertos/TLS/allowlist). Apunta tu SBC al
+  host:puerto del SRS. Ver la guía de integración por vendor en la documentación.
+
 ## [2.80.2] — 2026-06-17
 
 ### Changed — Rango de tiempo por defecto: últimas 24 h (antes "Todo")

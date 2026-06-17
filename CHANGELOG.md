@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.80.0] — 2026-06-17
+
+### Changed — Actualizaciones opt-in: el portal avisa, tú actualizas con un clic
+VoxyWatch ya **no se actualiza solo**. Ahora tú decides cuándo — ningún cambio entra a media operación sin tu visto bueno.
+1. **Verificación cada hora**: el portal revisa si hay una versión nueva (antes era a diario) y, cuando la hay, lo avisa en la **campana** 🔔 con el resumen de novedades.
+2. **Actualizar con un clic**: el aviso te lleva a **Settings → Actualización**, donde ves tu versión, la última disponible y el botón **"Actualizar ahora"** (solo admin). La descarga se sigue verificando con firma GPG + SHA256.
+3. **Se retiró el auto-updater de systemd** (el timer que aplicaba solo a diario) en TODOS los clientes: al instalar esta versión, el instalador deshabilita y elimina el timer/servicio viejos. Migración automática e idempotente.
+
 ## [2.79.1] — 2026-06-17
 
 ### Fixed — Audio no se reproducía en instalaciones sin ffmpeg

@@ -138,8 +138,9 @@ command -v python3 &>/dev/null || err "python3 is required:  apt install python3
 command -v sudo    &>/dev/null || err "sudo is required:  apt install sudo   or   yum install sudo"
 
 # ── Mutex de instalación (v2.0.4) ─────────────────────────────────────────────
-# Evita que una instalación MANUAL y el auto-updater (voxywatch-update.timer) corran
-# a la vez. Un solape provocó servicios caídos: un run hacía 'systemctl stop' mientras
+# Evita que dos instalaciones/actualizaciones corran a la vez (p.ej. un update lanzado
+# desde el portal —POST /api/update— y una instalación manual simultánea).
+# Un solape provocó servicios caídos: un run hacía 'systemctl stop' mientras
 # el otro ya había arrancado el portal, y el segundo 'install' del binario en uso
 # fallaba (set -e → aborto antes de re-arrancar). Con el lock, el segundo sale limpio.
 if command -v flock &>/dev/null; then
@@ -674,103 +675,22 @@ systemctl daemon-reload
 systemctl enable voxywatch voxywatch-sniffer
 ok "Systemd units installed and enabled"
 
-# ── Install auto-updater ──────────────────────────────────────────────────────
-info "Setting up auto-updater..."
-
-cat > "${INSTALL_DIR}/voxywatch-update.sh" << 'UPDATER_SCRIPT'
-#!/bin/bash
-# VoxyWatch Auto-Updater — called daily by voxywatch-update.timer
-set -euo pipefail
-
-MANIFEST_URL="https://raw.githubusercontent.com/VoxyWatch/publish/main/latest.json"
-INSTALL_URL="https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh"
-CONF_FILE="/etc/voxywatch/voxywatch.conf"
-LOG_TAG="voxywatch-update"
-
-log()  { echo "[$LOG_TAG] $*"; logger -t "$LOG_TAG" "$*" 2>/dev/null || true; }
-warn() { echo "[$LOG_TAG] WARNING: $*"; logger -t "$LOG_TAG" "WARNING: $*" 2>/dev/null || true; }
-
-PORT="3080"
-CURRENT_VERSION=""
-if [ -f "$CONF_FILE" ]; then
-  PORT=$(grep -oP '(?<=^PORT=)\S+' "$CONF_FILE" 2>/dev/null || echo "3080")
-  CURRENT_VERSION=$(grep -oP '(?<=^VERSION=)\S+' "$CONF_FILE" 2>/dev/null || echo "")
-fi
-
-if [ -z "$CURRENT_VERSION" ]; then
-  warn "Could not determine installed version. Skipping update check."
-  exit 0
-fi
-
-MANIFEST_JSON=$(curl -fsSL --max-time 15 "$MANIFEST_URL" 2>/dev/null || echo "")
-LATEST_VERSION=$(printf '%s' "$MANIFEST_JSON" \
-  | python3 -c "import json,sys; print(json.load(sys.stdin)['version'])" 2>/dev/null || echo "")
-# min_upgrade_from: versión mínima desde la que se permite auto-actualizar. Para
-# releases con cambios de infra (p.ej. 2.0.0 instala un servidor de BD) se fija a
-# la propia versión para CORTAR el auto-update silencioso desde 1.x — esos saltos
-# requieren instalación supervisada/asistida.
-MIN_UPGRADE_FROM=$(printf '%s' "$MANIFEST_JSON" \
-  | python3 -c "import json,sys; print(json.load(sys.stdin).get('min_upgrade_from','0.0.0'))" 2>/dev/null || echo "0.0.0")
-
-if [ -z "$LATEST_VERSION" ]; then
-  warn "Could not fetch version manifest. Skipping update check."
-  exit 0
-fi
-
-log "Installed: v${CURRENT_VERSION} | Latest: v${LATEST_VERSION} | min_upgrade_from: v${MIN_UPGRADE_FROM}"
-
-if [ "$(printf '%s\n%s' "$CURRENT_VERSION" "$LATEST_VERSION" | sort -V | tail -1)" = "$CURRENT_VERSION" ]; then
-  log "Already up to date (v${CURRENT_VERSION})."
-  exit 0
-fi
-
-# Cortar el auto-update si la versión instalada es anterior a min_upgrade_from:
-# requiere actualización MANUAL/supervisada (cambio de infraestructura).
-if [ "$(printf '%s\n%s' "$CURRENT_VERSION" "$MIN_UPGRADE_FROM" | sort -V | head -1)" = "$CURRENT_VERSION" ] \
-   && [ "$CURRENT_VERSION" != "$MIN_UPGRADE_FROM" ]; then
-  warn "v${LATEST_VERSION} requiere actualización MANUAL desde v${CURRENT_VERSION} (min_upgrade_from=v${MIN_UPGRADE_FROM}). Omitiendo auto-update."
-  exit 0
-fi
-
-log "New version available: v${LATEST_VERSION} — starting update..."
-curl -fsSL --max-time 60 "$INSTALL_URL" | bash -s -- --version "$LATEST_VERSION" --port "$PORT"
-log "Update to v${LATEST_VERSION} completed successfully."
-UPDATER_SCRIPT
-
-chmod 755 "${INSTALL_DIR}/voxywatch-update.sh"
-
-cat > /etc/systemd/system/voxywatch-update.service << 'EOF'
-[Unit]
-Description=VoxyWatch Auto-Updater
-Documentation=https://voxywatch.com/docs
-After=network-online.target
-Wants=network-online.target
-
-[Service]
-Type=oneshot
-ExecStart=/opt/voxywatch/voxywatch-update.sh
-StandardOutput=journal
-StandardError=journal
-SyslogIdentifier=voxywatch-update
-EOF
-
-cat > /etc/systemd/system/voxywatch-update.timer << 'EOF'
-[Unit]
-Description=VoxyWatch Daily Update Check
-Documentation=https://voxywatch.com/docs
-
-[Timer]
-OnCalendar=daily
-RandomizedDelaySec=3600
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-EOF
-
+# ── Updates: aviso en el portal, NO auto-aplicar (v2.80) ────────────────────────
+# A partir de v2.80 VoxyWatch NO se auto-actualiza. El portal verifica cada hora si
+# hay una versión nueva y la avisa en la campana; el admin aplica con un clic desde
+# Settings → Actualización (POST /api/update, firmado + SHA256). Esto le da control
+# total al operador (nada cambia solo a media operación).
+#
+# MIGRACIÓN: si esta instalación venía con el auto-updater viejo (timer/servicio
+# diario que aplicaba solo), lo retiramos aquí. Idempotente: si no existe, no hace nada.
+info "Removing legacy auto-updater (updates are now opt-in from the portal)..."
+systemctl disable --now voxywatch-update.timer >/dev/null 2>&1 || true
+systemctl stop voxywatch-update.service >/dev/null 2>&1 || true
+rm -f /etc/systemd/system/voxywatch-update.timer \
+      /etc/systemd/system/voxywatch-update.service \
+      "${INSTALL_DIR}/voxywatch-update.sh" 2>/dev/null || true
 systemctl daemon-reload
-systemctl enable --now voxywatch-update.timer
-ok "Auto-updater installed (daily check)"
+ok "Updates: opt-in — el portal avisa, el admin aplica con un clic"
 
 # ── Start services ────────────────────────────────────────────────────────────
 info "Starting services..."
@@ -830,9 +750,9 @@ echo -e "  ${BOLD}Service logs:${NC}"
 echo "    journalctl -fu voxywatch"
 echo "    journalctl -fu voxywatch-sniffer"
 echo ""
-echo -e "  ${BOLD}Auto-updates:${NC} enabled — daily check via systemd timer"
-echo "    Status:  systemctl status voxywatch-update.timer"
-echo "    Run now: systemctl start voxywatch-update.service"
+echo -e "  ${BOLD}Updates:${NC} opt-in — el portal verifica cada hora y avisa en la campana 🔔"
+echo "    Aplica con un clic desde:  Settings → Actualización → Actualizar ahora"
+echo "    (ya NO se actualiza solo — tú decides cuándo)"
 echo ""
 
 } # end of main()

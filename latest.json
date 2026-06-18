@@ -1,17 +1,20 @@
 {
-  "version": "2.84.1",
+  "version": "2.85.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.84.1/voxywatch-v2.84.1-linux-x64.tar.gz",
-    "sha256": "c56b237c842e79d1d6e40b6f4838257a14c42873ca904dc393d9d679acd08885",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.84.1/voxywatch-v2.84.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.85.0/voxywatch-v2.85.0-linux-x64.tar.gz",
+    "sha256": "7cc1f3812e1f3340d0422378a977165b74abeb88f6d284e785b347d68178db06",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.85.0/voxywatch-v2.85.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "One-click update returned \"needs_privilege\" even with the grant present"
+    "Added/Changed — Agentic Monitoring, Phase 1: cleanup + transparency + color",
+    "Raw internal id `trk_xxx` removed from the UI — the incident's \"other degraded trunks\" evidence now shows the trunk name, not the technical id.",
+    "More metrics on the Monitoring table: an OWA (one-way audio) column (already computed) and a per-trunk baseline-maturity badge (ML✓ / ML…) so the NOC sees a",
+    "Per-cell color heat on ASR/NER/MOS/Loss/PDD/5xx/OWA by range — faster reading, not just the status dot."
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.85.0] — 2026-06-18
+
+### Added/Changed — Agentic Monitoring, Phase 1: cleanup + transparency + color
+First step of the Monitoring redesign for NOC use:
+- **Raw internal id `trk_xxx` removed** from the UI — the incident's "other degraded trunks" evidence now shows the trunk **name**, not the technical id.
+- **More metrics on the Monitoring table**: an **OWA** (one-way audio) column (already computed) and a per-trunk **baseline-maturity badge (ML✓ / ML…)** so the NOC sees at a glance whether the model has learned that trunk's pattern yet.
+- **Per-cell color heat** on ASR/NER/MOS/Loss/PDD/5xx/OWA by range — faster reading, not just the status dot.
+- EN/ES i18n. Presentation only (read-pool); the alarm engine and capture hot-path are untouched. Full roadmap (traffic-type + AI discovery, learned day/hour patterns, configurable metrics, deeper AI) tracked in the engineering design doc.
+
 ## [2.84.1] — 2026-06-18
 
 ### Fixed — One-click update returned "needs_privilege" even with the grant present

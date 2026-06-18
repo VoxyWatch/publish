@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.86.0] — 2026-06-18
+
+### Added — Agentic Monitoring, Phase 2: per-trunk traffic type + AI discovery
+Each trunk can have its own **traffic type**, and health respects it (a wholesale trunk at 25% ASR is normal; a retail one at 25% is critical):
+- **`traffic_type` field** in the trunk catalog (wholesale termination/origination, retail/enterprise, SIP-trunk/PBX, calling-card, DID inbound, toll-free, on-net, test, unknown) + source (manual/ai/auto). Selector in the trunk drill-down; type badge in the Monitoring table.
+- **Expected profile per type** adjusts health thresholds. Type-aware health sits behind the `trunk_health.profile_aware` flag (ships OFF — validate with the simulator before enabling; it changes what alarms).
+- **AI discovery**: a "🤖 Discover with AI" button → `POST /api/trunks/:id/discover-type` builds a 14-day profile snapshot (direction, ASR, ACD, countries, codes, hourly pattern) and the AI **proposes** the type + confidence + rationale. The human confirms. AI proposes, never imposes; says so when there isn't enough traffic.
+- Anti-loss guard: the catalog replace-all preserves `traffic_type` by id when the form omits it.
+
 ## [2.85.0] — 2026-06-18
 
 ### Added/Changed — Agentic Monitoring, Phase 1: cleanup + transparency + color

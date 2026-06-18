@@ -1,20 +1,20 @@
 {
-  "version": "2.85.0",
+  "version": "2.86.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.85.0/voxywatch-v2.85.0-linux-x64.tar.gz",
-    "sha256": "7cc1f3812e1f3340d0422378a977165b74abeb88f6d284e785b347d68178db06",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.85.0/voxywatch-v2.85.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.86.0/voxywatch-v2.86.0-linux-x64.tar.gz",
+    "sha256": "eb6c21319840b125de48de430f25d83b756cb00beede0eb64439628a9c232787",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.86.0/voxywatch-v2.86.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Added/Changed — Agentic Monitoring, Phase 1: cleanup + transparency + color",
-    "Raw internal id `trk_xxx` removed from the UI — the incident's \"other degraded trunks\" evidence now shows the trunk name, not the technical id.",
-    "More metrics on the Monitoring table: an OWA (one-way audio) column (already computed) and a per-trunk baseline-maturity badge (ML✓ / ML…) so the NOC sees a",
-    "Per-cell color heat on ASR/NER/MOS/Loss/PDD/5xx/OWA by range — faster reading, not just the status dot."
+    "Agentic Monitoring, Phase 2: per-trunk traffic type + AI discovery",
+    "`traffic_type` field in the trunk catalog (wholesale termination/origination, retail/enterprise, SIP-trunk/PBX, calling-card, DID inbound, toll-free, on-net, te",
+    "Expected profile per type adjusts health thresholds. Type-aware health sits behind the `trunk_health.profile_aware` flag (ships OFF — validate with the simula",
+    "AI discovery: a \"🤖 Discover with AI\" button → `POST /api/trunks/:id/discover-type` builds a 14-day profile snapshot (direction, ASR, ACD, countries, codes,"
   ],
   "min_upgrade_from": "1.0.0"
 }

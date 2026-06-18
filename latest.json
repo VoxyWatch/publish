@@ -1,19 +1,17 @@
 {
-  "version": "2.81.2",
+  "version": "2.81.3",
   "release_date": "2026-06-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.2/voxywatch-v2.81.2-linux-x64.tar.gz",
-    "sha256": "391b8345630a119e1d89eec38e4904d82b6718b15f3069cd7e7d996247847ed0",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.2/voxywatch-v2.81.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.3/voxywatch-v2.81.3-linux-x64.tar.gz",
+    "sha256": "8b00c464c0356d018ca9b64a034e2ac03bb08551140b9901b84f501c98190fa6",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.3/voxywatch-v2.81.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "SIPREC settings tab: configure ports and turn it on from the portal",
-    "Enable/disable toggle, configurable SIP (UDP) and RTP base ports, TLS port + cert/key paths,",
-    "Live status (off / listening / enabled-but-down) and a one-click Save & apply that starts or"
+    "Upload the SIPREC TLS certificates from the portal (besides the path)"
   ],
   "min_upgrade_from": "1.0.0"
 }

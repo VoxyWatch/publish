@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.81.3] — 2026-06-17
+
+### Added — Upload the SIPREC TLS certificates from the portal (besides the path)
+The Settings → SIPREC tab gains an **Upload certificates** button next to the cert/key path fields:
+pick the PEM files and the portal validates the pair, saves them on the server and fills the paths in
+for you. You can still type the path by hand if the files are already on the box.
+
 ## [2.81.2] — 2026-06-17
 
 ### Added — SIPREC settings tab: configure ports and turn it on from the portal

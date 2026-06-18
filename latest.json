@@ -1,17 +1,20 @@
 {
-  "version": "2.86.2",
+  "version": "2.87.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.86.2/voxywatch-v2.86.2-linux-x64.tar.gz",
-    "sha256": "32dac8598d94b325d01e997b8bd1c67688c927c7af1670d1f52c4879afd13b45",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.86.2/voxywatch-v2.86.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.87.0/voxywatch-v2.87.0-linux-x64.tar.gz",
+    "sha256": "9b82680a2c1978cc0e130e7c4b0df7b91def0ee90d5e03c5e218ad505d8eb274",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.87.0/voxywatch-v2.87.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "AI discovery robust to truncated replies"
+    "Agentic Monitoring, Phase 3a: learned per-trunk pattern (maturity + hours + countries)",
+    "ML maturity: days observed vs ~14 (Saturday ≠ Wednesday) — a \"Learning… N/14 days\" or \"Mature ✓\" badge, with the note that ML needs ~2 weeks to be relia",
+    "Usual activity hours (traffic start–end, in the portal's timezone).",
+    "Typical destination countries."
   ],
   "min_upgrade_from": "1.0.0"
 }

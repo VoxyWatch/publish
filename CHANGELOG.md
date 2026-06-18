@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.91.0] — 2026-06-18
+
+### Added — versionado de semántica del rollup de 1 minuto (paridad con el horario)
+El rollup horario ya rebuildea solo cuando cambia su fórmula (`meta.rollup_ver`); el rollup de 1 min no tenía ese mecanismo, así que un cambio futuro de su fórmula habría dejado buckets viejos con semántica mezclada hasta que la retención de 26 h los purgara. Ahora `call_stats_1m` tiene su propia versión (`meta.rollup_1m_ver`, constante `_MIN_ROLLUP_VER`): si cambia → `TRUNCATE` + rebuild completo de las 26 h en el siguiente arranque, sin tocar la BD a mano.
+> **En el primer arranque tras este upgrade** se hace UN rebuild completo del 1m (la clave aún no existe en `meta`) — ~minutos en un cliente de alto volumen; tras eso, los reinicios vuelven a ser incrementales (solo el hueco, fix de v2.90.0). Deuda anotada en el debug de v2.90.0, ya saldada.
+
 ## [2.90.1] — 2026-06-18
 
 ### Fixed — el chequeo de actualización forzado ya no ve un manifiesto stale

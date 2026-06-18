@@ -1,20 +1,17 @@
 {
-  "version": "2.90.1",
+  "version": "2.91.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.90.1/voxywatch-v2.90.1-linux-x64.tar.gz",
-    "sha256": "404908e1b6e2eb551aef4b3156516dc57fb5f8d595fcaffacf42568ae79b4f36",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.90.1/voxywatch-v2.90.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.91.0/voxywatch-v2.91.0-linux-x64.tar.gz",
+    "sha256": "5e8331b50fb8ba7f575a0bcd8e973acda49e5d04d640e99aaec2cb2f2aec8ff7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.91.0/voxywatch-v2.91.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "el chequeo de actualización forzado ya no ve un manifiesto stale",
-    "El chequeo forzado (force) ahora añade un cache-buster (`?t=epoch`) → el edge hace MISS y trae el manifiesto fresco del origin. El poll horario sigue usando",
-    "`POST /api/update` ahora fuerza un chequeo fresco él mismo antes de decidir, en vez de depender de un `GET /api/version/latest?force=1` previo → la actualiza",
-    "Fail-closed: si esa verificación forzada no logra bajar un manifiesto fresco (GitHub caído/timeout), `POST /api/update` responde 503 \"no se pudo verificar\" en"
+    "versionado de semántica del rollup de 1 minuto (paridad con el horario)"
   ],
   "min_upgrade_from": "1.0.0"
 }

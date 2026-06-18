@@ -1,17 +1,17 @@
 {
-  "version": "2.82.5",
+  "version": "2.83.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.82.5/voxywatch-v2.82.5-linux-x64.tar.gz",
-    "sha256": "d517ce04340ca197b606d12ab918b6079fba0e7f4a6d34bf573b924786809017",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.82.5/voxywatch-v2.82.5-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.83.0/voxywatch-v2.83.0-linux-x64.tar.gz",
+    "sha256": "64f4447f1437b3ded277752aa0913420e5b22f33a327d9e5acf12db84cdb7999",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.83.0/voxywatch-v2.83.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Rangos \"ayer\", \"hoy\" y \"personalizado\" en las gráficas de tendencia"
+    "One-click portal update without manual root (scoped sudoers)"
   ],
   "min_upgrade_from": "1.0.0"
 }

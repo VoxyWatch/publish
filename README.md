@@ -60,7 +60,7 @@ curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh |
 curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | bash -s -- --update
 ```
 
-The portal checks hourly and announces a new version in the 🔔 bell (Settings → Update). The **one-click "Update now"** button only applies on its own if the service was allowed to manage itself during install (the *Service control* prompt → grants a scoped polkit rule). On hosts where the `voxywatch` service has no privilege escalation, run the `--update` command above as root instead.
+The portal checks hourly and announces a new version in the 🔔 bell (Settings → Update). The **one-click "Update now"** button applies it on its own when you allowed VoxyWatch to manage itself during install (the *Service control* prompt). That grant is scoped: a polkit rule for its own services **plus a sudoers entry locked to one root-owned helper** (`/opt/voxywatch/apply-update.sh`) that only ever runs the official signed installer — never general root. You can toggle it anytime with `sudo /opt/voxywatch/enable-service-control.sh` / `disable-service-control.sh`. On hosts without that grant, the button shows the exact `--update` command to run as root.
 
 ---
 

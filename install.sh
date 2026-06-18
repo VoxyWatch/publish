@@ -692,6 +692,20 @@ cat > /etc/systemd/system/voxywatch.service.d/service-control.conf << DROPIN
 ReadWritePaths=/etc/resolv.conf /etc/systemd /etc/systemd/timesyncd.conf
 DROPIN
 
+# 2b) sudoers — let ${SERVICE_USER} run ONLY the update helper as root (one-click portal update).
+# Scoped to an exact, root-owned, non-writable path → no general root, no argument injection.
+# Validated with visudo before it counts; removed if invalid so sudo never breaks.
+if [ -x /opt/voxywatch/apply-update.sh ]; then
+    cat > /etc/sudoers.d/voxywatch-update << SUDOERS
+${SERVICE_USER} ALL=(root) NOPASSWD: /opt/voxywatch/apply-update.sh
+SUDOERS
+    chmod 440 /etc/sudoers.d/voxywatch-update
+    if ! visudo -cf /etc/sudoers.d/voxywatch-update >/dev/null 2>&1; then
+        echo "⚠ sudoers de update inválido — removido (one-click update quedará manual)"
+        rm -f /etc/sudoers.d/voxywatch-update
+    fi
+fi
+
 # 3) persist state + reload
 if grep -q '^SERVICE_CONTROL=' "$CONF_FILE" 2>/dev/null; then
     grep -v '^SERVICE_CONTROL=' "$CONF_FILE" > "${CONF_FILE}.tmp" && mv "${CONF_FILE}.tmp" "$CONF_FILE"
@@ -700,7 +714,7 @@ echo "SERVICE_CONTROL=enabled" >> "$CONF_FILE"
 systemctl reload polkit 2>/dev/null || systemctl restart polkit 2>/dev/null || true
 systemctl daemon-reload
 systemctl restart voxywatch 2>/dev/null || true
-echo "✓ Service control ENABLED — the portal can now restart its services and apply timezone/NTP/DNS."
+echo "✓ Service control ENABLED — the portal can now restart its services, apply timezone/NTP/DNS, and apply signed updates with one click."
 ENABLE_EOF
 chmod 750 "${INSTALL_DIR}/enable-service-control.sh"
 chown root:voxywatch "${INSTALL_DIR}/enable-service-control.sh" 2>/dev/null || true
@@ -715,6 +729,7 @@ CONF_FILE="/etc/voxywatch/voxywatch.conf"
 rm -f /etc/polkit-1/rules.d/49-voxywatch.rules
 rm -f /etc/polkit-1/rules.d/49-voxywatch-sniffer.rules
 rm -f /etc/systemd/system/voxywatch.service.d/service-control.conf
+rm -f /etc/sudoers.d/voxywatch-update
 if grep -q '^SERVICE_CONTROL=' "$CONF_FILE" 2>/dev/null; then
     grep -v '^SERVICE_CONTROL=' "$CONF_FILE" > "${CONF_FILE}.tmp" && mv "${CONF_FILE}.tmp" "$CONF_FILE"
 fi
@@ -726,6 +741,35 @@ echo "✓ Service control DISABLED — the portal will now show manual commands 
 DISABLE_EOF
 chmod 750 "${INSTALL_DIR}/disable-service-control.sh"
 chown root:voxywatch "${INSTALL_DIR}/disable-service-control.sh" 2>/dev/null || true
+
+# ── Privileged update helper (root-owned) ─────────────────────────────────────
+# Installed ALWAYS. Root-owned, group-executable by voxywatch but NOT writable by it
+# (0750 root:voxywatch). Lets the portal apply a one-click update via a SCOPED sudoers
+# rule (added by enable-service-control.sh) WITHOUT granting general root. It only ever
+# runs the OFFICIAL signed installer in --update mode — the unprivileged caller cannot
+# inject a target (no arguments are honored), and install.sh re-verifies GPG + SHA-256
+# before touching anything. This is the single privileged operation the portal can run.
+cat > "${INSTALL_DIR}/apply-update.sh" << UPDHELPER
+#!/bin/bash
+# VoxyWatch — privileged update helper. DO NOT add arguments here: the sudoers grant is
+# scoped to this exact path so the caller can only ask for "update to the official latest".
+set -euo pipefail
+LOG=/var/log/voxywatch-update.log
+exec >> "\$LOG" 2>&1
+echo "[\$(date -Is)] apply-update invoked (euid=\$EUID)"
+if [ "\$EUID" -ne 0 ]; then echo "ERROR: must run as root"; exit 1; fi
+INSTALLER_URL="https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main/install.sh"
+TMP=\$(mktemp -d); trap 'rm -rf "\$TMP"' EXIT
+echo "[\$(date -Is)] fetching official installer: \$INSTALLER_URL"
+curl -fsSL --max-time 60 "\$INSTALLER_URL" -o "\$TMP/install.sh"
+echo "[\$(date -Is)] running install.sh --update (GPG + SHA-256 verified inside)"
+bash "\$TMP/install.sh" --update
+echo "[\$(date -Is)] update finished OK"
+UPDHELPER
+chmod 750 "${INSTALL_DIR}/apply-update.sh"
+# Ownership is SECURITY-CRITICAL (must be root-owned so voxywatch can't rewrite what it sudo-runs).
+# No `|| true` here: with set -e a failed chown aborts the install — fail closed.
+chown root:voxywatch "${INSTALL_DIR}/apply-update.sh"
 ok "Service-control scripts installed"
 
 # Clean up any legacy unconditional rule from earlier installs
@@ -736,7 +780,7 @@ if [ "$SERVICE_CONTROL" = "yes" ]; then
   bash "${INSTALL_DIR}/enable-service-control.sh" || warn "Could not enable service control automatically"
 else
   # Make sure no stale grant remains when the admin opted out
-  rm -f /etc/polkit-1/rules.d/49-voxywatch.rules /etc/systemd/system/voxywatch.service.d/service-control.conf 2>/dev/null || true
+  rm -f /etc/polkit-1/rules.d/49-voxywatch.rules /etc/systemd/system/voxywatch.service.d/service-control.conf /etc/sudoers.d/voxywatch-update 2>/dev/null || true
   systemctl reload polkit 2>/dev/null || true
 fi
 

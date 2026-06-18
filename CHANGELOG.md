@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.83.0] — 2026-06-18
+
+### Added — One-click portal update without manual root (scoped sudoers)
+The **Settings → Update → Update now** button now actually applies the update when you enabled *Service control* at install time. Before, the portal (an unprivileged user) couldn't install into `/opt`, so the click failed silently and you had to update as root over SSH. Now `install.sh` ships a **root-owned** helper `/opt/voxywatch/apply-update.sh` (0750 root:voxywatch, not writable by the portal) and `enable-service-control.sh` adds a **sudoers entry scoped to that exact path** (`NOPASSWD: /opt/voxywatch/apply-update.sh`, validated with `visudo`) — no general root, no argument injection. The helper downloads the official signed installer and runs `--update` (GPG + SHA-256 re-verified). Without the grant, `POST /api/update` returns the exact manual command instead of failing quietly.
+
 ## [2.82.5] — 2026-06-18
 
 ### Fixed — Rangos "ayer", "hoy" y "personalizado" en las gráficas de tendencia

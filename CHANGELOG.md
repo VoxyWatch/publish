@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.87.0] — 2026-06-18
+
+### Added — Agentic Monitoring, Phase 3a: learned per-trunk pattern (maturity + hours + countries)
+Each trunk learns its rhythm from the hourly rollup and shows it in the drill-down ("Learned pattern"):
+- **ML maturity**: days observed vs ~14 (Saturday ≠ Wednesday) — a "Learning… N/14 days" or "Mature ✓" badge, with the note that ML needs ~2 weeks to be reliable.
+- **Usual activity hours** (traffic start–end, in the portal's timezone).
+- **Typical destination countries**.
+Read-only/learning — no alarm change. Foundation for Phase 3b (pattern-deviation alerts — off-hours / new country / volume drop — behind a flag + simulator, with editable values).
+
 ## [2.86.2] — 2026-06-18
 
 ### Fixed — AI discovery robust to truncated replies

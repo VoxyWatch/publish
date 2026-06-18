@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.82.3] — 2026-06-18
+
+### Fixed — Concurrencia en 24h se hundía (122 en vez de ~miles)
+El cúmulo start-end con clamp a 0 perdía información en los valles de un día completo. Ahora la serie de concurrencia se calcula cruda y se desplaza para que su mínimo sea 0 → preserva forma y pico real, robusta al error de baseline (frontera horario↔1m). Solo endpoint.
+
 ## [2.82.2] — 2026-06-18
 
 ### Fixed — Concurrencia en rango 24h salía 0

@@ -584,6 +584,22 @@ SyslogIdentifier=voxywatch-sniffer
 WantedBy=multi-user.target
 EOF
 
+# ── Update applier (oneshot, root) — lo dispara el portal por D-Bus+polkit (one-click update) ──
+# El portal corre con NoNewPrivileges=true → NO puede sudo. En su lugar le pide a systemd (vía
+# polkit) que arranque ESTE unit, que corre como root el helper root-owned apply-update.sh.
+# Nunca se habilita: se arranca on-demand. systemd es su dueño → sobrevive al reinicio del portal.
+cat > /etc/systemd/system/voxywatch-apply-update.service << EOF
+[Unit]
+Description=VoxyWatch — apply signed update (one-shot, triggered from the portal)
+[Service]
+Type=oneshot
+ExecStart=${INSTALL_DIR}/apply-update.sh
+# Root a propósito: instala el binario en /opt, units y reinicia servicios (lo que el update exige).
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=voxywatch-apply-update
+EOF
+
 # ── SIPREC SRS (grabación directa desde SBC) — proceso APARTE, OFF por default ──
 # v2.81: el SRS recibe SIPREC del SBC y escribe al MISMO almacén .seg/.idx que el sniffer.
 # Se instala DORMANTE y NI SIQUIERA se habilita/arranca: el unit queda en disco, detenido y
@@ -669,7 +685,8 @@ polkit.addRule(function(action, subject) {
     if (subject.user != "${SERVICE_USER}") return;
     if (action.id == "org.freedesktop.systemd1.manage-units") {
         var u = action.lookup("unit");
-        if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" || u == "systemd-timesyncd.service")
+        if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" ||
+            u == "voxywatch-apply-update.service" || u == "systemd-timesyncd.service")
             return polkit.Result.YES;
     }
     // enable/disable persistente SOLO del SRS (la pestaña Settings → SIPREC lo activa en boot).
@@ -692,19 +709,10 @@ cat > /etc/systemd/system/voxywatch.service.d/service-control.conf << DROPIN
 ReadWritePaths=/etc/resolv.conf /etc/systemd /etc/systemd/timesyncd.conf
 DROPIN
 
-# 2b) sudoers — let ${SERVICE_USER} run ONLY the update helper as root (one-click portal update).
-# Scoped to an exact, root-owned, non-writable path → no general root, no argument injection.
-# Validated with visudo before it counts; removed if invalid so sudo never breaks.
-if [ -x /opt/voxywatch/apply-update.sh ]; then
-    cat > /etc/sudoers.d/voxywatch-update << SUDOERS
-${SERVICE_USER} ALL=(root) NOPASSWD: /opt/voxywatch/apply-update.sh
-SUDOERS
-    chmod 440 /etc/sudoers.d/voxywatch-update
-    if ! visudo -cf /etc/sudoers.d/voxywatch-update >/dev/null 2>&1; then
-        echo "⚠ sudoers de update inválido — removido (one-click update quedará manual)"
-        rm -f /etc/sudoers.d/voxywatch-update
-    fi
-fi
+# 2b) limpiar el sudoers de update de v2.83.0 (inútil bajo NoNewPrivileges=true: sudo no puede
+# escalar desde el portal). El one-click update ahora va por D-Bus+polkit (manage-units del
+# unit voxywatch-apply-update.service, ya cubierto por la regla de arriba) — no por sudo.
+rm -f /etc/sudoers.d/voxywatch-update
 
 # 3) persist state + reload
 if grep -q '^SERVICE_CONTROL=' "$CONF_FILE" 2>/dev/null; then

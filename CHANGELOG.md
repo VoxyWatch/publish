@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.83.2] — 2026-06-18
+
+### Fixed — One-click update now actually applies (D-Bus + polkit, not sudo)
+The v2.83.0 mechanism (scoped sudoers) didn't work: the portal runs with `NoNewPrivileges=true`, so `sudo` cannot escalate from the portal process. Replaced with the same pattern the sniffer restart already uses: `install.sh` installs a **root one-shot** unit `voxywatch-apply-update.service` (runs the root-owned `apply-update.sh` helper), `enable-service-control.sh` adds a **polkit** grant to start only that unit, and `POST /api/update` triggers it over **D-Bus (`busctl StartUnit`)** — which works under `NoNewPrivileges`. systemd owns the one-shot, so it survives the portal restart. Without the grant it returns the manual command. The dead v2.83.0 sudoers file is removed.
+
 ## [2.83.1] — 2026-06-18
 
 ### Changed — Clearer label for calls with no final SIP response ("Ignored")

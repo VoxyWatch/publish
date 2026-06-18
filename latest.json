@@ -1,20 +1,17 @@
 {
-  "version": "2.86.0",
+  "version": "2.86.1",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.86.0/voxywatch-v2.86.0-linux-x64.tar.gz",
-    "sha256": "eb6c21319840b125de48de430f25d83b756cb00beede0eb64439628a9c232787",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.86.0/voxywatch-v2.86.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.86.1/voxywatch-v2.86.1-linux-x64.tar.gz",
+    "sha256": "44cf90b9797bbd1ff5765d3dd93e7457d4b9ea550633aa1738b5e20066da3aa4",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.86.1/voxywatch-v2.86.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Agentic Monitoring, Phase 2: per-trunk traffic type + AI discovery",
-    "`traffic_type` field in the trunk catalog (wholesale termination/origination, retail/enterprise, SIP-trunk/PBX, calling-card, DID inbound, toll-free, on-net, te",
-    "Expected profile per type adjusts health thresholds. Type-aware health sits behind the `trunk_health.profile_aware` flag (ships OFF — validate with the simula",
-    "AI discovery: a \"🤖 Discover with AI\" button → `POST /api/trunks/:id/discover-type` builds a 14-day profile snapshot (direction, ASR, ACD, countries, codes,"
+    "AI traffic-type discovery truncated with Gemini 2.5"
   ],
   "min_upgrade_from": "1.0.0"
 }

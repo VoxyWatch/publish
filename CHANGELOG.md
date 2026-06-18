@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.86.1] — 2026-06-18
+
+### Fixed — AI traffic-type discovery truncated with Gemini 2.5
+`POST /api/trunks/:id/discover-type` always returned `proposal:null`: with `maxOutputTokens=250` Gemini 2.5 spends the budget on "thinking" and the JSON came back cut off. Raised to 800 tokens → the AI now classifies.
+
 ## [2.86.0] — 2026-06-18
 
 ### Added — Agentic Monitoring, Phase 2: per-trunk traffic type + AI discovery

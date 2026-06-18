@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.84.1] — 2026-06-18
+
+### Fixed — One-click update returned "needs_privilege" even with the grant present
+The `isServiceControlEnabled()` pre-gate `stat`s `/etc/polkit-1/rules.d/` (dir `0750 root:polkitd`) which the unprivileged portal cannot read → false negative → `POST /api/update` returned 409 even though the polkit grant existed. Fix: drop the pre-gate and try `busctl StartUnit` directly (same as the sniffer restart); polkit's result is the source of truth.
+
 ## [2.84.0] — 2026-06-18
 
 ### Added/Fixed — Dashboard KPIs now follow the time window + new KPIs + chart i18n

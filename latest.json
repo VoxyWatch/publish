@@ -1,17 +1,17 @@
 {
-  "version": "2.86.1",
+  "version": "2.86.2",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.86.1/voxywatch-v2.86.1-linux-x64.tar.gz",
-    "sha256": "44cf90b9797bbd1ff5765d3dd93e7457d4b9ea550633aa1738b5e20066da3aa4",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.86.1/voxywatch-v2.86.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.86.2/voxywatch-v2.86.2-linux-x64.tar.gz",
+    "sha256": "32dac8598d94b325d01e997b8bd1c67688c927c7af1670d1f52c4879afd13b45",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.86.2/voxywatch-v2.86.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "AI traffic-type discovery truncated with Gemini 2.5"
+    "AI discovery robust to truncated replies"
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.82.4] — 2026-06-18
+
+### Fixed — Concurrencia correcta en todos los rangos (siempre del rollup horario)
+La concurrencia ahora se calcula siempre del rollup horario (ledger balanceado) y se mapea a los buckets finos — antes mezclar baseline-horario con deltas-1m daba números absurdos (24h en 0 o en millones). attempts/answered/cps siguen finos del rollup por minuto; la concurrencia, al ser lenta, va a resolución horaria mapeada. Solo endpoint.
+
 ## [2.82.3] — 2026-06-18
 
 ### Fixed — Concurrencia en 24h se hundía (122 en vez de ~miles)

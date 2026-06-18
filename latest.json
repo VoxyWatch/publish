@@ -1,17 +1,17 @@
 {
-  "version": "2.82.3",
+  "version": "2.82.4",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.82.3/voxywatch-v2.82.3-linux-x64.tar.gz",
-    "sha256": "dc0db632f05a145cf64b9ea876bf4afaec73e95f259aaf0255ac6c20d03d2d89",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.82.3/voxywatch-v2.82.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.82.4/voxywatch-v2.82.4-linux-x64.tar.gz",
+    "sha256": "f5be4cd00165279a835f9f43e54b9becb52890558588a25a633cf6b03c216266",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.82.4/voxywatch-v2.82.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Concurrencia en 24h se hundía (122 en vez de ~miles)"
+    "Concurrencia correcta en todos los rangos (siempre del rollup horario)"
   ],
   "min_upgrade_from": "1.0.0"
 }

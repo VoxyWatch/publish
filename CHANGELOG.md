@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.81.4] — 2026-06-17
+
+### Added — Download a SIP-only trace (no RTP) — instant
+A call's SIP flow viewer now has **two PCAP buttons**: "SIP-only PCAP" (signaling only, a few KB, downloads
+instantly) and "Full PCAP" (SIP + RTP/audio, as before). Handy when a call has audio and the full capture
+weighed several MB and took a while. The SIP-only export skips all RTP scanning end to end.
+
 ## [2.81.3] — 2026-06-17
 
 ### Added — Upload the SIPREC TLS certificates from the portal (besides the path)

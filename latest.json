@@ -1,17 +1,17 @@
 {
-  "version": "2.81.3",
+  "version": "2.81.4",
   "release_date": "2026-06-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.3/voxywatch-v2.81.3-linux-x64.tar.gz",
-    "sha256": "8b00c464c0356d018ca9b64a034e2ac03bb08551140b9901b84f501c98190fa6",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.3/voxywatch-v2.81.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.4/voxywatch-v2.81.4-linux-x64.tar.gz",
+    "sha256": "32ec20e4a7b5b6d66260dd5fb1a8d661f7eb2a4d66677ee5f14911dae3359b94",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.4/voxywatch-v2.81.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Upload the SIPREC TLS certificates from the portal (besides the path)"
+    "Download a SIP-only trace (no RTP) — instant"
   ],
   "min_upgrade_from": "1.0.0"
 }

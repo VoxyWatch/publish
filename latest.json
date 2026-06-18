@@ -1,17 +1,20 @@
 {
-  "version": "2.83.2",
+  "version": "2.84.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.83.2/voxywatch-v2.83.2-linux-x64.tar.gz",
-    "sha256": "61d11589b36c6d20f720593cbb7d1c22a721b5695abb87dad8d31aa452530ee9",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.83.2/voxywatch-v2.83.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.84.0/voxywatch-v2.84.0-linux-x64.tar.gz",
+    "sha256": "91f949632b3a066412df88a5f705896a2701f6360ad253e59c2816abea4e6d17",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.84.0/voxywatch-v2.84.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "One-click update now actually applies (D-Bus + polkit, not sudo)"
+    "Added/Fixed — Dashboard KPIs now follow the time window + new KPIs + chart i18n",
+    "New `/api/dashboard/kpis?from&to` aggregates KPIs from the rollups (full history, O(buckets)): counts (Attempts/Answered/ASR/NER/Failed) from the global `call_s",
+    "New KPIs: \"Active now\" (live in-progress calls), \"Answered\", and \"Total calls\" renamed to \"Attempts\".",
+    "Short calls fixed: now counts only answered calls under 10s, as a % of answered (possible false-answer) — no longer inflated to ~100%."
   ],
   "min_upgrade_from": "1.0.0"
 }

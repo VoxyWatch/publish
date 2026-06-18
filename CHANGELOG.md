@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.84.0] — 2026-06-18
+
+### Added/Fixed — Dashboard KPIs now follow the time window + new KPIs + chart i18n
+Header KPIs came from the most-recent ~20k-call sample, so they ignored the time filter ("yesterday" showed all zeros) and "% short calls" read ~100% because it counted every call under 10s — **including unanswered (0s) ones**. Now:
+- **New `/api/dashboard/kpis?from&to`** aggregates KPIs from the rollups (full history, O(buckets)): counts (Attempts/Answered/ASR/NER/Failed) from the global `call_stats_hourly`; quality (ACD/MOS/PDD/minutes) from `trunk_stats_hourly` (attributed traffic). **"yesterday"/"today"/custom are now correct.** No rollup rebuild.
+- **New KPIs:** "Active now" (live in-progress calls), "Answered", and "Total calls" renamed to **"Attempts"**.
+- **Short calls fixed:** now counts only **answered** calls under 10s, as a % of answered (possible false-answer) — no longer inflated to ~100%.
+- **i18n** for the **Disconnect Causes** and **MOS Distribution** charts (were hardcoded Spanish → now follow the user's language).
+- **MOS:** average MOS now also follows the window. The MOS *distribution* needs per-call MOS (RTCP or RTP-in-DB); on SBCs without RTCP it stays sparse — a data-source limitation, not the portal.
+
 ## [2.83.2] — 2026-06-18
 
 ### Fixed — One-click update now actually applies (D-Bus + polkit, not sudo)

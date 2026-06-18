@@ -1,17 +1,17 @@
 {
-  "version": "2.81.8",
+  "version": "2.82.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.8/voxywatch-v2.81.8-linux-x64.tar.gz",
-    "sha256": "0ce022e1c6f8f3e30a1dc7cd68a41dfdf1deec98d91bdb19b208438cd553a88a",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.8/voxywatch-v2.81.8-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.82.0/voxywatch-v2.82.0-linux-x64.tar.gz",
+    "sha256": "aa24bb7e7ac6b45cd3813fa0a1e9973d1ff3181f85368f3b53192b3f8caa0f98",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.82.0/voxywatch-v2.82.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "\"Simultaneous calls\" chart moved up with the main charts"
+    "Dashboard trend charts with ~48 points on every range + new CPS chart"
   ],
   "min_upgrade_from": "1.0.0"
 }

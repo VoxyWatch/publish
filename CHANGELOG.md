@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.82.0] — 2026-06-18
+
+### Added — Dashboard trend charts with ~48 points on every range + new CPS chart
+Trend charts (Attempts, Answered, Simultaneous, ASR/NER and the new **CPS**) now show **~48 points on any
+range** (1h/6h used to have just 1-6). A new per-minute rollup powers short ranges; the hourly rollup powers
+7d/30d/all. New `GET /api/dashboard/series?range=` splits the window into 48 buckets and returns
+attempts/answered/concurrency/cps/asr/ner pre-aggregated (millisecond response). Also: the Simultaneous-calls
+chart now follows the time filter, the ASR/NER context bar is concurrency (not total), CPS (call attempts per
+second) was added, and "All" spans from the oldest retained CDR to now.
+
 ## [2.81.8] — 2026-06-18
 
 ### Changed — "Simultaneous calls" chart moved up with the main charts

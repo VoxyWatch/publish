@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.83.1] — 2026-06-18
+
+### Changed — Clearer label for calls with no final SIP response ("Ignored")
+The **Disconnect Causes** chart showed "Sin código" for unanswered calls with no captured final SIP code (INVITE with no response: SBC mirroring only one leg, scanners, timeouts). It now reads **"Ignored"** — matching the term already used in the call's disposition badge. The generic reason in **Failure Reasons** also moves from "Sin respuesta" to "Ignored" so both views are consistent. Label/terminology only; classification unchanged.
+
 ## [2.83.0] — 2026-06-18
 
 ### Added — One-click portal update without manual root (scoped sudoers)

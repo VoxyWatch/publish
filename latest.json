@@ -1,17 +1,17 @@
 {
-  "version": "2.83.0",
+  "version": "2.83.1",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.83.0/voxywatch-v2.83.0-linux-x64.tar.gz",
-    "sha256": "64f4447f1437b3ded277752aa0913420e5b22f33a327d9e5acf12db84cdb7999",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.83.0/voxywatch-v2.83.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.83.1/voxywatch-v2.83.1-linux-x64.tar.gz",
+    "sha256": "720f3dee592b53c116ef49de736bef633b0dd0a9e5357fdfb4fc0cd6a4c03843",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.83.1/voxywatch-v2.83.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "One-click portal update without manual root (scoped sudoers)"
+    "Clearer label for calls with no final SIP response (\"Ignored\")"
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -1,19 +1,20 @@
 {
-  "version": "2.90.0",
+  "version": "2.90.1",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.90.0/voxywatch-v2.90.0-linux-x64.tar.gz",
-    "sha256": "d4fb35688e17835b1800dd7bfea521c210e7b101e1826d6bd18d23f05792fb65",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.90.0/voxywatch-v2.90.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.90.1/voxywatch-v2.90.1-linux-x64.tar.gz",
+    "sha256": "404908e1b6e2eb551aef4b3156516dc57fb5f8d595fcaffacf42568ae79b4f36",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.90.1/voxywatch-v2.90.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "pulido operativo detectado en debug de producción",
-    "Backfill del rollup de 1 minuto, barato en cada reinicio. `call_stats_1m` es persistente y sobrevive al reinicio, pero el backfill de arranque re-escaneaba las",
-    "Reconstrucción de audio: \"sin RTP\" deja de ser un falso error. Cuando una llamada no tiene RTP recuperable (el SBC no espejó media, o ya se purgó), `reconstr"
+    "el chequeo de actualización forzado ya no ve un manifiesto stale",
+    "El chequeo forzado (force) ahora añade un cache-buster (`?t=epoch`) → el edge hace MISS y trae el manifiesto fresco del origin. El poll horario sigue usando",
+    "`POST /api/update` ahora fuerza un chequeo fresco él mismo antes de decidir, en vez de depender de un `GET /api/version/latest?force=1` previo → la actualiza",
+    "Fail-closed: si esa verificación forzada no logra bajar un manifiesto fresco (GitHub caído/timeout), `POST /api/update` responde 503 \"no se pudo verificar\" en"
   ],
   "min_upgrade_from": "1.0.0"
 }

@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.90.1] — 2026-06-18
+
+### Fixed — el chequeo de actualización forzado ya no ve un manifiesto stale
+El botón "Buscar ahora" y la actualización **un-clic** podían reportar "no hay actualización disponible" justo tras publicar una versión: `raw.githubusercontent.com` cachea `latest.json` ~5 min **por edge**, y el portal pegaba a la URL pelada → veía el manifiesto viejo de ese edge.
+- El chequeo **forzado** (force) ahora añade un cache-buster (`?t=epoch`) → el edge hace MISS y trae el manifiesto fresco del origin. El poll horario sigue usando la URL pelada (su caché de cortesía de 5 min ya throttlea; no añade carga). Headers `Cache-Control: no-cache` + `Pragma: no-cache`.
+- `POST /api/update` ahora **fuerza un chequeo fresco él mismo** antes de decidir, en vez de depender de un `GET /api/version/latest?force=1` previo → la actualización un-clic es robusta de forma independiente.
+- **Fail-closed**: si esa verificación forzada no logra bajar un manifiesto fresco (GitHub caído/timeout), `POST /api/update` responde **503 "no se pudo verificar"** en vez de actuar sobre el estado viejo en RAM (`checkForUpdates` devuelve si la descarga fue fresca). `apply-update.sh` re-verifica GPG+SHA igual, pero así no se anuncia un update a una versión que pudo retirarse.
+
+
 ## [2.90.0] — 2026-06-18
 
 ### Fixed — pulido operativo detectado en debug de producción

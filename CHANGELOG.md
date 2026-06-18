@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.81.5] — 2026-06-18
+
+### Fixed — Dashboard "Call Volume" chart showed only ~2h of sampled data, not real history
+The volume chart (and the ASR/NER and concurrency trend charts) fell back to the recent in-memory sample
+(~2h at high volume, small numbers) instead of the full `call_stats_hourly` rollup. The timeseries endpoint
+now reads from the UI read-pool (not the sniffer's ingest pool, which saturates at high traffic and made the
+query 503), and the frontend keeps the last good series if a single fetch fails. The chart now shows the
+full real history again.
+
 ## [2.81.4] — 2026-06-17
 
 ### Added — Download a SIP-only trace (no RTP) — instant

@@ -1,17 +1,17 @@
 {
-  "version": "2.81.4",
+  "version": "2.81.5",
   "release_date": "2026-06-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.4/voxywatch-v2.81.4-linux-x64.tar.gz",
-    "sha256": "32ec20e4a7b5b6d66260dd5fb1a8d661f7eb2a4d66677ee5f14911dae3359b94",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.4/voxywatch-v2.81.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.5/voxywatch-v2.81.5-linux-x64.tar.gz",
+    "sha256": "a3caabda3308d924e3fc7e6859f14137b80eabcc13a2e9a5533815e6b2a0b988",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.5/voxywatch-v2.81.5-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Download a SIP-only trace (no RTP) — instant"
+    "Dashboard \"Call Volume\" chart showed only ~2h of sampled data, not real history"
   ],
   "min_upgrade_from": "1.0.0"
 }

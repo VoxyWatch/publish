@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.88.0] — 2026-06-18
+
+### Added — Agentic Monitoring, Phase 3b: pattern-deviation alert (off-hours) + editable values
+On top of the learned pattern (3a), VoxyWatch now **flags a trunk with traffic outside its usual hourly window**:
+- **Off-hours detector** in trunk health (reason `health_pat_offhours`), **gated by the `trunk_health.pattern_alerts` flag (OFF by default) + a MATURE pattern** (~2 weeks) + the trunk not muted → anti-FP: nothing alarms without maturity or without the admin enabling it.
+- **Editable per trunk**: the drill-down "Learned pattern" panel lets you adjust the active window (From/To) and mute deviations (`POST /api/trunks/:id/pattern-override`); the manual window overrides the learned one.
+- Anti-loss guard for the override in the catalog replace-all. Local hour uses the portal timezone.
+
 ## [2.87.0] — 2026-06-18
 
 ### Added — Agentic Monitoring, Phase 3a: learned per-trunk pattern (maturity + hours + countries)

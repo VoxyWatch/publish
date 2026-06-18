@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.81.7] — 2026-06-18
+
+### Fixed — Dashboard labels: tell "per hour" (volume) apart from "simultaneous" (concurrency)
+The concurrency chart was titled "Active calls / hour", easily mistaken for an hourly volume. Renamed to
+**"Simultaneous calls (concurrency)"** — the metric that matters for SBC capacity (~4-5k on C3ntro). The
+Attempts and Answered charts now say **PER HOUR · not simultaneous** so hourly volume (tens of thousands)
+isn't confused with concurrent calls (thousands). Labels only; the data was already correct.
+
 ## [2.81.6] — 2026-06-18
 
 ### Changed — Dashboard: "Call Attempts" (excl. LNP redirects) + new "Answered" chart + working 1h/6h range

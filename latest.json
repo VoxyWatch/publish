@@ -1,17 +1,17 @@
 {
-  "version": "2.81.6",
+  "version": "2.81.7",
   "release_date": "2026-06-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.6/voxywatch-v2.81.6-linux-x64.tar.gz",
-    "sha256": "f64f42f47219169230a8629803f333dc5e18d9e5901797cdfe5a4be021c09467",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.6/voxywatch-v2.81.6-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.7/voxywatch-v2.81.7-linux-x64.tar.gz",
+    "sha256": "cccf2d2986f683fc922cf5aec9f20fc3f40f3e01025cbac3e4986a3deaef39e9",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.7/voxywatch-v2.81.7-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Dashboard: \"Call Attempts\" (excl. LNP redirects) + new \"Answered\" chart + working 1h/6h range"
+    "Dashboard labels: tell \"per hour\" (volume) apart from \"simultaneous\" (concurrency)"
   ],
   "min_upgrade_from": "1.0.0"
 }

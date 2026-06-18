@@ -1,20 +1,20 @@
 {
-  "version": "2.87.0",
+  "version": "2.88.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.87.0/voxywatch-v2.87.0-linux-x64.tar.gz",
-    "sha256": "9b82680a2c1978cc0e130e7c4b0df7b91def0ee90d5e03c5e218ad505d8eb274",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.87.0/voxywatch-v2.87.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.88.0/voxywatch-v2.88.0-linux-x64.tar.gz",
+    "sha256": "daec1a96623fca92b52992bb72f4fe8e4c8e2f1d6e612460dba0e6af64b5a6bd",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.88.0/voxywatch-v2.88.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Agentic Monitoring, Phase 3a: learned per-trunk pattern (maturity + hours + countries)",
-    "ML maturity: days observed vs ~14 (Saturday ≠ Wednesday) — a \"Learning… N/14 days\" or \"Mature ✓\" badge, with the note that ML needs ~2 weeks to be relia",
-    "Usual activity hours (traffic start–end, in the portal's timezone).",
-    "Typical destination countries."
+    "Agentic Monitoring, Phase 3b: pattern-deviation alert (off-hours) + editable values",
+    "Off-hours detector in trunk health (reason `health_pat_offhours`), gated by the `trunk_health.pattern_alerts` flag (OFF by default) + a MATURE pattern (~2 weeks",
+    "Editable per trunk: the drill-down \"Learned pattern\" panel lets you adjust the active window (From/To) and mute deviations (`POST /api/trunks/:id/pattern-overri",
+    "Anti-loss guard for the override in the catalog replace-all. Local hour uses the portal timezone."
   ],
   "min_upgrade_from": "1.0.0"
 }

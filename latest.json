@@ -1,17 +1,17 @@
 {
-  "version": "2.81.7",
-  "release_date": "2026-06-17",
+  "version": "2.81.8",
+  "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.7/voxywatch-v2.81.7-linux-x64.tar.gz",
-    "sha256": "cccf2d2986f683fc922cf5aec9f20fc3f40f3e01025cbac3e4986a3deaef39e9",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.7/voxywatch-v2.81.7-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.8/voxywatch-v2.81.8-linux-x64.tar.gz",
+    "sha256": "0ce022e1c6f8f3e30a1dc7cd68a41dfdf1deec98d91bdb19b208438cd553a88a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.8/voxywatch-v2.81.8-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Dashboard labels: tell \"per hour\" (volume) apart from \"simultaneous\" (concurrency)"
+    "\"Simultaneous calls\" chart moved up with the main charts"
   ],
   "min_upgrade_from": "1.0.0"
 }

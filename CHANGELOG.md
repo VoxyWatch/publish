@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.81.8] — 2026-06-18
+
+### Changed — "Simultaneous calls" chart moved up with the main charts
+The concurrency chart now sits next to Call Attempts and Answered (top row), full-width — it's the SBC
+capacity metric, so it's front and center.
+
 ## [2.81.7] — 2026-06-18
 
 ### Fixed — Dashboard labels: tell "per hour" (volume) apart from "simultaneous" (concurrency)

@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.89.0] — 2026-06-18
+
+### Added — Monitoring agéntico Fase 4: métricas configurables + IA profunda por troncal (cierra el rediseño)
+Última fase del rediseño del Monitoring. Dos capacidades pedidas por el NOC:
+- **Métricas configurables/intercambiables.** La tabla de Monitoring deja de tener columnas fijas: un selector **⚙ Columnas** (persistido en `localStorage`) permite mostrar/ocultar cada métrica y **agregar nuevas** (tipo de tráfico, madurez del patrón) además de las clásicas (Llam./ASR/NER/ACD/MOS/Pérdida/PDD/5xx/OWA). El encabezado se reconstruye según lo elegido; siempre queda al menos una métrica visible.
+- **IA profunda por troncal.** Botón **🤖 Diagnosticar con IA** en el drill-down de cada troncal → reusa `POST /api/copilot/trunk/:id` (que ya existía pero no estaba expuesto en la UI): el copiloto analiza series de 48 h + baseline + top de códigos SIP + destinos y ahora también el **tipo de tráfico y el patrón aprendido** (madurez, ventana horaria habitual, países típicos) → causa probable · acciones para el NOC · riesgo. Render markdown-lite seguro (escape + **negritas**), cacheado 5 min.
+- **🤖 Resumen IA** en la cabecera del Monitoring (`POST /api/copilot/overview`): prioriza qué troncales atender primero y agrupa problemas similares.
+> El copiloto IA debe estar activo (Settings → AI Chat). VoxyWatch solo observa; la IA nunca toca el SBC. Cierra las Fases 1-4 del Monitoring agéntico.
+
 ## [2.88.0] — 2026-06-18
 
 ### Added — Agentic Monitoring, Phase 3b: pattern-deviation alert (off-hours) + editable values

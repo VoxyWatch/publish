@@ -1,20 +1,20 @@
 {
-  "version": "2.88.0",
+  "version": "2.89.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.88.0/voxywatch-v2.88.0-linux-x64.tar.gz",
-    "sha256": "daec1a96623fca92b52992bb72f4fe8e4c8e2f1d6e612460dba0e6af64b5a6bd",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.88.0/voxywatch-v2.88.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.89.0/voxywatch-v2.89.0-linux-x64.tar.gz",
+    "sha256": "d56d8f4b476ba51e5f6ef5642e817e7d5b6ad07006db037feccb0fe1ffee106a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.89.0/voxywatch-v2.89.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Agentic Monitoring, Phase 3b: pattern-deviation alert (off-hours) + editable values",
-    "Off-hours detector in trunk health (reason `health_pat_offhours`), gated by the `trunk_health.pattern_alerts` flag (OFF by default) + a MATURE pattern (~2 weeks",
-    "Editable per trunk: the drill-down \"Learned pattern\" panel lets you adjust the active window (From/To) and mute deviations (`POST /api/trunks/:id/pattern-overri",
-    "Anti-loss guard for the override in the catalog replace-all. Local hour uses the portal timezone."
+    "Monitoring agéntico Fase 4: métricas configurables + IA profunda por troncal (cierra el rediseño)",
+    "Métricas configurables/intercambiables. La tabla de Monitoring deja de tener columnas fijas: un selector ⚙ Columnas (persistido en `localStorage`) permite mo",
+    "IA profunda por troncal. Botón 🤖 Diagnosticar con IA en el drill-down de cada troncal → reusa `POST /api/copilot/trunk/:id` (que ya existía pero no estab",
+    "🤖 Resumen IA en la cabecera del Monitoring (`POST /api/copilot/overview`): prioriza qué troncales atender primero y agrupa problemas similares."
   ],
   "min_upgrade_from": "1.0.0"
 }

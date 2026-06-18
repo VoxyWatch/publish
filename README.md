@@ -32,6 +32,36 @@ Then open **`http://YOUR-IP:3080`**.
 
 > ⚠️ **Change the default password immediately** — Settings → Security → Users.
 
+### 🔑 Root & `sudo` — what's required
+
+The installer **must run with root privileges**. It creates a dedicated `voxywatch` system user, installs the binary to `/opt/voxywatch`, provisions an isolated PostgreSQL + TimescaleDB cluster and registers systemd services — none of which is possible unprivileged. **There is no non-root install.** What changes is only *how* you reach root:
+
+```bash
+# A) You're a regular user WITH sudo rights (most common):
+curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | sudo bash
+
+# B) You're ALREADY root (e.g. after `su -`, or a root shell): drop the sudo
+curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | bash
+```
+
+**The `sudo` *package* must be present either way** — even when you run as root. The installer uses it internally to run the PostgreSQL setup as the `postgres` / `voxywatch` users via peer authentication. It does **not** grant VoxyWatch general root. Install it first if missing:
+
+```bash
+apt-get install -y sudo      # Debian / Ubuntu
+dnf install -y sudo          # RHEL / Rocky / Alma
+```
+
+**Updates also require root.** Apply them by re-running the installer as root with `--update`:
+
+```bash
+# A) sudo user:
+curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | sudo bash -s -- --update
+# B) already root:
+curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | bash -s -- --update
+```
+
+The portal checks hourly and announces a new version in the 🔔 bell (Settings → Update). The **one-click "Update now"** button only applies on its own if the service was allowed to manage itself during install (the *Service control* prompt → grants a scoped polkit rule). On hosts where the `voxywatch` service has no privilege escalation, run the `--update` command above as root instead.
+
 ---
 
 ## 💡 Why VoxyWatch

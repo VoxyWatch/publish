@@ -1,17 +1,17 @@
 {
-  "version": "2.82.4",
+  "version": "2.82.5",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.82.4/voxywatch-v2.82.4-linux-x64.tar.gz",
-    "sha256": "f5be4cd00165279a835f9f43e54b9becb52890558588a25a633cf6b03c216266",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.82.4/voxywatch-v2.82.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.82.5/voxywatch-v2.82.5-linux-x64.tar.gz",
+    "sha256": "d517ce04340ca197b606d12ab918b6079fba0e7f4a6d34bf573b924786809017",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.82.5/voxywatch-v2.82.5-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Concurrencia correcta en todos los rangos (siempre del rollup horario)"
+    "Rangos \"ayer\", \"hoy\" y \"personalizado\" en las gráficas de tendencia"
   ],
   "min_upgrade_from": "1.0.0"
 }

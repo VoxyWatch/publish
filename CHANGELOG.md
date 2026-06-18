@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.82.5] — 2026-06-18
+
+### Fixed — Rangos "ayer", "hoy" y "personalizado" en las gráficas de tendencia
+Las 5 gráficas de tendencia (Intentos/Contestadas/Simultáneas/CPS/ASR-NER) ya respetan los filtros de tiempo "ayer", "hoy" y "personalizado" (rango): antes "ayer" caía a las últimas 24h móviles y "personalizado" caía a "todo" (ignoraba la ventana from/to elegida). Ahora el endpoint `/api/dashboard/series` acepta `from`/`to` (epoch s) explícitos: el frontend manda la ventana real y el servidor la reparte en N=48 buckets eligiendo la fuente (rollup por minuto si la ventana cabe en la retención de 26h, horario si no). 1h/6h/24h/7d/30d/all siguen igual. Solo endpoint + frontend.
+
 ## [2.82.4] — 2026-06-18
 
 ### Fixed — Concurrencia correcta en todos los rangos (siempre del rollup horario)

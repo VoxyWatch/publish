@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.86.2] — 2026-06-18
+
+### Fixed — AI discovery robust to truncated replies
+Gemini 2.5 spends so much on "thinking" that the JSON came back cut off at "rationale". Now maxTokens=1500 + a tolerant parser: if the JSON is incomplete, it extracts type/confidence/rationale by regex so a valid classification isn't lost.
+
 ## [2.86.1] — 2026-06-18
 
 ### Fixed — AI traffic-type discovery truncated with Gemini 2.5

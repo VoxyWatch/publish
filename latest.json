@@ -1,17 +1,17 @@
 {
-  "version": "2.81.5",
+  "version": "2.81.6",
   "release_date": "2026-06-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.5/voxywatch-v2.81.5-linux-x64.tar.gz",
-    "sha256": "a3caabda3308d924e3fc7e6859f14137b80eabcc13a2e9a5533815e6b2a0b988",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.5/voxywatch-v2.81.5-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.81.6/voxywatch-v2.81.6-linux-x64.tar.gz",
+    "sha256": "f64f42f47219169230a8629803f333dc5e18d9e5901797cdfe5a4be021c09467",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.81.6/voxywatch-v2.81.6-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Dashboard \"Call Volume\" chart showed only ~2h of sampled data, not real history"
+    "Dashboard: \"Call Attempts\" (excl. LNP redirects) + new \"Answered\" chart + working 1h/6h range"
   ],
   "min_upgrade_from": "1.0.0"
 }

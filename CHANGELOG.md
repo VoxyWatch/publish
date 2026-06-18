@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.81.6] — 2026-06-18
+
+### Changed — Dashboard: "Call Attempts" (excl. LNP redirects) + new "Answered" chart + working 1h/6h range
+The volume chart counted non-call transactions (3xx/LNP redirects, `lnp-*`) that inflated the number. Now:
+"Call Attempts" excludes LNP redirects (keeps failed/busy/cancelled/no-answer so route failures stay
+visible); a new "Answered Calls" chart shows connected calls only; and the 1h/6h/24h range buttons now
+actually change the chart (they used to all show 24h). Rollup rebuilds automatically on update.
+
 ## [2.81.5] — 2026-06-18
 
 ### Fixed — Dashboard "Call Volume" chart showed only ~2h of sampled data, not real history

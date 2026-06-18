@@ -78,7 +78,7 @@
 | Playable stereo audio | SIPREC reconstruction, caller/callee channels, in-browser player. PCMU/PCMA, G.722, G.729 + AMR/GSM/G.723 via SDP hints. Per-call PCAP export. |
 | Carrier & country attribution | Trunk catalog (IPs/CIDRs/prefixes) → every call attributed to carrier, direction and destination country (ITU-T E.164, longest match). |
 | Trunk health + baselines | Rule engine (ok/warn/critical/idle) with plain-language reasons + per-trunk learned baselines (mean ± σ). Catches the 90%→70% drop a fixed threshold misses. |
-| Dashboard & CDR base | Live KPIs, time-series from continuous rollups, sortable/filterable/CSV CDR base at millions of rows (keyset + trigram search). |
+| Dashboard & CDR base | **Window-accurate KPIs** — Attempts, Answered, Active-now, ASR, NER, ACD, MOS, PDD, minutes and concurrency aggregated from continuous rollups for the *exact* range picked (hour / today / yesterday / custom / all), not a live snapshot. ~48-point trend charts (attempts, answered, concurrency, CPS, ASR/NER) + distributions (disconnect causes by SIP family, duration, PDD, codecs, MOS). Sortable/filterable/CSV CDR base at millions of rows (keyset + trigram search). Bilingual EN/ES. Honest MOS: shows "no data" when the source lacks RTCP/RTP rather than inventing one. |
 
 ### 3 · Compliance & security
 

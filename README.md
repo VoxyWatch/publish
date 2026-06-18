@@ -131,9 +131,11 @@ VoxyWatch ships a standalone **Model Context Protocol server**: connect Claude D
 - Per-call **PCAP export** for Wireshark.
 
 ### 📊 Real-time dashboard & CDR
-- Live VoIP KPIs: **ASR, NER, ACD, MOS, PDD, jitter, packet loss, concurrency** — sampled live, with time-series from a continuous rollup.
+- **Window-accurate KPIs**: **Attempts, Answered, Active now, ASR, NER, ACD, MOS, PDD, minutes, concurrency** — every headline number is aggregated from continuous rollups for the **exact time range you pick** (last hour … *yesterday* … *today* … custom … all), so a date filter shows that day's reality, not a snapshot of "now". "Active now" is the live count of calls in progress.
+- **Trend charts** (~48 points on any range): call attempts, answered, simultaneous calls (concurrency), CPS, ASR/NER. Plus distribution charts: **Disconnect Causes** (by SIP family: 2xx/3xx/4xx/5xx/6xx/Ignored), duration, PDD, codecs and **MOS distribution**.
 - **CDR base**: sortable, filterable, CSV-exportable call records with caller/callee/IP-label resolution — served straight from the database with keyset pagination and trigram search, so it stays fast at millions of rows.
-- Group and compare by **Inbound / Outbound / Carrier / Country**.
+- Group and compare by **Inbound / Outbound / Carrier / Country**. Fully bilingual (EN/ES).
+- *Honest by design:* MOS needs RTCP or stored RTP to be measured per call — where the source provides neither, the dashboard says so instead of inventing a number.
 
 ### 🏢 Carrier & trunk intelligence  *(the part nobody else has)*
 - **Trunk catalog** — load your carriers once (name, direction, IPs/CIDRs, prefixes). Import/export CSV or JSON, with a downloadable template.

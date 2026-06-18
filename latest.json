@@ -1,20 +1,19 @@
 {
-  "version": "2.89.0",
+  "version": "2.90.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.89.0/voxywatch-v2.89.0-linux-x64.tar.gz",
-    "sha256": "d56d8f4b476ba51e5f6ef5642e817e7d5b6ad07006db037feccb0fe1ffee106a",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.89.0/voxywatch-v2.89.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.90.0/voxywatch-v2.90.0-linux-x64.tar.gz",
+    "sha256": "d4fb35688e17835b1800dd7bfea521c210e7b101e1826d6bd18d23f05792fb65",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.90.0/voxywatch-v2.90.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Monitoring agéntico Fase 4: métricas configurables + IA profunda por troncal (cierra el rediseño)",
-    "Métricas configurables/intercambiables. La tabla de Monitoring deja de tener columnas fijas: un selector ⚙ Columnas (persistido en `localStorage`) permite mo",
-    "IA profunda por troncal. Botón 🤖 Diagnosticar con IA en el drill-down de cada troncal → reusa `POST /api/copilot/trunk/:id` (que ya existía pero no estab",
-    "🤖 Resumen IA en la cabecera del Monitoring (`POST /api/copilot/overview`): prioriza qué troncales atender primero y agrupa problemas similares."
+    "pulido operativo detectado en debug de producción",
+    "Backfill del rollup de 1 minuto, barato en cada reinicio. `call_stats_1m` es persistente y sobrevive al reinicio, pero el backfill de arranque re-escaneaba las",
+    "Reconstrucción de audio: \"sin RTP\" deja de ser un falso error. Cuando una llamada no tiene RTP recuperable (el SBC no espejó media, o ya se purgó), `reconstr"
   ],
   "min_upgrade_from": "1.0.0"
 }

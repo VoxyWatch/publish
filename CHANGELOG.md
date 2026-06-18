@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.90.0] — 2026-06-18
+
+### Fixed — pulido operativo detectado en debug de producción
+- **Backfill del rollup de 1 minuto, barato en cada reinicio.** `call_stats_1m` es persistente y sobrevive al reinicio, pero el backfill de arranque re-escaneaba las **26 h completas** de `calls` cada vez (medido en C3ntro: ~18 min de `IO/DataFileRead` por reinicio, multiplicado por cada deploy del día). Ahora `backfillMinRollup` aplica el mismo patrón que el rollup horario: rellena **solo el hueco** desde el último bucket conocido (+10 min de solape); el escaneo completo de 26 h queda **solo** para tabla vacía (instalación nueva o cambio de semántica). Reinicio normal → segundos. Esto además quita la contención de IO que disparaba algún `statement timeout` aislado en `/api/calls` justo tras arrancar.
+- **Reconstrucción de audio: "sin RTP" deja de ser un falso error.** Cuando una llamada no tiene RTP recuperable (el SBC no espejó media, o ya se purgó), `reconstruct_audio.py` salía con código 1 igual que un fallo real → el portal lo registraba como `[RECONSTRUCT] Command failed` y lo reportaba a Sentry como `error` (ruido para el autopilot). Ahora ese caso benigno sale con **código 2** y el portal responde **422 `no_audio`** sin log de error ni Sentry; la UI muestra un mensaje amable bilingüe (ℹ "esta llamada no tiene audio disponible") en vez del código crudo. Los fallos reales (BD, ffmpeg, decode) siguen siendo error 500 + Sentry.
+
 ## [2.89.0] — 2026-06-18
 
 ### Added — Monitoring agéntico Fase 4: métricas configurables + IA profunda por troncal (cierra el rediseño)

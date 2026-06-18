@@ -1,17 +1,17 @@
 {
-  "version": "2.82.1",
+  "version": "2.82.2",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.82.1/voxywatch-v2.82.1-linux-x64.tar.gz",
-    "sha256": "ab6d69c27576d795d9cf17b245204e350ede0061b814657e2b3453b1f06b654f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.82.1/voxywatch-v2.82.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.82.2/voxywatch-v2.82.2-linux-x64.tar.gz",
+    "sha256": "7930b639f42772da237ad26e559371346f9117b9f78eae0c5dd724caad3ba8ef",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.82.2/voxywatch-v2.82.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Backfill del rollup por minuto demasiado lento en alto volumen"
+    "Concurrencia en rango 24h salía 0"
   ],
   "min_upgrade_from": "1.0.0"
 }

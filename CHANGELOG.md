@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.82.2] — 2026-06-18
+
+### Fixed — Concurrencia en rango 24h salía 0
+El baseline de concurrencia (llamadas abiertas al inicio de la ventana) se tomaba del rollup por minuto, que con retención 26h conserva `ended` de llamadas cuyo `start` ya se purgó → baseline negativo → concurrencia clampada a 0 en 24h. Ahora el baseline sale siempre del rollup horario (historia completa y balanceada). Solo el endpoint; sin rebuild.
+
 ## [2.82.1] — 2026-06-18
 
 ### Fixed — Backfill del rollup por minuto demasiado lento en alto volumen

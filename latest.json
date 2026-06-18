@@ -1,17 +1,17 @@
 {
-  "version": "2.82.0",
+  "version": "2.82.1",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.82.0/voxywatch-v2.82.0-linux-x64.tar.gz",
-    "sha256": "aa24bb7e7ac6b45cd3813fa0a1e9973d1ff3181f85368f3b53192b3f8caa0f98",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.82.0/voxywatch-v2.82.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.82.1/voxywatch-v2.82.1-linux-x64.tar.gz",
+    "sha256": "ab6d69c27576d795d9cf17b245204e350ede0061b814657e2b3453b1f06b654f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.82.1/voxywatch-v2.82.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Dashboard trend charts with ~48 points on every range + new CPS chart"
+    "Backfill del rollup por minuto demasiado lento en alto volumen"
   ],
   "min_upgrade_from": "1.0.0"
 }

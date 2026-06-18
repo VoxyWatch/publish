@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.82.1] — 2026-06-18
+
+### Fixed — Backfill del rollup por minuto demasiado lento en alto volumen
+El backfill inicial de `call_stats_1m` (48h) tardaba >10 min en C3ntro por el filtro JSONB `is_scanner` sobre millones de filas + contención con la ingesta, dejando las gráficas de rango corto (1h/6h/24h) vacías ese rato. Fix: el rollup 1m ya NO aplica `is_scanner` (cuesta ~8×; el horario lo conserva para la historia; en clientes sin scanners es idéntico) y la retención baja a 26h (suficiente para ≤24h + baseline). Backfill ahora ~30-60 s.
+
 ## [2.82.0] — 2026-06-18
 
 ### Added — Dashboard trend charts with ~48 points on every range + new CPS chart

@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.104.0] — 2026-06-19
+
+### Fixed — CDR "SBC IP / label" column showed the trunk name
+The "SBC IP / label" column identifies the equipment that received the capture (the SBC, by its IP), but it fell back to the **trunk/carrier name** when that IP had no entry in Settings → IP Labels — so the SBC appeared with the same name as the trunk (confusing). That column now resolves **only** against IP Labels (exact or prefix match); if there is no label, it shows the SBC's **raw IP** — never the trunk name. The Caller/Callee columns still fall back to the carrier name (useful there). For a friendly SBC label, set its IP in Settings → IP Labels.
+
 ## [2.103.0] — 2026-06-19
 
 ### Added — Enriched CDR fields shown in the table (columns)

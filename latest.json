@@ -1,26 +1,20 @@
 {
-  "version": "2.103.0",
+  "version": "2.104.0",
   "release_date": "2026-06-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.103.0/voxywatch-v2.103.0-linux-x64.tar.gz",
-    "sha256": "d7d8a0d1ed8dc89a15243fd43ef5b2bc2724756adf981de2752023aa4d1b82a9",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.103.0/voxywatch-v2.103.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.104.0/voxywatch-v2.104.0-linux-x64.tar.gz",
+    "sha256": "d06c22a0890b1e92c040530f29471741f195b54bf283d4fcff25d8529b16eb4d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.104.0/voxywatch-v2.104.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Enriched CDR fields shown in the table (columns)",
-    "Visible by default: `Capture src` (capture-equipment label — from Settings → Capture `HEP source label` / SIPREC `label`) and `Country` (dialed country).",
-    "Optional (Customize columns): Trunk, Hung up by, Q.850, Transport, UA caller/callee, Caller/Dialed E.164, Intl, Risk (IRSF), Xfer (REFER), DTMF, Jitter max, Ret",
-    "The \"SBC IP / label\" column still shows the Settings IP label (falls back to the trunk name only when that IP has no label). Use the new `Capture src` column fo"
+    "CDR \"SBC IP / label\" column showed the trunk name"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Campos enriquecidos del CDR visibles en la tabla (columnas)",
-    "Visibles por defecto: `Capture src` (etiqueta del equipo de captura — de Settings → Captura `HEP source label` / SIPREC `label`) y `Country` (país del dest",
-    "Opcionales (Personalizar columnas): Trunk, Hung up by, Q.850, Transport, UA caller/callee, Caller/Dialed E.164, Intl, Risk (IRSF), Xfer (REFER), DTMF, Jitter ma",
-    "La columna \"SBC IP / label\" sigue mostrando el label de IP de Settings (cae al nombre de la troncal solo si esa IP no tiene label). Para ver el equipo de captur"
+    "columna \"SBC IP / label\" del CDR mostraba el nombre de la troncal"
   ]
 }

@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.99.0] — 2026-06-19
+
+### Added — Monitoreo de fuentes (HEP & SIPREC): registro persistente, panel correcto, TTL y alarma de silencio
+- **Fix de los "0s":** el panel ahora muestra los contadores reales (SIP/RTP/RTCP) y persiste en disco → sobrevive reinicios (antes era volátil y leía campos equivocados).
+- **RTP honesto** en modo files: actividad global de RTP en segmentos (no un 0 engañoso por fila).
+- **SIPREC en el mismo panel** (sesiones/última actividad cuando el SRS está activo).
+- **Columnas nuevas:** Tipo (HEP/SIPREC), Estado, Sesiones.
+- **TTL de inactividad** (default 7 días, 1-90): la fuente sin tráfico desaparece del panel; el label no se borra salvo opt-in.
+- **Alarma "fuente en silencio"** (nace OFF): incidente cuando una fuente conocida deja de mandar. Anti-falso-positivo: 24/7 · días+horario manual · ML aprendido (no alarma hasta madurez ni fuera de su ventana). Simulador "qué alarmaría".
+- **SIPREC:** opción de heredar la allowlist de IPs de HEP.
+
 ## [2.98.0] — 2026-06-19
 
 ### Added — CDR enriquecido Fase 2: comportamiento / antifraude

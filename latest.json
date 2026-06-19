@@ -1,20 +1,20 @@
 {
-  "version": "2.98.0",
+  "version": "2.99.0",
   "release_date": "2026-06-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.98.0/voxywatch-v2.98.0-linux-x64.tar.gz",
-    "sha256": "ee999871db2f2745b6bfaaa312719a449162cc85e1a597ff06450f64e5d6b37b",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.98.0/voxywatch-v2.98.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.99.0/voxywatch-v2.99.0-linux-x64.tar.gz",
+    "sha256": "dc2c5ce51bcb105de69810bcf5959c05ba8d0aa186b4d6f726c176f62dfb8e17",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.99.0/voxywatch-v2.99.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "CDR enriquecido Fase 2: comportamiento / antifraude",
-    "`caller_id_e164` / `dialed_e164`: origen/destino normalizados a E.164 si son plausibles; si no, `null`.",
-    "`caller_id_valid`: el ANI es plausible (detección de caller-id falso).",
-    "`is_international`: destino en otro país (usa el país de casa de antifraude, o compara origen vs destino)."
+    "Monitoreo de fuentes (HEP & SIPREC): registro persistente, panel correcto, TTL y alarma de silencio",
+    "Fix de los \"0s\": el panel ahora muestra los contadores reales (SIP/RTP/RTCP) y persiste en disco → sobrevive reinicios (antes era volátil y leía campos equi",
+    "RTP honesto en modo files: actividad global de RTP en segmentos (no un 0 engañoso por fila).",
+    "SIPREC en el mismo panel (sesiones/última actividad cuando el SRS está activo)."
   ],
   "min_upgrade_from": "1.0.0"
 }

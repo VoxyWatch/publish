@@ -1,20 +1,19 @@
 {
-  "version": "2.93.0",
+  "version": "2.94.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.93.0/voxywatch-v2.93.0-linux-x64.tar.gz",
-    "sha256": "b490782484ed59a189b7a43a66c70cf93e22032a6d65a1de1c701d9ae094f2ae",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.93.0/voxywatch-v2.93.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.94.0/voxywatch-v2.94.0-linux-x64.tar.gz",
+    "sha256": "b8645c60726f8dfca0cf043cfaad8bdbcc4dcfd6ba95941f1dcbe9bf2b04b48b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.94.0/voxywatch-v2.94.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "gráficas de distribución (Duración/PDD/MOS) ahora WINDOWED, no de una muestra sesgada",
-    "Buckets de distribución en el rollup horario (`call_stats_hourly`): duración (de answered) en <10s/10s-1m/1-5m/5-15m/>15m, PDD en 5 tramos, MOS en 6 — calcu",
-    "Endpoint windowed `GET /api/dashboard/distributions?from&to|range` que suma los buckets del rango elegido (O(buckets), barato a cualquier volumen).",
-    "El dashboard lee de ahí para las 3 gráficas, con fallback al muestreo si el endpoint no responde. `_ROLLUP_VER` sube a 5 para poblar los buckets."
+    "Codec y Causas de desconexión también WINDOWED (cierra el set de distribuciones del dashboard)",
+    "Dos JSONB por hora en `call_stats_hourly` (`codecs` {codec:conteo} · `causes` {familia SIP:conteo}, familia = answered→2xx / código líder de fail_reason /",
+    "`GET /api/dashboard/distributions` ahora devuelve también `codecDist` y `causesDist` (merge de los JSONB sobre la ventana vía `jsonb_each_text`); el dashboard"
   ],
   "min_upgrade_from": "1.0.0"
 }

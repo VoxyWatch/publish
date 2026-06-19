@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.94.0] — 2026-06-19
+
+### Fixed — Codec y Causas de desconexión también WINDOWED (cierra el set de distribuciones del dashboard)
+Completa lo de v2.93: las gráficas **Codec Distribution** y **Disconnect Causes** también se calculaban del muestreo de 20k CDR (sesgado a alto volumen). Ahora salen del rollup por la ventana elegida.
+- Dos JSONB por hora en `call_stats_hourly` (`codecs` {codec:conteo} · `causes` {familia SIP:conteo}, familia = answered→2xx / código líder de fail_reason / none) — poblados en AMBAS rutas de finalize con un helper compartido (`_rollupJsonbDists`, mismo `timeWhere` parametrizado → paridad).
+- `GET /api/dashboard/distributions` ahora devuelve también `codecDist` y `causesDist` (merge de los JSONB sobre la ventana vía `jsonb_each_text`); el dashboard los lee con fallback al muestreo (`_distOk`). `_ROLLUP_VER` 5→6 (recálculo en sitio, sin truncate).
+> Con esto las 5 distribuciones del dashboard (Duración/PDD/MOS/Codec/Causas) son windowed y correctas a cualquier volumen.
+
 ## [2.93.0] — 2026-06-19
 
 ### Fixed — gráficas de distribución (Duración/PDD/MOS) ahora WINDOWED, no de una muestra sesgada

@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.92.0] — 2026-06-19
+
+### Added — rollup horario INCREMENTAL (finalize-once por hora) — flag `stats_rollup_incremental` (OFF)
+Hasta ahora el rollup del dashboard (`call_stats_hourly`) se mantenía **re-escaneando una ventana móvil** de la tabla `calls` (143 GB en C3ntro): ~4 h cada 2 min + 12 h en cada arranque. Caro en disco (IO), lento al arrancar y propenso a huecos cosméticos tras ráfagas de reinicios.
+- Nuevo modo **incremental** que copia el patrón ya probado del rollup por troncal: finaliza **cada hora UNA vez** cuando sus CDRs están estables (periodo de gracia) y reanuda por **cursor en `meta`** (`stats_rollup_fwd`/`back`), procesando **una hora a la vez** (la hora en curso + la anterior se refrescan en vivo para el dashboard).
+- **Beneficio**: menos IO y CPU, **cero RAM extra** (procesa ~330k filas/hora en vez de re-barrer ~1.3M), **arranque en segundos** (sin re-escaneo) y **sin huecos** tras reinicios.
+- **Nace detrás de flag `stats_rollup_incremental` (default OFF)** → este release no cambia el comportamiento de nadie. Se activa por cliente tras validar **paridad** (resultado idéntico al re-scan) y observación. Cambio de semántica (`_ROLLUP_VER`) sigue forzando un rebuild completo una sola vez. Ver `docs/DESIGN_ROLLUP_INCREMENTAL.md`.
+
 ## [2.91.2] — 2026-06-19
 
 ### Fixed — el rollup horario se auto-cura tras una ráfaga de reinicios (gráficas de rango largo)

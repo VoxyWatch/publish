@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.102.0] — 2026-06-19
+
+### Fixed — Simultaneous-calls (concurrency) chart flat on 1h/6h + undercounted volume on short ranges
+Two chained bugs in the fine charts (per-minute rollup):
+- **Flat concurrency:** the "Simultaneous calls" series was always served at HOURLY resolution (carry-forward) → a flat line on 1h and a ~6-step staircase on 6h. Now it's computed at per-minute resolution (peak concurrency per fine bucket) showing the real intra-hour variation.
+- **Root cause:** the per-minute rollup only re-scanned the last 15 min, so it never caught late-inserted calls → it undercounted ~15-30% vs the hourly rollup (this also affected volume/attempts on 1h/6h). It now re-scans 4h (same catch window as the hourly rollup). Fine charts self-correct within 4h.
+
 ## [2.101.0] — 2026-06-19
 
 ### Added — Configurable AI insight language (Settings → AI Chat)

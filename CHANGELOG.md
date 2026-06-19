@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.102.1] — 2026-06-19
+
+### Fixed — concurrency: last point (in-progress bucket) dropped to 0
+The newest bucket of the concurrency chart is the in-progress period: its `starts` aren't inserted yet (calls land when they end/correlate, with lag) while its `ends` are → the net dipped to ~0 (a dent at the last point). Since concurrency is a level, the last COMPLETE value is now carried forward for the in-progress bucket (live windows only; past ranges keep their final bucket).
+
 ## [2.102.0] — 2026-06-19
 
 ### Fixed — Simultaneous-calls (concurrency) chart flat on 1h/6h + undercounted volume on short ranges

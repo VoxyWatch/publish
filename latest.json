@@ -1,24 +1,20 @@
 {
-  "version": "2.102.0",
+  "version": "2.102.1",
   "release_date": "2026-06-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.102.0/voxywatch-v2.102.0-linux-x64.tar.gz",
-    "sha256": "f32d1ad0bb93cc0c87986136750a8fd6faa69351a44034f775898027acb7aba8",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.102.0/voxywatch-v2.102.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.102.1/voxywatch-v2.102.1-linux-x64.tar.gz",
+    "sha256": "ddf6d3a448b07a0a8642e42f1b5d45b5d8ddc9e09860edef99af3d01f6d7ce1e",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.102.1/voxywatch-v2.102.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Simultaneous-calls (concurrency) chart flat on 1h/6h + undercounted volume on short ranges",
-    "Flat concurrency: the \"Simultaneous calls\" series was always served at HOURLY resolution (carry-forward) → a flat line on 1h and a ~6-step staircase on 6h. No",
-    "Root cause: the per-minute rollup only re-scanned the last 15 min, so it never caught late-inserted calls → it undercounted ~15-30% vs the hourly rollup (this"
+    "concurrency: last point (in-progress bucket) dropped to 0"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Simultaneous calls (concurrencia) plana en 1h/6h + volumen subcontado en rangos cortos",
-    "Concurrencia plana: la serie de \"Simultaneous calls\" se servía SIEMPRE a resolución HORARIA (carry-forward del activo al cierre de cada hora) → en 1h salía",
-    "Causa de fondo: el rollup por minuto solo re-escaneaba los últimos 15 min, así que NUNCA captaba las llamadas que se insertan tarde (al cerrar/correlacionar)"
+    "concurrencia: el último punto (minuto en curso) caía a 0"
   ]
 }

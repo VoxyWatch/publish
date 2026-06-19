@@ -1,17 +1,19 @@
 {
-  "version": "2.91.0",
+  "version": "2.91.1",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.91.0/voxywatch-v2.91.0-linux-x64.tar.gz",
-    "sha256": "5e8331b50fb8ba7f575a0bcd8e973acda49e5d04d640e99aaec2cb2f2aec8ff7",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.91.0/voxywatch-v2.91.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.91.1/voxywatch-v2.91.1-linux-x64.tar.gz",
+    "sha256": "1fd9b0b08999a42b837edee01b3d4b5cc6cd7beff4d0918d663f492ae7100ef0",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.91.1/voxywatch-v2.91.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "versionado de semántica del rollup de 1 minuto (paridad con el horario)"
+    "el versionado del rollup 1m ya no fuerza un rebuild innecesario al adoptarse",
+    "Ahora el rebuild se dispara solo si la clave EXISTE y DIFIERE (cambio real de fórmula). Clave ausente → se sella la versión actual y se hace backfill increm",
+    "Un cambio futuro real de fórmula (subir `_MIN_ROLLUP_VER`) sí rebuildea, como debe."
   ],
   "min_upgrade_from": "1.0.0"
 }

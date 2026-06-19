@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.91.1] — 2026-06-18
+
+### Fixed — el versionado del rollup 1m ya no fuerza un rebuild innecesario al adoptarse
+v2.91.0 trataba la **clave ausente** (`meta.rollup_1m_ver` no existe = primer upgrade que introduce el versionado) como "rebuild completo". Pero en ese caso los datos existentes ya son de la fórmula vigente, así que el `TRUNCATE` + escaneo de 26 h era **inútil** — y en un cliente de alto volumen ese escaneo de `calls` dura ~20 min con las gráficas finas (1h/6h/24h) **vacías** mientras corre.
+- Ahora el rebuild se dispara **solo si la clave EXISTE y DIFIERE** (cambio real de fórmula). Clave ausente → se **sella** la versión actual y se hace backfill incremental normal (sin TRUNCATE, sin escaneo de 26 h): adopción instantánea, sin ventana de gráficas vacías.
+- Un cambio futuro real de fórmula (subir `_MIN_ROLLUP_VER`) sí rebuildea, como debe.
+
 ## [2.91.0] — 2026-06-18
 
 ### Added — versionado de semántica del rollup de 1 minuto (paridad con el horario)

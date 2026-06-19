@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.93.0] — 2026-06-19
+
+### Fixed — gráficas de distribución (Duración/PDD/MOS) ahora WINDOWED, no de una muestra sesgada
+Las gráficas "Call Duration", "PDD" y "MOS" del dashboard se calculaban en el cliente desde una muestra de los 20.000 CDR más recientes. A alto volumen (C3ntro ~330k llamadas/hora) esos 20k son **solo ~3-4 minutos** → las llamadas largas aún están en curso y casi todas caen en `<10s`, dando la impresión falsa de que "no hay llamadas de más de 1 min". La data siempre estuvo bien (en una ventana real: ~23% <10s, ~60% 10-60s, ~16% >1min).
+- **Buckets de distribución en el rollup horario** (`call_stats_hourly`): duración (de answered) en <10s/10s-1m/1-5m/5-15m/>15m, PDD en 5 tramos, MOS en 6 — calculados una vez por hora en BOTH rutas de finalize (clásica + incremental), con la MISMA fórmula (paridad).
+- **Endpoint windowed** `GET /api/dashboard/distributions?from&to|range` que suma los buckets del rango elegido (O(buckets), barato a cualquier volumen).
+- El dashboard lee de ahí para las 3 gráficas, con **fallback** al muestreo si el endpoint no responde. `_ROLLUP_VER` sube a 5 para poblar los buckets.
+- **Fix de plomería**: `stats_rollup_incremental` faltaba en la whitelist de `POST /api/settings` (el flag se descartaba en silencio); ya se acepta. Detectado al validar paridad del rollup incremental (v2.92).
+> Nota: la duración ahora es de llamadas **contestadas** (una distribución de duración de llamadas fallidas no tiene sentido y metía todo en <10s). Codec + Causas de desconexión windowed → v2.94.
+
 ## [2.92.0] — 2026-06-19
 
 ### Added — rollup horario INCREMENTAL (finalize-once por hora) — flag `stats_rollup_incremental` (OFF)

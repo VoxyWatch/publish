@@ -1,20 +1,20 @@
 {
-  "version": "2.96.0",
+  "version": "2.97.0",
   "release_date": "2026-06-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.96.0/voxywatch-v2.96.0-linux-x64.tar.gz",
-    "sha256": "f581d548ed1695f9cfebb1ed1e167cd42b38ba1560f1735ae6d7e186e29fb6b7",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.96.0/voxywatch-v2.96.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.97.0/voxywatch-v2.97.0-linux-x64.tar.gz",
+    "sha256": "2f31ed95fd17d2398a69340f8fc3f3ff89a2e8bf4033a4e20e452e2683361719",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.97.0/voxywatch-v2.97.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "CDR enriquecido Fase 1: más señal estructurada para la IA",
-    "Marca del equipo de cada lado: `ua_caller` (User-Agent del INVITE = origen) y `ua_callee` (Server/User-Agent de la respuesta = destino) — útil para identific",
-    "`q850_cause`: causa Q.850 del header `Reason:` (`cause=NN`) cuando el equipo la envía.",
-    "`hangup_by`: quién colgó — `caller` / `callee` / `network` (el BYE no vino de ninguno de los dos extremos: SBC/proxy/timeout intermedio)."
+    "etiqueta de fuente configurable en el CDR (HEP source label / SIPREC label)",
+    "`hep_source_label` (Settings → Captura): nombre legible del SBC/sonda que envía HEP.",
+    "`siprec_label` (Settings → SIPREC): nombre legible para las llamadas capturadas por el SRS.",
+    "El CDR (`hep_source`) resuelve: SIPREC → `siprec_label` (o \"SIPREC\"); HEP → `hep_source_label`; si no se configuró, cae al nombre crudo del agente (omitien"
   ],
   "min_upgrade_from": "1.0.0"
 }

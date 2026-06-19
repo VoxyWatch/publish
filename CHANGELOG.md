@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.97.0] — 2026-06-19
+
+### Added — etiqueta de fuente configurable en el CDR (HEP source label / SIPREC label)
+Completa el `hep_source` del CDR enriquecido (v2.96): la mayoría de los SBC no envían el nombre del agente de captura por HEP, así que la etiqueta de la fuente ahora se toma de **settings**.
+- **`hep_source_label`** (Settings → Captura): nombre legible del SBC/sonda que envía HEP.
+- **`siprec_label`** (Settings → SIPREC): nombre legible para las llamadas capturadas por el SRS.
+- El CDR (`hep_source`) resuelve: SIPREC → `siprec_label` (o "SIPREC"); HEP → `hep_source_label`; si no se configuró, cae al nombre crudo del agente (omitiendo el inútil `'unknown'`). Sin hardcode, bilingüe ES/EN, aditivo.
+- **API v1:** `hep_source` (introducido en v2.96.0) ahora refleja la etiqueta configurada y normaliza `'unknown'` → `null`. La clave sigue presente (cambio de valor, no de estructura).
+
 ## [2.96.0] — 2026-06-19
 
 ### Added — CDR enriquecido Fase 1: más señal estructurada para la IA

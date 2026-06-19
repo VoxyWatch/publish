@@ -1,20 +1,20 @@
 {
-  "version": "2.100.3",
+  "version": "2.101.0",
   "release_date": "2026-06-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.100.3/voxywatch-v2.100.3-linux-x64.tar.gz",
-    "sha256": "9b5502de0039261c791bf02e1109a3ee6170cae1b6d5e363e0be816d18bac3de",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.100.3/voxywatch-v2.100.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.101.0/voxywatch-v2.101.0-linux-x64.tar.gz",
+    "sha256": "2fd26a1e147213c8a8df077bd2b3befede6aea0d298a6d3b7e41649031796b91",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.101.0/voxywatch-v2.101.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Bilingual portal release notes (EN/ES by portal language)"
+    "Configurable AI insight language (Settings → AI Chat)"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Release notes del portal bilingües (ES/EN según el idioma)"
+    "Idioma de los insights de IA configurable (Settings → AI Chat)"
   ]
 }

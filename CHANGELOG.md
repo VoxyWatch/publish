@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.101.0] — 2026-06-19
+
+### Added — Configurable AI insight language (Settings → AI Chat)
+New **"AI insight language"** selector: `Auto (follow portal)` · `English` · `Español`. One setting (`ai_lang`) now governs the language of every AI insight — per-trunk diagnosis, NOC overview, SIP trace analysis and alarm diagnosis. `es`/`en` force it; `auto` (default) follows the portal language in the UI and falls back to English for background jobs (alarms/digest).
+
 ## [2.100.3] — 2026-06-19
 
 ### Added — Bilingual portal release notes (EN/ES by portal language)

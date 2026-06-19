@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.91.2] — 2026-06-19
+
+### Fixed — el rollup horario se auto-cura tras una ráfaga de reinicios (gráficas de rango largo)
+Una hora de `call_stats_hourly` podía quedar **subcontada** si el refresh periódico (ventana móvil de 4 h) era interrumpido por varios reinicios seguidos y esa hora envejecía >4 h antes de recalcularse desde un `calls` ya completo — produciendo una **caída cosmética** en las gráficas de rango largo (7d/30d) aunque el tráfico y los CDRs estuvieran intactos (las gráficas de 24 h, que leen del rollup de 1 min, mostraban el valor correcto).
+- El backfill horario del **arranque** ahora mira **12 h hacia atrás** (antes 2 h) y re-finaliza esas horas desde `calls`: un reinicio auto-corrige el artefacto y blinda contra futuros maratones de reinicios. Costo: un escaneo horario de 12 h en el boot (~1-2 min a alto volumen, una sola vez).
+> Detectado en C3ntro tras la cadena de releases del 18-jun (8 reinicios en pocas horas dejaron las horas 14-19 UTC subcontadas). La captura nunca se afectó.
+
 ## [2.91.1] — 2026-06-18
 
 ### Fixed — el versionado del rollup 1m ya no fuerza un rebuild innecesario al adoptarse

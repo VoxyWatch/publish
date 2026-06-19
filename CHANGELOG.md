@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.100.0] — 2026-06-19
+
+### Added — CDR enriquecido Fase 3: calidad fina / red / contexto
+Última fase del enriquecimiento de CDRs (aditivo, sin migración). Cierra el set para la IA/diagnóstico.
+- **Calidad:** `jitter_max_ms`, `out_of_order`, `retransmissions`, `asymmetric_media` (media en un solo sentido).
+- **Red:** `media_ip_caller`/`media_ip_callee` (IP de media SDP, NAT/bypass), `transport` (UDP/TCP/TLS).
+- **Contexto:** `dow` (día) + `hour_local` (hora) en el timezone del portal, `sip_msg_count`.
+- Reusa lo ya calculado en correlación; derivables en proyección. Sin tocar el sniffer.
+
+> Con esto el CDR enriquecido (Fases 1+2+3) queda completo.
+
 ## [2.99.0] — 2026-06-19
 
 ### Added — Monitoreo de fuentes (HEP & SIPREC): registro persistente, panel correcto, TTL y alarma de silencio

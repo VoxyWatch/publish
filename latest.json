@@ -1,20 +1,20 @@
 {
-  "version": "2.99.0",
+  "version": "2.100.0",
   "release_date": "2026-06-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.99.0/voxywatch-v2.99.0-linux-x64.tar.gz",
-    "sha256": "dc2c5ce51bcb105de69810bcf5959c05ba8d0aa186b4d6f726c176f62dfb8e17",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.99.0/voxywatch-v2.99.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.100.0/voxywatch-v2.100.0-linux-x64.tar.gz",
+    "sha256": "7d99cdff333f10fd4ef218461488fbff963ef929d3c8bfb09abd83ffc002b9ea",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.100.0/voxywatch-v2.100.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Monitoreo de fuentes (HEP & SIPREC): registro persistente, panel correcto, TTL y alarma de silencio",
-    "Fix de los \"0s\": el panel ahora muestra los contadores reales (SIP/RTP/RTCP) y persiste en disco → sobrevive reinicios (antes era volátil y leía campos equi",
-    "RTP honesto en modo files: actividad global de RTP en segmentos (no un 0 engañoso por fila).",
-    "SIPREC en el mismo panel (sesiones/última actividad cuando el SRS está activo)."
+    "CDR enriquecido Fase 3: calidad fina / red / contexto",
+    "Calidad: `jitter_max_ms`, `out_of_order`, `retransmissions`, `asymmetric_media` (media en un solo sentido).",
+    "Red: `media_ip_caller`/`media_ip_callee` (IP de media SDP, NAT/bypass), `transport` (UDP/TCP/TLS).",
+    "Contexto: `dow` (día) + `hour_local` (hora) en el timezone del portal, `sip_msg_count`."
   ],
   "min_upgrade_from": "1.0.0"
 }

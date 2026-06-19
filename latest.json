@@ -1,20 +1,26 @@
 {
-  "version": "2.102.1",
+  "version": "2.103.0",
   "release_date": "2026-06-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.102.1/voxywatch-v2.102.1-linux-x64.tar.gz",
-    "sha256": "ddf6d3a448b07a0a8642e42f1b5d45b5d8ddc9e09860edef99af3d01f6d7ce1e",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.102.1/voxywatch-v2.102.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.103.0/voxywatch-v2.103.0-linux-x64.tar.gz",
+    "sha256": "d7d8a0d1ed8dc89a15243fd43ef5b2bc2724756adf981de2752023aa4d1b82a9",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.103.0/voxywatch-v2.103.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "concurrency: last point (in-progress bucket) dropped to 0"
+    "Enriched CDR fields shown in the table (columns)",
+    "Visible by default: `Capture src` (capture-equipment label — from Settings → Capture `HEP source label` / SIPREC `label`) and `Country` (dialed country).",
+    "Optional (Customize columns): Trunk, Hung up by, Q.850, Transport, UA caller/callee, Caller/Dialed E.164, Intl, Risk (IRSF), Xfer (REFER), DTMF, Jitter max, Ret",
+    "The \"SBC IP / label\" column still shows the Settings IP label (falls back to the trunk name only when that IP has no label). Use the new `Capture src` column fo"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "concurrencia: el último punto (minuto en curso) caía a 0"
+    "Campos enriquecidos del CDR visibles en la tabla (columnas)",
+    "Visibles por defecto: `Capture src` (etiqueta del equipo de captura — de Settings → Captura `HEP source label` / SIPREC `label`) y `Country` (país del dest",
+    "Opcionales (Personalizar columnas): Trunk, Hung up by, Q.850, Transport, UA caller/callee, Caller/Dialed E.164, Intl, Risk (IRSF), Xfer (REFER), DTMF, Jitter ma",
+    "La columna \"SBC IP / label\" sigue mostrando el label de IP de Settings (cae al nombre de la troncal solo si esa IP no tiene label). Para ver el equipo de captur"
   ]
 }

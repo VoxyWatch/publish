@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.103.0] — 2026-06-19
+
+### Added — Enriched CDR fields shown in the table (columns)
+The fields we added to the CDR (phases 1/2/3 + capture-source label) were already in the data/API but not shown in the portal table. They are now COLUMNS:
+- **Visible by default:** `Capture src` (capture-equipment label — from Settings → Capture `HEP source label` / SIPREC `label`) and `Country` (dialed country).
+- **Optional (Customize columns):** Trunk, Hung up by, Q.850, Transport, UA caller/callee, Caller/Dialed E.164, Intl, Risk (IRSF), Xfer (REFER), DTMF, Jitter max, Retx, Media IP A/B, SIP msgs.
+- The "SBC IP / label" column still shows the Settings IP label (falls back to the trunk name only when that IP has no label). Use the new `Capture src` column for the explicit capture equipment (set its label in Settings → Capture/SIPREC).
+
 ## [2.102.1] — 2026-06-19
 
 ### Fixed — concurrency: last point (in-progress bucket) dropped to 0

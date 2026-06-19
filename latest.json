@@ -1,19 +1,19 @@
 {
-  "version": "2.94.0",
+  "version": "2.95.0",
   "release_date": "2026-06-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.94.0/voxywatch-v2.94.0-linux-x64.tar.gz",
-    "sha256": "b8645c60726f8dfca0cf043cfaad8bdbcc4dcfd6ba95941f1dcbe9bf2b04b48b",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.94.0/voxywatch-v2.94.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.95.0/voxywatch-v2.95.0-linux-x64.tar.gz",
+    "sha256": "9d0e6ee64619da83b15c816518626f2aaab4bcad52c1089f6bb4f27ddd58d5f1",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.95.0/voxywatch-v2.95.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Codec y Causas de desconexión también WINDOWED (cierra el set de distribuciones del dashboard)",
-    "Dos JSONB por hora en `call_stats_hourly` (`codecs` {codec:conteo} · `causes` {familia SIP:conteo}, familia = answered→2xx / código líder de fail_reason /",
-    "`GET /api/dashboard/distributions` ahora devuelve también `codecDist` y `causesDist` (merge de los JSONB sobre la ventana vía `jsonb_each_text`); el dashboard"
+    "dashboard: orden intercalado grande/chica + reordenar gráficas arrastrando",
+    "Orden por defecto intercalado: las gráficas del dashboard ya no van todas las grandes juntas y luego las chicas; ahora alternan grande/chica hasta agotar las g",
+    "Reordenar en Personalizar: además de prender/apagar, cada widget se puede arrastrar (⠿) para moverlo de lugar; el orden se guarda en `localStorage` (`voxywat"
   ],
   "min_upgrade_from": "1.0.0"
 }

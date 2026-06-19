@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.95.0] — 2026-06-19
+
+### Added — dashboard: orden intercalado grande/chica + reordenar gráficas arrastrando
+- **Orden por defecto intercalado**: las gráficas del dashboard ya no van todas las grandes juntas y luego las chicas; ahora alternan grande/chica hasta agotar las grandes y dejan las chicas restantes. El grid usa `grid-auto-flow: row dense` para empacar sin medias filas vacías.
+- **Reordenar en Personalizar**: además de prender/apagar, cada widget se puede **arrastrar (⠿) para moverlo de lugar**; el orden se guarda en `localStorage` (`voxywatch_dash_order`) y se aplica al cargar (`applyOrder`). El reorden respeta los grupos (un KPI no salta a la rejilla de gráficas). El panel pasó a lista vertical para que el arrastre sea natural; hint nuevo "clic para mostrar/ocultar · arrastra ⠿ para reordenar".
+
 ## [2.94.0] — 2026-06-19
 
 ### Fixed — Codec y Causas de desconexión también WINDOWED (cierra el set de distribuciones del dashboard)

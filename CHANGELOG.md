@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.96.0] — 2026-06-19
+
+### Added — CDR enriquecido Fase 1: más señal estructurada para la IA
+Primera fase del enriquecimiento de CDRs (más dimensiones → mejor perfilado por troncal, antifraude y diagnóstico del copiloto). **Aditivo en `calls.data` (JSONB): sin migración de esquema, no rompe el contrato del CDR ni del API; se puebla hacia adelante (CDRs viejos quedan `null`).** El enriquecimiento corre en la **correlación** del portal, NUNCA en el hot-path del sniffer — captura intacta.
+- **Marca del equipo de cada lado**: `ua_caller` (User-Agent del INVITE = origen) y `ua_callee` (Server/User-Agent de la respuesta = destino) — útil para identificar SBC/PBX por extremo. Acotados a 120 chars.
+- **`q850_cause`**: causa Q.850 del header `Reason:` (`cause=NN`) cuando el equipo la envía.
+- **`hangup_by`**: quién colgó — `caller` / `callee` / `network` (el BYE no vino de ninguno de los dos extremos: SBC/proxy/timeout intermedio).
+- **`dial_prefix`**: el prefijo de ruteo de la troncal que casó con el número marcado (separado del país).
+- **`hep_source`** en el CDR: agente/sonda de captura por el que entró la llamada (CaptAgent/HEPlify/SBC).
+- Parseo SIP defensivo (header ausente → `null`, jamás excepción) y barato (regex O(línea), sin ReDoS). Validado con bug-hunter.
+
 ## [2.95.0] — 2026-06-19
 
 ### Added — dashboard: orden intercalado grande/chica + reordenar gráficas arrastrando

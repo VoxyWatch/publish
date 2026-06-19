@@ -1,19 +1,20 @@
 {
-  "version": "2.95.0",
-  "release_date": "2026-06-18",
+  "version": "2.96.0",
+  "release_date": "2026-06-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.95.0/voxywatch-v2.95.0-linux-x64.tar.gz",
-    "sha256": "9d0e6ee64619da83b15c816518626f2aaab4bcad52c1089f6bb4f27ddd58d5f1",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.95.0/voxywatch-v2.95.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.96.0/voxywatch-v2.96.0-linux-x64.tar.gz",
+    "sha256": "f581d548ed1695f9cfebb1ed1e167cd42b38ba1560f1735ae6d7e186e29fb6b7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.96.0/voxywatch-v2.96.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "dashboard: orden intercalado grande/chica + reordenar gráficas arrastrando",
-    "Orden por defecto intercalado: las gráficas del dashboard ya no van todas las grandes juntas y luego las chicas; ahora alternan grande/chica hasta agotar las g",
-    "Reordenar en Personalizar: además de prender/apagar, cada widget se puede arrastrar (⠿) para moverlo de lugar; el orden se guarda en `localStorage` (`voxywat"
+    "CDR enriquecido Fase 1: más señal estructurada para la IA",
+    "Marca del equipo de cada lado: `ua_caller` (User-Agent del INVITE = origen) y `ua_callee` (Server/User-Agent de la respuesta = destino) — útil para identific",
+    "`q850_cause`: causa Q.850 del header `Reason:` (`cause=NN`) cuando el equipo la envía.",
+    "`hangup_by`: quién colgó — `caller` / `callee` / `network` (el BYE no vino de ninguno de los dos extremos: SBC/proxy/timeout intermedio)."
   ],
   "min_upgrade_from": "1.0.0"
 }

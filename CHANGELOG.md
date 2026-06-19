@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.98.0] — 2026-06-19
+
+### Added — CDR enriquecido Fase 2: comportamiento / antifraude
+Segunda fase del enriquecimiento de CDRs (aditivo, sin migración). Más señal para la IA y el antifraude.
+- **`caller_id_e164` / `dialed_e164`**: origen/destino normalizados a E.164 si son plausibles; si no, `null`.
+- **`caller_id_valid`**: el ANI es plausible (detección de caller-id falso).
+- **`is_international`**: destino en otro país (usa el país de casa de antifraude, o compara origen vs destino).
+- **`high_risk`**: país de destino en la lista IRSF editable (antifraude).
+- **`call_transferred`**: hubo REFER (transferencia, RFC 3515).
+- **`dtmf_count`**: nº de DTMF por SIP-INFO. Solo el conteo, JAMÁS los dígitos (PCI).
+- Se calculan en proyección → cambios en la lista IRSF / país de casa aplican retroactivo.
+
 ## [2.97.0] — 2026-06-19
 
 ### Added — etiqueta de fuente configurable en el CDR (HEP source label / SIPREC label)

@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website source material)
 
-> Source of truth for the website, datasheets and sales decks. Updated for **v2.97** (2026-06-17).
+> Source of truth for the website, datasheets and sales decks. Updated for **v2.98** (2026-06-17).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -120,4 +120,4 @@
 - The Telegram screenshot (incident + buttons) is the single most convincing visual — capture one from production.
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.97.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.98.

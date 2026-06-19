@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.100.1] — 2026-06-19
+
+### Fixed — SIPREC: el venv del SRS quedaba sin `pylibsrtp` (SRTP no disponible)
+El provisioning del SRS en `install.sh` no instalaba `pylibsrtp` porque en Debian/Ubuntu el venv a veces nace sin pip. Fix: `ensurepip` + `python -m pip` + log del detalle en `/var/log/voxywatch-srs-pip.log`. Best-effort intacto (sin pylibsrtp el SRS corre con RTP en claro; la captura HEP nunca se afecta).
+
 ## [2.100.0] — 2026-06-19
 
 ### Added — CDR enriquecido Fase 3: calidad fina / red / contexto

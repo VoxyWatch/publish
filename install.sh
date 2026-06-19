@@ -613,11 +613,16 @@ if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
   # venv con pylibsrtp para SRTP (best-effort: sin él, el SRS corre igual pero solo RTP en claro)
   SRS_PY="/usr/bin/python3"
   if python3 -m venv "${INSTALL_DIR}/srs-venv" >/dev/null 2>&1; then
-    if "${INSTALL_DIR}/srs-venv/bin/pip" install --quiet --disable-pip-version-check pylibsrtp >/dev/null 2>&1; then
-      SRS_PY="${INSTALL_DIR}/srs-venv/bin/python"
+    SRS_VPY="${INSTALL_DIR}/srs-venv/bin/python"
+    # Debian/Ubuntu a veces crean el venv SIN pip → asegurarlo con ensurepip antes de instalar
+    # (causa real del "pylibsrtp no se pudo instalar" en C3ntro: el venv no tenía pip).
+    [ -x "${INSTALL_DIR}/srs-venv/bin/pip" ] || "$SRS_VPY" -m ensurepip --upgrade >/dev/null 2>&1 || true
+    # Usar `python -m pip` (robusto aunque el wrapper bin/pip no exista). Loguear el detalle del fallo.
+    if "$SRS_VPY" -m pip install --quiet --disable-pip-version-check pylibsrtp > /var/log/voxywatch-srs-pip.log 2>&1; then
+      SRS_PY="$SRS_VPY"
       ok "SRS: pylibsrtp instalado (SRTP disponible)"
     else
-      warn "SRS: pylibsrtp no se pudo instalar → SRTP no disponible (RTP en claro sí). Instálalo luego en ${INSTALL_DIR}/srs-venv."
+      warn "SRS: pylibsrtp no se pudo instalar → SRTP no disponible (RTP en claro sí). Detalle: /var/log/voxywatch-srs-pip.log"
     fi
     chown -R "${SERVICE_USER}:${SERVICE_USER}" "${INSTALL_DIR}/srs-venv" 2>/dev/null || true
   else

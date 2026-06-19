@@ -11,7 +11,7 @@
     "sha256": ""
   },
   "changelog": [
-    "SIPREC: el SRS no podía crear su venv (faltaba `python3-venv`)"
+    "SIPREC: the SRS couldn't create its venv (python3-venv was missing)"
   ],
   "min_upgrade_from": "1.0.0"
 }

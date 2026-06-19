@@ -610,14 +610,18 @@ EOF
 # Si el SRS cae, la captura HEP NO se ve afectada (proceso separado). SRTP: pylibsrtp (best-effort).
 if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
   info "Provisioning SIPREC SRS (OFF por default)..."
-  # venv con pylibsrtp para SRTP (best-effort: sin él, el SRS corre igual pero solo RTP en claro)
+  # venv con pylibsrtp para SRTP (best-effort: sin él, el SRS corre igual pero solo RTP en claro).
+  # Debian mínimo NO trae `python3-venv` (ensurepip) → sin él `python3 -m venv` falla y el SRS
+  # se queda sin SRTP (causa real en C3ntro). Lo instalamos best-effort antes de crear el venv.
+  if command -v apt-get >/dev/null 2>&1 && ! python3 -m ensurepip --version >/dev/null 2>&1; then
+    apt-get install -y python3-venv >/dev/null 2>&1 || true
+  fi
   SRS_PY="/usr/bin/python3"
-  if python3 -m venv "${INSTALL_DIR}/srs-venv" >/dev/null 2>&1; then
+  # --clear: si un install previo dejó un venv roto (sin pip), recrearlo limpio.
+  if python3 -m venv --clear "${INSTALL_DIR}/srs-venv" >/dev/null 2>&1; then
     SRS_VPY="${INSTALL_DIR}/srs-venv/bin/python"
-    # Debian/Ubuntu a veces crean el venv SIN pip → asegurarlo con ensurepip antes de instalar
-    # (causa real del "pylibsrtp no se pudo instalar" en C3ntro: el venv no tenía pip).
+    # Asegurar pip con ensurepip (algunos venv nacen sin él). `python -m pip` no depende del wrapper.
     [ -x "${INSTALL_DIR}/srs-venv/bin/pip" ] || "$SRS_VPY" -m ensurepip --upgrade >/dev/null 2>&1 || true
-    # Usar `python -m pip` (robusto aunque el wrapper bin/pip no exista). Loguear el detalle del fallo.
     if "$SRS_VPY" -m pip install --quiet --disable-pip-version-check pylibsrtp > /var/log/voxywatch-srs-pip.log 2>&1; then
       SRS_PY="$SRS_VPY"
       ok "SRS: pylibsrtp instalado (SRTP disponible)"
@@ -626,7 +630,7 @@ if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
     fi
     chown -R "${SERVICE_USER}:${SERVICE_USER}" "${INSTALL_DIR}/srs-venv" 2>/dev/null || true
   else
-    warn "SRS: no se pudo crear venv (¿python3-venv?) → SRS correrá con python del sistema, sin SRTP."
+    warn "SRS: no se pudo crear venv (instala python3-venv) → SRS correrá con python del sistema, sin SRTP."
   fi
   cat > /etc/systemd/system/voxywatch-srs.service << EOF
 [Unit]

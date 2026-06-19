@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.100.2] — 2026-06-19
+
+### Fixed — SIPREC: el SRS no podía crear su venv (faltaba `python3-venv`)
+La causa de fondo del SRS sin SRTP (confirmada en C3ntro): el paquete `python3-venv` no estaba instalado → `python3 -m venv` fallaba. `install.sh` ahora lo instala (best-effort) antes de crear el venv y lo recrea con `--clear`. Best-effort intacto (sin pylibsrtp el SRS corre con RTP en claro; la captura HEP nunca se afecta).
+
 ## [2.100.1] — 2026-06-19
 
 ### Fixed — SIPREC: el venv del SRS quedaba sin `pylibsrtp` (SRTP no disponible)

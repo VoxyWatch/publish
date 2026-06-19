@@ -1,17 +1,17 @@
 {
-  "version": "2.100.1",
+  "version": "2.100.2",
   "release_date": "2026-06-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.100.1/voxywatch-v2.100.1-linux-x64.tar.gz",
-    "sha256": "ab53042d8f8717eaf4d0eab3cfa4341267c1c2ba62156cfcf90ea7942b85c3d7",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.100.1/voxywatch-v2.100.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.100.2/voxywatch-v2.100.2-linux-x64.tar.gz",
+    "sha256": "2dbc86a645c2298961e026db89b388ceddece7e72ea30032012a7ea8180e0ce9",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.100.2/voxywatch-v2.100.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "SIPREC: el venv del SRS quedaba sin `pylibsrtp` (SRTP no disponible)"
+    "SIPREC: el SRS no podía crear su venv (faltaba `python3-venv`)"
   ],
   "min_upgrade_from": "1.0.0"
 }

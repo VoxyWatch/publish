@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.100.3] — 2026-06-19
+
+### Added — Bilingual portal release notes (EN/ES by portal language)
+The update notes under the "Update" button now follow the portal language. `latest.json` carries `changelog` (English) and `changelog_es` (Spanish); the in-portal update checker picks the right one based on the selected language.
+
 ## [2.100.2] — 2026-06-19
 
 ### Fixed — SIPREC: el SRS no podía crear su venv (faltaba `python3-venv`)

@@ -5,6 +5,59 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.112.0] — 2026-06-19
+
+### Added — AI Chat: Custom (OpenAI-compatible) provider, "Load models" in the UI, wider fields
+- **"Custom (OpenAI-compatible)" provider + Base URL:** one option that covers Llama and most of the ecosystem (Groq, Together, Fireworks, DeepSeek, local Ollama, vLLM, LM Studio…). Configure it with Base URL + API key + model; `_callLLM`/`_listProviderModels` use the OpenAI format over the Base URL. Future-proof: a new OpenAI-compatible provider needs no code changes. New `ai_base_url` setting (validated http/https, admin-only; reaching localhost/LAN is intentional for local Ollama).
+- **"Load models" button wired in the UI** (backend already supported it): fetches the provider's real, current models into a dropdown → **no hand-maintained model lists**. The text field stays as a fallback; picking from the dropdown fills it.
+- **UI:** Token/Model/Base URL fields are now **wide** (the token used to be tiny at 180px) and the token keeps the 👁 reveal. The help text recommends "Load models" instead of listing default models.
+
+## [2.111.0] — 2026-06-19
+
+### Fixed — "zombie" incidents generalized to capture/system/volume (not just trunks)
+v2.110 fixed zombie trunk incidents; the same pattern affected the `_incCondition`-based detectors (sniffer down, no sources, capture drops, system resource, global traffic drop): their sustain state lives in RAM and, after a restart, if the condition had already cleared, recovery never fired and the incident stayed open. Now, on the first tick after warm-up, `_incSustain` is **seeded** from the open incidents → the natural `_incCondition` recovery works again for all of those types. (sip_codes, source_silence, pattern and fraud already recovered unconditionally each tick; trunk_health is covered by the v2.110 reconciliation.)
+
+## [2.110.0] — 2026-06-19
+
+### Fixed — "zombie" trunk incidents (didn't auto-close after a restart)
+Per-trunk alarm state lives in RAM (`_trunkAlarmState`); when the portal restarts, the recovery transition (warn→ok) isn't observed and the `trunk_health` incident stayed **open forever** even though the trunk was already ok/idle. With several restarts (e.g. a batch of updates) a backlog piled up, giving the impression that "every trunk is alarming". The engine now **reconciles every cycle** (and on the first tick after boot): it lists open `trunk_health` incidents and, for those whose trunk is now ok/idle (or has no traffic), marks them *recovered* → auto-resolve closes them after the stable window. It does not touch trunks still genuinely in warn/critical. Idempotent.
+
+## [2.109.0] — 2026-06-19
+
+### Fixed — CDR table "Answered"/ASR KPI now matches the dashboard
+The CDR table header counted as "answered" only `call_result === 'answered'`, while the dashboard counts *answered + active* (a call in progress is already connected). That made the table show, e.g., "4 answered" while the dashboard reported ASR 12% over the same reality → confusing. The table now uses the **same definition** (answered + active) for the answered count, ASR and ACD. (No data changes: only the displayed metric; individual CDRs keep their real `call_result`.)
+
+## [2.108.0] — 2026-06-19
+
+### Added — CDR filters by trunk and country (phase 3)
+Two new selectors in the CDR filter bar: **Trunk** (carrier) and **Country** (destination). They are populated from the values present in the loaded window (same pattern as Codec/Source), filter client-side instantly, and **the export honors them** (passed to the streaming endpoint, which applies them server-side on the projected CDR). They count toward the active-filter badge and "Clear all". Bilingual ES/EN.
+
+## [2.107.0] — 2026-06-19
+
+### Added — CDR table: real counts, server-side time window and full filtered export
+The CDR table no longer caps at a fixed block of rows nor reports a whole-DB estimate as the total. Changes (with zero UX loss — column sort and every filter stay instant):
+- **Server-side time-window load:** the table fetches the global time-range window (start_ts index), not just "the most recent rows" → the data and the count match that window.
+- **Real count:** the header shows the real total for the time filter (exact COUNT when time-bounded; `~` estimate only for the full history, to avoid recounting 81M per request). `/api/cdrs` returns `count`/`count_exact`.
+- **Page-size selector** is now 100/250/500/1000 (default 500).
+- **Honest notice** when the real window exceeds what's loaded in the browser ("showing X of N — narrow the time range or export").
+- **Full filtered CSV export via streaming** (`GET /api/cdrs/export.csv`): downloads everything matching the active filters (time + status + codec/MOS/source/trunk/number/IP/Call-ID/alerts), not just the visible page. The server pages by cursor and writes the CSV in chunks (never materializes the whole set). With a heads-up if there are many CDRs (approx size, or a suggestion to narrow if hundreds of thousands).
+- ML/dashboard/alarms are unaffected: they keep querying the whole DB directly; this is only the table's view/transport.
+
+## [2.106.0] — 2026-06-19
+
+### Fixed — CDR table showed at most 1000 records
+The keyset CDR read (`queryCallsKeyset`) had an internal **1000-row-per-page** cap that overrode the real `/api/cdrs` maximum (20000): even though the portal requested 20000, it only got 1000 back → the table read "1,000 records" regardless of how many existed (81M on the production box). The backstop was raised to 20000 (the endpoint's documented max); `/api/calls` and the public `/api/v1/cdrs` API still clamp to 1000 on their own. Not related to licensing.
+
+### Changed — Free tier: unlimited CDRs (the limit was 1000)
+The free tier (no license installed) used to lock the portal once it reached **1000 stored CDRs**, which looked like "only 1000 are saved". From now on the free tier is metered **by concurrent lines only** (50); the number of CDRs is **unlimited**. The CDR meter is removed from the usage banner and the block overlay (storage belongs to the customer). The sniffer and database never stopped capturing — only the portal locked.
+
+## [2.105.0] — 2026-06-19
+
+### Changed — CPU catch-up notice moves to the bell (low priority) instead of an alarming banner
+After a restart/update the portal runs a *catch-up* that temporarily raises CPU (with no capture loss). The backend already told this transient state (`transient`) apart from sustained saturation, but the frontend always showed the alarming "add cores before traffic drops" banner — confusing right after updating. Now:
+- **Transient high CPU (catch-up):** goes to the notification center (bell) as a **low-priority** notice ("catching up after the update; CPU clears on its own, no need to add resources"), with no banner. It clears itself once CPU normalizes.
+- **Sustained (real) CPU saturation:** keeps the preventive "add cores" banner as before.
+
 ## [2.104.0] — 2026-06-19
 
 ### Fixed — CDR "SBC IP / label" column showed the trunk name

@@ -1,20 +1,26 @@
 {
-  "version": "2.104.0",
+  "version": "2.112.0",
   "release_date": "2026-06-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.104.0/voxywatch-v2.104.0-linux-x64.tar.gz",
-    "sha256": "d06c22a0890b1e92c040530f29471741f195b54bf283d4fcff25d8529b16eb4d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.104.0/voxywatch-v2.104.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.112.0/voxywatch-v2.112.0-linux-x64.tar.gz",
+    "sha256": "7385515533e39d41cb48c564f3428af63fa255b586c09275905a44297a26ea69",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.112.0/voxywatch-v2.112.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "CDR \"SBC IP / label\" column showed the trunk name"
+    "AI Chat: Custom (OpenAI-compatible) provider, \"Load models\" in the UI, wider fields",
+    "\"Custom (OpenAI-compatible)\" provider + Base URL: one option that covers Llama and most of the ecosystem (Groq, Together, Fireworks, DeepSeek, local Ollama, vLL",
+    "\"Load models\" button wired in the UI (backend already supported it): fetches the provider's real, current models into a dropdown → no hand-maintained model li",
+    "UI: Token/Model/Base URL fields are now wide (the token used to be tiny at 180px) and the token keeps the 👁 reveal. The help text recommends \"Load models\" in"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "columna \"SBC IP / label\" del CDR mostraba el nombre de la troncal"
+    "AI Chat: proveedor Custom (OpenAI-compatible), \"Cargar modelos\" en la UI y campos anchos",
+    "Proveedor \"Custom (OpenAI-compatible)\" + Base URL: una sola opción que cubre Llama y casi todo el ecosistema (Groq, Together, Fireworks, DeepSeek, Ollama local",
+    "Botón \"Cargar modelos\" cableado en la UI (el backend ya lo soportaba): trae los modelos reales y actuales del proveedor a un desplegable → no hay que mantene",
+    "UI: los campos de Token/Modelo/Base URL ahora son anchos (antes el token se veía diminuto a 180px) y el token conserva el ojito 👁. El texto de ayuda recomie"
   ]
 }

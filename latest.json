@@ -1,22 +1,22 @@
 {
-  "version": "2.117.0",
+  "version": "2.118.0",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.117.0/voxywatch-v2.117.0-linux-x64.tar.gz",
-    "sha256": "982a3afaff247410703d36cdac0c3ea548829b3f8a49f0dcba26a8f8acf28452",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.117.0/voxywatch-v2.117.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.118.0/voxywatch-v2.118.0-linux-x64.tar.gz",
+    "sha256": "3f5759d342bcca1572a1a13c556ff870171433c2c1fe2360db531fbb358045af",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.118.0/voxywatch-v2.118.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "trained fraud model (NOC ML F1, Option A)",
-    "Fraud scoring with a LEARNED model, trained off-box. Fraud `score()` moves from heuristic weights to a logistic-regression model trained on real history (`tools"
+    "per-trunk forecast (NOC ML F2)",
+    "Volume/ASR forecast per trunk for the next hours. `lib/forecast.js` (pure) combines the already-learned seasonal profile (the persisted 168-bucket day-of-week×"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "modelo de fraude entrenado (NOC ML F1, Opción A)",
-    "Scoring de fraude con modelo APRENDIDO, entrenado off-box. El `score()` de fraude pasa de pesos heurísticos a un modelo de regresión logística entrenado con"
+    "forecast por troncal (NOC ML F2)",
+    "Pronóstico de volumen/ASR por troncal para las próximas horas. `lib/forecast.js` (puro) combina el patrón estacional ya aprendido (baseline 168-bucket día-d"
   ]
 }

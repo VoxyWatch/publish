@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.118.0] — 2026-06-21
+
+### Added — per-trunk forecast (NOC ML F2)
+- **Volume/ASR forecast per trunk for the next hours.** `lib/forecast.js` (pure) combines the already-learned seasonal profile (the persisted 168-bucket day-of-week×hour baseline) with the recent level (Holt-Winters-style multiplicative correction) → predicts the next H hours with a confidence band (±MAD). Reuses the baseline (no expensive recompute), honors its maturity (immature buckets → no prediction). Exposed at `GET /api/trunks/:id/forecast?metric=vol|asr&hours=24` (operator+) and as the copilot tool `forecast_trunk` to anticipate volume peaks / ASR dips (capacity planning). Read-only; inference never touches the hot path.
+
 ## [2.117.0] — 2026-06-21
 
 ### Added — trained fraud model (NOC ML F1, Option A)

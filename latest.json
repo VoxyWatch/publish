@@ -1,20 +1,20 @@
 {
-  "version": "2.114.1",
+  "version": "2.114.2",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.114.1/voxywatch-v2.114.1-linux-x64.tar.gz",
-    "sha256": "ea6bdb426fcaa38b289eacf2f3ed6d62a6814ce36aa4c5977aba4794abc24c4f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.114.1/voxywatch-v2.114.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.114.2/voxywatch-v2.114.2-linux-x64.tar.gz",
+    "sha256": "66b484db7c6c29d83a29b2b30ccd162f2770df3d7dee3c0694ba40b15c4ffa1c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.114.2/voxywatch-v2.114.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "FP reduction (A/B-validated on the production box): baseline VOLUME deviation no longer alarms in off-peak hours. Overnight, with a young seasonal baseline (MAD"
+    "FP reduction (A/B on the production box): baseline VOLUME-deviation alarm now ships OFF (`baseline_vol_alerts`). It is the noisiest with a young seasonal baseli"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Anti-FP (validación A/B en C3ntro): la desviación de VOLUMEN del baseline ya no alarma en horas valle. A la madrugada, con el baseline estacional joven (MAD c"
+    "Anti-FP (A/B en C3ntro): la alerta de desviación de VOLUMEN del baseline nace OFF (`baseline_vol_alerts`). Es la más ruidosa con baseline estacional joven (bu"
   ]
 }

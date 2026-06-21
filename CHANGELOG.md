@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.114.2] — 2026-06-21
+
+### Changed
+- **FP reduction (A/B on the production box): baseline VOLUME-deviation alarm now ships OFF (`baseline_vol_alerts`).** It is the noisiest with a young seasonal baseline (few-week buckets → unstable MAD) and the least actionable (a volume drop is not a quality problem). The operator enables it once the baseline matures. QUALITY deviations (ASR/NER/5xx/MOS/loss/PDD) remain active.
+
 ## [2.114.1] — 2026-06-21
 
 ### Fixed

@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.113.0] — 2026-06-21
+
+### Fixed — deep-QA findings (manual soak against the production box)
+- **Large-window CDR counts no longer fall back to the estimate.** `/api/cdrs?since=<24h>` ran a `COUNT(*)` that exceeded the read-pool statement_timeout (5s) and showed the whole-table estimate (e.g. 85M for "24h"). The count now runs in a transaction with `SET LOCAL statement_timeout=25000` (same WHERE as the rows → coherent); huge ranges that still exceed it fall back to the estimate, flagged `count_exact:false`.
+- **Non-numeric `?limit` no longer breaks to empty.** `?limit=abc` produced `LIMIT NaN` → empty/degraded. Inputs are now sanitized (bad `limit`→5000; bad `since/until/cursor`→null).
+- **Global MOS is suppressed when measurement coverage is low.** With RTCP-only sources a tiny sample produced a misleading `avg_mos` (e.g. 1.62). The dashboard now exposes `mos_coverage_pct` and, if coverage of answered-with-MOS < 20%, leaves `avg_mos:null` with `mos_unavailable_reason:'low_coverage'`.
+- **`total_with_audio` (in /api/stats) was wrong.** It counted already-reconstructed calls (audio_files.stereo) → returned 1. It now counts calls with recoverable RTP (same derivation as `has_audio`), plus a new `total_reconstructed`.
+- **Clear message when listing AI models for a provider without its key.** `/api/ai/models` returned the raw SDK error ("invalid x-api-key"); it now explains the configured API key doesn't match that provider.
+
 ## [2.112.0] — 2026-06-19
 
 ### Added — AI Chat: Custom (OpenAI-compatible) provider, "Load models" in the UI, wider fields

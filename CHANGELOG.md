@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.114.1] — 2026-06-21
+
+### Fixed
+- **FP reduction (A/B-validated on the production box): baseline VOLUME deviation no longer alarms in off-peak hours.** Overnight, with a young seasonal baseline (MAD floored at 1), a trivial drop (5→1 calls/h) fired `health_bl_vol_drop`/`spike` (10 false ones in the test). Volume deviation is now only evaluated when the bucket's hourly median is ≥ `min_calls` (meaningful volume). The rest of the baseline (ASR/NER/5xx/MOS/loss/PDD) is unchanged.
+
 ## [2.114.0] — 2026-06-21
 
 ### Added / Changed — trunk-alarm false-positive reduction

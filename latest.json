@@ -1,26 +1,20 @@
 {
-  "version": "2.114.0",
+  "version": "2.114.1",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.114.0/voxywatch-v2.114.0-linux-x64.tar.gz",
-    "sha256": "837c3aa3b84fda1b1fb9b87880697e867447f6c15e8fa244d9770b6af3a7a372",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.114.0/voxywatch-v2.114.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.114.1/voxywatch-v2.114.1-linux-x64.tar.gz",
+    "sha256": "ea6bdb426fcaa38b289eacf2f3ed6d62a6814ce36aa4c5977aba4794abc24c4f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.114.1/voxywatch-v2.114.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Added / Changed — trunk-alarm false-positive reduction",
-    "F1 · Statistical confidence (Wilson). Rate metrics (ASR/NER/5xx) are judged by the Wilson interval bound (95%): small samples have a wide interval and don't al",
-    "F2 · Robust, seasonal per-trunk baseline. Baseline moves from flat 14-day mean/σ to median+MAD per hour-of-week (168 buckets), built in the client timezone. \"",
-    "F3 · Exit hysteresis. Incidents clear only after N consecutive ok/idle evals (`clear_sustain_evals`, default 2) — anti-flapping; respected by the reconciler"
+    "FP reduction (A/B-validated on the production box): baseline VOLUME deviation no longer alarms in off-peak hours. Overnight, with a young seasonal baseline (MAD"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Added / Changed — anti-falsos-positivos de alarmas de troncal",
-    "F1 · Confianza estadística (Wilson). Las TASAS (ASR/NER/5xx) se juzgan por el borde del intervalo de Wilson (95%): con muestra chica el IC es ancho y NO alarm",
-    "F2 · Baseline robusto y estacional por troncal. El baseline pasa de media/σ plana de 14 días a mediana+MAD por hora-de-semana (168 buckets), construido en la",
-    "F3 · Histéresis de salida. El incidente se cierra sólo tras N evals consecutivas en ok/idle (`clear_sustain_evals`, default 2) — anti-flapping. Respetada t"
+    "Anti-FP (validación A/B en C3ntro): la desviación de VOLUMEN del baseline ya no alarma en horas valle. A la madrugada, con el baseline estacional joven (MAD c"
   ]
 }

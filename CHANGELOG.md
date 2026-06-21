@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.114.0] — 2026-06-21
+
+### Added / Changed — trunk-alarm false-positive reduction
+Attacks the root causes of FPs that manual threshold-lowering only patched.
+- **F1 · Statistical confidence (Wilson).** Rate metrics (ASR/NER/5xx) are judged by the Wilson interval bound (95%): small samples have a wide interval and don't alarm (0/3 = 0% stops being noise); large samples ≈ point estimate. All absolute metrics (5xx/PDD/MOS/loss) now require `min_calls`. Flag `stat_confidence` (default 1).
+- **F2 · Robust, seasonal per-trunk baseline.** Baseline moves from flat 14-day mean/σ to **median+MAD per hour-of-week** (168 buckets), built in the client timezone. "02:00 is compared against YOUR 02:00", not the daily average → kills the "every trunk alarms at night" class. Immature buckets stay silent (no fallback to the flat mean). Flags `baseline_robust` (default 1), `baseline_min_bucket` (default 4).
+- **F3 · Exit hysteresis.** Incidents clear only after N consecutive ok/idle evals (`clear_sustain_evals`, default 2) — anti-flapping; respected by the reconciler too.
+- **F4 · Auto-calibration (advisory).** `GET /api/trunk-health/suggest` and the copilot tool `suggest_thresholds` propose per-trunk thresholds from the learned baseline (median ± k·MAD). They change nothing: the operator applies them via the per-trunk override.
+
 ## [2.113.1] — 2026-06-21
 
 ### Fixed

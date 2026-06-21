@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.119.0] — 2026-06-21
+
+### Added — multi-metric anomaly (NOC ML F3)
+- **Per-trunk MULTI-METRIC anomaly score.** Combines (L2 norm) the robust z-scores of metrics deviating from their seasonal baseline at the same time (ASR/NER/5xx/MOS/loss/PDD/volume) → catches "several things slightly wrong together" that no single threshold fires on. Reuses already-computed z-scores (no extra cost). Always exposed in health (`anomaly_score`, `anomaly_metrics`) in shadow mode; the `health_anomaly` alarm (warn) only if `anomaly_alerts`=1 (ships OFF) and ≥2 metrics contribute. Completes NOC ML F1/F2/F3.
+
 ## [2.118.1] — 2026-06-21
 
 ### Fixed

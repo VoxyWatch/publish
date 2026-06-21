@@ -1,20 +1,22 @@
 {
-  "version": "2.118.1",
+  "version": "2.119.0",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.118.1/voxywatch-v2.118.1-linux-x64.tar.gz",
-    "sha256": "7d0c1c27842d5cff9e45c056fabe066d0135344e32283de6c992e3792d7293c3",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.118.1/voxywatch-v2.118.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.119.0/voxywatch-v2.119.0-linux-x64.tar.gz",
+    "sha256": "7bb9e4515019b1b6ae696daf9a1e12a952a8271c0ba5eb1ca234bbc31b2b6969",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.119.0/voxywatch-v2.119.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Forecast: its own maturity threshold (2) instead of the alarm one (4). With a young baseline (~18 days), hour-of-week buckets did not reach 4 samples and the fo"
+    "multi-metric anomaly (NOC ML F3)",
+    "Per-trunk MULTI-METRIC anomaly score. Combines (L2 norm) the robust z-scores of metrics deviating from their seasonal baseline at the same time (ASR/NER/5xx/MOS"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Forecast: umbral de madurez propio (2) en vez del de alarmas (4). Con baseline joven (~18 días) los buckets hora-de-semana no llegaban a 4 muestras y el foreca"
+    "anomalía multi-métrica (NOC ML F3)",
+    "Score de anomalía MULTI-MÉTRICA por troncal. Combina (norma L2) los z robustos de las métricas que se desvían a la vez de su baseline estacional (ASR/NER/5x"
   ]
 }

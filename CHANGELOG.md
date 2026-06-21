@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.117.0] — 2026-06-21
+
+### Added — trained fraud model (NOC ML F1, Option A)
+- **Fraud scoring with a LEARNED model, trained off-box.** Fraud `score()` moves from heuristic weights to a **logistic-regression** model trained on real history (`tools/train_fraud_model.py`, dependency-free). Label: event persistence/seriousness (real fraud vs transient blip). On-box inference is trivial (never touches the hot path); weights live in `settings.fraud_alarms.score_weights` (official config, no hand-patch), retrainable. `score()` is now additive in log-odds (includes `sev_critical`). Still in shadow mode (reports `fraud_score`, no alarms) pending validation against rules. See `docs/DESIGN_NOC_ML.md`.
+
 ## [2.116.0] — 2026-06-21
 
 ### Added / Changed — app-improvement batch

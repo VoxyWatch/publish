@@ -1,26 +1,22 @@
 {
-  "version": "2.116.0",
+  "version": "2.117.0",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.116.0/voxywatch-v2.116.0-linux-x64.tar.gz",
-    "sha256": "940e547b594efb7e4f8b7e3b653c24c697c0ba613dcf6fc5ff940fd038431a92",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.116.0/voxywatch-v2.116.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.117.0/voxywatch-v2.117.0-linux-x64.tar.gz",
+    "sha256": "982a3afaff247410703d36cdac0c3ea548829b3f8a49f0dcba26a8f8acf28452",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.117.0/voxywatch-v2.117.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Added / Changed — app-improvement batch",
-    "Auto-calibration in the UI (#3). Settings → Alarms: a \"Suggest thresholds\" button shows, per trunk with a mature baseline, current→suggested thresholds (med",
-    "Credible MOS (#2). The dashboard MOS KPI shows measurement coverage in the tooltip when data exists, and \"—\" with the reason (e.g. low coverage with RTCP-only",
-    "Onboarding: label SBCs/IPs (#4). New recommended first-steps item: label your SBC/carrier IPs and the capture device. Without it CDRs show raw IPs and the \"SBC"
+    "trained fraud model (NOC ML F1, Option A)",
+    "Fraud scoring with a LEARNED model, trained off-box. Fraud `score()` moves from heuristic weights to a logistic-regression model trained on real history (`tools"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Added / Changed — lote de mejoras del roadmap \"qué mejorar la app\"",
-    "Auto-calibración en la UI (#3, cierra el anti-FP de v2.114). Settings → Alarmas: botón \"Sugerir umbrales\" que muestra, por troncal con baseline maduro, los",
-    "MOS creíble (#2). El KPI de MOS del dashboard muestra la cobertura de medición en el tooltip cuando hay dato, y \"—\" con la razón (p.ej. cobertura baja con",
-    "Onboarding: etiquetar SBC/IP (#4). Nuevo paso recomendado en \"Primeros pasos\": etiquetar las IPs de los SBC/carriers y el equipo de captura. Sin esto los CDR mu"
+    "modelo de fraude entrenado (NOC ML F1, Opción A)",
+    "Scoring de fraude con modelo APRENDIDO, entrenado off-box. El `score()` de fraude pasa de pesos heurísticos a un modelo de regresión logística entrenado con"
   ]
 }

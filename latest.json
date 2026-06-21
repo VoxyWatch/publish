@@ -1,26 +1,20 @@
 {
-  "version": "2.113.0",
+  "version": "2.113.1",
   "release_date": "2026-06-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.113.0/voxywatch-v2.113.0-linux-x64.tar.gz",
-    "sha256": "f79c8fd87f7ace81315f57857b73f2b41796868746de3d4ff52e1a9c6f141757",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.113.0/voxywatch-v2.113.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.113.1/voxywatch-v2.113.1-linux-x64.tar.gz",
+    "sha256": "ad6c9743d4e9f596c9ad6fdf9325e4a3890e790351f7e25ab3c98acc1e658601",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.113.1/voxywatch-v2.113.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "deep-QA findings (manual soak against the production box)",
-    "Large-window CDR counts no longer fall back to the estimate. `/api/cdrs?since=<24h>` ran a `COUNT(*)` that exceeded the read-pool statement_timeout (5s) and sho",
-    "Non-numeric `?limit` no longer breaks to empty. `?limit=abc` produced `LIMIT NaN` → empty/degraded. Inputs are now sanitized (bad `limit`→5000; bad `since/u",
-    "Global MOS is suppressed when measurement coverage is low. With RTCP-only sources a tiny sample produced a misleading `avg_mos` (e.g. 1.62). The dashboard now e"
+    "Large-window CDR counts (production-scale follow-up to 2.113.0). At production scale (86.9M rows) the exact 24h `COUNT(*)` takes ~65s and exceeds the budget →"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "hallazgos del QA a fondo (soak manual sobre C3ntro)",
-    "Conteo de CDRs en ventanas grandes ya no cae al estimado. `/api/cdrs?since=<24h>` hacía `COUNT(*)` que excedía el statement_timeout (5s) del read-pool y mostr",
-    "`?limit` no numérico ya no rompe a vacío. `?limit=abc` daba `LIMIT NaN` → resultado vacío/degraded. Ahora se sanea (`limit` inválido→5000; `since/until/",
-    "MOS global no se reporta si la cobertura de medición es baja. Con fuentes RTCP-only una muestra diminuta daba un `avg_mos` engañoso (p.ej. 1.62). Ahora el das"
+    "Conteo de CDRs en ventanas grandes (corrección del 2.113.0 a escala real). A la escala de producción (86.9M filas) el `COUNT(*)` exacto de 24h tarda ~65s y ex"
   ]
 }

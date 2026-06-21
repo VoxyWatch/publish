@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.113.1] — 2026-06-21
+
+### Fixed
+- **Large-window CDR counts (production-scale follow-up to 2.113.0).** At production scale (86.9M rows) the exact 24h `COUNT(*)` takes ~65s and exceeds the budget → it previously fell back to the whole-table estimate (~85M, misleading for a 24h window whose real value is ~3.5M). Now, when the exact COUNT doesn't fit the budget (lowered to 15s to protect the read pool), the count is estimated PER WINDOW from the hourly rollup `call_stats_hourly` (≈ the window's real value), never the whole-table total. Small/medium windows still return an exact count.
+
 ## [2.113.0] — 2026-06-21
 
 ### Fixed — deep-QA findings (manual soak against the production box)

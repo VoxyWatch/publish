@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.116.0] — 2026-06-21
+
+### Added / Changed — app-improvement batch
+- **Auto-calibration in the UI (#3).** Settings → Alarms: a "Suggest thresholds" button shows, per trunk with a mature baseline, current→suggested thresholds (median ± k·MAD) for ASR/5xx/MOS. Advisory; apply per trunk or via the copilot. Reuses `GET /api/trunk-health/suggest`.
+- **Credible MOS (#2).** The dashboard MOS KPI shows measurement coverage in the tooltip when data exists, and "—" with the reason (e.g. low coverage with RTCP-only sources) when it is not representative — instead of a misleading number.
+- **Onboarding: label SBCs/IPs (#4).** New recommended first-steps item: label your SBC/carrier IPs and the capture device. Without it CDRs show raw IPs and the "SBC IP / label" column is confusing.
+- **Fraud scoring — shadow scaffold (#5).** A new 0-100 per-trunk score combining anti-fraud signals. Shadow mode for now: informational (`fraud_score` KPI on the incident + log when high), creates no alarms. Weights will be replaced by a model trained off-box and distributed signed (Option A; see `docs/DESIGN_NOC_ML.md`) — on-box inference is trivial and never touches the hot path.
+
 ## [2.115.0] — 2026-06-21
 
 ### Added — persistent per-trunk baseline (accurate alarms from boot)

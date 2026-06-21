@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.115.0] — 2026-06-21
+
+### Added — persistent per-trunk baseline (accurate alarms from boot)
+- **The seasonal per-trunk baseline is now persisted to disk (gzip) and restored on boot.** It previously took ~5 min to rebuild after each update/restart (measured by the v2.114 A/B): during that gap alarms ran with no baseline (no deviations, no adaptive degradation). It is now restored instantly (`voxywatch_trunk_baselines.json.gz`, same pattern as the v2.69 working-set snapshot) and the normal refresh replaces it with fresh data once the DB is ready. Stale snapshots (> baseline_days×2) are ignored. The seasonal Map keys (168 buckets) are serialized/restored intact.
+
 ## [2.114.2] — 2026-06-21
 
 ### Changed

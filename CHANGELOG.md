@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.119.1] — 2026-06-21
+
+### Added
+- **`anomaly_score` visible in Monitoring (shadow).** Optional "Anomaly" column + chip in the trunk detail, to watch the multi-metric score before enabling its alarm (`anomaly_alerts`). Display only (read-only).
+
 ## [2.119.0] — 2026-06-21
 
 ### Added — multi-metric anomaly (NOC ML F3)

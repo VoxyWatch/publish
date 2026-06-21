@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.118.1] — 2026-06-21
+
+### Fixed
+- **Forecast: its own maturity threshold (2) instead of the alarm one (4).** With a young baseline (~18 days), hour-of-week buckets did not reach 4 samples and the forecast came back with zero coverage. Forecast is informational and carries a confidence band → tolerates thinner buckets; improves as the baseline matures.
+
 ## [2.118.0] — 2026-06-21
 
 ### Added — per-trunk forecast (NOC ML F2)

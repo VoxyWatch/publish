@@ -1,22 +1,20 @@
 {
-  "version": "2.118.0",
+  "version": "2.118.1",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.118.0/voxywatch-v2.118.0-linux-x64.tar.gz",
-    "sha256": "3f5759d342bcca1572a1a13c556ff870171433c2c1fe2360db531fbb358045af",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.118.0/voxywatch-v2.118.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.118.1/voxywatch-v2.118.1-linux-x64.tar.gz",
+    "sha256": "7d0c1c27842d5cff9e45c056fabe066d0135344e32283de6c992e3792d7293c3",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.118.1/voxywatch-v2.118.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "per-trunk forecast (NOC ML F2)",
-    "Volume/ASR forecast per trunk for the next hours. `lib/forecast.js` (pure) combines the already-learned seasonal profile (the persisted 168-bucket day-of-week×"
+    "Forecast: its own maturity threshold (2) instead of the alarm one (4). With a young baseline (~18 days), hour-of-week buckets did not reach 4 samples and the fo"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "forecast por troncal (NOC ML F2)",
-    "Pronóstico de volumen/ASR por troncal para las próximas horas. `lib/forecast.js` (puro) combina el patrón estacional ya aprendido (baseline 168-bucket día-d"
+    "Forecast: umbral de madurez propio (2) en vez del de alarmas (4). Con baseline joven (~18 días) los buckets hora-de-semana no llegaban a 4 muestras y el foreca"
   ]
 }

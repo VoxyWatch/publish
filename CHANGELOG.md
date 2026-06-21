@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.121.0] — 2026-06-21
+
+### Added — fraud model score-gate (NOC ML F1: shadow → action)
+- **The fraud model now REDUCES false positives.** New `fraud_alarms.score_min_critical`: if the trained model scores a fraud event below the threshold, its incident is downgraded critical→warn (not hidden — just stops paging as critical). Validated in production: `high_risk` criticals (typically transient blips) score ~4 → warn; a serious `intl_spike` scores ~53 → stays critical. 0 = off (shadow only). Model still trained off-box (Option A).
+
 ## [2.120.0] — 2026-06-21
 
 ### Fixed — `calls` autovacuum (anti-bloat lock; closes #1b)

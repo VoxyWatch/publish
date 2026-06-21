@@ -1,22 +1,22 @@
 {
-  "version": "2.120.0",
+  "version": "2.121.0",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.120.0/voxywatch-v2.120.0-linux-x64.tar.gz",
-    "sha256": "f1711d80e7dc933663607823f8a8a71399ed0cc644eef54b9fecc753b98c55d9",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.120.0/voxywatch-v2.120.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.121.0/voxywatch-v2.121.0-linux-x64.tar.gz",
+    "sha256": "2b403521c5241700cebf51c1118b626fdbaaa9054498ec5573d33bdecbd74208",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.121.0/voxywatch-v2.121.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "`calls` autovacuum (anti-bloat lock; closes #1b)",
-    "Large-scale CDR counts are fast again and stay that way. Root cause: the default autovacuum (fires at 20% dead tuples) was too slow on an 88M-row, heavily-updat"
+    "fraud model score-gate (NOC ML F1: shadow → action)",
+    "The fraud model now REDUCES false positives. New `fraud_alarms.score_min_critical`: if the trained model scores a fraud event below the threshold, its incident"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "autovacuum de `calls` (candado anti-bloat; cierra #1b)",
-    "Conteo de CDRs a escala vuelve a ser rápido y se mantiene así. Causa raíz hallada: el autovacuum por defecto (dispara al 20% de tuplas muertas) tardaba demas"
+    "score-gate del modelo de fraude (NOC ML F1: de sombra a acción)",
+    "El modelo de fraude ahora REDUCE falsos positivos. Nuevo `fraud_alarms.score_min_critical`: si el modelo entrenado puntúa un evento de fraude por debajo del um"
   ]
 }

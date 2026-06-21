@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.120.0] — 2026-06-21
+
+### Fixed — `calls` autovacuum (anti-bloat lock; closes #1b)
+- **Large-scale CDR counts are fast again and stay that way.** Root cause: the default autovacuum (fires at 20% dead tuples) was too slow on an 88M-row, heavily-updated table → 16M dead tuples, stale visibility map, time-bounded COUNT lost its index-only scan (24h took ~2 min). Permanent fix: `calls` lowers its autovacuum threshold to 2% (`autovacuum_vacuum_scale_factor=0.02`) — in `db/schema.sql` (new installs) + idempotent boot migration (existing installs). Keeps vacuum current so counts stay fast. (Plus a one-time cleanup VACUUM on the production box.)
+
 ## [2.119.1] — 2026-06-21
 
 ### Added

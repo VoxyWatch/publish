@@ -1,20 +1,22 @@
 {
-  "version": "2.119.1",
+  "version": "2.120.0",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.119.1/voxywatch-v2.119.1-linux-x64.tar.gz",
-    "sha256": "d760c95b8536692678cab22249e60b5b0d6d00aa5aa0d93fa17db1b017125c5b",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.119.1/voxywatch-v2.119.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.120.0/voxywatch-v2.120.0-linux-x64.tar.gz",
+    "sha256": "f1711d80e7dc933663607823f8a8a71399ed0cc644eef54b9fecc753b98c55d9",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.120.0/voxywatch-v2.120.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "`anomaly_score` visible in Monitoring (shadow). Optional \"Anomaly\" column + chip in the trunk detail, to watch the multi-metric score before enabling its alarm"
+    "`calls` autovacuum (anti-bloat lock; closes #1b)",
+    "Large-scale CDR counts are fast again and stay that way. Root cause: the default autovacuum (fires at 20% dead tuples) was too slow on an 88M-row, heavily-updat"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "`anomaly_score` visible en Monitoring (sombra). Columna opcional \"Anomalía\" (Personalizar columnas) + chip en el detalle de troncal, para vigilar el score mult"
+    "autovacuum de `calls` (candado anti-bloat; cierra #1b)",
+    "Conteo de CDRs a escala vuelve a ser rápido y se mantiene así. Causa raíz hallada: el autovacuum por defecto (dispara al 20% de tuplas muertas) tardaba demas"
   ]
 }

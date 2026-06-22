@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.123.1] — 2026-06-21
+
+### Added
+- **Pattern-alarm controls in the UI (operator-configurable).** Settings → Alarms now exposes the two toggles that control pattern-alarm volume: "Per-trunk pattern alarms" (`per_trunk`; OFF = global only, avoids duplicating trunk_health) and "Alarm on volume drops" (`volume_both_dirs`; OFF = spikes only). Previously API-only; now the operator tunes them directly.
+
 ## [2.123.0] — 2026-06-21
 
 ### Fixed — seasonal pattern alarm flood (FP reduction)

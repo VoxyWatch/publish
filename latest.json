@@ -1,22 +1,20 @@
 {
-  "version": "2.123.0",
+  "version": "2.123.1",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.123.0/voxywatch-v2.123.0-linux-x64.tar.gz",
-    "sha256": "ae4fed19ebfdef8a4392b26c7607b42ebabf6d7f75dafc650e3cc76c84bd57f3",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.123.0/voxywatch-v2.123.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.123.1/voxywatch-v2.123.1-linux-x64.tar.gz",
+    "sha256": "f96e0e75941d2968795a9e1239b31921c7eac73f873fcebe5c6899f5c5bf03d1",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.123.1/voxywatch-v2.123.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "seasonal pattern alarm flood (FP reduction)",
-    "The pattern detector generated too many alarms; two causes, both fixed. (1) The VOLUME metric did not respect `min_volume` (ASR/PDD did) → low-traffic trunks/"
+    "Pattern-alarm controls in the UI (operator-configurable). Settings → Alarms now exposes the two toggles that control pattern-alarm volume: \"Per-trunk pattern"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "flood de alarmas de PATRÓN estacional (anti-FP)",
-    "El detector de patrón generaba demasiadas alarmas; dos causas, ambas corregidas. (1) La métrica de VOLUMEN no respetaba `min_volume` (ASR/PDD sí) → troncal"
+    "Controles de alarmas de patrón en la UI (configurable por el operador). Settings → Alarmas ahora expone los dos toggles que controlan el volumen de alarmas d"
   ]
 }

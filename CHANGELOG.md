@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.122.0] — 2026-06-21
+
+### Added — insufficient-sample KPIs greyed out (Monitoring)
+- **Trunks with few calls (< `min_calls`) no longer mislead the eye.** The % of 2-3 calls is statistical noise (and does not alarm, thanks to Wilson/min_calls since v2.114) but the table still painted it red. Those rate KPIs (ASR/NER/MOS/loss/PDD/5xx) now render in GREY, no heat coloring, with the calls column marked ⚠ and an "insufficient sample" tooltip. Backend exposes `low_sample`/`min_calls` per trunk. Display only; the alarm engine is unchanged.
+
 ## [2.121.0] — 2026-06-21
 
 ### Added — fraud model score-gate (NOC ML F1: shadow → action)

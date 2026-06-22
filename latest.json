@@ -1,22 +1,22 @@
 {
-  "version": "2.121.0",
+  "version": "2.122.0",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.121.0/voxywatch-v2.121.0-linux-x64.tar.gz",
-    "sha256": "2b403521c5241700cebf51c1118b626fdbaaa9054498ec5573d33bdecbd74208",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.121.0/voxywatch-v2.121.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.122.0/voxywatch-v2.122.0-linux-x64.tar.gz",
+    "sha256": "eb819869d5af2d45b89d821cfb4b6388f7fc13267384237610a6f8b27816fbb8",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.122.0/voxywatch-v2.122.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "fraud model score-gate (NOC ML F1: shadow → action)",
-    "The fraud model now REDUCES false positives. New `fraud_alarms.score_min_critical`: if the trained model scores a fraud event below the threshold, its incident"
+    "insufficient-sample KPIs greyed out (Monitoring)",
+    "Trunks with few calls (< `min_calls`) no longer mislead the eye. The % of 2-3 calls is statistical noise (and does not alarm, thanks to Wilson/min_calls since v"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "score-gate del modelo de fraude (NOC ML F1: de sombra a acción)",
-    "El modelo de fraude ahora REDUCE falsos positivos. Nuevo `fraud_alarms.score_min_critical`: si el modelo entrenado puntúa un evento de fraude por debajo del um"
+    "KPIs de muestra insuficiente en gris (Monitoring)",
+    "Las troncales con pocas llamadas (< `min_calls`) ya no engañan la vista. El % de 2-3 llamadas es ruido estadístico (no alarma, gracias a Wilson/min_calls desd"
   ]
 }

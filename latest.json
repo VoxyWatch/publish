@@ -1,20 +1,22 @@
 {
-  "version": "2.123.1",
-  "release_date": "2026-06-21",
+  "version": "2.124.0",
+  "release_date": "2026-06-22",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.123.1/voxywatch-v2.123.1-linux-x64.tar.gz",
-    "sha256": "f96e0e75941d2968795a9e1239b31921c7eac73f873fcebe5c6899f5c5bf03d1",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.123.1/voxywatch-v2.123.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.124.0/voxywatch-v2.124.0-linux-x64.tar.gz",
+    "sha256": "c4c25046b75ef8b655ffae3443c5647335c3efd5c47f967fcd3a8afc59e00750",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.124.0/voxywatch-v2.124.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Pattern-alarm controls in the UI (operator-configurable). Settings → Alarms now exposes the two toggles that control pattern-alarm volume: \"Per-trunk pattern"
+    "per-trunk auto-calibrated thresholds (predictive/ML)",
+    "Each trunk can be judged against its OWN learned normal instead of a global threshold. New `trunk_health.auto_calibrate` (default OFF): a trunk with a mature ba"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Controles de alarmas de patrón en la UI (configurable por el operador). Settings → Alarmas ahora expone los dos toggles que controlan el volumen de alarmas d"
+    "auto-calibración de umbrales por troncal (predictivo/ML)",
+    "Cada troncal puede juzgarse contra SU propio normal aprendido, no un umbral global. Nuevo `trunk_health.auto_calibrate` (default OFF): con él, una troncal con"
   ]
 }

@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.124.0] — 2026-06-21
+
+### Added — per-trunk auto-calibrated thresholds (predictive/ML)
+- **Each trunk can be judged against its OWN learned normal instead of a global threshold.** New `trunk_health.auto_calibrate` (default OFF): a trunk with a mature baseline derives its thresholds (ASR/NER/5xx/MOS/loss/PDD) from `median ± k·MAD` of its history (same math as the "Suggest thresholds" button). A wholesale trunk normally at 25% ASR stops alarming at 25%; a 90% retail trunk alarms if it drops to ~80% (which a global 50/25 missed). Precedence: global < traffic profile < auto-calibration < manual override (manual always wins). Also configurable in Settings → Trunk Health. Exposes `auto_calibrated` per trunk. Ships OFF → validate before enabling.
+
 ## [2.123.1] — 2026-06-21
 
 ### Added

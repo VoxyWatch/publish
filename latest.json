@@ -1,22 +1,22 @@
 {
-  "version": "2.122.0",
+  "version": "2.123.0",
   "release_date": "2026-06-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.122.0/voxywatch-v2.122.0-linux-x64.tar.gz",
-    "sha256": "eb819869d5af2d45b89d821cfb4b6388f7fc13267384237610a6f8b27816fbb8",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.122.0/voxywatch-v2.122.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.123.0/voxywatch-v2.123.0-linux-x64.tar.gz",
+    "sha256": "ae4fed19ebfdef8a4392b26c7607b42ebabf6d7f75dafc650e3cc76c84bd57f3",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.123.0/voxywatch-v2.123.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "insufficient-sample KPIs greyed out (Monitoring)",
-    "Trunks with few calls (< `min_calls`) no longer mislead the eye. The % of 2-3 calls is statistical noise (and does not alarm, thanks to Wilson/min_calls since v"
+    "seasonal pattern alarm flood (FP reduction)",
+    "The pattern detector generated too many alarms; two causes, both fixed. (1) The VOLUME metric did not respect `min_volume` (ASR/PDD did) → low-traffic trunks/"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "KPIs de muestra insuficiente en gris (Monitoring)",
-    "Las troncales con pocas llamadas (< `min_calls`) ya no engañan la vista. El % de 2-3 llamadas es ruido estadístico (no alarma, gracias a Wilson/min_calls desd"
+    "flood de alarmas de PATRÓN estacional (anti-FP)",
+    "El detector de patrón generaba demasiadas alarmas; dos causas, ambas corregidas. (1) La métrica de VOLUMEN no respetaba `min_volume` (ASR/PDD sí) → troncal"
   ]
 }

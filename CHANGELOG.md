@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.123.0] — 2026-06-21
+
+### Fixed — seasonal pattern alarm flood (FP reduction)
+- **The pattern detector generated too many alarms; two causes, both fixed.** (1) The VOLUME metric did not respect `min_volume` (ASR/PDD did) → low-traffic trunks/hours fired volume drop/spike on noise; volume is now only judged when the bucket norm is ≥ `min_volume`. (2) New `pattern_alarms.per_trunk` (default true): per-trunk pattern alarms duplicated the seasonal deviations `trunk_health` already emits (`health_bl_*`, robust baseline); with `per_trunk=false` only the GLOBAL (aggregate) pattern remains, removing double-alarming the same trunk. Volume drops (`vol_low`) are controlled by `volume_both_dirs`.
+
 ## [2.122.0] — 2026-06-21
 
 ### Added — insufficient-sample KPIs greyed out (Monitoring)

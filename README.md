@@ -136,7 +136,8 @@ VoxyWatch ships a standalone **Model Context Protocol server**: connect Claude D
 
 ### 🔊 Audio you can actually listen to
 - **SIPREC stereo reconstruction** — caller/callee on separate channels, played in the browser.
-- Multi-codec decode: **PCMU/PCMA, G.722, G.729**, plus dynamic AMR-NB/WB, GSM, G.723 via SDP hints.
+- **Codec-agnostic capture**: every call is captured and analyzed regardless of codec — over **both HEP and SIPREC** — so the CDR, SIP ladder and quality metrics work for any payload type.
+- Multi-codec audio *decode* (reconstruction to playable WAV): **PCMU/PCMA, G.722, G.729**, plus dynamic AMR-NB/WB, GSM, G.723, Opus, Speex via SDP hints.
 - Per-call **PCAP export** for Wireshark.
 
 ### 📊 Real-time dashboard & CDR

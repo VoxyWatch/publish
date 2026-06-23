@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.126.1] — 2026-06-23
+
+### Fixed — inflated concurrency ("Simultaneous calls") + startup blocked by indexes in schema.sql
+- **Inflated concurrency (~24k vs ~hundreds real):** the simultaneous-calls series is a `Σstarts − Σends` ledger. The rollup's `ended` query was still slow (70s → cancelled) because the planner preferred the smaller old index `idx_calls_ended_ts` (no `call_result`) over v2.126's covering `idx_calls_ended_cr` → `ended` was **chronically undercounted** → the ledger subtracted too little and concurrency grew unbounded. **Fix:** drop `idx_calls_ended_ts` (the covering replaces it and forces the index-only scan); the rollup backfill re-populates `ended` → concurrency rebalances within hours.
+- **Portal startup blocked during the v2.126 update:** the covering indexes were in `schema.sql`, which the updater applies in a BLOCKING way → creating several GB of index over the already-populated `calls` froze startup ~10 min (capture was never affected; separate service). **Fix:** large indexes are created ONLY in `ensureSearchIndex()` with `CREATE INDEX CONCURRENTLY` (not in `schema.sql`) → startup no longer blocks on large installs.
+
 ## [2.126.0] — 2026-06-22
 
 ### Fixed — covering indexes: fine dashboard series (volume + concurrency) scale under peak load

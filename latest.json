@@ -1,24 +1,23 @@
 {
-  "version": "2.126.0",
-  "release_date": "2026-06-22",
+  "version": "2.126.1",
+  "release_date": "2026-06-23",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.126.0/voxywatch-v2.126.0-linux-x64.tar.gz",
-    "sha256": "e584cae2536f19bd63d41bff86884c4d4f16c8e091ccb9c2b9b3ac8c4042e3c6",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.126.0/voxywatch-v2.126.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.126.1/voxywatch-v2.126.1-linux-x64.tar.gz",
+    "sha256": "1bede21d7e3f8b35215db13ac09b7c213ef929706d68cea3aae0d633bae0860f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.126.1/voxywatch-v2.126.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "covering indexes: fine dashboard series (volume + concurrency) scale under peak load",
-    "Completes v2.125.0: at ~500k calls/h the per-minute rollup (`call_stats_1m`) still didn't finish within the `statement_timeout` → the short-range series (volu",
-    "Fix: two covering indexes (`idx_calls_start_cr` on `start_ts`, `idx_calls_ended_cr` on `COALESCE(last_ts,start_ts)`, both `INCLUDE (call_result)`) → enable in"
+    "inflated concurrency (\"Simultaneous calls\") + startup blocked by indexes in schema.sql",
+    "Portal startup blocked during the v2.126 update: the covering indexes were in `schema.sql`, which the updater applies in a BLOCKING way → creating several GB"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "índices covering: series finas del dashboard (volumen + concurrencia) escalan a pico",
-    "Completa lo de v2.125.0: a ~500k llamadas/h el rollup por minuto (`call_stats_1m`) seguía sin completar dentro del `statement_timeout` → las series de rango",
-    "Fix: dos índices covering (`idx_calls_start_cr` sobre `start_ts` y `idx_calls_ended_cr` sobre `COALESCE(last_ts,start_ts)`, ambos `INCLUDE (call_result)`) →"
+    "concurrencia (\"Simultaneous calls\") inflada + arranque bloqueado por índices en schema.sql",
+    "Concurrencia inflada (~24k vs ~cientos reales): la serie de llamadas simultáneas es un ledger `Σstarts − Σends`. La query de `ended` del rollup seguía len",
+    "Arranque del portal bloqueado en el update a v2.126: los índices covering estaban en `schema.sql`, que el updater aplica de forma BLOQUEANTE → crear varios G"
   ]
 }

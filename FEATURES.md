@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website source material)
 
-> Source of truth for the website, datasheets and sales decks. Updated for **v2.126** (2026-06-17).
+> Source of truth for the website, datasheets and sales decks. Updated for **v2.126.1** (2026-06-23).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -23,7 +23,7 @@
 
 **Hard differentiators (vs Homer/VoIPmonitor/etc.):**
 1. Autonomous incident investigation with evidence-cited AI diagnosis.
-2. Per-trunk statistical baselines + anti-false-positive engine (−92% critical noise, validated on production data).
+2. Per-trunk statistical baselines + anti-false-positive engine (−92% critical noise, validated on production data) — now with **per-trunk auto-calibration**: each trunk is judged against *its own* learned normal, not a global threshold.
 3. Actionable Telegram notifications with human-approved remediation.
 4. MCP server: your own AI agents can interrogate the platform.
 5. Carrier/country attribution built-in (E.164 engine, 197 country codes).
@@ -59,10 +59,12 @@
 | **Per-user notifications** | One bot per installation; each user links their own Telegram with a one-time code (no tokens, no chat IDs) and/or enables email. Actions audited under the real username and gated by role; per-user severity threshold and digest opt-in. Global SMTP with Gmail/365 presets, in-product step-by-step guide and live test. |
 | **Runbooks** | Field procedures the investigator follows and cites step by step. Ships with 4; add your own as JSON. |
 | **Case memory** | Human resolutions become institutional memory: "same as incident #123 (Jun 3) — carrier maintenance". The system gets smarter with every incident you close. |
-| **Anti-false-positives** | CRITICAL must be earned: minimum sample size, measurement coverage, deviation from the trunk's *own* baseline, sustained degradation. −92% noise, zero lost records. |
+| **Anti-false-positives** | CRITICAL must be earned: minimum sample size, **Wilson confidence intervals** on rates (a trunk with 2 calls can't trip a critical), measurement coverage, deviation from the trunk's *own* robust seasonal baseline (median/MAD), sustained degradation (hysteresis). −92% noise, zero lost records. |
+| **Auto-calibrated thresholds** | Opt-in: each mature trunk derives its own alarm thresholds from its learned history (median ± k·MAD) — a wholesale trunk that *normally* runs 25% ASR stops false-alarming at 25%, while a retail trunk alarms the moment it dips below *its* 90%. Manual overrides always win. Validated A/B on production: −40% alarms, no real signal lost. |
 | **Capacity forecast** | Audio retention measured in hours + write rate; capacity incidents before you run out; daily/weekly digest via Telegram/webhook. |
 | **Three-tier alarms** | (1) Manual thresholds — editable SIP failure-rate rules per class/code, global and per trunk, plus SBC-vs-carrier reject attribution. (2) Learned patterns — a 168-bucket seasonal baseline (day-of-week × hour, robust median/MAD) compares your Monday against *your* Mondays: traffic spikes, anomalous silence, ASR/PDD drift against that hour's normal. (3) Honest learning: without enough history the system stays silent instead of guessing. |
-| **Fraud early-warning** | The "suddenly calling Cuba" detector: alerts the first day a trunk calls a country absent from its last 4 weeks — critical if it's on the (editable) IRSF high-risk list. Plus short-call storms to one destination (premium-number sweeps, hacked PBX — active from day one), abnormal growth to high-risk destinations, and international-mix spikes vs the trunk's own history. Factory runbook included: who originates, time-of-day tells, block at *your* SBC, dispute with the carrier. |
+| **Fraud early-warning** | The "suddenly calling Cuba" detector: alerts the first day a trunk calls a country absent from its last 4 weeks — critical if it's on the (editable) IRSF high-risk list. Plus short-call storms to one destination (premium-number sweeps, hacked PBX — active from day one), abnormal growth to high-risk destinations, and international-mix spikes vs the trunk's own history. Factory runbook included: who originates, time-of-day tells, block at *your* SBC, dispute with the carrier. A **fraud-risk score (0–100)** fuses the signals via a model trained offline on labelled history (privacy-safe: training off-box, inference on-box, no data leaves your server) and gates which alerts escalate to critical. |
+| **Predictive forecast** | Seasonal forecast (Holt-Winters over the 168-bucket baseline) projects each trunk's volume/ASR hours ahead with confidence bands, and turns audio-retention burn-rate into capacity incidents *before* you run out of disk. |
 | **MCP server** | Standalone Model Context Protocol server: Claude (or any MCP agent) queries health, KPIs, trunks, CDRs and incidents through 6 read-only scoped tools. |
 
 ### 2 · Capture & analysis
@@ -120,4 +122,4 @@
 - The Telegram screenshot (incident + buttons) is the single most convincing visual — capture one from production.
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.126.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.126.1.

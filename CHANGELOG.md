@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.125.0] — 2026-06-22
+
+### Fixed — dedicated pool for the dashboard rollup (volume charts stuck at 0 under peak load)
+- **At high volume (~500k calls/h) the dashboard volume charts went to 0 on the recent tail.** Root cause: the `call_stats_hourly` and `call_stats_1m` rollups ran on the ingest pool (`getPool`, no `statement_timeout`). Under peak, an aggregation query could hang with no cap → the `await` never resolved → the busy guard was never released → every subsequent tick returned early → the rollup stayed **stuck until restart**. Capture and raw data were always intact (capture has priority); only the chart refresh froze.
+- **Fix:** new **dedicated `getRollupPool()`** (`max:3`, `statement_timeout:120s`), mirroring the read pool. It gives aggregation its own lane (no longer queued behind ingest writes) and a finite timeout: if a query hangs under peak it **fails and releases the guard** → the next tick retries and, once the peak eases, it catches up by re-scanning the last 4h (no data lost). Boot-time backfills (full rebuild, 12h catch-up) intentionally stay on the untimed pool — they are long, legitimate scans and not self-healing.
+
 ## [2.124.0] — 2026-06-21
 
 ### Added — per-trunk auto-calibrated thresholds (predictive/ML)

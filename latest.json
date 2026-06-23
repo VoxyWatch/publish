@@ -1,22 +1,24 @@
 {
-  "version": "2.124.0",
+  "version": "2.125.0",
   "release_date": "2026-06-22",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.124.0/voxywatch-v2.124.0-linux-x64.tar.gz",
-    "sha256": "c4c25046b75ef8b655ffae3443c5647335c3efd5c47f967fcd3a8afc59e00750",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.124.0/voxywatch-v2.124.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.125.0/voxywatch-v2.125.0-linux-x64.tar.gz",
+    "sha256": "4ab6bad58ff4bf8cef7babc7822e6a8b4359ea28f3294545e72cb3aff3fe514c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.125.0/voxywatch-v2.125.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "per-trunk auto-calibrated thresholds (predictive/ML)",
-    "Each trunk can be judged against its OWN learned normal instead of a global threshold. New `trunk_health.auto_calibrate` (default OFF): a trunk with a mature ba"
+    "dedicated pool for the dashboard rollup (volume charts stuck at 0 under peak load)",
+    "At high volume (~500k calls/h) the dashboard volume charts went to 0 on the recent tail. Root cause: the `call_stats_hourly` and `call_stats_1m` rollups ran on",
+    "Fix: new dedicated `getRollupPool()` (`max:3`, `statement_timeout:120s`), mirroring the read pool. It gives aggregation its own lane (no longer queued behind in"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "auto-calibración de umbrales por troncal (predictivo/ML)",
-    "Cada troncal puede juzgarse contra SU propio normal aprendido, no un umbral global. Nuevo `trunk_health.auto_calibrate` (default OFF): con él, una troncal con"
+    "pool dedicado para el rollup del dashboard (gráficas de volumen en 0 a pico)",
+    "A alto volumen (~500k llamadas/h en C3ntro) las gráficas de volumen se quedaban en 0 en la cola reciente. Causa raíz: los rollups `call_stats_hourly` (refresh",
+    "Fix: nuevo pool dedicado `getRollupPool()` (`max:3`, `statement_timeout:120s`), análogo a `getReadPool`. Da a la agregación un carril propio (ya no espera det"
   ]
 }

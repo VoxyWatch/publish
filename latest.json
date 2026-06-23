@@ -1,24 +1,24 @@
 {
-  "version": "2.125.0",
+  "version": "2.126.0",
   "release_date": "2026-06-22",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.125.0/voxywatch-v2.125.0-linux-x64.tar.gz",
-    "sha256": "4ab6bad58ff4bf8cef7babc7822e6a8b4359ea28f3294545e72cb3aff3fe514c",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.125.0/voxywatch-v2.125.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.126.0/voxywatch-v2.126.0-linux-x64.tar.gz",
+    "sha256": "e584cae2536f19bd63d41bff86884c4d4f16c8e091ccb9c2b9b3ac8c4042e3c6",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.126.0/voxywatch-v2.126.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "dedicated pool for the dashboard rollup (volume charts stuck at 0 under peak load)",
-    "At high volume (~500k calls/h) the dashboard volume charts went to 0 on the recent tail. Root cause: the `call_stats_hourly` and `call_stats_1m` rollups ran on",
-    "Fix: new dedicated `getRollupPool()` (`max:3`, `statement_timeout:120s`), mirroring the read pool. It gives aggregation its own lane (no longer queued behind in"
+    "covering indexes: fine dashboard series (volume + concurrency) scale under peak load",
+    "Completes v2.125.0: at ~500k calls/h the per-minute rollup (`call_stats_1m`) still didn't finish within the `statement_timeout` → the short-range series (volu",
+    "Fix: two covering indexes (`idx_calls_start_cr` on `start_ts`, `idx_calls_ended_cr` on `COALESCE(last_ts,start_ts)`, both `INCLUDE (call_result)`) → enable in"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "pool dedicado para el rollup del dashboard (gráficas de volumen en 0 a pico)",
-    "A alto volumen (~500k llamadas/h en C3ntro) las gráficas de volumen se quedaban en 0 en la cola reciente. Causa raíz: los rollups `call_stats_hourly` (refresh",
-    "Fix: nuevo pool dedicado `getRollupPool()` (`max:3`, `statement_timeout:120s`), análogo a `getReadPool`. Da a la agregación un carril propio (ya no espera det"
+    "índices covering: series finas del dashboard (volumen + concurrencia) escalan a pico",
+    "Completa lo de v2.125.0: a ~500k llamadas/h el rollup por minuto (`call_stats_1m`) seguía sin completar dentro del `statement_timeout` → las series de rango",
+    "Fix: dos índices covering (`idx_calls_start_cr` sobre `start_ts` y `idx_calls_ended_cr` sobre `COALESCE(last_ts,start_ts)`, ambos `INCLUDE (call_result)`) →"
   ]
 }

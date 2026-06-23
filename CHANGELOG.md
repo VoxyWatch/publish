@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.126.0] — 2026-06-22
+
+### Fixed — covering indexes: fine dashboard series (volume + concurrency) scale under peak load
+- **Completes v2.125.0:** at ~500k calls/h the per-minute rollup (`call_stats_1m`) still didn't finish within the `statement_timeout` → the short-range series (volume 1h/6h and **"Simultaneous calls"/concurrency**) stayed at 0 on the tail. Root cause measured with `EXPLAIN (ANALYZE, BUFFERS)`: not the GROUP BY but the **heap fetch for `call_result`** (247k rows → ~500k buffers, 182k read from disk, ~2 buffers/row).
+- **Fix:** two **covering indexes** (`idx_calls_start_cr` on `start_ts`, `idx_calls_ended_cr` on `COALESCE(last_ts,start_ts)`, both `INCLUDE (call_result)`) → enable **index-only scan** in the aggregation: it reads only the (compact) index, never the heap → the query fits the time budget even cold under peak. Benefits volume **and** concurrency, the 1-min **and** hourly rollups. Created `CONCURRENTLY` at startup (never block capture), additive and idempotent. Keeps the 4h window (no undercount of long calls).
+
 ## [2.125.0] — 2026-06-22
 
 ### Fixed — dedicated pool for the dashboard rollup (volume charts stuck at 0 under peak load)

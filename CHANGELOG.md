@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.126.2] — 2026-06-23
+
+### Fixed — fine dashboard series under daytime peak (1-min rollup window 4h → 45min)
+- **Under daytime peak (~300-500k calls/h) the recent tail of the fine series (1h/6h volume and concurrency) still showed 0.** Measured cause: the covering `idx_calls_start_cr` does NOT yield a true index-only scan — `calls`'s visibility map isn't all-visible under constant writes → ~816k heap fetches; the 1-min query over 4h took 79s+ and got cancelled by the 120s `statement_timeout` under contention. **Data-driven fix:** the real call-duration profile shows only 0.17% of calls last >15min (0.013% >45min), so the 1-min rescan window dropped from **4h to 45min**: captures 99.99% of late-arrivals, the query falls to ~30s (well within budget), timeouts gone. Long-range accuracy is covered by the hourly rollup; 1-min undercount < 0.01%.
+
 ## [2.126.1] — 2026-06-23
 
 ### Fixed — inflated concurrency ("Simultaneous calls") + startup blocked by indexes in schema.sql

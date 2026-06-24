@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.130.0] — 2026-06-24
+
+### Added/Changed — incident messaging polish (digest, persistent noise control, title i18n)
+- **Digest now lists the most recurring trunks:** the daily/weekly summary shows the trunks that reopened most in the period (`🔁 Most recurring: name (N)…`) — what noise control consolidates stays visible, not just the total.
+- **Noise control survives restarts:** the per-day, per-fingerprint alert cap is now seeded from the database on startup (counting alerts already sent today), so a restart (e.g. after an update) no longer re-notifies a chronic incident already announced. The first occurrence of the day and escalations still always pass.
+- **Incident titles in the client's language:** pattern and fraud alarms (and other types) now appear translated in the Telegram/email message (some previously fell back to the English text). Bilingual EN/ES.
+
 ## [2.129.1] — 2026-06-24
 
 ### Changed — update flow messages (POST /api/update) in English

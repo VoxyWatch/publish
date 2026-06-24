@@ -1,22 +1,26 @@
 {
-  "version": "2.129.1",
+  "version": "2.130.0",
   "release_date": "2026-06-23",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.129.1/voxywatch-v2.129.1-linux-x64.tar.gz",
-    "sha256": "3328905b0c580c6dbaf76fea6c0390ce1276616f590b1969d0730f672cf77356",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.129.1/voxywatch-v2.129.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.130.0/voxywatch-v2.130.0-linux-x64.tar.gz",
+    "sha256": "35be691eca2f5d13787fccd72a1cb77518ee430463dbbb55366d313f76687726",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.130.0/voxywatch-v2.130.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "update flow messages (POST /api/update) in English",
-    "The messages shown to the admin when triggering an update from the portal are now in English (update starting, no update available, could not verify, and the \"a"
+    "Added/Changed — incident messaging polish (digest, persistent noise control, title i18n)",
+    "Digest now lists the most recurring trunks: the daily/weekly summary shows the trunks that reopened most in the period (`🔁 Most recurring: name (N)…`) —",
+    "Noise control survives restarts: the per-day, per-fingerprint alert cap is now seeded from the database on startup (counting alerts already sent today), so a re",
+    "Incident titles in the client's language: pattern and fraud alarms (and other types) now appear translated in the Telegram/email message (some previously fell b"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "mensajes del flujo de actualización (POST /api/update) en inglés",
-    "Los mensajes que ve el admin al disparar la actualización desde el portal pasaron a inglés (inicio de update, sin actualización disponible, no se pudo verifi"
+    "Added/Changed — pulido de la mensajería de incidentes (digest, anti-ruido persistente, i18n de títulos)",
+    "Digest con las más recurrentes: el resumen diario/semanal ahora lista las troncales que más reabrieron en el período (`🔁 Más recurrentes: nombre (N)…`)",
+    "Anti-ruido que sobrevive reinicios: el tope de avisos por día y fingerprint ahora se siembra desde la base de datos al arrancar (cuenta los avisos ya enviados",
+    "Títulos de incidente en el idioma del cliente: las alarmas de patrón y antifraude (y demás tipos) ahora salen traducidas en el mensaje de Telegram/correo (an"
   ]
 }

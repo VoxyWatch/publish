@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.131.0] — 2026-06-24
+
+### Added — actionable chronic mode (the bot proposes a structural fix, not just alerts)
+- **Measured problem:** human intervention on incidents is <1% (45 actions vs 5,336 closures in 14 days) — almost everything auto-resolves and reopens, and alerting on every reopening doesn't fix it.
+- **Solution:** when a trunk is **chronically persistent** (≥20 reopenings in 7 days across ≥4 distinct days), instead of alerting on each one, the bot sends **one** structural-action proposal over Telegram with buttons: **📊 Recalibrate thresholds** (re-derives that trunk's thresholds via auto-calibration), **🔕 Acknowledge (known degradation)** (silences that trunk for N days — still recorded and shown in the digest, reversible, auto-expires), and **🔍 Investigate**. It won't propose again until the cooldown (7 days) passes.
+- **Guarantees:** the bot NEVER touches the customer's SBC (actions operate only on VoxyWatch); always human-approved; closed, audited action catalog. A `critical` incident never enters chronic mode (never silenced or downgraded — always notifies). Configurable (`incidents.chronic_mode.*`), bilingual EN/ES.
+
 ## [2.130.0] — 2026-06-24
 
 ### Added/Changed — incident messaging polish (digest, persistent noise control, title i18n)

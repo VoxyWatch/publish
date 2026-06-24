@@ -1,26 +1,26 @@
 {
-  "version": "2.130.0",
-  "release_date": "2026-06-23",
+  "version": "2.131.0",
+  "release_date": "2026-06-24",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.130.0/voxywatch-v2.130.0-linux-x64.tar.gz",
-    "sha256": "35be691eca2f5d13787fccd72a1cb77518ee430463dbbb55366d313f76687726",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.130.0/voxywatch-v2.130.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.131.0/voxywatch-v2.131.0-linux-x64.tar.gz",
+    "sha256": "e00a71d294f7ee5c67ea9ba22c3a37594549ec32a8e300e013caefca4f8cdb69",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.131.0/voxywatch-v2.131.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Added/Changed — incident messaging polish (digest, persistent noise control, title i18n)",
-    "Digest now lists the most recurring trunks: the daily/weekly summary shows the trunks that reopened most in the period (`🔁 Most recurring: name (N)…`) —",
-    "Noise control survives restarts: the per-day, per-fingerprint alert cap is now seeded from the database on startup (counting alerts already sent today), so a re",
-    "Incident titles in the client's language: pattern and fraud alarms (and other types) now appear translated in the Telegram/email message (some previously fell b"
+    "actionable chronic mode (the bot proposes a structural fix, not just alerts)",
+    "Measured problem: human intervention on incidents is <1% (45 actions vs 5,336 closures in 14 days) — almost everything auto-resolves and reopens, and alerting",
+    "Solution: when a trunk is chronically persistent (≥20 reopenings in 7 days across ≥4 distinct days), instead of alerting on each one, the bot sends one stru",
+    "Guarantees: the bot NEVER touches the customer's SBC (actions operate only on VoxyWatch); always human-approved; closed, audited action catalog. A `critical` in"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Added/Changed — pulido de la mensajería de incidentes (digest, anti-ruido persistente, i18n de títulos)",
-    "Digest con las más recurrentes: el resumen diario/semanal ahora lista las troncales que más reabrieron en el período (`🔁 Más recurrentes: nombre (N)…`)",
-    "Anti-ruido que sobrevive reinicios: el tope de avisos por día y fingerprint ahora se siembra desde la base de datos al arrancar (cuenta los avisos ya enviados",
-    "Títulos de incidente en el idioma del cliente: las alarmas de patrón y antifraude (y demás tipos) ahora salen traducidas en el mensaje de Telegram/correo (an"
+    "modo crónico accionable (el bot propone una acción de fondo, no solo avisa)",
+    "Problema medido: la intervención humana en incidentes es <1% (45 acciones vs 5,336 cierres en 14 días) — casi todo se auto-resuelve y vuelve a abrir, y avis",
+    "Solución: cuando una troncal es crónica persistente (≥20 reaperturas en 7 días repartidas en ≥4 días distintos), en vez de seguir avisando, el bot enví",
+    "Garantías: el bot NUNCA toca el SBC del cliente (las acciones operan solo sobre VoxyWatch); siempre con aprobación humana; catálogo de acciones cerrado y aud"
   ]
 }

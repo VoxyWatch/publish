@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.129.0] — 2026-06-24
+
+### Added — common root cause (cross-entity correlation) + structured LLM diagnosis
+- **"Not just this trunk" (correlation by SBC/IP):** when several trunks degrade at once, VoxyWatch now detects whether they share a common cause — the same destination IP or the same SBC concentrating the failures. Instead of N separate alarms, the incident points it out: *"🔗 Not just this trunk: 4 trunks failing to the same SBC 200.0.90.116 → check it, likely the common cause"*. Computed live over the working set (one pass, only when ≥2 trunks are in alarm) and also fed to the AI diagnosis so it targets the common peer rather than each trunk separately.
+- **Structured LLM diagnosis (function-calling):** the investigator now emits the diagnosis by calling a typed tool (`report_diagnosis`) instead of asking for JSON-in-text. This eliminates the truncated/malformed diagnoses some models produced. Multi-provider (OpenAI/Anthropic/Google/OpenRouter); if a model doesn't use the tool, it falls back to the existing robust text parsing. The general chat is unaffected.
+
 ## [2.128.0] — 2026-06-24
 
 ### Changed — incident LLM diagnosis: more robust and recurrence-aware

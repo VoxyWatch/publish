@@ -1,24 +1,24 @@
 {
-  "version": "2.128.0",
+  "version": "2.129.0",
   "release_date": "2026-06-23",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.128.0/voxywatch-v2.128.0-linux-x64.tar.gz",
-    "sha256": "2e04509949ffad7ad53a977f95f8a90ef5846b98b651be35b330d17875f023fc",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.128.0/voxywatch-v2.128.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.129.0/voxywatch-v2.129.0-linux-x64.tar.gz",
+    "sha256": "1684f122d382663d188921298d2ed8e06d9d1fb1886556021edcb8dd16849912",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.129.0/voxywatch-v2.129.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "incident LLM diagnosis: more robust and recurrence-aware",
-    "Complete diagnoses (no truncation): the auto-investigator had a fixed token cap (1100) that sometimes cut the diagnosis JSON mid-sentence (incomplete diagnoses",
-    "Recurrence-aware: when investigating, the model is now told how many times the incident reopened (and its typical duration); if chronic, the diagnosis says so e"
+    "common root cause (cross-entity correlation) + structured LLM diagnosis",
+    "\"Not just this trunk\" (correlation by SBC/IP): when several trunks degrade at once, VoxyWatch now detects whether they share a common cause — the same destina",
+    "Structured LLM diagnosis (function-calling): the investigator now emits the diagnosis by calling a typed tool (`report_diagnosis`) instead of asking for JSON-in"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "diagnóstico LLM de incidentes más robusto y consciente de la recurrencia",
-    "Diagnósticos completos (no truncados): el investigador automático tenía un tope de tokens fijo (1100) que a veces cortaba el JSON del diagnóstico a media fr",
-    "Consciente de recurrencia: al investigar, ahora se le pasa al modelo cuántas veces reabrió el incidente (y su duración típica); si es crónico, el diagnóst"
+    "causa raíz común (correlación cross-entidad) + diagnóstico LLM con salida estructurada",
+    "\"No es solo esta troncal\" (correlación por SBC/IP): cuando varias troncales se degradan a la vez, VoxyWatch ahora detecta si comparten una causa común — la",
+    "Diagnóstico LLM con salida estructurada (function-calling): el investigador ahora emite el diagnóstico llamando una herramienta tipada (`report_diagnosis`) en"
   ]
 }

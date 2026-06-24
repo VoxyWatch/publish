@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.127.0] — 2026-06-24
+
+### Added — NOC bot messaging: plain language, recurrence memory, rich recovery, noise control
+Incident notifications (Telegram/email) were redesigned so anyone can understand them and so the bot "remembers" — a direct operator request. Four improvements, all with no extra AI cost:
+- **Recurrence memory:** every alert now states whether the incident happened before — `🔁 Recurring — 6× in 24 h · 15× in 7 days, ~78 min each`, or `🔁 CHRONIC — 30 reopenings in 7 days… needs a structural fix` for persistent ones (configurable `incidents.recurrence.*`). If there was a prior manual resolution, it is quoted: `💡 Last time it was resolved: "…"`. Comes from a cheap query over `incidents`; never touches `calls`.
+- **Layered plain language:** a human line on top (`📉 only 1 in 10 calls answered (ASR 9.8%) · many calls fail in the network`) and the usual technical line (ASR/NER/MOS/PDD) below for the NOC. Severity as a word (🔴 CRITICAL / 🟡 WARNING) and local start time.
+- **Rich, honest recovery:** on recovery it shows duration, what actually improved (`📈 Improved: NER 17.6%→36% · MOS 2.03→2.26` — only deltas in the right direction; if nothing improved it says `✔ Returned to normal range`), whether it was automatic or manual, and how many times it happened today.
+- **Chronicity-based noise control:** consolidates redundant reopenings of chronic trunks (1 alert/day; the rest go to the digest) while letting sporadic ones through. NEVER silences a critical, an escalation, the first occurrence of the day, or fraud/capture/system alarms. Measured against 7 real days: −36.4% of alerts with no signal lost. Configurable and reversible (`incidents.notify_throttle.*`).
+- Fully bilingual EN/ES.
+
 ## [2.126.3] — 2026-06-23
 
 ### Fixed — realistic "Simultaneous calls" concurrency: served from real sampling, not the rollup ledger

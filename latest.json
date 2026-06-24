@@ -1,26 +1,24 @@
 {
-  "version": "2.127.0",
+  "version": "2.128.0",
   "release_date": "2026-06-23",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.127.0/voxywatch-v2.127.0-linux-x64.tar.gz",
-    "sha256": "e3af79f58153757d94db8d93484ffb5d8d3ca9b1f5ee6fe46a695d4f9eb262d5",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.127.0/voxywatch-v2.127.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.128.0/voxywatch-v2.128.0-linux-x64.tar.gz",
+    "sha256": "2e04509949ffad7ad53a977f95f8a90ef5846b98b651be35b330d17875f023fc",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.128.0/voxywatch-v2.128.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "NOC bot messaging: plain language, recurrence memory, rich recovery, noise control",
-    "Recurrence memory: every alert now states whether the incident happened before — `🔁 Recurring — 6× in 24 h · 15× in 7 days, ~78 min each`, or `🔁 CH",
-    "Layered plain language: a human line on top (`📉 only 1 in 10 calls answered (ASR 9.8%) · many calls fail in the network`) and the usual technical line (ASR/",
-    "Rich, honest recovery: on recovery it shows duration, what actually improved (`📈 Improved: NER 17.6%→36% · MOS 2.03→2.26` — only deltas in the right d"
+    "incident LLM diagnosis: more robust and recurrence-aware",
+    "Complete diagnoses (no truncation): the auto-investigator had a fixed token cap (1100) that sometimes cut the diagnosis JSON mid-sentence (incomplete diagnoses",
+    "Recurrence-aware: when investigating, the model is now told how many times the incident reopened (and its typical duration); if chronic, the diagnosis says so e"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "mensajería del bot NOC: lenguaje claro, memoria de recurrencia, cierre rico y anti-ruido",
-    "Memoria de recurrencia: cada aviso ahora dice si el incidente ya pasó antes — `🔁 Recurrente — 6ª vez en 24 h · 15 veces en 7 días, dura ~78 min c/u`,",
-    "Lenguaje llano en capas: una línea humana arriba (`📉 solo 1 de cada 10 llamadas se contesta (ASR 9.8%) · muchas llamadas no completan por la red`) y la lí",
-    "Cierre rico y honesto: al recuperarse muestra duración, qué mejoró de verdad (`📈 Mejoró: NER 17.6%→36% · MOS 2.03→2.26` — solo deltas en la direcc"
+    "diagnóstico LLM de incidentes más robusto y consciente de la recurrencia",
+    "Diagnósticos completos (no truncados): el investigador automático tenía un tope de tokens fijo (1100) que a veces cortaba el JSON del diagnóstico a media fr",
+    "Consciente de recurrencia: al investigar, ahora se le pasa al modelo cuántas veces reabrió el incidente (y su duración típica); si es crónico, el diagnóst"
   ]
 }

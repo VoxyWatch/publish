@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.128.0] — 2026-06-24
+
+### Changed — incident LLM diagnosis: more robust and recurrence-aware
+- **Complete diagnoses (no truncation):** the auto-investigator had a fixed token cap (1100) that sometimes cut the diagnosis JSON mid-sentence (incomplete diagnoses like "…with PDD"). The budget is now dynamic: more headroom for critical or chronic incidents (2000) and enough for the rest (1400).
+- **Recurrence-aware:** when investigating, the model is now told how many times the incident reopened (and its typical duration); if chronic, the diagnosis says so explicitly and steers the recommendation toward a **structural fix** rather than a temporary patch, referencing a prior manual resolution of the same pattern when one exists. Completes the bot-messaging improvement trilogy (v2.127 + v2.128).
+
 ## [2.127.0] — 2026-06-24
 
 ### Added — NOC bot messaging: plain language, recurrence memory, rich recovery, noise control

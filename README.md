@@ -122,7 +122,7 @@ VoxyWatch ships a standalone **Model Context Protocol server**: connect Claude D
 
 ### 📡 Universal multi-source capture
 - Receives **HEP v1 / v2 / v3** over **UDP and TCP** (port 9060 + configurable extras).
-- Works with virtually every SIP platform that speaks HEP: **Asterisk, Kamailio, OpenSIPS, FreeSWITCH, Oracle/ACME Packet, Ribbon/Sonus, AudioCodes, Cisco CUBE, RTPEngine, HEPlify, CaptAgent** and more.
+- Two ways in: **HEP** from the softswitches & proxies that speak it natively (**Asterisk, Kamailio, OpenSIPS, FreeSWITCH, RTPEngine**) — plus **HEPlify / CaptAgent** agents or the bundled NIC probe for anything else — and **SIPREC** (RFC 7865/7866) from the tier-1 hardware SBCs that record natively (**Ribbon/Sonus, Oracle/ACME Packet, AudioCodes, Cisco CUBE, Avaya**), straight into VoxyWatch's built-in SRS.
 - Ships its own lightweight **capture probe** (`voxywatch-probe`, Go + libpcap, **amd64 & arm64**) for sources that can't emit HEP — it sniffs SIP/RTP/RTCP straight off the NIC and forwards HEP v3 — a self-contained, no-dependency capture agent.
 - Auto-detects quirky SBCs that mix RTP into `protocol_id=1` or mint a new capture-id per call.
 - **Native SIPREC recording (RFC 7865/7866)** — a built-in **SRS** lets any tier-1 SBC stream its recording **straight into VoxyWatch over SIPREC**, no HEP agent or port mirroring required. SIP over **UDP or TLS**, media **RTP or SRTP** (SDES), stereo caller/callee audio reconstructed from `rs-metadata`. Runs as a **separate service** (HEP capture untouched if it falls), **OFF by default**, with an SBC IP allowlist and anti-DoS limits. Point your SBC's recording profile at the SRS host:port and the call shows in the CDR like any other.
@@ -233,10 +233,10 @@ VoxyWatch runs fully featured out of the box, no license required:
 | Limit | Free tier |
 |---|---|
 | Concurrent calls | 50 |
-| CDR records | 1,000 |
+| CDR history | **Unlimited** (bounded only by your disk) |
 | Features | **Everything included** |
 
-Need more? Production and Telco (unlimited) tiers unlock higher capacity with the same binary — purchase at **[voxywatch.com/pricing](https://voxywatch.com/pricing/)**.
+The tiers differ **only** in concurrent-call capacity — every feature and full CDR/history retention are the same on all of them. Need more simultaneous calls? Production and Telco (unlimited) unlock it with the same binary — purchase at **[voxywatch.com/pricing](https://voxywatch.com/pricing/)**.
 
 ---
 

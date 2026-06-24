@@ -71,7 +71,7 @@
 
 | Feature | Copy |
 |---|---|
-| Universal HEP capture | HEP v1/v2/v3 over UDP+TCP. Asterisk, Kamailio, OpenSIPS, FreeSWITCH, Oracle/ACME, Ribbon, AudioCodes, Cisco CUBE, RTPEngine, HEPlify, CaptAgent… Auto-detects quirky SBCs. |
+| Two ingest paths: HEP **and** SIPREC | **HEP v1/v2/v3** (UDP+TCP) from the softswitches & proxies that speak it natively — **Asterisk, Kamailio, OpenSIPS, FreeSWITCH, RTPEngine** — plus the **HEPlify / CaptAgent** agents (or the bundled NIC probe) to bring in anything that can't. **SIPREC** (RFC 7865/7866) for the tier-1 hardware SBCs that record natively — **Ribbon/Sonus, Oracle/ACME Packet, AudioCodes, Cisco CUBE, Avaya** — straight into VoxyWatch's built-in SRS, no HEP agent needed. Auto-detects quirky senders. |
 | Own capture probe | `voxywatch-probe` (Go + libpcap, amd64/arm64): sniffs SIP/RTP/RTCP off the NIC and emits HEP v3 for sources that can't. |
 | **Native SIPREC recording** | Built-in **SRS** (Session Recording Server, RFC 7865/7866): any tier-1 SBC — Ribbon, Oracle/ACME, AudioCodes, Cisco CUBE, Avaya — streams its recording **straight into VoxyWatch over SIPREC**, no HEP agent or port mirroring needed. SIP over **UDP or TLS**, media **RTP or SRTP** (SDES). Reconstructs stereo caller/callee audio from `rs-metadata`; the call shows in the CDR like any other. Runs as a **separate service** (if it falls, HEP capture is untouched), **OFF by default**, with an SBC IP allowlist and anti-DoS limits. |
 | SIP ladder & dialog analysis | Full request/response ladder, retransmissions, SDP/codec analysis, hold/re-INVITE/NAT detection, dialog-completeness scoring, RFC compliance audit. |
@@ -113,7 +113,7 @@
 - **Do I need an LLM key?** No. Detection, evidence collection, incidents, baselines and alerting are fully deterministic. The LLM only writes the narrative diagnosis — bring your own key to enable it.
 - **Cloud?** None. Single binary + PostgreSQL on your box. Telemetry is optional and contains no traffic content.
 - **What scale?** Validated at ~200k calls/hour on a 32 vCPU box; limits derive from your hardware, not from the code.
-- **Free tier?** Fully featured, 50 concurrent calls / 1,000 CDRs, no license needed.
+- **Free tier?** Fully featured, **50 concurrent calls**, no license needed. The tiers differ **only** in concurrent-call capacity — never in features or CDR/history retention.
 
 ---
 

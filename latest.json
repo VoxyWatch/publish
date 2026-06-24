@@ -1,24 +1,22 @@
 {
-  "version": "2.129.0",
+  "version": "2.129.1",
   "release_date": "2026-06-23",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.129.0/voxywatch-v2.129.0-linux-x64.tar.gz",
-    "sha256": "1684f122d382663d188921298d2ed8e06d9d1fb1886556021edcb8dd16849912",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.129.0/voxywatch-v2.129.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.129.1/voxywatch-v2.129.1-linux-x64.tar.gz",
+    "sha256": "3328905b0c580c6dbaf76fea6c0390ce1276616f590b1969d0730f672cf77356",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.129.1/voxywatch-v2.129.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "common root cause (cross-entity correlation) + structured LLM diagnosis",
-    "\"Not just this trunk\" (correlation by SBC/IP): when several trunks degrade at once, VoxyWatch now detects whether they share a common cause — the same destina",
-    "Structured LLM diagnosis (function-calling): the investigator now emits the diagnosis by calling a typed tool (`report_diagnosis`) instead of asking for JSON-in"
+    "update flow messages (POST /api/update) in English",
+    "The messages shown to the admin when triggering an update from the portal are now in English (update starting, no update available, could not verify, and the \"a"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "causa raíz común (correlación cross-entidad) + diagnóstico LLM con salida estructurada",
-    "\"No es solo esta troncal\" (correlación por SBC/IP): cuando varias troncales se degradan a la vez, VoxyWatch ahora detecta si comparten una causa común — la",
-    "Diagnóstico LLM con salida estructurada (function-calling): el investigador ahora emite el diagnóstico llamando una herramienta tipada (`report_diagnosis`) en"
+    "mensajes del flujo de actualización (POST /api/update) en inglés",
+    "Los mensajes que ve el admin al disparar la actualización desde el portal pasaron a inglés (inicio de update, sin actualización disponible, no se pudo verifi"
   ]
 }

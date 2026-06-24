@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.129.1] — 2026-06-24
+
+### Changed — update flow messages (POST /api/update) in English
+- The messages shown to the admin when triggering an update from the portal are now in English (update starting, no update available, could not verify, and the "apply as root" fallback when systemd/polkit doesn't authorize it). Intended for international deployments (e.g. the public demo). The manual command and the technical `details` of the failure are preserved for diagnosis.
+
 ## [2.129.0] — 2026-06-24
 
 ### Added — common root cause (cross-entity correlation) + structured LLM diagnosis

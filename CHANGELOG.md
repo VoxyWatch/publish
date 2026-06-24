@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.126.3] — 2026-06-23
+
+### Fixed — realistic "Simultaneous calls" concurrency: served from real sampling, not the rollup ledger
+- **The concurrency series read ~170× too high at peak (measured in production: 130k–171k vs ~770 actual).** Definitive root cause: the chart was computed from the rollup `Σtotal − Σend` ledger, and at peak the rollup's `ended` undercounts due to heap-fetch (the `calls` visibility map isn't all-visible under constant writes). That debt **is not a constant offset — it grows precisely during peak hours**, so it distorts the curve's shape, not just its level (even anchoring to the live value left false ~40k spikes). The `ended` ledger is unrecoverable for peak concurrency.
+- **Fix:** the "Simultaneous calls" series is now served from **real working-set sampling** — `capacity_samples.concurrent`, which counts exactly the same thing as the `active_now` KPI (calls with `call_result='active'` in RAM) but over time. The profiler is ON by default (one sample every `interval_min`, default 5min; 30-day retention) and the table is tiny → a cheap query that **doesn't touch `calls`**. MAX per bucket (= peak simultaneous) + level carry-forward for buckets without a sample. Its latest sample matches `active_now` exactly. Validated against production: a 6h range went from 130k–171k down to **776–2531** (avg 1659).
+- The previous ledger remains only as a **fallback** for installs with the profiler disabled, just-booted with no samples yet, or historical ranges deeper than the sample retention.
+
 ## [2.126.2] — 2026-06-23
 
 ### Fixed — fine dashboard series under daytime peak (1-min rollup window 4h → 45min)

@@ -1,22 +1,26 @@
 {
-  "version": "2.126.2",
+  "version": "2.126.3",
   "release_date": "2026-06-23",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.126.2/voxywatch-v2.126.2-linux-x64.tar.gz",
-    "sha256": "5d53d7850e0332be2dc2e686ea09956a18b16a359d3e2d0f5dd0c6f79059c128",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.126.2/voxywatch-v2.126.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.126.3/voxywatch-v2.126.3-linux-x64.tar.gz",
+    "sha256": "daca66e2758a4eab9c7625a613ea1eb2c81312a272d7f5863b175411100a2822",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.126.3/voxywatch-v2.126.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "fine dashboard series under daytime peak (1-min rollup window 4h → 45min)",
-    "Under daytime peak (~300-500k calls/h) the recent tail of the fine series (1h/6h volume and concurrency) still showed 0. Measured cause: the covering `idx_calls"
+    "realistic \"Simultaneous calls\" concurrency: served from real sampling, not the rollup ledger",
+    "The concurrency series read ~170× too high at peak (measured in production: 130k–171k vs ~770 actual). Definitive root cause: the chart was computed from the",
+    "Fix: the \"Simultaneous calls\" series is now served from real working-set sampling — `capacity_samples.concurrent`, which counts exactly the same thing as the",
+    "The previous ledger remains only as a fallback for installs with the profiler disabled, just-booted with no samples yet, or historical ranges deeper than the sa"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "series finas del dashboard a pico de día (ventana del rollup 1m 4h → 45min)",
-    "A pico de día (~300-500k llamadas/h) la cola reciente de las series finas (volumen 1h/6h y concurrencia) seguía saliendo en 0. Causa MEDIDA: el covering `idx_"
+    "concurrencia (\"Simultaneous calls\") realista: se sirve del muestreo real, no del ledger del rollup",
+    "La serie de concurrencia salía inflada ~170× a pico (medido en C3ntro: 130k–171k vs ~770 reales). Causa raíz definitiva: la gráfica se calculaba con el le",
+    "Fix: la serie \"Simultaneous calls\" ahora se sirve del muestreo real del working-set — `capacity_samples.concurrent`, que cuenta exactamente lo mismo que el KP",
+    "El ledger anterior queda solo como fallback para instalaciones con el perfilador deshabilitado o aún sin muestras (boot reciente): comportamiento previo, prefe"
   ]
 }

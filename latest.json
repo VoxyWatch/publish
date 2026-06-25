@@ -1,26 +1,26 @@
 {
-  "version": "2.133.0",
+  "version": "2.133.1",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.133.0/voxywatch-v2.133.0-linux-x64.tar.gz",
-    "sha256": "32387b7d758b3e6373312230c35ddce6605ddb7b6f867c33d253d5b13f9e4102",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.133.0/voxywatch-v2.133.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.133.1/voxywatch-v2.133.1-linux-x64.tar.gz",
+    "sha256": "5b2f2df08df0650091f1bfc30b646520f7b3987fd02d2db56e402df8eb4cc4d5",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.133.1/voxywatch-v2.133.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Settings UI polish (more comfortable and consistent)",
-    "Tabs no longer disappear when scrolling: the header and tab bar stay pinned at the top; only the panel content scrolls. The tab bar is no longer clipped by its",
-    "Settings window wider by default (1180 px) so the tabs fit without a horizontal scrollbar. Shrinking the window brings the scrollbar back as before.",
-    "HEP Capture in 2 columns: sniffer status + ports on the left, performance/capture on the right (the right half used to be empty)."
+    "Onboarding: spells out what the tool needs to work well",
+    "\"Getting started\" now marks as ESSENTIAL HEP capture receiving traffic and labeling your SBCs' internal IPs (IP Directory). Without your own IPs labeled, VoxyWa",
+    "Maturity notice: added a note that AI, patterns and anti-fraud learn from your traffic and need ~2 weeks of data for accurate diagnoses.",
+    "The IP Directory hint now explains those are your internal/own IPs (not the carriers') and why it matters. Localized (5 languages)."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Pulido estético de Settings (más cómodo y consistente)",
-    "Los menús (tabs) ya no desaparecen al hacer scroll: el header y la barra de pestañas quedan fijos arriba; solo el contenido del panel se desplaza. La barra de",
-    "Ventana de Settings más ancha por defecto (1180 px) → las pestañas caben sin barra de desplazamiento horizontal. Si se achica la ventana, vuelve a aparecer",
-    "HEP Capture en 2 columnas: el estado del sniffer + puertos a la izquierda y rendimiento/captura a la derecha (antes la mitad derecha quedaba vacía)."
+    "Onboarding: avisa lo que la herramienta necesita para funcionar bien",
+    "\"Primeros pasos\" ahora marca como ESENCIALES la captura HEP recibiendo tráfico y etiquetar las IPs internas de tus SBC (Directorio de IPs). Sin las IPs propias",
+    "Aviso de madurez: se añadió una nota de que la IA, los patrones y el antifraude aprenden de tu tráfico y necesitan ~2 semanas de datos para diagnósticos pre",
+    "El hint del Directorio de IPs ahora explica que ahí van las IPs internas/propias (no las de los carriers) y por qué importa. Bilingüe (5 idiomas)."
   ]
 }

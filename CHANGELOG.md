@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.133.1] — 2026-06-25
+
+### Changed — Onboarding: spells out what the tool needs to work well
+- **"Getting started" now marks as ESSENTIAL** HEP capture receiving traffic and **labeling your SBCs' internal IPs** (IP Directory). Without your own IPs labeled, VoxyWatch attributed calls to the wrong trunk and the AI diagnosed incorrectly — the checklist now asks for it explicitly.
+- **Maturity notice:** added a note that AI, patterns and anti-fraud **learn from your traffic and need ~2 weeks of data** for accurate diagnoses.
+- The **IP Directory** hint now explains those are your **internal/own** IPs (not the carriers') and why it matters. Localized (5 languages).
+
 ## [2.133.0] — 2026-06-25
 
 ### Changed — Settings UI polish (more comfortable and consistent)

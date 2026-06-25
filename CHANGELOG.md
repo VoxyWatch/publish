@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.135.0] — 2026-06-25
+
+### Added — Per-user language: interface + AI
+- Each user now picks their own **interface language** and **AI language** from their Profile — it's no longer a single global setting. Handy when several people share an install, or when someone wants the AI in their language (e.g. Hindi) even if the UI is in English.
+- The **interface language** is now remembered per user (it used to live only in the browser) and is applied on sign-in.
+- The user's **AI language** offers "Auto" (= follow their interface language) or a specific one (any of ~40 languages, with a search box). The interactive copilot diagnostics (trace, trunk, overview) reply in the user's language.
+- Fully backward-compatible: anyone who doesn't choose inherits the previous behavior (browser language / the product's global setting). The global AI language in Settings remains the **product default**.
+- Note: the interface is offered in languages with a complete dictionary (en/es); more are added on demand. Automatic alerts in each recipient's language land in the next release.
+
 ## [2.134.0] — 2026-06-25
 
 ### Added — AI now speaks EVERY language (not just English/Spanish)

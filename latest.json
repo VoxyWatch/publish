@@ -1,26 +1,26 @@
 {
-  "version": "2.134.0",
+  "version": "2.135.0",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.134.0/voxywatch-v2.134.0-linux-x64.tar.gz",
-    "sha256": "62f8f7cb8069ba0de673a377f761bc63342c06e098559118126ce40271e0292a",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.134.0/voxywatch-v2.134.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.135.0/voxywatch-v2.135.0-linux-x64.tar.gz",
+    "sha256": "84a3befbe1285a03c9c54fe7ae36736deb56cfff88ce0c947dcd306fad4efe6a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.135.0/voxywatch-v2.135.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "AI now speaks EVERY language (not just English/Spanish)",
-    "The language of AI insights (copilot, alarm analysis, summaries) is no longer limited to English/Spanish: it now supports any language (Hindi, Bengali, Arabic,",
-    "The AI language selector (Settings → AI Chat) already offered the full searchable list; the backend now honors it. `auto` follows the portal language.",
-    "Note: this is only the AI language. The interface stays in its loaded languages; more are added on demand."
+    "Per-user language: interface + AI",
+    "Each user now picks their own interface language and AI language from their Profile — it's no longer a single global setting. Handy when several people share",
+    "The interface language is now remembered per user (it used to live only in the browser) and is applied on sign-in.",
+    "The user's AI language offers \"Auto\" (= follow their interface language) or a specific one (any of ~40 languages, with a search box). The interactive copilot di"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "La IA habla TODOS los idiomas (no solo es/en)",
-    "Herramienta de i18n para añadir idiomas de interfaz sin rastrear campos a mano",
-    "El idioma de los diagnósticos de IA (copiloto, análisis de alarmas, resúmenes) ya no está limitado a español/inglés: ahora soporta cualquier idioma (hindi",
-    "El selector de idioma de IA (Settings → AI Chat) ya ofrecía la lista completa con buscador; ahora el backend la respeta de verdad. `auto` sigue el idioma del"
+    "Idioma POR USUARIO: interfaz + IA",
+    "Cada usuario elige su idioma de la interfaz y su idioma de la IA desde su Perfil; ya no es un ajuste global único. Útil cuando varias personas comparten la in",
+    "El idioma de la interfaz se recuerda por usuario (antes vivía solo en el navegador) y se aplica al entrar.",
+    "El idioma de la IA del usuario tiene opción «Auto» = sigue su idioma de interfaz, o se fija uno concreto (cualquiera de los ~40 idiomas, con buscador). Los d"
   ]
 }

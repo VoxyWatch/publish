@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.132.2] — 2026-06-25
+
+### Fixed
+- **Incident title now matches its severity on escalation:** an incident that opened as "warn" and rose to "critical" kept the "…warn" title (with critical severity) — confusing for the operator. On escalation/relapse the title and its i18n params are now refreshed to reflect the effective severity.
+- **Portal heap: removed the placebo `NODE_OPTIONS=--max-old-space-size`.** The packaged binary (pkg/SEA) ignores that flag (V8 creates its isolate from the snapshot before reading flags), so the portal always ran on V8's default heap, not the value it appeared to set. Not a regression: the working set auto-sizes to the real heap limit and the heap self-protection (v2.132.0) trims under pressure — the historic OOM (TICKET-032) was closed by that plus moving the raw SIP out of the heap, never a larger heap. Dead config that misreported the real limit is removed.
+
 ## [2.132.1] — 2026-06-25
 
 ### Changed — Larger working set, same safety (recalibrated with real measurement after Mem#1)

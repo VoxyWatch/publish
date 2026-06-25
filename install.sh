@@ -510,16 +510,16 @@ sysctl -p /etc/sysctl.d/99-voxywatch.conf >/dev/null 2>&1 \
 # ── Install systemd unit files ────────────────────────────────────────────────
 info "Installing systemd units..."
 
-# Heap V8 del portal: auto-tuneado por RAM. El default de V8 (~4 GB) no alcanza a alto volumen y
-# provocaba OOM/restart-loop (TICKET-032: 14 OOM/2h en C3ntro con 21 GB libres). Damos 30% de la RAM,
-# acotado a [2048, 16384] MB. V8 NO reserva este límite: hace GC y usa solo lo necesario; el flag solo
-# evita el crash por el techo artificial del default. El working-set se acota aparte (effectiveMaxRows).
-PORTAL_RAM_MB=$(awk '/MemTotal/{printf "%d", $2/1024}' /proc/meminfo 2>/dev/null)
-[ -n "$PORTAL_RAM_MB" ] || PORTAL_RAM_MB=4096   # borde: /proc/meminfo sin MemTotal (awk exit 0 vacío)
-PORTAL_HEAP_MB=$(( PORTAL_RAM_MB * 30 / 100 ))
-[ "$PORTAL_HEAP_MB" -lt 2048 ]  && PORTAL_HEAP_MB=2048
-[ "$PORTAL_HEAP_MB" -gt 16384 ] && PORTAL_HEAP_MB=16384
-info "Portal heap (V8 --max-old-space-size): ${PORTAL_HEAP_MB} MB (RAM ${PORTAL_RAM_MB} MB)"
+# Heap V8 del portal: el binario pkg/SEA IGNORA --max-old-space-size (probado 2026-06-25) — vía NODE_OPTIONS
+# o vía argv da igual: V8 crea su isolate desde el snapshot del binario ANTES de leer cualquier flag, y
+# v8.setFlagsFromString() en runtime tampoco eleva heap_size_limit. Así que el portal corre con el heap
+# DEFAULT de V8, que YA escala con la RAM física de la caja (~4 GB en cajas grandes). NO es un problema:
+#   1) el working-set se auto-dimensiona al heap REAL (effectiveMaxRows usa v8.getHeapStatistics().heap_size_limit);
+#   2) la auto-protección de heap poda el working-set bajo presión antes del OOM (Mem #2);
+#   3) con el raw SIP fuera del heap (Mem #1) el uso típico es ~1/3 del default.
+# El OOM histórico (TICKET-032) lo cerró ese dimensionamiento al heap real + Mem #1 — NUNCA un
+# --max-old-space-size más alto (que jamás surtió efecto en el binario). NO reponer NODE_OPTIONS de heap:
+# es placebo y miente sobre el límite real. Un valor fijo horneado en pkg sería inseguro en cajas chicas.
 
 cat > /etc/systemd/system/voxywatch.service << EOF
 [Unit]
@@ -537,7 +537,6 @@ WorkingDirectory=${DATA_DIR}
 ExecStartPre=/usr/bin/pg_isready -h ${PG_SOCKET_DIR} -p ${PG_PORT} -t 30
 ExecStart=${INSTALL_DIR}/voxywatch-portal
 Environment=PORT=${PORT}
-Environment=NODE_OPTIONS=--max-old-space-size=${PORTAL_HEAP_MB}
 Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
 Environment=PGHOST=${PG_SOCKET_DIR}
 Environment=PGPORT=${PG_PORT}

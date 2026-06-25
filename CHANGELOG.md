@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.134.0] — 2026-06-25
+
+### Added — AI now speaks EVERY language (not just English/Spanish)
+- The **language of AI insights** (copilot, alarm analysis, summaries) is no longer limited to English/Spanish: it now supports **any language** (Hindi, Bengali, Arabic, Chinese, etc.). The LLM is natively multilingual — it is instructed to "respond in <language>" and writes the diagnosis directly in it; technical data is passed as-is and VoIP terms (SIP codes, ASR, NER, MOS…) stay in their standard form.
+- The AI language selector (Settings → AI Chat) already offered the full searchable list; the backend now honors it. `auto` follows the portal language.
+- Note: this is **only the AI language**. The **interface** stays in its loaded languages; more are added on demand.
+
 ## [2.133.1] — 2026-06-25
 
 ### Changed — Onboarding: spells out what the tool needs to work well

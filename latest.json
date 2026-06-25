@@ -1,24 +1,26 @@
 {
-  "version": "2.132.3",
+  "version": "2.133.0",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.132.3/voxywatch-v2.132.3-linux-x64.tar.gz",
-    "sha256": "8de6fb70295e5a7c008a33d0d46838f80914ed0934b01deba6a4e4bd4bd4dbd6",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.132.3/voxywatch-v2.132.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.133.0/voxywatch-v2.133.0-linux-x64.tar.gz",
+    "sha256": "32387b7d758b3e6373312230c35ddce6605ddb7b6f867c33d253d5b13f9e4102",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.133.0/voxywatch-v2.133.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Installer fully in English (international customers)",
-    "Every message the installer prints to the screen (`install.sh`: notices, errors, progress, countdown, final summary, updates section) is now in English. Some we",
-    "`tools/get-hwid.js` (run by the customer to obtain their Hardware ID when purchasing a license): banner in English."
+    "Settings UI polish (more comfortable and consistent)",
+    "Tabs no longer disappear when scrolling: the header and tab bar stay pinned at the top; only the panel content scrolls. The tab bar is no longer clipped by its",
+    "Settings window wider by default (1180 px) so the tabs fit without a horizontal scrollbar. Shrinking the window brings the scrollbar back as before.",
+    "HEP Capture in 2 columns: sniffer status + ports on the left, performance/capture on the right (the right half used to be empty)."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Instalador 100% en inglés (cliente internacional)",
-    "Todos los mensajes que el instalador muestra en pantalla (`install.sh`: avisos, errores, progreso, cuenta regresiva, resumen final, sección de actualizaciones)",
-    "`tools/get-hwid.js` (lo corre el cliente para obtener su Hardware ID al comprar licencia): banner en inglés."
+    "Pulido estético de Settings (más cómodo y consistente)",
+    "Los menús (tabs) ya no desaparecen al hacer scroll: el header y la barra de pestañas quedan fijos arriba; solo el contenido del panel se desplaza. La barra de",
+    "Ventana de Settings más ancha por defecto (1180 px) → las pestañas caben sin barra de desplazamiento horizontal. Si se achica la ventana, vuelve a aparecer",
+    "HEP Capture en 2 columnas: el estado del sniffer + puertos a la izquierda y rendimiento/captura a la derecha (antes la mitad derecha quedaba vacía)."
   ]
 }

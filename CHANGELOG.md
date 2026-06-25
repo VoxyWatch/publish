@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.133.0] — 2026-06-25
+
+### Changed — Settings UI polish (more comfortable and consistent)
+- **Tabs no longer disappear when scrolling:** the header and tab bar stay pinned at the top; only the panel content scrolls. The tab bar is no longer clipped by its scrollbar.
+- **Settings window wider by default** (1180 px) so the tabs fit without a horizontal scrollbar. Shrinking the window brings the scrollbar back as before.
+- **HEP Capture in 2 columns:** sniffer status + ports on the left, performance/capture on the right (the right half used to be empty).
+- **SNMP in 2 columns:** general config on the left, SNMPv3 + traps on the right, agent status full-width at the bottom (previously stacked blocks).
+- **No spinner arrows on Settings numeric fields** (traps/thresholds, alarms, SNMP…) — the operator just types the value.
+- **Revamped AI language selector:** searchable menu with every language; Auto, Spanish and English pinned at the top.
+- **License fully localized:** the "Need a license?" notice now follows the portal language (it used to show in Spanish even in English).
+
 ## [2.132.3] — 2026-06-25
 
 ### Changed — Installer fully in English (international customers)

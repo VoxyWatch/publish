@@ -1,26 +1,26 @@
 {
-  "version": "2.136.0",
+  "version": "2.137.0",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.136.0/voxywatch-v2.136.0-linux-x64.tar.gz",
-    "sha256": "1e87d51c8824ac8efe4256edf182f06943a09d9379eb2aaa1c6ef51a866631ee",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.136.0/voxywatch-v2.136.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.137.0/voxywatch-v2.137.0-linux-x64.tar.gz",
+    "sha256": "2451424838dcc67d446a2cdc410d8018df0a9b9ebb6543dfc7ddad2c5d37961c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.137.0/voxywatch-v2.137.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Automatic alerts in each recipient's language",
-    "Automatic alerts/incidents (Telegram + email) are now delivered in each recipient's language based on their per-user preference (v2.135), not in a single global",
-    "The AI diagnosis (generated in Spanish) is translated to the recipient's language when it differs, grouped by language: a single LLM call per distinct language",
-    "Robust: translation is best-effort with a hard time cap (if the AI is slow or fails, the original diagnosis goes out without delaying the alert — the notifica"
+    "Robustness (maintenance release)",
+    "Timeout on EVERY AI call: the copilot, the incident investigator, alarm analysis and alert translation now abort after 90s (8s on the notification path) if the",
+    "`incidents.translate_alarms` can now actually be turned off (it's persisted and honored in Settings/API; the setting used to be silently dropped).",
+    "Incident sub-config preserved: the `recurrence` / `notify_throttle` / `chronic_mode` settings are no longer lost when saving other Settings changes."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Alarmas automáticas en el idioma de cada destinatario",
-    "Las alarmas/incidentes automáticos (Telegram + correo) ahora se envían en el idioma de cada destinatario según su preferencia por usuario (v2.135), no en un",
-    "El diagnóstico de la IA (que se genera en español) se traduce al idioma del destinatario cuando difiere, agrupando por idioma: una sola llamada al LLM por cad",
-    "Robusto: la traducción es best-effort con tope de tiempo (si la IA tarda o falla, sale el diagnóstico original sin retrasar el aviso — el camino de notifica"
+    "Robustez (release de mantenimiento)",
+    "Internal",
+    "Timeout en TODAS las llamadas a la IA: el copiloto, el investigador de incidentes, el análisis de alarmas y la traducción de avisos ahora abortan a los 90 s (",
+    "`incidents.translate_alarms` ya se puede apagar de verdad (se persiste y respeta en Settings/API; antes el ajuste se descartaba en silencio)."
   ]
 }

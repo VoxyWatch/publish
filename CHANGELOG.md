@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.137.0] — 2026-06-25
+
+### Changed — Robustness (maintenance release)
+- **Timeout on EVERY AI call:** the copilot, the incident investigator, alarm analysis and alert translation now abort after 90s (8s on the notification path) if the AI provider stops responding — previously a hung AI provider could block those flows indefinitely. Capture was never affected.
+- **`incidents.translate_alarms` can now actually be turned off** (it's persisted and honored in Settings/API; the setting used to be silently dropped).
+- **Incident sub-config preserved:** the `recurrence` / `notify_throttle` / `chronic_mode` settings are no longer lost when saving other Settings changes.
+
 ## [2.136.0] — 2026-06-25
 
 ### Added — Automatic alerts in each recipient's language

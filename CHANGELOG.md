@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.132.3] — 2026-06-25
+
+### Changed — Installer fully in English (international customers)
+- Every message the installer prints to the screen (`install.sh`: notices, errors, progress, countdown, final summary, updates section) is now in **English**. Some were still in Spanish. No logic, path, variable or color changed — only the visible text.
+- `tools/get-hwid.js` (run by the customer to obtain their Hardware ID when purchasing a license): banner in English.
+
 ## [2.132.2] — 2026-06-25
 
 ### Fixed

@@ -146,7 +146,7 @@ command -v sudo    &>/dev/null || err "sudo is required:  apt install sudo   or 
 if command -v flock &>/dev/null; then
   exec 9>"/run/voxywatch-install.lock" 2>/dev/null || exec 9>"/tmp/voxywatch-install.lock"
   if ! flock -n 9; then
-    err "Otra instalación/actualización de VoxyWatch está en curso — aborto para no colisionar. Reintenta en unos minutos."
+    err "Another VoxyWatch install/update is already running — aborting to avoid a clash. Retry in a few minutes."
   fi
 fi
 
@@ -195,7 +195,7 @@ else
   else
     EXPECTED_SHA256=""
     EXPECTED_SIG_URL=""
-    info "Versión ${VERSION} difiere del canal (${MANIFEST_VERSION:-?}); se omite verificación SHA del manifiesto."
+    info "Version ${VERSION} differs from the channel (${MANIFEST_VERSION:-?}); skipping manifest SHA verification."
   fi
 fi
 ok "Version to install: v${VERSION}"
@@ -207,7 +207,7 @@ ok "Version to install: v${VERSION}"
 read_countdown() {
   local secs="$1" prompt="$2" input="" i
   for (( i=secs; i>=1; i-- )); do
-    printf "\r\033[K  %s [auto en %2ds]: " "$prompt" "$i" >&2
+    printf "\r\033[K  %s [auto in %2ds]: " "$prompt" "$i" >&2
     if IFS= read -r -t 1 input </dev/tty 2>/dev/null; then
       printf "\n" >&2
       printf '%s' "$input"
@@ -309,10 +309,10 @@ if [ -n "${EXPECTED_SIG_URL:-}" ]; then
       fi
       rm -rf "$GNUPGHOME_TMP"
     else
-      warn "No se pudo descargar la firma; se continúa (SHA-256 ya verificado)."
+      warn "Could not download the signature; continuing (SHA-256 already verified)."
     fi
   else
-    warn "gpg no instalado — se omite verificación de firma (SHA-256 ya verificado). Instala 'gnupg' para defensa en profundidad."
+    warn "gpg not installed — skipping signature verification (SHA-256 already verified). Install 'gnupg' for defense in depth."
   fi
 fi
 
@@ -345,7 +345,7 @@ fi
 if [ "$SNIFFER_CHANGED" = "1" ]; then
   systemctl stop voxywatch voxywatch-sniffer 2>/dev/null || true
 else
-  info "hep_sniffer.py sin cambios → el sniffer sigue capturando (no se reinicia)"
+  info "hep_sniffer.py unchanged → the sniffer keeps capturing (not restarted)"
   systemctl stop voxywatch 2>/dev/null || true
 fi
 
@@ -406,8 +406,8 @@ ok "Config written: ${CONF_FILE}"
 # ── Provision PostgreSQL + TimescaleDB ────────────────────────────────────────
 # Cluster local DEDICADO en puerto no-default (5433), bindeado a localhost, con
 # auth peer por socket (sin password). Aislado del stack del cliente (5432/Influx).
-info "Provisioning PostgreSQL + TimescaleDB (cluster ${PG_CLUSTER} en :${PG_PORT})..."
-command -v apt-get &>/dev/null || err "La BD PostgreSQL+TimescaleDB requiere Debian/Ubuntu (apt). RHEL: contactar soporte."
+info "Provisioning PostgreSQL + TimescaleDB (cluster ${PG_CLUSTER} on :${PG_PORT})..."
+command -v apt-get &>/dev/null || err "The PostgreSQL+TimescaleDB database requires Debian/Ubuntu (apt). RHEL: contact support."
 
 # 1) Repo TimescaleDB + paquetes base (postgresql-common trae pg_createcluster;
 #    python3-psycopg2 = cliente del sniffer, sin pip)
@@ -420,24 +420,24 @@ if [ ! -f /etc/apt/sources.list.d/timescaledb.list ]; then
 fi
 apt-get update >/dev/null 2>&1 || true
 apt-get install -y postgresql postgresql-common python3-psycopg2 >/dev/null 2>&1 \
-  || err "No se pudo instalar postgresql / python3-psycopg2"
+  || err "Could not install postgresql / python3-psycopg2"
 
 # ffmpeg: REQUERIDO para reconstruir/reproducir audio (reconstruct_audio.py lo usa para
 # convertir el RTP crudo a WAV). Sin él, la reconstrucción escribe el .g722 pero NO genera
 # el WAV → el player da 404. Es una dependencia dura del audio, no opcional.
 command -v ffmpeg &>/dev/null || apt-get install -y ffmpeg >/dev/null 2>&1 || true
-command -v ffmpeg &>/dev/null || warn "ffmpeg NO disponible — la reproducción de audio no funcionará hasta instalarlo (apt-get install ffmpeg)."
+command -v ffmpeg &>/dev/null || warn "ffmpeg NOT available — audio playback will not work until you install it (apt-get install ffmpeg)."
 
 # Detectar la versión mayor instalada y el paquete TimescaleDB correspondiente
 PG_VER="$(ls /usr/lib/postgresql/ 2>/dev/null | sort -n | tail -1)"
-[ -n "$PG_VER" ] || err "No se detectó PostgreSQL instalado en /usr/lib/postgresql"
+[ -n "$PG_VER" ] || err "No PostgreSQL installation detected in /usr/lib/postgresql"
 apt-get install -y "timescaledb-2-postgresql-${PG_VER}" "timescaledb-tools" >/dev/null 2>&1 \
-  || err "No se pudo instalar timescaledb-2-postgresql-${PG_VER}"
+  || err "Could not install timescaledb-2-postgresql-${PG_VER}"
 
 # 2) Crear el cluster dedicado si no existe (puerto no-default, auth local peer)
 if ! pg_lsclusters -h 2>/dev/null | awk '{print $1" "$2}' | grep -qx "${PG_VER} ${PG_CLUSTER}"; then
   pg_createcluster "${PG_VER}" "${PG_CLUSTER}" -p "${PG_PORT}" -- --auth-local=peer >/dev/null \
-    || err "pg_createcluster falló"
+    || err "pg_createcluster failed"
 fi
 PG_CONF_DIR="/etc/postgresql/${PG_VER}/${PG_CLUSTER}"
 
@@ -477,20 +477,20 @@ ${PSQL_SU} -d "${DB_NAME}" -c "CREATE EXTENSION IF NOT EXISTS timescaledb;" >/de
 INSTALLED_TS=$(${PSQL_SU} -tAc "SELECT extversion FROM pg_extension WHERE extname='timescaledb'" -d "${DB_NAME}" 2>/dev/null)
 AVAILABLE_TS=$(${PSQL_SU} -tAc "SELECT default_version FROM pg_available_extensions WHERE name='timescaledb'" -d "${DB_NAME}" 2>/dev/null)
 if [ -n "$INSTALLED_TS" ] && [ -n "$AVAILABLE_TS" ] && [ "$INSTALLED_TS" != "$AVAILABLE_TS" ]; then
-  info "Actualizando extensión TimescaleDB ${INSTALLED_TS} → ${AVAILABLE_TS}..."
+  info "Updating TimescaleDB extension ${INSTALLED_TS} → ${AVAILABLE_TS}..."
   systemctl restart "postgresql@${PG_VER}-${PG_CLUSTER}" 2>/dev/null \
     || pg_ctlcluster "${PG_VER}" "${PG_CLUSTER}" restart 2>/dev/null || true
   for i in $(seq 1 30); do pg_isready -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" >/dev/null 2>&1 && break; sleep 1; done
   ${PSQL_SU} -d "${DB_NAME}" -c "ALTER EXTENSION timescaledb UPDATE;" >/dev/null 2>&1 \
-    && ok "TimescaleDB actualizado a ${AVAILABLE_TS}" \
-    || warn "ALTER EXTENSION timescaledb UPDATE falló — revisar a mano"
+    && ok "TimescaleDB updated to ${AVAILABLE_TS}" \
+    || warn "ALTER EXTENSION timescaledb UPDATE failed — check manually"
 fi
 # El SQL se pasa por STDIN (lo lee el shell de root); así voxywatch NO necesita
 # permiso de lectura sobre el archivo en el TMPDIR de root (mktemp es 700).
 sudo -u "${SERVICE_USER}" psql -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
      -v ON_ERROR_STOP=1 -f - < "${EXTRACTED}/schema.sql" >/dev/null \
-  || err "No se pudo aplicar el esquema (schema.sql)"
-ok "PostgreSQL + TimescaleDB listo (cluster ${PG_VER}/${PG_CLUSTER}, :${PG_PORT}, socket peer)"
+  || err "Could not apply the schema (schema.sql)"
+ok "PostgreSQL + TimescaleDB ready (cluster ${PG_VER}/${PG_CLUSTER}, :${PG_PORT}, peer socket)"
 
 # ── Kernel network tuning (v2.0.5) ────────────────────────────────────────────
 # El sniffer pide SO_RCVBUF de 8 MB, pero el kernel lo recorta a net.core.rmem_max
@@ -504,8 +504,8 @@ net.core.rmem_default = 16777216
 net.core.netdev_max_backlog = 10000
 EOF
 sysctl -p /etc/sysctl.d/99-voxywatch.conf >/dev/null 2>&1 \
-  && ok "Kernel buffers aplicados (rmem_max=32M)" \
-  || warn "No se pudieron aplicar los sysctl ahora (se aplicarán al reiniciar)"
+  && ok "Kernel buffers applied (rmem_max=32M)" \
+  || warn "Could not apply sysctl now (they will apply on reboot)"
 
 # ── Install systemd unit files ────────────────────────────────────────────────
 info "Installing systemd units..."
@@ -620,7 +620,7 @@ EOF
 # Así una instalación previa (cuyo settings.json no trae la clave) JAMÁS expone el 5060.
 # Si el SRS cae, la captura HEP NO se ve afectada (proceso separado). SRTP: pylibsrtp (best-effort).
 if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
-  info "Provisioning SIPREC SRS (OFF por default)..."
+  info "Provisioning SIPREC SRS (OFF by default)..."
   # venv con pylibsrtp para SRTP (best-effort: sin él, el SRS corre igual pero solo RTP en claro).
   # Debian mínimo NO trae `python3-venv` (ensurepip) → sin él `python3 -m venv` falla y el SRS
   # se queda sin SRTP (causa real en C3ntro). Lo instalamos best-effort antes de crear el venv.
@@ -635,13 +635,13 @@ if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
     [ -x "${INSTALL_DIR}/srs-venv/bin/pip" ] || "$SRS_VPY" -m ensurepip --upgrade >/dev/null 2>&1 || true
     if "$SRS_VPY" -m pip install --quiet --disable-pip-version-check pylibsrtp > /var/log/voxywatch-srs-pip.log 2>&1; then
       SRS_PY="$SRS_VPY"
-      ok "SRS: pylibsrtp instalado (SRTP disponible)"
+      ok "SRS: pylibsrtp installed (SRTP available)"
     else
-      warn "SRS: pylibsrtp no se pudo instalar → SRTP no disponible (RTP en claro sí). Detalle: /var/log/voxywatch-srs-pip.log"
+      warn "SRS: pylibsrtp could not be installed → SRTP unavailable (cleartext RTP still works). Details: /var/log/voxywatch-srs-pip.log"
     fi
     chown -R "${SERVICE_USER}:${SERVICE_USER}" "${INSTALL_DIR}/srs-venv" 2>/dev/null || true
   else
-    warn "SRS: no se pudo crear venv (instala python3-venv) → SRS correrá con python del sistema, sin SRTP."
+    warn "SRS: could not create venv (install python3-venv) → SRS will run with the system python, without SRTP."
   fi
   cat > /etc/systemd/system/voxywatch-srs.service << EOF
 [Unit]
@@ -679,7 +679,7 @@ EOF
   # NO enable/start: el unit queda instalado pero detenido y disabled. Si una versión previa
   # lo había dejado corriendo/enabled (bug v2.81.0), lo apagamos aquí en el --update.
   systemctl disable --now voxywatch-srs.service >/dev/null 2>&1 || true
-  ok "SIPREC SRS instalado (DORMANTE y disabled; actívalo con siprec_enabled=true + systemctl enable --now voxywatch-srs)"
+  ok "SIPREC SRS installed (DORMANT and disabled; enable it with siprec_enabled=true + systemctl enable --now voxywatch-srs)"
 fi
 
 # ── Service-control scripts (opt-in privilege grant) ──────────────────────────
@@ -835,7 +835,7 @@ rm -f /etc/systemd/system/voxywatch-update.timer \
       /etc/systemd/system/voxywatch-update.service \
       "${INSTALL_DIR}/voxywatch-update.sh" 2>/dev/null || true
 systemctl daemon-reload
-ok "Updates: opt-in — el portal avisa, el admin aplica con un clic"
+ok "Updates: opt-in — the portal notifies you, the admin applies with one click"
 
 # ── Start services ────────────────────────────────────────────────────────────
 info "Starting services..."
@@ -847,15 +847,15 @@ systemctl start voxywatch
 sleep 1
 for _svc in voxywatch-sniffer voxywatch; do
   if systemctl is-active --quiet "$_svc"; then
-    ok "${_svc} activo"
+    ok "${_svc} active"
   else
-    warn "${_svc} no quedó activo — reintentando..."
+    warn "${_svc} did not come up — retrying..."
     systemctl restart "$_svc" 2>/dev/null || true
     sleep 1
     if systemctl is-active --quiet "$_svc"; then
-      ok "${_svc} activo (tras reintento)"
+      ok "${_svc} active (after retry)"
     else
-      warn "${_svc} NO está activo — revisa: journalctl -u ${_svc} -n 50 --no-pager"
+      warn "${_svc} is NOT active — check: journalctl -u ${_svc} -n 50 --no-pager"
     fi
   fi
 done
@@ -895,9 +895,9 @@ echo -e "  ${BOLD}Service logs:${NC}"
 echo "    journalctl -fu voxywatch"
 echo "    journalctl -fu voxywatch-sniffer"
 echo ""
-echo -e "  ${BOLD}Updates:${NC} opt-in — el portal verifica cada hora y avisa en la campana 🔔"
-echo "    Aplica con un clic desde:  Settings → Actualización → Actualizar ahora"
-echo "    (ya NO se actualiza solo — tú decides cuándo)"
+echo -e "  ${BOLD}Updates:${NC} opt-in — the portal checks hourly and notifies you in the bell 🔔"
+echo "    Apply with one click from:  Settings → Update → Update now"
+echo "    (no longer auto-updates — you decide when)"
 echo ""
 
 } # end of main()

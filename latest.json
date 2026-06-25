@@ -1,22 +1,24 @@
 {
-  "version": "2.132.2",
+  "version": "2.132.3",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.132.2/voxywatch-v2.132.2-linux-x64.tar.gz",
-    "sha256": "0dc174913aee2a3b08c10681612e86fbd67a6e3d51eb24e5a2ad4b5198c471f2",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.132.2/voxywatch-v2.132.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.132.3/voxywatch-v2.132.3-linux-x64.tar.gz",
+    "sha256": "8de6fb70295e5a7c008a33d0d46838f80914ed0934b01deba6a4e4bd4bd4dbd6",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.132.3/voxywatch-v2.132.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Incident title now matches its severity on escalation: an incident that opened as \"warn\" and rose to \"critical\" kept the \"…warn\" title (with critical severity",
-    "Portal heap: removed the placebo `NODE_OPTIONS=--max-old-space-size`. The packaged binary (pkg/SEA) ignores that flag (V8 creates its isolate from the snapshot"
+    "Installer fully in English (international customers)",
+    "Every message the installer prints to the screen (`install.sh`: notices, errors, progress, countdown, final summary, updates section) is now in English. Some we",
+    "`tools/get-hwid.js` (run by the customer to obtain their Hardware ID when purchasing a license): banner in English."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Título del incidente coherente con su severidad al escalar: un incidente que abría en \"warn\" y subía a \"critical\" conservaba el título \"…warn\" (con severi",
-    "Heap del portal: quitado el `NODE_OPTIONS=--max-old-space-size` placebo. El binario empaquetado (pkg/SEA) ignora ese flag (probado: V8 crea el isolate desde el"
+    "Instalador 100% en inglés (cliente internacional)",
+    "Todos los mensajes que el instalador muestra en pantalla (`install.sh`: avisos, errores, progreso, cuenta regresiva, resumen final, sección de actualizaciones)",
+    "`tools/get-hwid.js` (lo corre el cliente para obtener su Hardware ID al comprar licencia): banner en inglés."
   ]
 }

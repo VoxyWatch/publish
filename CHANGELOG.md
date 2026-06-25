@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.136.0] — 2026-06-25
+
+### Added — Automatic alerts in each recipient's language
+- Automatic alerts/incidents (Telegram + email) are now delivered **in each recipient's language** based on their per-user preference (v2.135), not in a single global language. The global NOC room keeps the product's global language.
+- The **AI diagnosis** (generated in Spanish) is **translated** to the recipient's language when it differs, **grouped by language**: a single LLM call per distinct language among recipients (cached). A single-language install (e.g. everyone in Spanish) makes **no extra calls** — same cost as before.
+- Robust: translation is best-effort with a **hard time cap** (if the AI is slow or fails, the original diagnosis goes out without delaying the alert — the notification path never blocks). Configurable via `incidents.translate_alarms` (default ON).
+- Note: the incident **template** (title/KPIs/recurrence) is offered in en/es; a recipient whose interface language is another one receives the template in the global language with the AI diagnosis translated. Extending the template to more languages = template i18n (on demand).
+
 ## [2.135.0] — 2026-06-25
 
 ### Added — Per-user language: interface + AI

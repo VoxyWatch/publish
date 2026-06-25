@@ -510,6 +510,17 @@ sysctl -p /etc/sysctl.d/99-voxywatch.conf >/dev/null 2>&1 \
 # ── Install systemd unit files ────────────────────────────────────────────────
 info "Installing systemd units..."
 
+# Heap V8 del portal: auto-tuneado por RAM. El default de V8 (~4 GB) no alcanza a alto volumen y
+# provocaba OOM/restart-loop (TICKET-032: 14 OOM/2h en C3ntro con 21 GB libres). Damos 30% de la RAM,
+# acotado a [2048, 16384] MB. V8 NO reserva este límite: hace GC y usa solo lo necesario; el flag solo
+# evita el crash por el techo artificial del default. El working-set se acota aparte (effectiveMaxRows).
+PORTAL_RAM_MB=$(awk '/MemTotal/{printf "%d", $2/1024}' /proc/meminfo 2>/dev/null)
+[ -n "$PORTAL_RAM_MB" ] || PORTAL_RAM_MB=4096   # borde: /proc/meminfo sin MemTotal (awk exit 0 vacío)
+PORTAL_HEAP_MB=$(( PORTAL_RAM_MB * 30 / 100 ))
+[ "$PORTAL_HEAP_MB" -lt 2048 ]  && PORTAL_HEAP_MB=2048
+[ "$PORTAL_HEAP_MB" -gt 16384 ] && PORTAL_HEAP_MB=16384
+info "Portal heap (V8 --max-old-space-size): ${PORTAL_HEAP_MB} MB (RAM ${PORTAL_RAM_MB} MB)"
+
 cat > /etc/systemd/system/voxywatch.service << EOF
 [Unit]
 Description=VoxyWatch SIP Capture Portal
@@ -526,6 +537,7 @@ WorkingDirectory=${DATA_DIR}
 ExecStartPre=/usr/bin/pg_isready -h ${PG_SOCKET_DIR} -p ${PG_PORT} -t 30
 ExecStart=${INSTALL_DIR}/voxywatch-portal
 Environment=PORT=${PORT}
+Environment=NODE_OPTIONS=--max-old-space-size=${PORTAL_HEAP_MB}
 Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
 Environment=PGHOST=${PG_SOCKET_DIR}
 Environment=PGPORT=${PG_PORT}

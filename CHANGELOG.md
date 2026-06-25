@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.132.0] — 2026-06-24
+
+### Added — NOC: incident temporal pattern + chronic-mode learning
+- **Temporal pattern ("usually overnight / on Mondays"):** when an incident recurs, the alert now says *when* it tends to happen — the time-of-day window (local time) and/or the day of week where it concentrates (e.g. *"🕒 Temporal pattern: mostly between 01:00 and 04:00 (100%); mostly on Mondays (83%)"*). It only asserts a pattern with real concentration (≥60% in a 3 h window or a single day) over ≥5 occurrences in 30 days — noise control: never invents a pattern from thin data.
+- **Chronic mode remembers what fixed the pattern:** the structural-action proposal now cites the previous manual resolution(s) of the same pattern (*"💡 Resolved 3 times before; last time: …"*) — turning case memory into a concrete recommendation, not just "pick an action".
+
+### Changed — Portal memory stability: OOM fixed at the root (TICKET-032 + structural)
+- **Raw SIP leaves the heap (−35-40% RSS):** the working set no longer retains the full SIP text of each message (~553 B × hundreds of thousands ≈ 285 MB); it pre-extracts only the scalar fields correlation needs and serves the full SIP on demand from the database (in /flow, /lint and the copilot). The CDR is **byte-identical** (parity validated). This is the proper root-cause fix following the TICKET-032 mitigation.
+- **Pre-OOM self-protection (degrade, don't crash):** the portal watches real V8 heap pressure; under pressure it trims the working set in a controlled way and opens a capacity incident with an alert, instead of dying and restarting. When pressure eases it restores capacity and closes the incident. The working-set peak adapts to real pressure (not a fixed multiple).
+- **Auto-tuned V8 heap (TICKET-032):** the installer sets the portal heap limit from the box's RAM (30%, between 2 and 16 GB) and the working set is derived from the real heap, not total RAM — eliminating the OOM/restart loop under high volume. Zero hardcode, auto-adapting to any hardware.
+
+### Fixed
+- **Login: requests to `/api/settings` and `/api/time` before authenticating returned 401** in the console — the clock/header now load server data lazily (only with a session), retrying on a transient 401.
+
 ## [2.131.0] — 2026-06-24
 
 ### Added — actionable chronic mode (the bot proposes a structural fix, not just alerts)

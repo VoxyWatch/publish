@@ -1,26 +1,26 @@
 {
-  "version": "2.131.0",
+  "version": "2.132.0",
   "release_date": "2026-06-24",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.131.0/voxywatch-v2.131.0-linux-x64.tar.gz",
-    "sha256": "e00a71d294f7ee5c67ea9ba22c3a37594549ec32a8e300e013caefca4f8cdb69",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.131.0/voxywatch-v2.131.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.132.0/voxywatch-v2.132.0-linux-x64.tar.gz",
+    "sha256": "8c98ab56125eaeae4f47d8552a8ccf95ce09365be60fbdb4d23890d86a58a352",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.132.0/voxywatch-v2.132.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "actionable chronic mode (the bot proposes a structural fix, not just alerts)",
-    "Measured problem: human intervention on incidents is <1% (45 actions vs 5,336 closures in 14 days) — almost everything auto-resolves and reopens, and alerting",
-    "Solution: when a trunk is chronically persistent (≥20 reopenings in 7 days across ≥4 distinct days), instead of alerting on each one, the bot sends one stru",
-    "Guarantees: the bot NEVER touches the customer's SBC (actions operate only on VoxyWatch); always human-approved; closed, audited action catalog. A `critical` in"
+    "NOC: incident temporal pattern + chronic-mode learning",
+    "Portal memory stability: OOM fixed at the root (TICKET-032 + structural)",
+    "Temporal pattern (\"usually overnight / on Mondays\"): when an incident recurs, the alert now says *when* it tends to happen — the time-of-day window (local tim",
+    "Chronic mode remembers what fixed the pattern: the structural-action proposal now cites the previous manual resolution(s) of the same pattern (*\"💡 Resolved 3"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "modo crónico accionable (el bot propone una acción de fondo, no solo avisa)",
-    "Problema medido: la intervención humana en incidentes es <1% (45 acciones vs 5,336 cierres en 14 días) — casi todo se auto-resuelve y vuelve a abrir, y avis",
-    "Solución: cuando una troncal es crónica persistente (≥20 reaperturas en 7 días repartidas en ≥4 días distintos), en vez de seguir avisando, el bot enví",
-    "Garantías: el bot NUNCA toca el SBC del cliente (las acciones operan solo sobre VoxyWatch); siempre con aprobación humana; catálogo de acciones cerrado y aud"
+    "NOC: patrón temporal de incidentes + aprendizaje del modo crónico",
+    "Estabilidad de memoria del portal: el OOM cerrado de raíz (TICKET-032 + estructural)",
+    "Patrón temporal (\"suele ocurrir de madrugada / los lunes\"): cuando un incidente recurre, el aviso ahora dice *cuándo* tiende a pasar — la franja horaria (en",
+    "El modo crónico recuerda qué resolvió el patrón: la propuesta de acción de fondo ahora cita la(s) resolución(es) manual(es) anteriores del mismo patrón ("
   ]
 }

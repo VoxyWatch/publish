@@ -5,6 +5,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.132.1] — 2026-06-25
+
+### Changed — Larger working set, same safety (recalibrated with real measurement after Mem#1)
+- After moving the raw SIP out of the heap (v2.132.0), the per-row RAM cost of the working set was recalibrated from **8 KB → 4 KB** using a real production measurement (209k messages ⇒ ≤3.8 KB/row attributing the entire heap to SIP rows; the marginal cost is lower). The working-set ceiling rises from **250k → 350k** rows. Result: on small boxes the correlation working set nearly doubles (e.g. ~76k → ~157k rows) and large boxes gain headroom — all within the heap, never approaching OOM because the heap self-protection (v2.132.0) remains the safety net if the estimate fell short. No operator-facing change; zero hardcode.
+
 ## [2.132.0] — 2026-06-24
 
 ### Added — NOC: incident temporal pattern + chronic-mode learning

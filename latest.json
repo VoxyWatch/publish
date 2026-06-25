@@ -1,26 +1,22 @@
 {
-  "version": "2.132.0",
-  "release_date": "2026-06-24",
+  "version": "2.132.1",
+  "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.132.0/voxywatch-v2.132.0-linux-x64.tar.gz",
-    "sha256": "8c98ab56125eaeae4f47d8552a8ccf95ce09365be60fbdb4d23890d86a58a352",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.132.0/voxywatch-v2.132.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.132.1/voxywatch-v2.132.1-linux-x64.tar.gz",
+    "sha256": "ad165ecda11cbdce8ee441d7ae1a935b32dd4c098ba39dc421a402a0052e0b3c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.132.1/voxywatch-v2.132.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "NOC: incident temporal pattern + chronic-mode learning",
-    "Portal memory stability: OOM fixed at the root (TICKET-032 + structural)",
-    "Temporal pattern (\"usually overnight / on Mondays\"): when an incident recurs, the alert now says *when* it tends to happen — the time-of-day window (local tim",
-    "Chronic mode remembers what fixed the pattern: the structural-action proposal now cites the previous manual resolution(s) of the same pattern (*\"💡 Resolved 3"
+    "Larger working set, same safety (recalibrated with real measurement after Mem#1)",
+    "After moving the raw SIP out of the heap (v2.132.0), the per-row RAM cost of the working set was recalibrated from 8 KB → 4 KB using a real production measure"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "NOC: patrón temporal de incidentes + aprendizaje del modo crónico",
-    "Estabilidad de memoria del portal: el OOM cerrado de raíz (TICKET-032 + estructural)",
-    "Patrón temporal (\"suele ocurrir de madrugada / los lunes\"): cuando un incidente recurre, el aviso ahora dice *cuándo* tiende a pasar — la franja horaria (en",
-    "El modo crónico recuerda qué resolvió el patrón: la propuesta de acción de fondo ahora cita la(s) resolución(es) manual(es) anteriores del mismo patrón ("
+    "Working-set más grande sin más riesgo (recalibrado con medición real post-Mem#1)",
+    "Tras soltar el `raw` del heap (v2.132.0), el costo de RAM por fila del working-set se recalibró de 8 KB → 4 KB con medición real en producción (209k mensaj"
   ]
 }

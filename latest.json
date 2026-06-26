@@ -1,24 +1,26 @@
 {
-  "version": "2.143.0",
+  "version": "2.144.0",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.143.0/voxywatch-v2.143.0-linux-x64.tar.gz",
-    "sha256": "18ab47bcce987d9e837bdae67e34ee0a5cc15a0df031b54efeb09d22796815b8",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.143.0/voxywatch-v2.143.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.144.0/voxywatch-v2.144.0-linux-x64.tar.gz",
+    "sha256": "e45216b77f1af0e6500831742fd001f62207a3f1325f83a5053564401da91a01",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.144.0/voxywatch-v2.144.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Fraud tab · P4 (the \"what would have alerted\" simulator) — tab COMPLETE",
-    "In Fraud → Configuration: a simulator that runs the anti-fraud detectors against the last N days of",
-    "This completes the Fraud tab: operational panel + assign profile to trunk + risk-country/profile editors"
+    "Configurable anti-fraud from the Fraud tab (engine on/off, threshold, velocity cap)",
+    "Notes",
+    "Anti-fraud engine controls in the Fraud tab (Fraud → Configuration, admin only): a new card to turn the engine",
+    "Per-destination velocity cap (`velocity_max_calls`, IRSF velocity): a new detector that alarms when a single"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Pestaña de Fraude · P4 (simulador \"qué habría alertado\") — pestaña COMPLETA",
-    "En Fraude → Configuración: un simulador que corre los detectores antifraude contra los últimos N días de",
-    "Con esto la pestaña de Fraude queda completa: panel operativo + asociar perfil a troncal + editores de"
+    "Antifraude configurable desde la pestaña Fraude (motor on/off, umbral, tope de velocidad)",
+    "Notes",
+    "Motor antifraude desde la pestaña (Fraude → Configuración, solo admin): tarjeta nueva para encender/apagar",
+    "Tope de velocidad por destino (`velocity_max_calls`, IRSF velocity): detector nuevo que alarma cuando un mismo"
   ]
 }

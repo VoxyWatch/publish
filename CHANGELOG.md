@@ -5,6 +5,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.144.0] — 2026-06-25
+
+### Added — Configurable anti-fraud from the Fraud tab (engine on/off, threshold, velocity cap)
+- **Anti-fraud engine controls in the Fraud tab** (Fraud → Configuration, admin only): a new card to **turn the engine
+  on/off**, tune the **model threshold** (`score_min_critical`) and set a **global velocity cap** — no need to dig into
+  Settings anymore. These now live next to the rest of the anti-fraud configuration.
+- **Per-destination velocity cap** (`velocity_max_calls`, IRSF velocity): a new detector that alarms when a single
+  destination exceeds N calls within the live window (traffic sweep). Ships **OFF** (0 = disabled, conservative flag);
+  works from day one (no mature history needed, like the short-call storm). Severity **warn**, or **critical** if the
+  destination is high-risk. Configurable globally and **per profile** (a profile can override the global cap).
+- It is a **deterministic standalone rule**: it does NOT feed the trained logistic model (its production output is
+  unchanged) and is NOT downgraded by the score-gate. The "what would have alerted" simulator neutralizes it (like the
+  short-call storm) because it aggregates hourly while the cap is per-window.
+
+### Notes
+- Zero changes to the sniffer hot-path. With `velocity_max_calls=0` the engine behaves identically to before (covered by
+  tests). Full es/en i18n.
+
 ## [2.143.0] — 2026-06-25
 
 ### Added — Fraud tab · P4 (the "what would have alerted" simulator) — tab COMPLETE

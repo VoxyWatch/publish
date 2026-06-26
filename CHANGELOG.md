@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.142.0] — 2026-06-25
+
+### Added — Fraud tab · P3c (fraud profile editor)
+- In the Fraud tab → Configuration (admin) you can now **create, edit and delete fraud profiles**: name,
+  destination **whitelist** (never alarm), **watchlist** (extra scrutiny), and thresholds (short-call storm,
+  new destination, high-risk, international %). Empty fields inherit the global config.
+- Profiles appear immediately in the "Fraud profile" selector of the Trunks catalog.
+- This completes the manual config flow: risk countries + profiles + assignment to trunks. Only the
+  "what would have alerted" simulator remains (next phase).
+
 ## [2.141.0] — 2026-06-25
 
 ### Added — Fraud tab · P3b (Configuration sub-view: risk-countries editor)

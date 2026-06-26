@@ -1,26 +1,26 @@
 {
-  "version": "2.141.0",
+  "version": "2.142.0",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.141.0/voxywatch-v2.141.0-linux-x64.tar.gz",
-    "sha256": "82bea52b92ed8cf71b16c5163bfd8a2fce567c66ebe686cf543a631de96ea09d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.141.0/voxywatch-v2.141.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.142.0/voxywatch-v2.142.0-linux-x64.tar.gz",
+    "sha256": "8d6c17720c92b29e88225d1345f52d5c37f09004a0dff99cdba693bed5803057",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.142.0/voxywatch-v2.142.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Fraud tab · P3b (Configuration sub-view: risk-countries editor)",
-    "The Fraud tab now has Panel and Configuration sub-tabs (the latter admin-only).",
-    "High-risk (IRSF) countries editor: add/remove ISO-2 country codes as chips and save — no need to go",
-    "Coming next: the profile editor (create/edit) and the \"what would have alerted\" simulator."
+    "Fraud tab · P3c (fraud profile editor)",
+    "In the Fraud tab → Configuration (admin) you can now create, edit and delete fraud profiles: name,",
+    "Profiles appear immediately in the \"Fraud profile\" selector of the Trunks catalog.",
+    "This completes the manual config flow: risk countries + profiles + assignment to trunks. Only the"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Pestaña de Fraude · P3b (Configuración: editor de países de riesgo)",
-    "La pestaña Fraude ahora tiene sub-pestañas Panel y Configuración (esta solo para admin).",
-    "Editor de países de alto riesgo (IRSF): añade/quita códigos de país (ISO-2) con chips y guarda, sin pasar",
-    "Pendiente de la próxima fase: el editor de perfiles (crear/editar) y el simulador \"qué habría alertado\"."
+    "Pestaña de Fraude · P3c (editor de perfiles de fraude)",
+    "En la pestaña Fraude → Configuración (admin) ahora se pueden crear, editar y eliminar perfiles de fraude:",
+    "Los perfiles aparecen al instante en el selector \"Perfil de fraude\" del catálogo de Troncales.",
+    "Con esto se cierra el flujo de configuración manual: países de riesgo + perfiles + asignación a troncales."
   ]
 }

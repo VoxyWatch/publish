@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.139.0] — 2026-06-25
+
+### Added — Fraud tab · P2 (operational panel)
+New **Fraud** tab (after Dashboard) — the visible face of anti-fraud.
+- **Operational panel:** engine status, KPIs (open fraud incidents, score gate, model/AUC, trunks with a
+  profile) and a table of **recent fraud events** (severity · score · event · status).
+- Summary of the available **fraud profiles** and configured **high-risk countries**.
+- Read-only for now; editing risk countries/profiles and assigning them to trunks arrive in the next phase.
+
 ## [2.138.0] — 2026-06-25
 
 ### Added — Fraud tab · P1 (per-trunk fraud profiles, backend)

@@ -1,25 +1,26 @@
 {
-  "version": "2.138.0",
+  "version": "2.139.0",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.138.0/voxywatch-v2.138.0-linux-x64.tar.gz",
-    "sha256": "9e4e4231deff2bfc980c1bc1a17e1f92977740c9bc5e5ec33c6a728ea193dc1e",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.138.0/voxywatch-v2.138.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.139.0/voxywatch-v2.139.0-linux-x64.tar.gz",
+    "sha256": "ab4d4bac5342d75d60b5636707887ee8d1184812362ce594761a21124fd11333",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.139.0/voxywatch-v2.139.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Fraud tab · P1 (per-trunk fraud profiles, backend)",
-    "Fraud profiles assignable to trunks: a profile sets only the thresholds/lists it wants (destination",
-    "The anti-fraud engine now evaluates each trunk with its profile (a whitelisted destination never alarms for"
+    "Fraud tab · P2 (operational panel)",
+    "Operational panel: engine status, KPIs (open fraud incidents, score gate, model/AUC, trunks with a",
+    "Summary of the available fraud profiles and configured high-risk countries.",
+    "Read-only for now; editing risk countries/profiles and assigning them to trunks arrive in the next phase."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Pestaña de Fraude · P1 (backend de perfiles por troncal)",
-    "Perfiles de fraude asignables a troncales (`fraud_alarms.profiles` + `trunk.fraud_profile_id`): un perfil",
-    "El motor antifraude evalúa cada troncal con su perfil (lista blanca = ese destino nunca alarma para esa",
-    "Nuevo `GET /api/fraud/overview` (estado del motor + perfiles + incidentes de fraude recientes) para la futura pestaña."
+    "Pestaña de Fraude · P2 (panel operativo)",
+    "Panel operativo: estado del motor, KPIs (incidentes de fraude abiertos, umbral del score, modelo/AUC,",
+    "Resumen de los perfiles de fraude disponibles y los países de alto riesgo configurados.",
+    "Consume `GET /api/fraud/overview`. Read-only por ahora; la edición de países/perfiles y la asociación a"
   ]
 }

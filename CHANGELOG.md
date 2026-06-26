@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.143.0] — 2026-06-25
+
+### Added — Fraud tab · P4 (the "what would have alerted" simulator) — tab COMPLETE
+- In Fraud → Configuration: a **simulator** that runs the anti-fraud detectors against the last N days of
+  history (read-only, creates no incidents) and shows how many critical/warn alerts would have fired, with
+  examples. Closes the loop: configure countries/profiles → simulate against real data → trust them.
+- This **completes the Fraud tab**: operational panel + assign profile to trunk + risk-country/profile editors
+  + simulator.
+
 ## [2.142.0] — 2026-06-25
 
 ### Added — Fraud tab · P3c (fraud profile editor)

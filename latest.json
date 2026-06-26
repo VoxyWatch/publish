@@ -1,26 +1,24 @@
 {
-  "version": "2.142.0",
+  "version": "2.143.0",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.142.0/voxywatch-v2.142.0-linux-x64.tar.gz",
-    "sha256": "8d6c17720c92b29e88225d1345f52d5c37f09004a0dff99cdba693bed5803057",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.142.0/voxywatch-v2.142.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.143.0/voxywatch-v2.143.0-linux-x64.tar.gz",
+    "sha256": "18ab47bcce987d9e837bdae67e34ee0a5cc15a0df031b54efeb09d22796815b8",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.143.0/voxywatch-v2.143.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Fraud tab · P3c (fraud profile editor)",
-    "In the Fraud tab → Configuration (admin) you can now create, edit and delete fraud profiles: name,",
-    "Profiles appear immediately in the \"Fraud profile\" selector of the Trunks catalog.",
-    "This completes the manual config flow: risk countries + profiles + assignment to trunks. Only the"
+    "Fraud tab · P4 (the \"what would have alerted\" simulator) — tab COMPLETE",
+    "In Fraud → Configuration: a simulator that runs the anti-fraud detectors against the last N days of",
+    "This completes the Fraud tab: operational panel + assign profile to trunk + risk-country/profile editors"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Pestaña de Fraude · P3c (editor de perfiles de fraude)",
-    "En la pestaña Fraude → Configuración (admin) ahora se pueden crear, editar y eliminar perfiles de fraude:",
-    "Los perfiles aparecen al instante en el selector \"Perfil de fraude\" del catálogo de Troncales.",
-    "Con esto se cierra el flujo de configuración manual: países de riesgo + perfiles + asignación a troncales."
+    "Pestaña de Fraude · P4 (simulador \"qué habría alertado\") — pestaña COMPLETA",
+    "En Fraude → Configuración: un simulador que corre los detectores antifraude contra los últimos N días de",
+    "Con esto la pestaña de Fraude queda completa: panel operativo + asociar perfil a troncal + editores de"
   ]
 }

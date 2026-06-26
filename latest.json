@@ -1,26 +1,24 @@
 {
-  "version": "2.139.0",
+  "version": "2.140.0",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.139.0/voxywatch-v2.139.0-linux-x64.tar.gz",
-    "sha256": "ab4d4bac5342d75d60b5636707887ee8d1184812362ce594761a21124fd11333",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.139.0/voxywatch-v2.139.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.140.0/voxywatch-v2.140.0-linux-x64.tar.gz",
+    "sha256": "7f7ae5df3ff77f32781242ea00c09db23ed7700a1c50077d179dcdfc7cfbc1a1",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.140.0/voxywatch-v2.140.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Fraud tab · P2 (operational panel)",
-    "Operational panel: engine status, KPIs (open fraud incidents, score gate, model/AUC, trunks with a",
-    "Summary of the available fraud profiles and configured high-risk countries.",
-    "Read-only for now; editing risk countries/profiles and assigning them to trunks arrive in the next phase."
+    "Fraud tab · P3a (assign a fraud profile to each trunk)",
+    "The trunk editor now lets you pick the trunk's Fraud profile — the anti-fraud rules applied to that",
+    "Coming next: editors for risk countries and profiles, and the \"what would have alerted\" simulator."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Pestaña de Fraude · P2 (panel operativo)",
-    "Panel operativo: estado del motor, KPIs (incidentes de fraude abiertos, umbral del score, modelo/AUC,",
-    "Resumen de los perfiles de fraude disponibles y los países de alto riesgo configurados.",
-    "Consume `GET /api/fraud/overview`. Read-only por ahora; la edición de países/perfiles y la asociación a"
+    "Pestaña de Fraude · P3a (asociar perfil de fraude a cada troncal)",
+    "En el catálogo de troncales (editar troncal) ahora se elige su Perfil de fraude — las reglas antifraude",
+    "Pendiente de la próxima fase: editores de países de riesgo y de perfiles, y el simulador \"qué habría alertado\"."
   ]
 }

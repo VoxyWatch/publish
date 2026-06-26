@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.140.0] — 2026-06-25
+
+### Added — Fraud tab · P3a (assign a fraud profile to each trunk)
+- The trunk editor now lets you pick the trunk's **Fraud profile** — the anti-fraud rules applied to that
+  trunk. Empty = inherit the global config. (The profiles backend shipped in v2.138.)
+- Coming next: editors for risk countries and profiles, and the "what would have alerted" simulator.
+
 ## [2.139.0] — 2026-06-25
 
 ### Added — Fraud tab · P2 (operational panel)

@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.138.0] — 2026-06-25
+
+### Added — Fraud tab · P1 (per-trunk fraud profiles, backend)
+First phase of the dedicated Fraud tab. This release is **backend only** (the UI lands in later phases); nothing
+changes until a profile is assigned to a trunk.
+- **Fraud profiles** assignable to trunks: a profile sets only the thresholds/lists it wants (destination
+  **whitelist**, watchlist, expected international %, storm/new-destination/high-risk thresholds) and **inherits
+  the rest from the global config**. Three factory profiles: *Retail/domestic*, *International wholesale*,
+  *Restricted/premium*. No profile → behavior identical to today.
+- The anti-fraud engine now evaluates **each trunk with its profile** (a whitelisted destination never alarms for
+  that trunk — a big false-positive reducer for wholesale).
+
 ## [2.137.0] — 2026-06-25
 
 ### Changed — Robustness (maintenance release)

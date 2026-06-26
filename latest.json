@@ -1,26 +1,25 @@
 {
-  "version": "2.137.0",
+  "version": "2.138.0",
   "release_date": "2026-06-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.137.0/voxywatch-v2.137.0-linux-x64.tar.gz",
-    "sha256": "2451424838dcc67d446a2cdc410d8018df0a9b9ebb6543dfc7ddad2c5d37961c",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.137.0/voxywatch-v2.137.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.138.0/voxywatch-v2.138.0-linux-x64.tar.gz",
+    "sha256": "9e4e4231deff2bfc980c1bc1a17e1f92977740c9bc5e5ec33c6a728ea193dc1e",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.138.0/voxywatch-v2.138.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Robustness (maintenance release)",
-    "Timeout on EVERY AI call: the copilot, the incident investigator, alarm analysis and alert translation now abort after 90s (8s on the notification path) if the",
-    "`incidents.translate_alarms` can now actually be turned off (it's persisted and honored in Settings/API; the setting used to be silently dropped).",
-    "Incident sub-config preserved: the `recurrence` / `notify_throttle` / `chronic_mode` settings are no longer lost when saving other Settings changes."
+    "Fraud tab · P1 (per-trunk fraud profiles, backend)",
+    "Fraud profiles assignable to trunks: a profile sets only the thresholds/lists it wants (destination",
+    "The anti-fraud engine now evaluates each trunk with its profile (a whitelisted destination never alarms for"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Robustez (release de mantenimiento)",
-    "Internal",
-    "Timeout en TODAS las llamadas a la IA: el copiloto, el investigador de incidentes, el análisis de alarmas y la traducción de avisos ahora abortan a los 90 s (",
-    "`incidents.translate_alarms` ya se puede apagar de verdad (se persiste y respeta en Settings/API; antes el ajuste se descartaba en silencio)."
+    "Pestaña de Fraude · P1 (backend de perfiles por troncal)",
+    "Perfiles de fraude asignables a troncales (`fraud_alarms.profiles` + `trunk.fraud_profile_id`): un perfil",
+    "El motor antifraude evalúa cada troncal con su perfil (lista blanca = ese destino nunca alarma para esa",
+    "Nuevo `GET /api/fraud/overview` (estado del motor + perfiles + incidentes de fraude recientes) para la futura pestaña."
   ]
 }

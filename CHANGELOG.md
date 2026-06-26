@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.144.1] — 2026-06-26
+
+### Fixed — portal stability during retention purge
+- Incremental working-set purge is now **enabled by default** (`VW_INCR_PURGE=0` is the rollback switch). On high-volume
+  installs, retention purge could trigger repeated full parses shortly after boot, pushing the V8 heap into an OOM
+  restart loop. Purge now evicts/rebuilds from the in-memory window instead of re-reading the whole window from
+  PostgreSQL.
+- Full parses now log their reason (`boot-fast`, `boot-backfill`, `purge-full`, `cap-trim`, etc.) to make future
+  diagnostics explicit.
+
+### Security — minimal anonymous `/api/health`
+- When authentication is enabled, anonymous `/api/health` now returns only minimal liveness
+  `{ok, license.valid, ts}`. Capture details such as ports, workers and drops require a valid JWT.
+
 ## [2.144.0] — 2026-06-25
 
 ### Added — Configurable anti-fraud from the Fraud tab (engine on/off, threshold, velocity cap)

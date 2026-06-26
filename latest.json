@@ -1,26 +1,26 @@
 {
-  "version": "2.144.0",
-  "release_date": "2026-06-25",
+  "version": "2.144.1",
+  "release_date": "2026-06-26",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.144.0/voxywatch-v2.144.0-linux-x64.tar.gz",
-    "sha256": "e45216b77f1af0e6500831742fd001f62207a3f1325f83a5053564401da91a01",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.144.0/voxywatch-v2.144.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.144.1/voxywatch-v2.144.1-linux-x64.tar.gz",
+    "sha256": "5b0ec53395d5578fc82712f0794fe073c0e8f1128361ea2a3cf4c8a87aae2844",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.144.1/voxywatch-v2.144.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Configurable anti-fraud from the Fraud tab (engine on/off, threshold, velocity cap)",
-    "Notes",
-    "Anti-fraud engine controls in the Fraud tab (Fraud → Configuration, admin only): a new card to turn the engine",
-    "Per-destination velocity cap (`velocity_max_calls`, IRSF velocity): a new detector that alarms when a single"
+    "portal stability during retention purge",
+    "minimal anonymous `/api/health`",
+    "Incremental working-set purge is now enabled by default (`VW_INCR_PURGE=0` is the rollback switch). On high-volume",
+    "Full parses now log their reason (`boot-fast`, `boot-backfill`, `purge-full`, `cap-trim`, etc.) to make future"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Antifraude configurable desde la pestaña Fraude (motor on/off, umbral, tope de velocidad)",
-    "Notes",
-    "Motor antifraude desde la pestaña (Fraude → Configuración, solo admin): tarjeta nueva para encender/apagar",
-    "Tope de velocidad por destino (`velocity_max_calls`, IRSF velocity): detector nuevo que alarma cuando un mismo"
+    "estabilidad del portal bajo purga de retención (TICKET-032b)",
+    "`/api/health` anónimo mínimo (TICKET-034)",
+    "Process",
+    "La purga incremental del working-set queda ON por defecto (`VW_INCR_PURGE=0` es rollback). En C3ntro, cada"
   ]
 }

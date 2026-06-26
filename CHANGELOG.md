@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.141.0] — 2026-06-25
+
+### Added — Fraud tab · P3b (Configuration sub-view: risk-countries editor)
+- The Fraud tab now has **Panel** and **Configuration** sub-tabs (the latter admin-only).
+- **High-risk (IRSF) countries editor:** add/remove ISO-2 country codes as chips and save — no need to go
+  through Settings. Pre-loaded with the standard IRSF list. Confirms before clearing the list (so you don't
+  disable high-risk detection by accident).
+- Coming next: the profile editor (create/edit) and the "what would have alerted" simulator.
+
 ## [2.140.0] — 2026-06-25
 
 ### Added — Fraud tab · P3a (assign a fraud profile to each trunk)

@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.145.0] — 2026-06-26
+
+### Added — unified operational health
+- A fast, responsive Health view now combines capture, portal/heap, database, rollups, system incidents and update
+  availability in one place, with English and Spanish presentation.
+- Its authenticated `GET /api/operational-health` contract serves in-memory snapshots only: no database query,
+  process execution, filesystem read or network request occurs while loading the view.
+- Snapshot age is explicit, and missing, stale or recently failed signals degrade health instead of appearing green.
+
 ## [2.144.2] — 2026-06-26
 
 ### Changed — first backend module boundary

@@ -1,26 +1,26 @@
 {
-  "version": "2.148.0",
+  "version": "2.149.0",
   "release_date": "2026-06-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.148.0/voxywatch-v2.148.0-linux-x64.tar.gz",
-    "sha256": "616284d0b13c1b5b07ff52eae182dd38a1c063359667814807e3918627870800",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.148.0/voxywatch-v2.148.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.149.0/voxywatch-v2.149.0-linux-x64.tar.gz",
+    "sha256": "92a3db2f6a518fcde97cf21eba9445597c299843f5939844c78a96e508ceb88d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.149.0/voxywatch-v2.149.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "bounded on-demand media jobs",
+    "per-installation deployment status",
     "Process",
-    "Audio, PCAP and DTMF generation now share one bounded FIFO queue, preventing uncontrolled Python processes from competing with capture, the portal or PostgreSQL",
-    "Concurrency, queue depth, per-job memory and timeout derive from CPU/RAM with safe settings clamps; disconnects and timeouts cancel Python and ffmpeg together."
+    "Software Update now separates the published, installed and operationally validated versions instead of treating “latest” as “validated”.",
+    "Validation clearly reports pending, failed or completed from local capture, portal, database and rollup health; unsupported upgrade paths are identified from `m"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "aislamiento de trabajos pesados",
+    "estado de despliegue por instalación",
     "Process",
-    "Audio, PCAP y DTMF on-demand comparten una cola FIFO acotada; ya no lanzan procesos Python sin control ni compiten libremente con captura, portal o PostgreSQL.",
-    "Concurrencia, espera, memoria por hijo y timeout se derivan de CPU/RAM y aceptan settings sujetos a clamps. La desconexión cancela jobs activos o pendientes."
+    "Actualización separa explícitamente la versión publicada, instalada, validada y la compatibilidad de configuración; ya no se confunde “última” con “v",
+    "La validación local distingue pendiente, fallida y completada a partir de captura, portal, BD y rollups; `min_upgrade_from` identifica upgrades incompatibles."
   ]
 }

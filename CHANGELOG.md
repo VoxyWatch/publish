@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.149.0] — 2026-06-27
+
+### Added — per-installation deployment status
+- Software Update now separates the published, installed and operationally validated versions instead of treating “latest” as “validated”.
+- Validation clearly reports pending, failed or completed from local capture, portal, database and rollup health; unsupported upgrade paths are identified from `min_upgrade_from`.
+- Status remains local and opt-in: no customer registry, HWID, hostname, IP, settings or secrets are sent to a central service.
+
+### Process
+- Contract tests cover version states and compatibility; release invariants require viewer authentication, four separate blocks and zero I/O per request.
+
 ## [2.148.0] — 2026-06-27
 
 ### Added — bounded on-demand media jobs

@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.148.0] — 2026-06-27
+
+### Added — bounded on-demand media jobs
+- Audio, PCAP and DTMF generation now share one bounded FIFO queue, preventing uncontrolled Python processes from competing with capture, the portal or PostgreSQL.
+- Concurrency, queue depth, per-job memory and timeout derive from CPU/RAM with safe settings clamps; disconnects and timeouts cancel Python and ffmpeg together.
+- Operational health now exposes aggregate queue state and metrics without call IDs or PII.
+
+### Process
+- Tests cover hardware clamps, FIFO order, saturation, cancellation and timeout; release invariants enforce memory limits and the shared runner.
+
 ## [2.147.1] — 2026-06-27
 
 ### Changed — frontend modularization, phase 1

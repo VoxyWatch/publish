@@ -1,26 +1,26 @@
 {
-  "version": "2.144.2",
+  "version": "2.145.0",
   "release_date": "2026-06-26",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.144.2/voxywatch-v2.144.2-linux-x64.tar.gz",
-    "sha256": "d425d0bc0a5956a26b73a4e3a29360ccda5fd44d42f43cfaae55d4493446a88b",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.144.2/voxywatch-v2.144.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.145.0/voxywatch-v2.145.0-linux-x64.tar.gz",
+    "sha256": "5384382802e659c5005529105a98962070241e0dc1c0f21115f2cd29cd462f7b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.145.0/voxywatch-v2.145.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "first backend module boundary",
-    "Release discovery was extracted from the main server into a tested peripheral module while preserving API",
-    "Added deterministic parity/failure coverage and an executable infrastructure-map consistency check. Capture,",
-    "The release pipeline now verifies the publisher account's repository permission and always restores the personal"
+    "unified operational health",
+    "A fast, responsive Health view now combines capture, portal/heap, database, rollups, system incidents and update",
+    "Its authenticated `GET /api/operational-health` contract serves in-memory snapshots only: no database query,",
+    "Snapshot age is explicit, and missing, stale or recently failed signals degrade health instead of appearing green."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "primera frontera modular del backend",
+    "salud operativa unificada",
     "Process",
-    "El verificador periférico de releases salió de `server.js` a `lib/update-checker.js`, conservando los nombres",
-    "Se documentó el mapa de fronteras del backend y un patrón repetible para futuras extracciones. No cambia captura,"
+    "Nueva vista responsive ES/EN y contrato autenticado `GET /api/operational-health` para captura, portal/heap,",
+    "El request ensambla únicamente snapshots en memoria: cero SQL, procesos, filesystem o red por lectura. Cada"
   ]
 }

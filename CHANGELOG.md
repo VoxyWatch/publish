@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.147.1] — 2026-06-27
+
+### Changed — frontend modularization, phase 1
+- The CSP-safe dynamic-style adapter now lives in a small autonomous runtime module, preserving the existing DOM, UX, translations and initialization order.
+- The new self-hosted asset is included by pkg, the signed build and the installer; no CDN or inline script was introduced.
+
+### Process
+- A Chrome headless smoke covers initial and dynamically inserted DOM nodes under strict CSP, while release invariants enforce load order and complete asset registration.
+
 ## [2.147.0] — 2026-06-27
 
 ### Added — shared settings schema, phase 1

@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website source material)
 
-> Source of truth for the website, datasheets and sales decks. Updated for **v2.126.1** (2026-06-23).
+> Source of truth for the website, datasheets and sales decks. Updated for **v2.146.0** (2026-06-23).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -98,6 +98,7 @@
 | Feature | Copy |
 |---|---|
 | REST API v1 | Read-only versioned API: CDRs, traces, audio, health, stats, trunk health, **incidents**. Scoped hashed API keys, IP allowlists, rate limits, problem+json, OpenAPI spec. |
+| Sanitized support bundle | Authenticated, read-only ticket evidence with versions, fault domain, component status, metrics and dependency checks; strict allowlist excludes secrets, PII, audio and raw SIP. |
 | SNMP agent | Embedded v2c+v3 agent, 30+ OIDs, edge-triggered traps, downloadable MIB (IANA PEN 65985). |
 | Webhooks | Per-trunk and global, transition-fired (no spam), rich JSON with incident_id. |
 | Self-managing | Hardware-adaptive limits (RAM/CPU/disk derived), retention auto-purge by disk pressure, non-blocking startup, capture never interrupted. |
@@ -123,4 +124,4 @@
 - The Telegram screenshot (incident + buttons) is the single most convincing visual — capture one from production.
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.145.1.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.146.0.

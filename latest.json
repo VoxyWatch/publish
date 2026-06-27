@@ -1,26 +1,26 @@
 {
-  "version": "2.145.0",
-  "release_date": "2026-06-26",
+  "version": "2.146.0",
+  "release_date": "2026-06-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.145.0/voxywatch-v2.145.0-linux-x64.tar.gz",
-    "sha256": "5384382802e659c5005529105a98962070241e0dc1c0f21115f2cd29cd462f7b",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.145.0/voxywatch-v2.145.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.146.0/voxywatch-v2.146.0-linux-x64.tar.gz",
+    "sha256": "bf5708cb54f163dece37daf3ea0920e766221c761f51dfd9ba4589450956beeb",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.146.0/voxywatch-v2.146.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "unified operational health",
-    "A fast, responsive Health view now combines capture, portal/heap, database, rollups, system incidents and update",
-    "Its authenticated `GET /api/operational-health` contract serves in-memory snapshots only: no database query,",
-    "Snapshot age is explicit, and missing, stale or recently failed signals degrade health instead of appearing green."
+    "sanitized support ticket bundle",
+    "Authenticated `GET /api/support-bundle` exports an attachable JSON snapshot with installed/published versions,",
+    "The bundle is allowlist-only and excludes settings, logs, secrets, credentials, PII, audio, and raw SIP.",
+    "Adversarial tests inject tokens, email, phone, IP, SIP URIs, and connection strings and require zero leakage."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "salud operativa unificada",
+    "bundle saneado para tickets de soporte",
     "Process",
-    "Nueva vista responsive ES/EN y contrato autenticado `GET /api/operational-health` para captura, portal/heap,",
-    "El request ensambla únicamente snapshots en memoria: cero SQL, procesos, filesystem o red por lectura. Cada"
+    "Nuevo `GET /api/support-bundle`: toma en solo lectura la salud operativa autenticada y produce un JSON adjuntable",
+    "La salida usa allowlist estricta: excluye settings, logs, secretos, credenciales, PII, audio y SIP raw; el token"
   ]
 }

@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.146.0] — 2026-06-27
+
+### Added — sanitized support ticket bundle
+- Authenticated `GET /api/support-bundle` exports an attachable JSON snapshot with installed/published versions,
+  fault domain and owner, component status, metrics, verified dependencies, and input/process/output signals.
+- The bundle is allowlist-only and excludes settings, logs, secrets, credentials, PII, audio, and raw SIP.
+- Adversarial tests inject tokens, email, phone, IP, SIP URIs, and connection strings and require zero leakage.
+
 ## [2.145.0] — 2026-06-26
 
 ### Added — unified operational health

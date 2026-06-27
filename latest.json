@@ -1,26 +1,26 @@
 {
-  "version": "2.146.1",
+  "version": "2.147.0",
   "release_date": "2026-06-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.146.1/voxywatch-v2.146.1-linux-x64.tar.gz",
-    "sha256": "449f4293d1cb40ccbcb1cc0456864c206c72978801cfde42307bcfe3e0e24bce",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.146.1/voxywatch-v2.146.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.147.0/voxywatch-v2.147.0-linux-x64.tar.gz",
+    "sha256": "824cf46fa625d904f8f35470de9cf77153fec6e744379101e7053bd9e328d0b2",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.147.0/voxywatch-v2.147.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "formal, observable database migrations",
+    "shared settings schema, phase 1",
     "Process",
-    "Updates now apply ordered, transactional SQL migrations after the backward-compatible `schema.sql` baseline.",
-    "The safe transition starts at schema 8 without moving historical DDL, building large indexes or backfilling data."
+    "Audio, trace and CDR retention thresholds now derive their defaults, validation ranges and UI metadata from one authoritative schema while preserving all existi",
+    "Partial settings updates, older settings files and masked-secret round trips remain backward compatible."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "migraciones formales y observables",
+    "esquema compartido de settings, fase 1",
     "Process",
-    "El instalador aplica migraciones SQL ordenadas por versión después del baseline compatible de `schema.sql`.",
-    "La transición empieza en schema 8 sin mover DDL histórico, crear índices grandes ni ejecutar backfills. Base"
+    "Los tres umbrales de retención de audio, trazas y CDR ahora derivan defaults, rangos de saneo y metadatos de UI de una fuente autoritativa común. Se conservan",
+    "El guardado continúa siendo parcial: campos omitidos, archivos de settings antiguos y secretos enmascarados mantienen su round-trip previo."
   ]
 }

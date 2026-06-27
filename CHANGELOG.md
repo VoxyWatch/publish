@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.147.0] — 2026-06-27
+
+### Added — shared settings schema, phase 1
+- Audio, trace and CDR retention thresholds now derive their defaults, validation ranges and UI metadata from one authoritative schema while preserving all existing values and limits.
+- Partial settings updates, older settings files and masked-secret round trips remain backward compatible.
+
+### Process
+- A release-blocking drift detector compares the schema with UI controls and engineering documentation. Five tests cover defaults, clamps, partial updates, old files and public metadata.
+
 ## [2.146.1] — 2026-06-27
 
 ### Changed — formal, observable database migrations

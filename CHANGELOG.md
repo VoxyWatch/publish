@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.144.2] — 2026-06-26
+
+### Changed — first backend module boundary
+- Release discovery was extracted from the main server into a tested peripheral module while preserving API
+  responses, update gating, cache behavior, timeout and bootstrap timer order.
+- Added deterministic parity/failure coverage and an executable infrastructure-map consistency check. Capture,
+  correlation, database behavior, settings and public contracts are unchanged.
+- The release pipeline now verifies the publisher account's repository permission and always restores the personal
+  source account, preventing partial releases caused by whichever GitHub CLI account happened to be active.
+
 ## [2.144.1] — 2026-06-26
 
 ### Fixed — portal stability during retention purge

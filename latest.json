@@ -1,26 +1,26 @@
 {
-  "version": "2.144.1",
+  "version": "2.144.2",
   "release_date": "2026-06-26",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.144.1/voxywatch-v2.144.1-linux-x64.tar.gz",
-    "sha256": "5b0ec53395d5578fc82712f0794fe073c0e8f1128361ea2a3cf4c8a87aae2844",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.144.1/voxywatch-v2.144.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.144.2/voxywatch-v2.144.2-linux-x64.tar.gz",
+    "sha256": "d425d0bc0a5956a26b73a4e3a29360ccda5fd44d42f43cfaae55d4493446a88b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.144.2/voxywatch-v2.144.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "portal stability during retention purge",
-    "minimal anonymous `/api/health`",
-    "Incremental working-set purge is now enabled by default (`VW_INCR_PURGE=0` is the rollback switch). On high-volume",
-    "Full parses now log their reason (`boot-fast`, `boot-backfill`, `purge-full`, `cap-trim`, etc.) to make future"
+    "first backend module boundary",
+    "Release discovery was extracted from the main server into a tested peripheral module while preserving API",
+    "Added deterministic parity/failure coverage and an executable infrastructure-map consistency check. Capture,",
+    "The release pipeline now verifies the publisher account's repository permission and always restores the personal"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "estabilidad del portal bajo purga de retención (TICKET-032b)",
-    "`/api/health` anónimo mínimo (TICKET-034)",
+    "primera frontera modular del backend",
     "Process",
-    "La purga incremental del working-set queda ON por defecto (`VW_INCR_PURGE=0` es rollback). En C3ntro, cada"
+    "El verificador periférico de releases salió de `server.js` a `lib/update-checker.js`, conservando los nombres",
+    "Se documentó el mapa de fronteras del backend y un patrón repetible para futuras extracciones. No cambia captura,"
   ]
 }

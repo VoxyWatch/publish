@@ -381,6 +381,12 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/reconstruct_audio.py" "${INSTA
 install -o root -g voxywatch -m 640 "${EXTRACTED}/extract_dtmf.py"     "${INSTALL_DIR}/extract_dtmf.py" 2>/dev/null || true   # VOXY-D: faltaba instalarlo → [Errno 2] al llamarlo desde server.js
 install -o root -g voxywatch -m 640 "${EXTRACTED}/voxywatch_srs.py"   "${INSTALL_DIR}/voxywatch_srs.py" 2>/dev/null || true   # SIPREC SRS (proceso aparte, OFF por default)
 install -o root -g voxywatch -m 640 "${EXTRACTED}/schema.sql"         "${INSTALL_DIR}/schema.sql" 2>/dev/null || true
+install -o root -g voxywatch -m 750 "${EXTRACTED}/migrate.sh"         "${INSTALL_DIR}/migrate.sh" 2>/dev/null || true
+install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/migrations"
+for migration in "${EXTRACTED}"/migrations/*.sql; do
+  [ -e "$migration" ] || continue
+  install -o root -g voxywatch -m 640 "$migration" "${INSTALL_DIR}/migrations/$(basename "$migration")"
+done
 install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTALL_DIR}/WIKI_INTEGRATION.md" 2>/dev/null || true
 
 # Frontend assets — van junto al binario en INSTALL_DIR.
@@ -490,6 +496,10 @@ fi
 sudo -u "${SERVICE_USER}" psql -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
      -v ON_ERROR_STOP=1 -f - < "${EXTRACTED}/schema.sql" >/dev/null \
   || err "Could not apply the schema (schema.sql)"
+VW_MIGRATIONS_DIR="${INSTALL_DIR}/migrations" \
+  sudo -u "${SERVICE_USER}" "${INSTALL_DIR}/migrate.sh" \
+    -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
+  || err "Could not apply versioned database migrations"
 ok "PostgreSQL + TimescaleDB ready (cluster ${PG_VER}/${PG_CLUSTER}, :${PG_PORT}, peer socket)"
 
 # ── Kernel network tuning (v2.0.5) ────────────────────────────────────────────

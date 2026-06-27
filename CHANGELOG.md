@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.146.1] — 2026-06-27
+
+### Changed — formal, observable database migrations
+- Updates now apply ordered, transactional SQL migrations after the backward-compatible `schema.sql` baseline.
+  Applied versions record an immutable SHA-256 checksum, timestamp and duration; concurrent installers serialize
+  through an advisory lock and reruns skip completed work.
+- The safe transition starts at schema 8 without moving historical DDL, building large indexes or backfilling data.
+  Fresh installs, reruns and upgrades from schema 7 use the same tested path.
+
+### Process
+- Release checks reject destructive migration SQL and blocking index creation, and verify that the runner and SQL
+  files are present in both the package and installer.
+
 ## [2.146.0] — 2026-06-27
 
 ### Added — sanitized support ticket bundle

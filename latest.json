@@ -1,26 +1,26 @@
 {
-  "version": "2.146.0",
+  "version": "2.146.1",
   "release_date": "2026-06-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.146.0/voxywatch-v2.146.0-linux-x64.tar.gz",
-    "sha256": "bf5708cb54f163dece37daf3ea0920e766221c761f51dfd9ba4589450956beeb",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.146.0/voxywatch-v2.146.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.146.1/voxywatch-v2.146.1-linux-x64.tar.gz",
+    "sha256": "449f4293d1cb40ccbcb1cc0456864c206c72978801cfde42307bcfe3e0e24bce",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.146.1/voxywatch-v2.146.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "sanitized support ticket bundle",
-    "Authenticated `GET /api/support-bundle` exports an attachable JSON snapshot with installed/published versions,",
-    "The bundle is allowlist-only and excludes settings, logs, secrets, credentials, PII, audio, and raw SIP.",
-    "Adversarial tests inject tokens, email, phone, IP, SIP URIs, and connection strings and require zero leakage."
+    "formal, observable database migrations",
+    "Process",
+    "Updates now apply ordered, transactional SQL migrations after the backward-compatible `schema.sql` baseline.",
+    "The safe transition starts at schema 8 without moving historical DDL, building large indexes or backfilling data."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "bundle saneado para tickets de soporte",
+    "migraciones formales y observables",
     "Process",
-    "Nuevo `GET /api/support-bundle`: toma en solo lectura la salud operativa autenticada y produce un JSON adjuntable",
-    "La salida usa allowlist estricta: excluye settings, logs, secretos, credenciales, PII, audio y SIP raw; el token"
+    "El instalador aplica migraciones SQL ordenadas por versión después del baseline compatible de `schema.sql`.",
+    "La transición empieza en schema 8 sin mover DDL histórico, crear índices grandes ni ejecutar backfills. Base"
   ]
 }

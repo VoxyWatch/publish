@@ -1,26 +1,26 @@
 {
-  "version": "2.149.3",
+  "version": "2.150.0",
   "release_date": "2026-06-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.149.3/voxywatch-v2.149.3-linux-x64.tar.gz",
-    "sha256": "64c69a90530e33cc984997624a8af892ca11ac984b089d9952809073375d4ae2",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.149.3/voxywatch-v2.149.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.150.0/voxywatch-v2.150.0-linux-x64.tar.gz",
+    "sha256": "687592887e1972375b03ce44209b02b3c9d8e324500a8a3692133953cbd065bb",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.150.0/voxywatch-v2.150.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "immediate trimming under heap pressure",
+    "public AI configuration assistant guide",
     "Process",
-    "Heap pressure now forces working-set trimming even when the row-count cap has not crossed the old `1.5×` threshold, preventing V8 from aborting while waiting f",
-    "The path still does not reread PostgreSQL: it removes old in-memory rows and rebuilds metadata through the same `incremental-trim` flow."
+    "Added `AI_VOXYWATCH_CONFIGURATION_ASSISTANT.md`, an English guide an AI assistant can read to help customers configure VoxyWatch with the right operational data",
+    "Settings → Getting started now includes a bilingual prompt that links to the public GitHub guide, so users can ask their own AI assistant to consult the curre"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "poda inmediata bajo presión de heap",
+    "guía pública para configurar VoxyWatch con IA",
     "Process",
-    "La presión de heap ahora fuerza una poda del working-set aunque el conteo de filas todavía no rebase el cap por filas; evita que V8 llegue al abort mientras e",
-    "El camino sigue sin releer PostgreSQL: recorta filas antiguas en RAM y reconstruye metadata con el mismo `incremental-trim`."
+    "Se agregó `AI_VOXYWATCH_CONFIGURATION_ASSISTANT.md`, una guía en inglés para que un asistente de IA ayude al cliente a cargar la configuración operativa: IP",
+    "Settings → Getting started ahora muestra un bloque bilingüe que invita a abrir la guía pública en GitHub y pedirle a la IA del cliente que la consulte ante"
   ]
 }

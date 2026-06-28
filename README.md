@@ -32,6 +32,14 @@ Then open **`http://YOUR-IP:3080`**.
 
 > ⚠️ **Change the default password immediately** — Settings → Security → Users.
 
+### AI-assisted configuration
+
+After the first login, open **Settings → Getting started**. If you want your own AI assistant to help configure VoxyWatch, ask it to read:
+
+https://github.com/VoxyWatch/publish/blob/main/AI_VOXYWATCH_CONFIGURATION_ASSISTANT.md
+
+The guide explains which operational data the AI should collect and validate: capture sources, IP labels, trunks, DID ranges, thresholds, retention, alerts and users. It intentionally contains no customer secrets or real customer IPs.
+
 ### 🔑 Root & `sudo` — what's required
 
 The installer **must run with root privileges**. It creates a dedicated `voxywatch` system user, installs the binary to `/opt/voxywatch`, provisions an isolated PostgreSQL + TimescaleDB cluster and registers systemd services — none of which is possible unprivileged. **There is no non-root install.** What changes is only *how* you reach root:

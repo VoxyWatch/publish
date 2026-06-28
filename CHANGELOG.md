@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.150.0] — 2026-06-27
+
+### Added — public AI configuration assistant guide
+- Added `AI_VOXYWATCH_CONFIGURATION_ASSISTANT.md`, an English guide an AI assistant can read to help customers configure VoxyWatch with the right operational data: IPs, trunks, capture sources, thresholds, retention, alerts, users and validation steps.
+- Settings → Getting started now includes a bilingual prompt that links to the public GitHub guide, so users can ask their own AI assistant to consult the current VoxyWatch configuration instructions.
+
+### Process
+- The guide contains no real customer IPs, secrets or private data. It uses safe placeholders and instructs the AI to ask for missing customer-specific values instead of guessing.
+
 ## [2.149.3] — 2026-06-27
 
 ### Fixed — immediate trimming under heap pressure

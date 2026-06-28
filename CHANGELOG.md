@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.150.1] — 2026-06-28
+
+### Fixed — incremental hourly rollup under real traffic peaks
+- The `incremental_metrics` phase no longer processes a full hour in one statement. It scans 15-minute slices, sums the counters in memory and performs one idempotent `call_stats_hourly` upsert for the hour.
+- The total, ASR/NER, duration, PDD and MOS formulas stay unchanged while each query has a smaller worst case under C3ntro-scale traffic.
+
+### Process
+- Pure and PostgreSQL tests now cover the sliced selector and slice summing path, blocking regressions to the monolithic query that could hit `statement_timeout`.
+
 ## [2.150.0] — 2026-06-27
 
 ### Added — public AI configuration assistant guide

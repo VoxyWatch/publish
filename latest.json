@@ -1,26 +1,26 @@
 {
-  "version": "2.149.2",
+  "version": "2.149.3",
   "release_date": "2026-06-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.149.2/voxywatch-v2.149.2-linux-x64.tar.gz",
-    "sha256": "42fce29fbd316aef7bf838d14df3c1b02c2fa87c62d42922b3def1c3219fbdac",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.149.2/voxywatch-v2.149.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.149.3/voxywatch-v2.149.3-linux-x64.tar.gz",
+    "sha256": "64c69a90530e33cc984997624a8af892ca11ac984b089d9952809073375d4ae2",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.149.3/voxywatch-v2.149.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "portal OOM during working-set trimming",
+    "immediate trimming under heap pressure",
     "Process",
-    "The memory cap path no longer runs `full-parse:cap-trim`; it now removes the oldest in-memory rows and rebuilds call metadata without rereading PostgreSQL or du",
-    "Operational Health now shows recent portal restarts from a background systemd snapshot (`service_restart_count`, `service_restart_delta`, `recent_restart`) whil"
+    "Heap pressure now forces working-set trimming even when the row-count cap has not crossed the old `1.5×` threshold, preventing V8 from aborting while waiting f",
+    "The path still does not reread PostgreSQL: it removes old in-memory rows and rebuilds metadata through the same `incremental-trim` flow."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "OOM del portal durante poda de working-set",
+    "poda inmediata bajo presión de heap",
     "Process",
-    "La ruta de cap de memoria ya no dispara `full-parse:cap-trim`; ahora poda filas antiguas en RAM y reconstruye metadata sin releer PostgreSQL ni duplicar la vent",
-    "`/api/operational-health` expone reinicios recientes del portal desde un snapshot systemd de fondo (`service_restart_count`, `service_restart_delta`, `recent_re"
+    "La presión de heap ahora fuerza una poda del working-set aunque el conteo de filas todavía no rebase el cap por filas; evita que V8 llegue al abort mientras e",
+    "El camino sigue sin releer PostgreSQL: recorta filas antiguas en RAM y reconstruye metadata con el mismo `incremental-trim`."
   ]
 }

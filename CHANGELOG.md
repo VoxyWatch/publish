@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.149.3] — 2026-06-27
+
+### Fixed — immediate trimming under heap pressure
+- Heap pressure now forces working-set trimming even when the row-count cap has not crossed the old `1.5×` threshold, preventing V8 from aborting while waiting for that threshold.
+- The path still does not reread PostgreSQL: it removes old in-memory rows and rebuilds metadata through the same `incremental-trim` flow.
+
+### Process
+- Release invariants now block both a regression to `parseCapture({ reason: 'cap-trim' })` and missing early trimming under heap pressure.
+
 ## [2.149.2] — 2026-06-27
 
 ### Fixed — portal OOM during working-set trimming

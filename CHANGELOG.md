@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.149.1] — 2026-06-27
+
+### Fixed — recurring incremental hourly-rollup timeout
+- Hourly metrics now calculate duration, PDD and MOS once per call through a compact materialized projection instead of repeating JSON extraction across fifteen aggregates.
+- Slow rollup logs identify the exact phase and duration, so future timeouts distinguish metrics, ended calls, causes and codecs.
+
+### Process
+- Pure and transactional PostgreSQL tests cover SQL shape, filters and exact counters. Read-only production observation isolated the previous 120-second timeout to the metrics phase.
+
 ## [2.149.0] — 2026-06-27
 
 ### Added — per-installation deployment status

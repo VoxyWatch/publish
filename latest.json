@@ -1,26 +1,26 @@
 {
-  "version": "2.149.1",
+  "version": "2.149.2",
   "release_date": "2026-06-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.149.1/voxywatch-v2.149.1-linux-x64.tar.gz",
-    "sha256": "315da3dd424ba7a7d36f534078e59ea6aa1acc71614b7339947c77c414b5ce24",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.149.1/voxywatch-v2.149.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.149.2/voxywatch-v2.149.2-linux-x64.tar.gz",
+    "sha256": "42fce29fbd316aef7bf838d14df3c1b02c2fa87c62d42922b3def1c3219fbdac",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.149.2/voxywatch-v2.149.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "recurring incremental hourly-rollup timeout",
+    "portal OOM during working-set trimming",
     "Process",
-    "Hourly metrics now calculate duration, PDD and MOS once per call through a compact materialized projection instead of repeating JSON extraction across fifteen a",
-    "Slow rollup logs identify the exact phase and duration, so future timeouts distinguish metrics, ended calls, causes and codecs."
+    "The memory cap path no longer runs `full-parse:cap-trim`; it now removes the oldest in-memory rows and rebuilds call metadata without rereading PostgreSQL or du",
+    "Operational Health now shows recent portal restarts from a background systemd snapshot (`service_restart_count`, `service_restart_delta`, `recent_restart`) whil"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "timeout recurrente del rollup horario incremental",
+    "OOM del portal durante poda de working-set",
     "Process",
-    "La fase de métricas por hora pre-calcula duración, PDD y MOS una sola vez por llamada mediante una proyección materializada pequeña; evita repetir extraccio",
-    "Cada fase del rollup reporta su nombre y duración cuando supera 10 segundos, de modo que un timeout futuro identifica `metrics`, `ended`, `causes` o `codecs` s"
+    "La ruta de cap de memoria ya no dispara `full-parse:cap-trim`; ahora poda filas antiguas en RAM y reconstruye metadata sin releer PostgreSQL ni duplicar la vent",
+    "`/api/operational-health` expone reinicios recientes del portal desde un snapshot systemd de fondo (`service_restart_count`, `service_restart_delta`, `recent_re"
   ]
 }

@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.149.2] — 2026-06-27
+
+### Fixed — portal OOM during working-set trimming
+- The memory cap path no longer runs `full-parse:cap-trim`; it now removes the oldest in-memory rows and rebuilds call metadata without rereading PostgreSQL or duplicating the live working set.
+- Operational Health now shows recent portal restarts from a background systemd snapshot (`service_restart_count`, `service_restart_delta`, `recent_restart`) while keeping the request O(1).
+
+### Process
+- New tests cover the trim planner and systemd snapshot parser. Release invariants block any regression where `cap-trim` calls `parseCapture` again or recent OOM/restart evidence is hidden.
+
 ## [2.149.1] — 2026-06-27
 
 ### Fixed — recurring incremental hourly-rollup timeout

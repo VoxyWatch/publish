@@ -1,26 +1,26 @@
 {
-  "version": "2.149.0",
+  "version": "2.149.1",
   "release_date": "2026-06-27",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.149.0/voxywatch-v2.149.0-linux-x64.tar.gz",
-    "sha256": "92a3db2f6a518fcde97cf21eba9445597c299843f5939844c78a96e508ceb88d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.149.0/voxywatch-v2.149.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.149.1/voxywatch-v2.149.1-linux-x64.tar.gz",
+    "sha256": "315da3dd424ba7a7d36f534078e59ea6aa1acc71614b7339947c77c414b5ce24",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.149.1/voxywatch-v2.149.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "per-installation deployment status",
+    "recurring incremental hourly-rollup timeout",
     "Process",
-    "Software Update now separates the published, installed and operationally validated versions instead of treating “latest” as “validated”.",
-    "Validation clearly reports pending, failed or completed from local capture, portal, database and rollup health; unsupported upgrade paths are identified from `m"
+    "Hourly metrics now calculate duration, PDD and MOS once per call through a compact materialized projection instead of repeating JSON extraction across fifteen a",
+    "Slow rollup logs identify the exact phase and duration, so future timeouts distinguish metrics, ended calls, causes and codecs."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "estado de despliegue por instalación",
+    "timeout recurrente del rollup horario incremental",
     "Process",
-    "Actualización separa explícitamente la versión publicada, instalada, validada y la compatibilidad de configuración; ya no se confunde “última” con “v",
-    "La validación local distingue pendiente, fallida y completada a partir de captura, portal, BD y rollups; `min_upgrade_from` identifica upgrades incompatibles."
+    "La fase de métricas por hora pre-calcula duración, PDD y MOS una sola vez por llamada mediante una proyección materializada pequeña; evita repetir extraccio",
+    "Cada fase del rollup reporta su nombre y duración cuando supera 10 segundos, de modo que un timeout futuro identifica `metrics`, `ended`, `causes` o `codecs` s"
   ]
 }

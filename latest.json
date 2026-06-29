@@ -1,26 +1,26 @@
 {
-  "version": "2.151.0",
+  "version": "2.151.1",
   "release_date": "2026-06-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.0/voxywatch-v2.151.0-linux-x64.tar.gz",
-    "sha256": "62eafe480ab5d0068c832cf052381f80cd607c44206c7cceb870a53f5ecd23c8",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.0/voxywatch-v2.151.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.1/voxywatch-v2.151.1-linux-x64.tar.gz",
+    "sha256": "6ddced2cae5e0984ecc8fabc395d79de0383a391dd0a391053a00d399636ebce",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.1/voxywatch-v2.151.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "anonymous adoption telemetry",
-    "update checks remain hourly",
+    "Settings no longer triggers password-save prompts for tokens",
     "Process",
-    "The existing Settings telemetry toggle now controls both Sentry error reporting and anonymous adoption telemetry."
+    "Operational secrets in Settings (AI API key/token, Telegram bot token, SMTP password, SSO client secret and SNMPv3 keys) no longer render as browser password fi",
+    "The reveal-eye button is no longer added to the API key/token or other operational secrets marked as non-revealable. Real login, password-change and user-manage"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "telemetría anónima de adopción",
-    "chequeo de releases horario",
+    "Settings ya no dispara guardado de contraseña para tokens",
     "Process",
-    "El mismo switch de Settings que controla Sentry ahora controla también un check-in anónimo de adopción hacia `https://telemetry.voxywatch.com:8443/install-ch"
+    "Los secretos operativos de Settings (AI API key/token, Telegram bot token, SMTP password, SSO client secret y SNMPv3 keys) ya no se renderizan como campos `pass",
+    "El botón de “ver” ya no se agrega al API key/token ni a los demás secretos operativos marcados como no revelables. Los formularios reales de login, cambio"
   ]
 }

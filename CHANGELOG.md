@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.151.1] — 2026-06-29
+
+### Fixed — Settings no longer triggers password-save prompts for tokens
+- Operational secrets in Settings (AI API key/token, Telegram bot token, SMTP password, SSO client secret and SNMPv3 keys) no longer render as browser password fields. They use masked text inputs with autocomplete and password-manager hints disabled, so browsers should not offer to save them as site credentials.
+- The reveal-eye button is no longer added to the API key/token or other operational secrets marked as non-revealable. Real login, password-change and user-management password forms keep their normal behavior.
+
+### Process
+- Release invariants now block regressions where Settings operational secrets become `type=password` again or lose the no-eye/password-manager hints.
+
 ## [2.151.0] — 2026-06-28
 
 ### Added — anonymous adoption telemetry

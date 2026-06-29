@@ -1,26 +1,26 @@
 {
-  "version": "2.151.6",
+  "version": "2.151.7",
   "release_date": "2026-06-29",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.6/voxywatch-v2.151.6-linux-x64.tar.gz",
-    "sha256": "2882a3ab889fa85919d4448557b19763de626a072c231ec1767f46a80e6a6aa3",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.6/voxywatch-v2.151.6-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.7/voxywatch-v2.151.7-linux-x64.tar.gz",
+    "sha256": "5eb28ad919c3510d410de9c2e7314c9f0e590281d879486205d8ff6c0865f787",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.7/voxywatch-v2.151.7-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "standard SNMP compatibility for NMS tools",
+    "PRTG standard SNMP sensors can load more MIBs",
     "Process",
-    "The embedded SNMP agent keeps the VoxyWatch enterprise OIDs and now also exposes `SNMPv2-MIB::sysUpTime.0`.",
-    "Added `HOST-RESOURCES-MIB::hrStorageTable` rows for physical memory, virtual memory and the root filesystem so PRTG/Zabbix/LibreNMS can use standard memory/disk"
+    "Standard SNMP compatibility now also exposes `sysDescr`, `sysObjectID`, `sysContact`, `sysName`, `sysLocation` and `sysServices` in `SNMPv2-MIB`.",
+    "Added `hrSystemUptime`, `hrMemorySize` and `hrProcessorLoad` for generic memory/CPU sensors that expect more than `hrStorageTable`."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "compatibilidad SNMP estándar para NMS",
+    "sensores SNMP estándar de PRTG cargan más MIBs",
     "Process",
-    "El agente SNMP embebido conserva los OIDs propios de VoxyWatch y ahora también expone `SNMPv2-MIB::sysUpTime.0`.",
-    "Se agregó `HOST-RESOURCES-MIB::hrStorageTable` con filas de memoria física, memoria virtual y filesystem raíz para que PRTG/Zabbix/LibreNMS puedan usar senso"
+    "La compatibilidad estándar SNMP ahora expone también `sysDescr`, `sysObjectID`, `sysContact`, `sysName`, `sysLocation` y `sysServices` en `SNMPv2-MIB`.",
+    "Se agregaron `hrSystemUptime`, `hrMemorySize` y `hrProcessorLoad` para cubrir sensores genéricos de memoria/CPU que no se conforman solo con `hrStorageTable`."
   ]
 }

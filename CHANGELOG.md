@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.151.7] — 2026-06-29
+
+### Fixed — PRTG standard SNMP sensors can load more MIBs
+- Standard SNMP compatibility now also exposes `sysDescr`, `sysObjectID`, `sysContact`, `sysName`, `sysLocation` and `sysServices` in `SNMPv2-MIB`.
+- Added `hrSystemUptime`, `hrMemorySize` and `hrProcessorLoad` for generic memory/CPU sensors that expect more than `hrStorageTable`.
+- VoxyWatch enterprise OIDs under PEN 65985 are unchanged; this only expands standard NMS aliases.
+
+### Process
+- SNMP coverage now validates standard system, memory and CPU OIDs together with VoxyWatch enterprise OIDs through a local network session.
+
 ## [2.151.6] — 2026-06-29
 
 ### Added — standard SNMP compatibility for NMS tools

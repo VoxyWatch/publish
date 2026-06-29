@@ -1,26 +1,26 @@
 {
-  "version": "2.151.2",
-  "release_date": "2026-06-28",
+  "version": "2.151.3",
+  "release_date": "2026-06-29",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.2/voxywatch-v2.151.2-linux-x64.tar.gz",
-    "sha256": "db35409bde3440340c44997fde4e4008a774786ea9a7ff95ee675216ec55b912",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.2/voxywatch-v2.151.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.3/voxywatch-v2.151.3-linux-x64.tar.gz",
+    "sha256": "79597217ebed2f00cf526bd633c29f636f849dabc8b45f93168b7f4c9e697001",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.3/voxywatch-v2.151.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "only login uses browser password fields",
-    "new users must change their password",
+    "remaining incremental rollup phases are sliced",
     "Process",
-    "The only remaining `type=password` input is the login field (`#login-password`), so browsers can still save the actual end-user password."
+    "`incremental_ended`, `incremental_causes` and `incremental_codecs` now use the same 15-minute slicing pattern as `incremental_metrics`.",
+    "Each slice is summed in memory and consolidated with one hourly `call_stats_hourly` upsert, preserving the existing formulas and buckets."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "solo el login usa campos password del navegador",
-    "usuarios nuevos deben cambiar contraseña",
+    "TICKET-033 rollup incremental sin queries horarias monoliticas restantes",
     "Process",
-    "El único input que queda como `type=password` es el login (`#login-password`), para que el navegador pueda guardar la contraseña del usuario final."
+    "`incremental_ended`, `incremental_causes` e `incremental_codecs` ahora usan el mismo patrón de slices de 15 minutos que `incremental_metrics`.",
+    "Cada slice se suma en memoria y se consolida con un solo upsert por hora en `call_stats_hourly`, manteniendo las mismas formulas y buckets."
   ]
 }

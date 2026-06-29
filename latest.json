@@ -1,26 +1,26 @@
 {
-  "version": "2.151.5",
+  "version": "2.151.6",
   "release_date": "2026-06-29",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.5/voxywatch-v2.151.5-linux-x64.tar.gz",
-    "sha256": "7ace33a0d3620cc673f409c595c868161807afec9bee46336c162c798bcddc6d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.5/voxywatch-v2.151.5-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.6/voxywatch-v2.151.6-linux-x64.tar.gz",
+    "sha256": "2882a3ab889fa85919d4448557b19763de626a072c231ec1767f46a80e6a6aa3",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.6/voxywatch-v2.151.6-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "second-pass UI language readiness",
+    "standard SNMP compatibility for NMS tools",
     "Process",
-    "Date and number locale handling now comes from the visible UI language metadata instead of hardcoded Spanish/English checks.",
-    "Interactive Copilot calls now pass the current UI language code through to the backend when the AI engine supports that language, with English fallback."
+    "The embedded SNMP agent keeps the VoxyWatch enterprise OIDs and now also exposes `SNMPv2-MIB::sysUpTime.0`.",
+    "Added `HOST-RESOURCES-MIB::hrStorageTable` rows for physical memory, virtual memory and the root filesystem so PRTG/Zabbix/LibreNMS can use standard memory/disk"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "segunda pasada para agregar idiomas UI",
+    "compatibilidad SNMP estándar para NMS",
     "Process",
-    "Las fechas y números de la UI ahora usan el locale definido en `window.VW_UI_LANGUAGES`, no condiciones fijas español/inglés.",
-    "Las llamadas interactivas del Copiloto mandan el idioma actual de la UI al backend cuando el motor de IA lo soporta, con fallback a inglés."
+    "El agente SNMP embebido conserva los OIDs propios de VoxyWatch y ahora también expone `SNMPv2-MIB::sysUpTime.0`.",
+    "Se agregó `HOST-RESOURCES-MIB::hrStorageTable` con filas de memoria física, memoria virtual y filesystem raíz para que PRTG/Zabbix/LibreNMS puedan usar senso"
   ]
 }

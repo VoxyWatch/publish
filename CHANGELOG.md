@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.151.6] — 2026-06-29
+
+### Added — standard SNMP compatibility for NMS tools
+- The embedded SNMP agent keeps the VoxyWatch enterprise OIDs and now also exposes `SNMPv2-MIB::sysUpTime.0`.
+- Added `HOST-RESOURCES-MIB::hrStorageTable` rows for physical memory, virtual memory and the root filesystem so PRTG/Zabbix/LibreNMS can use standard memory/disk sensors.
+- This is additive: it does not change the configured community, SNMPv3, traps or VoxyWatch enterprise OIDs under `1.3.6.1.4.1.65985`.
+
+### Process
+- Added unit coverage and a local `net-snmp` network validation path to confirm standard and enterprise OIDs answer from the same agent.
+
 ## [2.151.5] — 2026-06-29
 
 ### Changed — second-pass UI language readiness

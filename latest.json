@@ -1,26 +1,26 @@
 {
-  "version": "2.151.4",
+  "version": "2.151.5",
   "release_date": "2026-06-29",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.4/voxywatch-v2.151.4-linux-x64.tar.gz",
-    "sha256": "9edcd7c1dd57da9a80fd66444a4f91360ba6095ddb984e6456036c9c79bab146",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.4/voxywatch-v2.151.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.5/voxywatch-v2.151.5-linux-x64.tar.gz",
+    "sha256": "7ace33a0d3620cc673f409c595c868161807afec9bee46336c162c798bcddc6d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.5/voxywatch-v2.151.5-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "UI language onboarding is ready",
-    "Documentation",
-    "Visible portal languages now come from `window.VW_UI_LANGUAGES`; Settings and Profile language selectors are generated from that list.",
-    "Adding a new UI language is now a mechanical flow: generate the scaffold with `tools/i18n_tool.py --scaffold <code>`, translate the values, then add the selecto"
+    "second-pass UI language readiness",
+    "Process",
+    "Date and number locale handling now comes from the visible UI language metadata instead of hardcoded Spanish/English checks.",
+    "Interactive Copilot calls now pass the current UI language code through to the backend when the AI engine supports that language, with English fallback."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "alta de idiomas de interfaz preparada",
-    "Documentation",
-    "Los idiomas visibles del portal ahora viven en `window.VW_UI_LANGUAGES`; los selects de Settings y Perfil se generan desde esa lista.",
-    "Agregar un idioma nuevo queda reducido a traducir el bloque generado por `tools/i18n_tool.py --scaffold <codigo>` y agregar una entrada de selector con `--selec"
+    "segunda pasada para agregar idiomas UI",
+    "Process",
+    "Las fechas y números de la UI ahora usan el locale definido en `window.VW_UI_LANGUAGES`, no condiciones fijas español/inglés.",
+    "Las llamadas interactivas del Copiloto mandan el idioma actual de la UI al backend cuando el motor de IA lo soporta, con fallback a inglés."
   ]
 }

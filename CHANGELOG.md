@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.151.5] — 2026-06-29
+
+### Changed — second-pass UI language readiness
+- Date and number locale handling now comes from the visible UI language metadata instead of hardcoded Spanish/English checks.
+- Interactive Copilot calls now pass the current UI language code through to the backend when the AI engine supports that language, with English fallback.
+- The update panel can now display future localized release notes from `latest.json.changelog_<language>` and falls back to the English changelog.
+- The boot/loading screen reuses the persisted UI locale for numeric formatting.
+
+### Process
+- Release invariants now guard against regressions in persisted locale metadata, Copilot language pass-through and localized update changelogs.
+- `docs/DESIGN_I18N_UI.md` now maps the remaining non-UI-template limits separately from the UI language selector flow.
+
 ## [2.151.4] — 2026-06-29
 
 ### Changed — UI language onboarding is ready

@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.151.4] — 2026-06-29
+
+### Changed — UI language onboarding is ready
+- Visible portal languages now come from `window.VW_UI_LANGUAGES`; Settings and Profile language selectors are generated from that list.
+- Adding a new UI language is now a mechanical flow: generate the scaffold with `tools/i18n_tool.py --scaffold <code>`, translate the values, then add the selector entry with `--selector`.
+- `tools/i18n_tool.py --check-selectors` fails if a visible language is incomplete, preventing accidental partial-language releases.
+
+### Documentation
+- Added `docs/DESIGN_I18N_UI.md` with the exact workflow for adding UI languages.
+
 ## [2.151.3] — 2026-06-29
 
 ### Fixed — remaining incremental rollup phases are sliced

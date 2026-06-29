@@ -1,26 +1,26 @@
 {
-  "version": "2.151.3",
+  "version": "2.151.4",
   "release_date": "2026-06-29",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.3/voxywatch-v2.151.3-linux-x64.tar.gz",
-    "sha256": "79597217ebed2f00cf526bd633c29f636f849dabc8b45f93168b7f4c9e697001",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.3/voxywatch-v2.151.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.4/voxywatch-v2.151.4-linux-x64.tar.gz",
+    "sha256": "9edcd7c1dd57da9a80fd66444a4f91360ba6095ddb984e6456036c9c79bab146",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.4/voxywatch-v2.151.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "remaining incremental rollup phases are sliced",
-    "Process",
-    "`incremental_ended`, `incremental_causes` and `incremental_codecs` now use the same 15-minute slicing pattern as `incremental_metrics`.",
-    "Each slice is summed in memory and consolidated with one hourly `call_stats_hourly` upsert, preserving the existing formulas and buckets."
+    "UI language onboarding is ready",
+    "Documentation",
+    "Visible portal languages now come from `window.VW_UI_LANGUAGES`; Settings and Profile language selectors are generated from that list.",
+    "Adding a new UI language is now a mechanical flow: generate the scaffold with `tools/i18n_tool.py --scaffold <code>`, translate the values, then add the selecto"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "TICKET-033 rollup incremental sin queries horarias monoliticas restantes",
-    "Process",
-    "`incremental_ended`, `incremental_causes` e `incremental_codecs` ahora usan el mismo patrón de slices de 15 minutos que `incremental_metrics`.",
-    "Cada slice se suma en memoria y se consolida con un solo upsert por hora en `call_stats_hourly`, manteniendo las mismas formulas y buckets."
+    "alta de idiomas de interfaz preparada",
+    "Documentation",
+    "Los idiomas visibles del portal ahora viven en `window.VW_UI_LANGUAGES`; los selects de Settings y Perfil se generan desde esa lista.",
+    "Agregar un idioma nuevo queda reducido a traducir el bloque generado por `tools/i18n_tool.py --scaffold <codigo>` y agregar una entrada de selector con `--selec"
   ]
 }

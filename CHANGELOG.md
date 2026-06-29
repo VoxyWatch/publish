@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.151.0] — 2026-06-28
+
+### Added — anonymous adoption telemetry
+- The existing Settings telemetry toggle now controls both Sentry error reporting and anonymous adoption telemetry.
+- VoxyWatch sends a lightweight hourly ping before the release manifest check and one daily installation JSON at 04:00 local time to `https://telemetry.voxywatch.com:8443/install-checkin`.
+- The payload is intentionally minimal: version, event, anonymous install hash, license tier/status, platform, architecture, Node version and timezone. It never sends customer IPs, trunks, settings, Call-IDs, SIP/RTP payloads, CDRs, audio or credentials.
+
+### Changed — update checks remain hourly
+- The portal keeps checking `latest.json` every hour and the manual “Check now” button still works on demand.
+
+### Process
+- New tests and release invariants cover the adoption telemetry payload, hourly ping rate limit, daily JSON deduplication and privacy rules.
+
 ## [2.150.1] — 2026-06-28
 
 ### Fixed — incremental hourly rollup under real traffic peaks

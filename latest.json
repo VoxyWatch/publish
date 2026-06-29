@@ -1,26 +1,26 @@
 {
-  "version": "2.150.1",
+  "version": "2.151.0",
   "release_date": "2026-06-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.150.1/voxywatch-v2.150.1-linux-x64.tar.gz",
-    "sha256": "e5ef09d6801e4179b4b89cd84a9778dd7819825941af7b1d1e7d2591c6f09a43",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.150.1/voxywatch-v2.150.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.0/voxywatch-v2.151.0-linux-x64.tar.gz",
+    "sha256": "62eafe480ab5d0068c832cf052381f80cd607c44206c7cceb870a53f5ecd23c8",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.0/voxywatch-v2.151.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "incremental hourly rollup under real traffic peaks",
+    "anonymous adoption telemetry",
+    "update checks remain hourly",
     "Process",
-    "The `incremental_metrics` phase no longer processes a full hour in one statement. It scans 15-minute slices, sums the counters in memory and performs one idempo",
-    "The total, ASR/NER, duration, PDD and MOS formulas stay unchanged while each query has a smaller worst case under C3ntro-scale traffic."
+    "The existing Settings telemetry toggle now controls both Sentry error reporting and anonymous adoption telemetry."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "rollup horario incremental bajo pico real",
+    "telemetría anónima de adopción",
+    "chequeo de releases horario",
     "Process",
-    "La fase `incremental_metrics` ya no procesa una hora completa en una sola sentencia: divide el bucket en subventanas de 15 minutos, suma los contadores en memor",
-    "Se conserva la misma formula de total, ASR/NER, duracion, PDD y MOS, pero cada query reduce su peor caso bajo trafico real de C3ntro."
+    "El mismo switch de Settings que controla Sentry ahora controla también un check-in anónimo de adopción hacia `https://telemetry.voxywatch.com:8443/install-ch"
   ]
 }

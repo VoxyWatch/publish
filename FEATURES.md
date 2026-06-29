@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website source material)
 
-> Source of truth for the website, datasheets and sales decks. Updated for **v2.150.1** (2026-06-27).
+> Source of truth for the website, datasheets and sales decks. Updated for **v2.151.0** (2026-06-28).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -30,6 +30,7 @@
 6. 100% self-hosted, single binary, the AI never touches the SBC.
 7. Per-installation deployment status separates published, installed, validated and upgrade-compatible versions without centralizing customer data or secrets.
 8. Public AI-assisted configuration guide: customers can load `AI_VOXYWATCH_CONFIGURATION_ASSISTANT.md` into their own AI assistant to collect IPs, trunks, capture sources, thresholds, retention, alerts and users correctly.
+9. Anonymous adoption telemetry, tied to the existing Sentry toggle, reports active version/platform/tier by installation without sending customer IPs, trunks, SIP/RTP, CDRs, settings or credentials.
 
 ---
 
@@ -126,4 +127,4 @@
 - The Telegram screenshot (incident + buttons) is the single most convincing visual — capture one from production.
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.150.1.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.151.0.

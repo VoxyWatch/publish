@@ -1,6 +1,6 @@
-# VoxyWatch — Feature Catalog (website source material)
+# VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets and sales decks. Updated for **v2.151.5** (2026-06-28).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.151.5** (2026-06-29).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -31,6 +31,7 @@
 7. Per-installation deployment status separates published, installed, validated and upgrade-compatible versions without centralizing customer data or secrets.
 8. Public AI-assisted configuration guide: customers can load `AI_VOXYWATCH_CONFIGURATION_ASSISTANT.md` into their own AI assistant to collect IPs, trunks, capture sources, thresholds, retention, alerts and users correctly.
 9. Anonymous adoption telemetry, tied to the existing Sentry toggle, reports active version/platform/tier by installation without sending customer IPs, trunks, SIP/RTP, CDRs, settings or credentials.
+10. Tutorial-ready product map: every main module and Settings section can be explained with a practical NOC scenario, a screen walkthrough and a safe validation test.
 
 ---
 
@@ -111,6 +112,27 @@
 
 ---
 
+## 🎥 Tutorial map
+
+Use this section as the high-level index for YouTube walkthroughs, training videos and onboarding material.
+
+| Tutorial block | What to show | Demo proof |
+|---|---|---|
+| What VoxyWatch is | Capture → correlate → detect → investigate → notify → learn | Show the loop from a call to an incident. |
+| Dashboard | Global KPIs, time ranges, charts, cause/codec/MOS distributions | Change the time range and explain ASR/NER/PDD/MOS. |
+| Calls | Search, filters, SIP ladder, audio, SIP text and PCAP | Open answered and rejected demo calls. |
+| CDR Base | Structured filters, column customization and CSV export | Filter by trunk/country/result and export CSV. |
+| Trunks | IP/CIDR/prefix/DID attribution to carriers/routes | Add a demo trunk and show labels in CDR/Monitoring. |
+| Monitoring | Trunk health, reasons, baselines and Copilot diagnosis | Compare a healthy trunk with a degraded one. |
+| Fraud | New destination, high-risk countries, profiles and simulator | Show a safe demo fraud event or simulation. |
+| Incidents | Lifecycle, evidence, AI diagnosis, ack/resolve and timeline | Open a demo incident and walk through evidence. |
+| Operational Health | Capture, portal, database, rollups, incidents and update status | Refresh Health after a restart/update. |
+| Getting Started | Configuration checklist and public AI assistant guide | Walk from pending items to a useful first configuration. |
+| Settings | General, Data, Capture, SIPREC, Security, Alerts, Users, IP Labels, License, API, SNMP, AI, Diagnostics and Update | Show each tab with one practical safe test. |
+| Troubleshooting | No calls, no audio, no MOS, wrong trunk, noisy alerts, update pending | Use one symptom per video and separate source/config/product causes. |
+
+Suggested tutorial rule: each video should explain the business value in the first minute, show the actual UI, run one safe validation, and end with the next action for the viewer.
+
 ## 💬 FAQ seeds
 
 - **Does the AI touch my SBC?** Never. The action catalog is closed at code level and only contains VoxyWatch-internal operations (e.g. restart its own capture service). There is no tool to modify your network.
@@ -126,5 +148,6 @@
 - Lead with the **agentic loop** (animated diagram of DETECT→…→LEARN works well as hero).
 - The Telegram screenshot (incident + buttons) is the single most convincing visual — capture one from production.
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
+- For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
 - Current version channel: see `latest.json`. All claims in this file are shipped as of v2.151.5.

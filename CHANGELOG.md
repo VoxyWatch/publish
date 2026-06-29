@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.151.3] — 2026-06-29
+
+### Fixed — remaining incremental rollup phases are sliced
+- `incremental_ended`, `incremental_causes` and `incremental_codecs` now use the same 15-minute slicing pattern as `incremental_metrics`.
+- Each slice is summed in memory and consolidated with one hourly `call_stats_hourly` upsert, preserving the existing formulas and buckets.
+- This addresses the C3ntro 2.151.0 recurrence where `incremental_ended` became the dominant statement-timeout phase after the metrics fix.
+
+### Process
+- The PostgreSQL rollup test now covers sliced parity for ended counts, SIP cause families and codecs, not only the metrics counters.
+
 ## [2.151.2] — 2026-06-29
 
 ### Fixed — only login uses browser password fields

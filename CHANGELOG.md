@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.151.2] — 2026-06-29
+
+### Fixed — only login uses browser password fields
+- The only remaining `type=password` input is the login field (`#login-password`), so browsers can still save the actual end-user password.
+- Password change, profile and add/edit user flows now use masked text inputs with autocomplete disabled and no reveal button, preventing the admin browser from saving someone else's temporary password.
+
+### Changed — new users must change their password
+- The “Require password change at next login” checkbox is checked by default when creating a user.
+- The backend enforces the same default even if the client omits the field; only `force_change:false` disables it explicitly.
+
+### Process
+- Release invariants now require `#login-password` to be the only `type=password` input and require new users to keep `force_change` enabled by default.
+
 ## [2.151.1] — 2026-06-29
 
 ### Fixed — Settings no longer triggers password-save prompts for tokens

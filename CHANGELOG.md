@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.154.0] — 2026-06-30
+
+### Changed — Operational Health moved into Settings → Diagnostics
+- Operational Health moved from the main navigation into **Settings → Diagnostics**.
+- Diagnostics now shows snapshot-only health together with system/runtime diagnostics in one operational support tab.
+- The standalone Health nav button was removed to keep support evidence and live health in the same place.
+
+### Process
+- The authenticated `/api/operational-health` contract is unchanged and remains O(1), with no SQL/process/filesystem/network I/O per request.
+- Added a UI guard so the health loader exits cleanly if the settings modal nodes are not mounted yet.
+
 ## [2.153.0] — 2026-06-30
 
 ### Added — SIP Expert for full trace diagnosis

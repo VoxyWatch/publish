@@ -1,26 +1,26 @@
 {
-  "version": "2.153.0",
+  "version": "2.154.0",
   "release_date": "2026-06-30",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.153.0/voxywatch-v2.153.0-linux-x64.tar.gz",
-    "sha256": "71359d576052ba857b392406001ab8f1adfc61f003c639e30a5bf309a2c9b788",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.153.0/voxywatch-v2.153.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.154.0/voxywatch-v2.154.0-linux-x64.tar.gz",
+    "sha256": "af798868d19f31069ea0bdc1feb37b379895e1bdb1175845219aeda34c611611",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.154.0/voxywatch-v2.154.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "SIP Expert for full trace diagnosis",
+    "Operational Health moved into Settings → Diagnostics",
     "Process",
-    "SIP flow now includes a SIP Expert button that jumps to the trace diagnosis.",
-    "The analyzer classifies the SIP case: call/dialog, REGISTER, OPTIONS, REFER, MESSAGE, SUBSCRIBE/NOTIFY or in-dialog updates."
+    "Operational Health moved from the main navigation into Settings → Diagnostics.",
+    "Diagnostics now shows snapshot-only health together with system/runtime diagnostics in one operational support tab."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "SIP Expert para diagnosticar trazas completas",
+    "Salud operativa vive en Settings → Diagnóstico",
     "Process",
-    "El flujo SIP ahora incluye un botón SIP Expert que lleva al diagnóstico de la traza.",
-    "El analizador clasifica el caso SIP: llamada/dialogo, REGISTER, OPTIONS, REFER, MESSAGE, SUBSCRIBE/NOTIFY o actualizaciones dentro de dialogo."
+    "El módulo de Salud operativa se mueve de la navegación principal a la pestaña Settings → Diagnóstico.",
+    "La pestaña Diagnóstico ahora carga en el mismo lugar la salud snapshot-only y el diagnóstico de sistema/runtime."
   ]
 }

@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.153.0** (2026-06-30).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.154.0** (2026-06-30).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -128,9 +128,9 @@ Use this section as the high-level index for YouTube walkthroughs, training vide
 | Monitoring | Trunk health, reasons, baselines and Copilot diagnosis | Compare a healthy trunk with a degraded one. |
 | Fraud | New destination, high-risk countries, profiles and simulator | Show a safe demo fraud event or simulation. |
 | Incidents | Lifecycle, evidence, AI diagnosis, ack/resolve and timeline | Open a demo incident and walk through evidence. |
-| Operational Health | Capture, portal, database, rollups, incidents and update status | Refresh Health after a restart/update. |
+| Operational Health | Capture, portal, database, rollups, incidents and update status inside Settings → Diagnostics | Refresh Diagnostics health after a restart/update. |
 | Getting Started | Configuration checklist and public AI assistant guide | Walk from pending items to a useful first configuration. |
-| Settings | General, Data, Capture, SIPREC, Security, Alerts, Users, IP Labels, License, API, SNMP, AI, Diagnostics and Update | Show each tab with one practical safe test. |
+| Settings | General, Data, Capture, SIPREC, Security, Alerts, Users, IP Labels, License, API, SNMP, AI, Diagnostics with Health, and Update | Show each tab with one practical safe test. |
 | Troubleshooting | No calls, no audio, no MOS, wrong trunk, noisy alerts, update pending | Use one symptom per video and separate source/config/product causes. |
 
 Suggested tutorial rule: each video should explain the business value in the first minute, show the actual UI, run one safe validation, and end with the next action for the viewer.
@@ -152,4 +152,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.153.0.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.154.0.

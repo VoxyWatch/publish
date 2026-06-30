@@ -1,26 +1,26 @@
 {
-  "version": "2.154.0",
+  "version": "2.154.1",
   "release_date": "2026-06-30",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.154.0/voxywatch-v2.154.0-linux-x64.tar.gz",
-    "sha256": "af798868d19f31069ea0bdc1feb37b379895e1bdb1175845219aeda34c611611",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.154.0/voxywatch-v2.154.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.154.1/voxywatch-v2.154.1-linux-x64.tar.gz",
+    "sha256": "d813f92b59d6fc031ec2ef58a279bbb245ca4d29c13ec68e4af973918b1f8a97",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.154.1/voxywatch-v2.154.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Operational Health moved into Settings → Diagnostics",
+    "SNMP source allowlist is enforced",
     "Process",
-    "Operational Health moved from the main navigation into Settings → Diagnostics.",
-    "Diagnostics now shows snapshot-only health together with system/runtime diagnostics in one operational support tab."
+    "The embedded SNMP agent now enforces `snmp_allow_ips` inside the process and drops requests whose source does not match exact IPv4 entries, IPv4 prefixes or IPv",
+    "This fixes installations that intentionally bind SNMP on `0.0.0.0` with an allowlist configured, but were still relying only on SNMPv2c community strings and ex"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Salud operativa vive en Settings → Diagnóstico",
+    "SNMP respeta allowlist de origen",
     "Process",
-    "El módulo de Salud operativa se mueve de la navegación principal a la pestaña Settings → Diagnóstico.",
-    "La pestaña Diagnóstico ahora carga en el mismo lugar la salud snapshot-only y el diagnóstico de sistema/runtime."
+    "El agente SNMP ahora aplica `snmp_allow_ips` dentro del proceso y descarta requests cuyo origen no coincida con entradas exactas, prefijos IPv4 o CIDR IPv4.",
+    "Esto corrige instalaciones con `snmp_bind_address=0.0.0.0` que tenían allowlist configurada pero seguían dependiendo sólo de community v2c y firewall externo"
   ]
 }

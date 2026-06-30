@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.153.0] — 2026-06-30
+
+### Added — SIP Expert for full trace diagnosis
+- SIP flow now includes a **SIP Expert** button that jumps to the trace diagnosis.
+- The analyzer classifies the SIP case: call/dialog, REGISTER, OPTIONS, REFER, MESSAGE, SUBSCRIBE/NOTIFY or in-dialog updates.
+- The panel summarizes outcome, signaling health, suspected corruption, STIR/SHAKEN Identity, authentication, SDP/media, detected RFCs and operational recommendations.
+- Markdown/JSON export now includes the expert verdict together with clickable RFC findings.
+
+### Process
+- Bug-hunter found that the first expert verdict exposed backend text only in English; the release now returns ES/EN summary and recommendations and the UI selects by language.
+- Added coverage for REGISTER/auth challenge, STIR/SHAKEN Identity and malformed SIP headers.
+- Operating policy is updated: VoxyWatch changes publish by default through bug-hunter, signed private/public release and C3ntro validation unless Moy explicitly pauses publishing for that task.
+
 ## [2.152.0] — 2026-06-30
 
 ### Added — SIP/RFC analyzer in call flow

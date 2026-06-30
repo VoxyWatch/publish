@@ -1,26 +1,26 @@
 {
-  "version": "2.152.0",
-  "release_date": "2026-06-29",
+  "version": "2.153.0",
+  "release_date": "2026-06-30",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.152.0/voxywatch-v2.152.0-linux-x64.tar.gz",
-    "sha256": "3bb154605cd6824ca3a4a92d6e0123e18ecfc5bda57ec8273d383f04e4c8da8b",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.152.0/voxywatch-v2.152.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.153.0/voxywatch-v2.153.0-linux-x64.tar.gz",
+    "sha256": "71359d576052ba857b392406001ab8f1adfc61f003c639e30a5bf309a2c9b788",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.153.0/voxywatch-v2.153.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "SIP/RFC analyzer in call flow",
+    "SIP Expert for full trace diagnosis",
     "Process",
-    "SIP flow details now include an RFC compliance panel before the ladder, with verdict, prioritized findings, detected RFCs and Markdown/JSON export.",
-    "The analyzer validates basic SIP structure, Via/From/To/Call-ID/CSeq, Content-Length, dialog ACK/BYE, PRACK/RAck, compact headers and folded headers."
+    "SIP flow now includes a SIP Expert button that jumps to the trace diagnosis.",
+    "The analyzer classifies the SIP case: call/dialog, REGISTER, OPTIONS, REFER, MESSAGE, SUBSCRIBE/NOTIFY or in-dialog updates."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "analizador SIP/RFC en el flujo de llamadas",
+    "SIP Expert para diagnosticar trazas completas",
     "Process",
-    "El detalle de flujo SIP ahora incluye un panel de cumplimiento RFC antes del ladder, con veredicto, hallazgos priorizados, RFCs detectados y exportación Markdo",
-    "El analizador valida estructura SIP básica, Via/From/To/Call-ID/CSeq, Content-Length, ACK/BYE de diálogo, PRACK/RAck, compact headers y headers folded."
+    "El flujo SIP ahora incluye un botón SIP Expert que lleva al diagnóstico de la traza.",
+    "El analizador clasifica el caso SIP: llamada/dialogo, REGISTER, OPTIONS, REFER, MESSAGE, SUBSCRIBE/NOTIFY o actualizaciones dentro de dialogo."
   ]
 }

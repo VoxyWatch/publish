@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.154.1] — 2026-06-30
+
+### Fixed — SNMP source allowlist is enforced
+- The embedded SNMP agent now enforces `snmp_allow_ips` inside the process and drops requests whose source does not match exact IPv4 entries, IPv4 prefixes or IPv4 CIDR ranges.
+- This fixes installations that intentionally bind SNMP on `0.0.0.0` with an allowlist configured, but were still relying only on SNMPv2c community strings and external firewalling.
+
+### Process
+- Added unit coverage for exact match, prefix, CIDR, IPv4-mapped IPv6 and the actual `net-snmp` listener wrapper.
+- Release checklist now explicitly keeps inventory generation and inventory checking sequential to avoid false drift from read/write races.
+
 ## [2.154.0] — 2026-06-30
 
 ### Changed — Operational Health moved into Settings → Diagnostics

@@ -5,6 +5,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.155.0] — 2026-06-30
+
+### Added — operational improvements for support, onboarding and SIP Expert
+- Settings now shows compact visual groups for start, operation, security/integrations and support.
+- Settings → Diagnostics adds **Copy evidence**, with version, health, license, services, memory, capture and key operational signals ready to paste into tickets.
+- SIP Expert now includes a deterministic executive summary: what happened, likely root cause and suggested owner.
+- Getting started now detects additional recommended setup items: anonymous telemetry, SNMP for NMS and retention/autopurge.
+
+### Changed — faster dashboard experience
+- The dashboard frontend now coalesces duplicate requests per range and ignores stale callbacks, avoiding stacked queries and preventing old windows from repainting after a quick filter change.
+
+### Process
+- Added a headless UI smoke test for critical Dashboard, Settings, Diagnostics and SIP Expert anchors.
+- Release invariants now run onboarding and UI smoke coverage to block visible regressions before publishing.
+
 ## [2.154.1] — 2026-06-30
 
 ### Fixed — SNMP source allowlist is enforced

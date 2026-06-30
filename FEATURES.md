@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.154.1** (2026-06-30).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.155.0** (2026-06-30).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -80,7 +80,7 @@
 | **Native SIPREC recording** | Built-in **SRS** (Session Recording Server, RFC 7865/7866): any tier-1 SBC — Ribbon, Oracle/ACME, AudioCodes, Cisco CUBE, Avaya — streams its recording **straight into VoxyWatch over SIPREC**, no HEP agent or port mirroring needed. SIP over **UDP or TLS**, media **RTP or SRTP** (SDES). Reconstructs stereo caller/callee audio from `rs-metadata`; the call shows in the CDR like any other. Runs as a **separate service** (if it falls, HEP capture is untouched), **OFF by default**, with an SBC IP allowlist and anti-DoS limits. |
 | SIP ladder & dialog analysis | Full request/response ladder, retransmissions, SDP/codec analysis, hold/re-INVITE/NAT detection, dialog-completeness scoring, RFC compliance audit. |
 | SIP/RFC compliance panel | Every call flow can be audited against core SIP/RFC rules with a clear verdict, prioritized findings, detected standards, clickable message evidence and Markdown/JSON export for tickets or tutorials. |
-| SIP Expert | One-click trace diagnosis that classifies call setup, REGISTER, OPTIONS, REFER, MESSAGE, subscriptions and in-dialog updates; flags malformed signaling, RFC violations and STIR/SHAKEN Identity status; then gives operator-ready recommendations. |
+| SIP Expert | One-click trace diagnosis that classifies call setup, REGISTER, OPTIONS, REFER, MESSAGE, subscriptions and in-dialog updates; flags malformed signaling, RFC violations and STIR/SHAKEN Identity status; then gives an executive summary with likely root cause, suggested owner and operator-ready recommendations. |
 | **Codec-agnostic capture** | Every call is captured and analyzed **regardless of codec**, over **both HEP and SIPREC** — the SIP ladder, CDR, attribution and quality metrics (jitter/loss/PDD) work for any payload type. Audio *reconstruction* to playable WAV covers the common set below; capture itself never drops a call for using an exotic codec. |
 | Quality metrics | MOS (E-model), jitter, loss, PDD, RTCP enrichment. Honest "not enough signal" instead of invented numbers. |
 | **One-way audio detection** | Multi-leg media correlation (handles B2BUA SBCs that keep the Call-ID across legs) tags every answered call: two-way / **one-way** (with which side is missing) / not-correlated. Per-trunk one-way % feeds a configurable alarm with a learned baseline — chronic asymmetry (media bypass) never alerts, only the *change* does. Factory runbook: NAT/firewall tells, codec renegotiation, where to fix it. |
@@ -128,9 +128,9 @@ Use this section as the high-level index for YouTube walkthroughs, training vide
 | Monitoring | Trunk health, reasons, baselines and Copilot diagnosis | Compare a healthy trunk with a degraded one. |
 | Fraud | New destination, high-risk countries, profiles and simulator | Show a safe demo fraud event or simulation. |
 | Incidents | Lifecycle, evidence, AI diagnosis, ack/resolve and timeline | Open a demo incident and walk through evidence. |
-| Operational Health | Capture, portal, database, rollups, incidents and update status inside Settings → Diagnostics | Refresh Diagnostics health after a restart/update. |
+| Operational Health | Capture, portal, database, rollups, incidents and update status inside Settings → Diagnostics, with copyable support evidence | Refresh Diagnostics health after a restart/update and copy the evidence block. |
 | Getting Started | Configuration checklist and public AI assistant guide | Walk from pending items to a useful first configuration. |
-| Settings | General, Data, Capture, SIPREC, Security, Alerts, Users, IP Labels, License, API, SNMP, AI, Diagnostics with Health, and Update | Show each tab with one practical safe test. |
+| Settings | Grouped Start, Operation, Security/Integrations and Support sections: General, Data, Capture, SIPREC, Security, Alerts, Users, IP Labels, License, API, SNMP, AI, Diagnostics with Health, and Update | Show each group with one practical safe test. |
 | Troubleshooting | No calls, no audio, no MOS, wrong trunk, noisy alerts, update pending | Use one symptom per video and separate source/config/product causes. |
 
 Suggested tutorial rule: each video should explain the business value in the first minute, show the actual UI, run one safe validation, and end with the next action for the viewer.
@@ -152,4 +152,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.154.1.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.155.0.

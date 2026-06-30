@@ -1,26 +1,26 @@
 {
-  "version": "2.151.7",
+  "version": "2.151.8",
   "release_date": "2026-06-29",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.7/voxywatch-v2.151.7-linux-x64.tar.gz",
-    "sha256": "5eb28ad919c3510d410de9c2e7314c9f0e590281d879486205d8ff6c0865f787",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.7/voxywatch-v2.151.7-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.8/voxywatch-v2.151.8-linux-x64.tar.gz",
+    "sha256": "50fd7049e308c3455fe63e78e757b3f610c6f70475ddaf54e205c5692dd0abc3",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.8/voxywatch-v2.151.8-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "PRTG standard SNMP sensors can load more MIBs",
+    "portal anti-OOM trim now respects the effective heap cap",
     "Process",
-    "Standard SNMP compatibility now also exposes `sysDescr`, `sysObjectID`, `sysContact`, `sysName`, `sysLocation` and `sysServices` in `SNMPv2-MIB`.",
-    "Added `hrSystemUptime`, `hrMemorySize` and `hrProcessorLoad` for generic memory/CPU sensors that expect more than `hrStorageTable`."
+    "Heap-pressure trimming no longer keeps “70% of current rows” when that number is still above the reduced effective cap.",
+    "Fixes the C3ntro `2.151.7` recurrence where the portal trimmed from ~863k to ~604k rows even though the pressure cap was much lower, then V8 crashed with `JavaS"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "sensores SNMP estándar de PRTG cargan más MIBs",
+    "TICKET-032 poda anti-OOM respeta el cap efectivo del heap",
     "Process",
-    "La compatibilidad estándar SNMP ahora expone también `sysDescr`, `sysObjectID`, `sysContact`, `sysName`, `sysLocation` y `sysServices` en `SNMPv2-MIB`.",
-    "Se agregaron `hrSystemUptime`, `hrMemorySize` y `hrProcessorLoad` para cubrir sensores genéricos de memoria/CPU que no se conforman solo con `hrStorageTable`."
+    "La poda por presión de heap ya no retiene “70% de lo actual” si ese número queda por encima del cap efectivo reducido por `_heapShrinkFactor`.",
+    "Corrige la recaída observada en C3ntro con `2.151.7`: el portal recortó de ~863k a ~604k filas aunque el cap efectivo bajo presión era mucho menor, y V8 volv"
   ]
 }

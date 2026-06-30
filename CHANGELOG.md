@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.151.8] — 2026-06-30
+
+### Fixed — portal anti-OOM trim now respects the effective heap cap
+- Heap-pressure trimming no longer keeps “70% of current rows” when that number is still above the reduced effective cap.
+- Fixes the C3ntro `2.151.7` recurrence where the portal trimmed from ~863k to ~604k rows even though the pressure cap was much lower, then V8 crashed with `JavaScript heap out of memory`.
+- Incremental trim now applies a second guard and uses `min(pressure_target, maxRows)` before rebuilding.
+- Fatal `uncaughtException` logs now include the stack trace, which makes follow-up errors such as `argument must be a buffer` actionable if they reappear.
+
+### Process
+- Added executable coverage for the C3ntro case (`863105` rows, `175000` effective cap) so emergency trim cannot exceed the real cap again.
+
 ## [2.151.7] — 2026-06-29
 
 ### Fixed — PRTG standard SNMP sensors can load more MIBs

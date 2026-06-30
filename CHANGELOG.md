@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.152.0] — 2026-06-30
+
+### Added — SIP/RFC analyzer in call flow
+- SIP flow details now include an RFC compliance panel before the ladder, with verdict, prioritized findings, detected RFCs and Markdown/JSON export.
+- The analyzer validates basic SIP structure, Via/From/To/Call-ID/CSeq, Content-Length, dialog ACK/BYE, PRACK/RAck, compact headers and folded headers.
+- Each finding links back to the matching SIP message so operators can inspect the problem quickly.
+
+### Process
+- The deterministic analyzer now lives in `lib/sip-analysis.js` with unit coverage for healthy calls, missing ACK, compact headers, invalid Content-Length/CSeq and PRACK without RAck.
+- Release invariants now run the SIP/RFC suite to prevent analyzer regressions.
+
 ## [2.151.8] — 2026-06-30
 
 ### Fixed — portal anti-OOM trim now respects the effective heap cap

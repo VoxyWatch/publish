@@ -1,26 +1,26 @@
 {
-  "version": "2.151.8",
+  "version": "2.152.0",
   "release_date": "2026-06-29",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.151.8/voxywatch-v2.151.8-linux-x64.tar.gz",
-    "sha256": "50fd7049e308c3455fe63e78e757b3f610c6f70475ddaf54e205c5692dd0abc3",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.151.8/voxywatch-v2.151.8-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.152.0/voxywatch-v2.152.0-linux-x64.tar.gz",
+    "sha256": "3bb154605cd6824ca3a4a92d6e0123e18ecfc5bda57ec8273d383f04e4c8da8b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.152.0/voxywatch-v2.152.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "portal anti-OOM trim now respects the effective heap cap",
+    "SIP/RFC analyzer in call flow",
     "Process",
-    "Heap-pressure trimming no longer keeps “70% of current rows” when that number is still above the reduced effective cap.",
-    "Fixes the C3ntro `2.151.7` recurrence where the portal trimmed from ~863k to ~604k rows even though the pressure cap was much lower, then V8 crashed with `JavaS"
+    "SIP flow details now include an RFC compliance panel before the ladder, with verdict, prioritized findings, detected RFCs and Markdown/JSON export.",
+    "The analyzer validates basic SIP structure, Via/From/To/Call-ID/CSeq, Content-Length, dialog ACK/BYE, PRACK/RAck, compact headers and folded headers."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "TICKET-032 poda anti-OOM respeta el cap efectivo del heap",
+    "analizador SIP/RFC en el flujo de llamadas",
     "Process",
-    "La poda por presión de heap ya no retiene “70% de lo actual” si ese número queda por encima del cap efectivo reducido por `_heapShrinkFactor`.",
-    "Corrige la recaída observada en C3ntro con `2.151.7`: el portal recortó de ~863k a ~604k filas aunque el cap efectivo bajo presión era mucho menor, y V8 volv"
+    "El detalle de flujo SIP ahora incluye un panel de cumplimiento RFC antes del ladder, con veredicto, hallazgos priorizados, RFCs detectados y exportación Markdo",
+    "El analizador valida estructura SIP básica, Via/From/To/Call-ID/CSeq, Content-Length, ACK/BYE de diálogo, PRACK/RAck, compact headers y headers folded."
   ]
 }

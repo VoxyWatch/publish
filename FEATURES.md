@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.151.8** (2026-06-29).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.152.0** (2026-06-30).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -79,6 +79,7 @@
 | Own capture probe | `voxywatch-probe` (Go + libpcap, amd64/arm64): sniffs SIP/RTP/RTCP off the NIC and emits HEP v3 for sources that can't. |
 | **Native SIPREC recording** | Built-in **SRS** (Session Recording Server, RFC 7865/7866): any tier-1 SBC — Ribbon, Oracle/ACME, AudioCodes, Cisco CUBE, Avaya — streams its recording **straight into VoxyWatch over SIPREC**, no HEP agent or port mirroring needed. SIP over **UDP or TLS**, media **RTP or SRTP** (SDES). Reconstructs stereo caller/callee audio from `rs-metadata`; the call shows in the CDR like any other. Runs as a **separate service** (if it falls, HEP capture is untouched), **OFF by default**, with an SBC IP allowlist and anti-DoS limits. |
 | SIP ladder & dialog analysis | Full request/response ladder, retransmissions, SDP/codec analysis, hold/re-INVITE/NAT detection, dialog-completeness scoring, RFC compliance audit. |
+| SIP/RFC compliance panel | Every call flow can be audited against core SIP/RFC rules with a clear verdict, prioritized findings, detected standards, clickable message evidence and Markdown/JSON export for tickets or tutorials. |
 | **Codec-agnostic capture** | Every call is captured and analyzed **regardless of codec**, over **both HEP and SIPREC** — the SIP ladder, CDR, attribution and quality metrics (jitter/loss/PDD) work for any payload type. Audio *reconstruction* to playable WAV covers the common set below; capture itself never drops a call for using an exotic codec. |
 | Quality metrics | MOS (E-model), jitter, loss, PDD, RTCP enrichment. Honest "not enough signal" instead of invented numbers. |
 | **One-way audio detection** | Multi-leg media correlation (handles B2BUA SBCs that keep the Call-ID across legs) tags every answered call: two-way / **one-way** (with which side is missing) / not-correlated. Per-trunk one-way % feeds a configurable alarm with a learned baseline — chronic asymmetry (media bypass) never alerts, only the *change* does. Factory runbook: NAT/firewall tells, codec renegotiation, where to fix it. |
@@ -150,4 +151,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.151.8.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.152.0.

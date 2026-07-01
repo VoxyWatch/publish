@@ -1,26 +1,26 @@
 {
-  "version": "2.157.0",
+  "version": "2.158.0",
   "release_date": "2026-07-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.157.0/voxywatch-v2.157.0-linux-x64.tar.gz",
-    "sha256": "7b56d9b53f328b75c076b54082f6f77b1162298949406fa5a5f2a8ba6cf7e79d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.157.0/voxywatch-v2.157.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.158.0/voxywatch-v2.158.0-linux-x64.tar.gz",
+    "sha256": "a6a6819939777ad2122183526555e7b18e714ef00cccfa2658a808042c309373",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.158.0/voxywatch-v2.158.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "AI troubleshooting pack improvements",
+    "visible progress and dedupe for searches/downloads",
     "Process",
-    "Settings -> Diagnostics now lets operators copy the public AI pack URL and download a `voxywatch-ai-docs-pack/v1` containing the fixed allowlist of public Markd",
-    "New authenticated `/api/ai-troubleshooting-docs-pack` returns product documentation only, with no user-provided paths and no customer data."
+    "The main call search now shows `Searching...`, deduplicates identical requests and ignores stale responses so operators know the server is working.",
+    "Audio/PCAP downloads show `Preparing...`, block repeated clicks and reuse the same active fetch when the user repeats the same action while it is still running."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "mejoras del AI troubleshooting pack",
+    "feedback visible y dedupe para búsquedas/descargas",
     "Process",
-    "Settings → Diagnóstico agrega copiar la URL pública del AI pack y descargar un `voxywatch-ai-docs-pack/v1` con los Markdown públicos permitidos.",
-    "Nuevo endpoint autenticado `/api/ai-troubleshooting-docs-pack` entrega solo una allowlist fija de documentación del producto, sin paths del usuario ni datos de"
+    "La búsqueda principal de llamadas ahora muestra estado `Buscando...`, deduplica requests idénticos y descarta respuestas viejas para evitar que el operador cr",
+    "Descargas de audio/PCAP muestran `Preparando...`, bloquean doble click y reutilizan el mismo fetch si el usuario repite la acción mientras sigue en curso."
   ]
 }

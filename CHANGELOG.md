@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.158.0] — 2026-07-01
+
+### Added — visible progress and dedupe for searches/downloads
+- The main call search now shows `Searching...`, deduplicates identical requests and ignores stale responses so operators know the server is working.
+- Audio/PCAP downloads show `Preparing...`, block repeated clicks and reuse the same active fetch when the user repeats the same action while it is still running.
+- The heavy job queue now deduplicates identical `jobKey` work for reconstruct/audio/PCAP/DTMF and API v1, avoiding repeated process spawns from double clicks or multiple tabs.
+
+### Process
+- Added `test/heavy-job-queue.test.js` for job dedupe and the `deduped` metric.
+- Release invariants now run the heavy job queue suite and UI smoke validates the visible search progress anchor.
+
 ## [2.157.0] — 2026-07-01
 
 ### Added — AI troubleshooting pack improvements

@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.155.2] — 2026-07-01
+
+### Fixed — C3ntro capture state no longer scans compressed hypertables
+- The portal no longer uses `SELECT MAX(id), MIN(id) FROM packets` to detect capture changes. On compressed TimescaleDB chunks that query can open hundreds of chunks and compete with ingestion and the portal under high traffic.
+- `getDbState()` now reads the latest `id` from the newest chunk and uses `timescaledb_information.chunks` to detect retention via `minTs`, avoiding a full hypertable scan.
+- Incremental purge now evicts the in-memory working set by chunk timestamp, preserving the no-full-reparse path and avoiding a second large heap copy.
+
+### Process
+- Added a release invariant that blocks reintroducing full-hypertable `MIN/MAX(id)` over `packets`.
+- Updated the C3ntro diagnostic process to avoid unbounded `EXPLAIN VERBOSE` output on large compressed hypertables.
+
 ## [2.155.1] — 2026-07-01
 
 ### Fixed — heap and audio reconstruction stability

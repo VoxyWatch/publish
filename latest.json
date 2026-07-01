@@ -1,26 +1,26 @@
 {
-  "version": "2.155.1",
+  "version": "2.155.2",
   "release_date": "2026-07-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.155.1/voxywatch-v2.155.1-linux-x64.tar.gz",
-    "sha256": "bccf22a722db1e2d7944b318ead28fbe006cb13acb8fea792310dc62a3974001",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.155.1/voxywatch-v2.155.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.155.2/voxywatch-v2.155.2-linux-x64.tar.gz",
+    "sha256": "056113ab652b65cd97ee2cc16add56184bcebb57caf225bb2cfb2ec7f7c54924",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.155.2/voxywatch-v2.155.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "heap and audio reconstruction stability",
+    "C3ntro capture state no longer scans compressed hypertables",
     "Process",
-    "The portal now trims its in-memory working set with more conservative targets under high or critical V8 heap pressure, leaving more room for GC and allocation s",
-    "Audio reconstruction no longer scans RTP segment files when both SSRCs are `unknown` unless `.idx` metadata narrows the window to at most two candidates. Otherw"
+    "The portal no longer uses `SELECT MAX(id), MIN(id) FROM packets` to detect capture changes. On compressed TimescaleDB chunks that query can open hundreds of chu",
+    "`getDbState()` now reads the latest `id` from the newest chunk and uses `timescaledb_information.chunks` to detect retention via `minTs`, avoiding a full hypert"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "TICKET-032/TICKET-036 estabilidad de heap y media",
+    "C3ntro evita escaneo pesado de estado de captura",
     "Process",
-    "La poda por presión de heap del portal ahora recorta el working-set con targets más conservadores bajo heap alto/crítico, dejando más margen para GC y picos",
-    "`reconstruct_audio.py` ya no barre segmentos RTP completos cuando ambos SSRC llegan como `unknown`: primero intenta acotar por `.idx` a máximo dos candidatos;"
+    "El portal ya no usa `SELECT MAX(id), MIN(id) FROM packets` para detectar cambios de captura. En TimescaleDB con chunks comprimidos esa consulta abre cientos de",
+    "`getDbState()` ahora lee el último `id` desde el chunk más nuevo y usa `timescaledb_information.chunks` para detectar retención por `minTs`, evitando full-sc"
   ]
 }

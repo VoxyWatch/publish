@@ -388,6 +388,18 @@ for migration in "${EXTRACTED}"/migrations/*.sql; do
   install -o root -g voxywatch -m 640 "$migration" "${INSTALL_DIR}/migrations/$(basename "$migration")"
 done
 install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTALL_DIR}/WIKI_INTEGRATION.md" 2>/dev/null || true
+install -o root -g voxywatch -m 640 "${EXTRACTED}/AI_TROUBLESHOOTING.md" "${INSTALL_DIR}/AI_TROUBLESHOOTING.md" 2>/dev/null || true
+if [ -d "${EXTRACTED}/docs/ai" ]; then
+  install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs" "${INSTALL_DIR}/docs/ai"
+  find "${EXTRACTED}/docs/ai" -type d | while read -r d; do
+    rel="${d#${EXTRACTED}/docs/ai}"
+    install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs/ai${rel}"
+  done
+  find "${EXTRACTED}/docs/ai" -type f -name '*.md' | while read -r f; do
+    rel="${f#${EXTRACTED}/docs/ai/}"
+    install -o root -g voxywatch -m 640 "$f" "${INSTALL_DIR}/docs/ai/${rel}"
+  done
+fi
 
 # Frontend assets — van junto al binario en INSTALL_DIR.
 # El binario los sirve desde path.dirname(process.execPath) = /opt/voxywatch/

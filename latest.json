@@ -1,26 +1,26 @@
 {
-  "version": "2.155.2",
+  "version": "2.156.0",
   "release_date": "2026-07-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.155.2/voxywatch-v2.155.2-linux-x64.tar.gz",
-    "sha256": "056113ab652b65cd97ee2cc16add56184bcebb57caf225bb2cfb2ec7f7c54924",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.155.2/voxywatch-v2.155.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.156.0/voxywatch-v2.156.0-linux-x64.tar.gz",
+    "sha256": "02fb3076bb6ff8eab498d05ce0f34748f10c7bbbc7f385573e0f097b81c88602",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.156.0/voxywatch-v2.156.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "C3ntro capture state no longer scans compressed hypertables",
+    "AI troubleshooting pack",
     "Process",
-    "The portal no longer uses `SELECT MAX(id), MIN(id) FROM packets` to detect capture changes. On compressed TimescaleDB chunks that query can open hundreds of chu",
-    "`getDbState()` now reads the latest `id` from the newest chunk and uses `timescaledb_information.chunks` to detect retention via `minTs`, avoiding a full hypert"
+    "Added `AI_TROUBLESHOOTING.md` and `docs/ai/` so operators can load a structured English guide into an AI assistant for VoxyWatch configuration, troubleshooting",
+    "Settings -> Diagnostics now includes compact actions to open AI docs, copy/download an AI-safe context and download the support bundle."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "C3ntro evita escaneo pesado de estado de captura",
+    "paquete de troubleshooting para IA",
     "Process",
-    "El portal ya no usa `SELECT MAX(id), MIN(id) FROM packets` para detectar cambios de captura. En TimescaleDB con chunks comprimidos esa consulta abre cientos de",
-    "`getDbState()` ahora lee el último `id` desde el chunk más nuevo y usa `timescaledb_information.chunks` para detectar retención por `minTs`, evitando full-sc"
+    "Se agregó `AI_TROUBLESHOOTING.md` y `docs/ai/` con guía en inglés para que una IA ayude a configurar, diagnosticar y extender VoxyWatch sin depender de ticke",
+    "Settings → Diagnóstico ahora ofrece accesos compactos para abrir docs IA, copiar/descargar contexto IA seguro y descargar el support bundle."
   ]
 }

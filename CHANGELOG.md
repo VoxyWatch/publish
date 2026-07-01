@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.156.0] — 2026-07-01
+
+### Added — AI troubleshooting pack
+- Added `AI_TROUBLESHOOTING.md` and `docs/ai/` so operators can load a structured English guide into an AI assistant for VoxyWatch configuration, troubleshooting and safe extension work.
+- Settings -> Diagnostics now includes compact actions to open AI docs, copy/download an AI-safe context and download the support bundle.
+- New authenticated `/api/ai-troubleshooting-context` returns public documentation links plus the allowlist-only support bundle, excluding secrets, raw SIP, audio, settings, logs, IPs, trunks, Call-IDs and PII.
+
+### Process
+- Build/install now ship the AI pack under `/opt/voxywatch`, and release syncs `AI_TROUBLESHOOTING.md` + `docs/ai/` to the public publish repository.
+- Tests now cover AI context redaction and visible Diagnostics anchors.
+
 ## [2.155.2] — 2026-07-01
 
 ### Fixed — C3ntro capture state no longer scans compressed hypertables

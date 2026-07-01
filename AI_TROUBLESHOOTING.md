@@ -14,6 +14,7 @@ The AI context and support bundle are intentionally safe to share with an assist
 ## Start Here
 
 - [AI README](docs/ai/README.md)
+- [AI context changelog](docs/ai/CHANGELOG_AI_CONTEXT.md)
 - [Troubleshooting workflow](docs/ai/TROUBLESHOOTING.md)
 - [CLI operations](docs/ai/CLI_OPERATIONS.md)
 - [Settings reference](docs/ai/SETTINGS_REFERENCE.md)

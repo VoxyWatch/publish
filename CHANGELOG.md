@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.157.0] — 2026-07-01
+
+### Added — AI troubleshooting pack improvements
+- Settings -> Diagnostics now lets operators copy the public AI pack URL and download a `voxywatch-ai-docs-pack/v1` containing the fixed allowlist of public Markdown docs.
+- New authenticated `/api/ai-troubleshooting-docs-pack` returns product documentation only, with no user-provided paths and no customer data.
+- Added `docs/ai/CHANGELOG_AI_CONTEXT.md` so external AI assistants can track changes to the context and docs contracts.
+
+### Process
+- Added an HTTP test with simulated auth for `/api/ai-troubleshooting-context` and `/api/ai-troubleshooting-docs-pack`.
+- Release invariants now block missing AI pack build/install/publish wiring and endpoint auth/allowlist regressions.
+
 ## [2.156.0] — 2026-07-01
 
 ### Added — AI troubleshooting pack

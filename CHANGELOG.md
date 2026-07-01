@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.155.1] — 2026-07-01
+
+### Fixed — heap and audio reconstruction stability
+- The portal now trims its in-memory working set with more conservative targets under high or critical V8 heap pressure, leaving more room for GC and allocation spikes on high-volume installs.
+- Audio reconstruction no longer scans RTP segment files when both SSRCs are `unknown` unless `.idx` metadata narrows the window to at most two candidates. Otherwise it returns a controlled “no audio” result instead of risking `MemoryError`.
+
+### Process
+- Added regression coverage for `unknown/unknown` audio reconstruction in file-backed RTP mode.
+- Extended working-set trim tests for the new high-pressure heap targets.
+
 ## [2.155.0] — 2026-06-30
 
 ### Added — operational improvements for support, onboarding and SIP Expert

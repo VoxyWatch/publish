@@ -1,26 +1,26 @@
 {
-  "version": "2.155.0",
-  "release_date": "2026-06-30",
+  "version": "2.155.1",
+  "release_date": "2026-07-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.155.0/voxywatch-v2.155.0-linux-x64.tar.gz",
-    "sha256": "d20a9c1492eeed5331c39eb91af5e1758b48d6e1b79f825806a0f67110f71f2f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.155.0/voxywatch-v2.155.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.155.1/voxywatch-v2.155.1-linux-x64.tar.gz",
+    "sha256": "bccf22a722db1e2d7944b318ead28fbe006cb13acb8fea792310dc62a3974001",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.155.1/voxywatch-v2.155.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "operational improvements for support, onboarding and SIP Expert",
-    "faster dashboard experience",
+    "heap and audio reconstruction stability",
     "Process",
-    "Settings now shows compact visual groups for start, operation, security/integrations and support."
+    "The portal now trims its in-memory working set with more conservative targets under high or critical V8 heap pressure, leaving more room for GC and allocation s",
+    "Audio reconstruction no longer scans RTP segment files when both SSRCs are `unknown` unless `.idx` metadata narrows the window to at most two candidates. Otherw"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "mejoras operativas para soporte, onboarding y SIP Expert",
-    "dashboard más eficiente",
+    "TICKET-032/TICKET-036 estabilidad de heap y media",
     "Process",
-    "Settings ahora muestra grupos visuales compactos para separar inicio, operación, seguridad/integraciones y soporte."
+    "La poda por presión de heap del portal ahora recorta el working-set con targets más conservadores bajo heap alto/crítico, dejando más margen para GC y picos",
+    "`reconstruct_audio.py` ya no barre segmentos RTP completos cuando ambos SSRC llegan como `unknown`: primero intenta acotar por `.idx` a máximo dos candidatos;"
   ]
 }

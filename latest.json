@@ -1,26 +1,26 @@
 {
-  "version": "2.158.0",
-  "release_date": "2026-07-01",
+  "version": "2.158.1",
+  "release_date": "2026-07-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.158.0/voxywatch-v2.158.0-linux-x64.tar.gz",
-    "sha256": "a6a6819939777ad2122183526555e7b18e714ef00cccfa2658a808042c309373",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.158.0/voxywatch-v2.158.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.158.1/voxywatch-v2.158.1-linux-x64.tar.gz",
+    "sha256": "371fcc7c48809b47e3482c1f52d97392d7db12f364284cf977778fa7826c2629",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.158.1/voxywatch-v2.158.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "visible progress and dedupe for searches/downloads",
+    "safer heap-pressure trimming on high-volume installs",
     "Process",
-    "The main call search now shows `Searching...`, deduplicates identical requests and ignores stale responses so operators know the server is working.",
-    "Audio/PCAP downloads show `Preparing...`, block repeated clicks and reuse the same active fetch when the user repeats the same action while it is still running."
+    "C3ntro `2.158.0` still hit Node/V8 out-of-memory restarts while capture, PostgreSQL and rollups were healthy; the heap-pressure trim retained too much working s",
+    "VoxyWatch now trims to 25% on high heap pressure and 20% on critical pressure, while preserving the minimum useful working set and the effective hardware cap."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "feedback visible y dedupe para búsquedas/descargas",
+    "TICKET-032 poda de heap más agresiva bajo presión real",
     "Process",
-    "La búsqueda principal de llamadas ahora muestra estado `Buscando...`, deduplica requests idénticos y descarta respuestas viejas para evitar que el operador cr",
-    "Descargas de audio/PCAP muestran `Preparando...`, bloquean doble click y reutilizan el mismo fetch si el usuario repite la acción mientras sigue en curso."
+    "C3ntro `2.158.0` volvió a registrar OOM de Node/V8 aunque la captura, PostgreSQL y rollups estaban sanos; la poda por presión retenía todavía demasiado work",
+    "El plan de trim por presión baja ahora retiene 25% en `warn` y 20% en `critical`, siempre respetando el piso útil y el cap efectivo, para dejar margen real a"
   ]
 }

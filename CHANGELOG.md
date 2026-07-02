@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.158.1] — 2026-07-02
+
+### Fixed — safer heap-pressure trimming on high-volume installs
+- C3ntro `2.158.0` still hit Node/V8 out-of-memory restarts while capture, PostgreSQL and rollups were healthy; the heap-pressure trim retained too much working set during traffic spikes.
+- VoxyWatch now trims to 25% on high heap pressure and 20% on critical pressure, while preserving the minimum useful working set and the effective hardware cap.
+
+### Process
+- Working-set trim tests now reproduce the 350k-row high-volume case and block regressions to the previously insufficient target.
+
 ## [2.158.0] — 2026-07-01
 
 ### Added — visible progress and dedupe for searches/downloads

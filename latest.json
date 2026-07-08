@@ -1,26 +1,26 @@
 {
-  "version": "2.159.1",
+  "version": "2.159.2",
   "release_date": "2026-07-08",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.159.1/voxywatch-v2.159.1-linux-x64.tar.gz",
-    "sha256": "38e02165566b707cd8b847a09a73db47bf907dd7d6356741fbdd881eb11690b3",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.159.1/voxywatch-v2.159.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.159.2/voxywatch-v2.159.2-linux-x64.tar.gz",
+    "sha256": "953dda89b3b8f3b9342b05d399d0e15bff548c156fb9ea7ac19854a6bb77d236",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.159.2/voxywatch-v2.159.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Call Insight Pack polish",
+    "API v1 and anonymous share hardening",
     "Process",
-    "Audio/RTP Expert trends now keep `dimension` and `is_target`, so the UI shows the correct label and highlights the current-call row.",
-    "The Audio/RTP Expert panel now ignores stale responses if the operator switches calls before the request finishes."
+    "`/api/v1/calls/:id/insights` now uses the stable public CDR projection (`mapCallToPublicCdr`) instead of the portal's internal CDR projection.",
+    "The anonymous JSON bundle no longer exposes exact SSRC values inside `rtp_expert.metrics`; it keeps side-presence flags only."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Call Insight Pack polish",
+    "API v1 and anonymous share hardening",
     "Process",
-    "Las tendencias del Audio/RTP Expert ahora conservan `dimension` e `is_target`, por lo que la UI muestra el label correcto y resalta la fila de la llamada actual",
-    "El panel Audio/RTP Expert descarta respuestas viejas si el operador cambia de llamada antes de que termine el request."
+    "`/api/v1/calls/:id/insights` ahora usa la proyección pública estable del CDR (`mapCallToPublicCdr`) en vez de la proyección interna del portal.",
+    "El JSON anónimo ya no expone SSRC exactos dentro de `rtp_expert.metrics`; conserva sólo flags de presencia por lado."
   ]
 }

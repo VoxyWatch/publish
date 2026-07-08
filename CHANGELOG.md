@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.159.2] — 2026-07-08
+
+### Fixed — API v1 and anonymous share hardening
+- `/api/v1/calls/:id/insights` now uses the stable public CDR projection (`mapCallToPublicCdr`) instead of the portal's internal CDR projection.
+- The anonymous JSON bundle no longer exposes exact SSRC values inside `rtp_expert.metrics`; it keeps side-presence flags only.
+
+### Process
+- Added `test/call-insights-contract.test.js` to block regressions in the API v1 public CDR contract and share-safe RTP Expert output.
+- Release invariants now run the new contract test.
+
 ## [2.159.1] — 2026-07-08
 
 ### Fixed — Call Insight Pack polish

@@ -1,26 +1,26 @@
 {
-  "version": "2.158.1",
-  "release_date": "2026-07-02",
+  "version": "2.159.0",
+  "release_date": "2026-07-08",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.158.1/voxywatch-v2.158.1-linux-x64.tar.gz",
-    "sha256": "371fcc7c48809b47e3482c1f52d97392d7db12f364284cf977778fa7826c2629",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.158.1/voxywatch-v2.158.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.159.0/voxywatch-v2.159.0-linux-x64.tar.gz",
+    "sha256": "9b18f93aaf553228354434e667ec342bb2b4c78e68a578a7f112580b3821f0cb",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.159.0/voxywatch-v2.159.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "safer heap-pressure trimming on high-volume installs",
+    "Call Insight Pack",
     "Process",
-    "C3ntro `2.158.0` still hit Node/V8 out-of-memory restarts while capture, PostgreSQL and rollups were healthy; the heap-pressure trim retained too much working s",
-    "VoxyWatch now trims to 25% on high heap pressure and 20% on critical pressure, while preserving the minimum useful working set and the effective hardware cap."
+    "Call detail now includes Audio/RTP Expert with deterministic analysis of packet loss, jitter, MOS, one-way media, audio reconstruction state and operational rec",
+    "New authenticated `/api/calls/:id/insights` and API v1 `/api/v1/calls/:id/insights` return CDR, Audio/RTP Expert and bounded ±24h contextual trends without raw"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "TICKET-032 poda de heap más agresiva bajo presión real",
+    "Call Insight Pack para detalle de llamada",
     "Process",
-    "C3ntro `2.158.0` volvió a registrar OOM de Node/V8 aunque la captura, PostgreSQL y rollups estaban sanos; la poda por presión retenía todavía demasiado work",
-    "El plan de trim por presión baja ahora retiene 25% en `warn` y 20% en `critical`, siempre respetando el piso útil y el cap efectivo, para dejar margen real a"
+    "El detalle de llamada agrega Audio/RTP Expert con análisis determinístico de pérdida, jitter, MOS, one-way media, reconstrucción de audio y recomendaciones",
+    "Nuevo `/api/calls/:id/share-bundle` descarga un JSON anónimo para soporte/IA externa: enmascara números, IPs y Call-ID, y excluye payloads, credenciales y set"
   ]
 }

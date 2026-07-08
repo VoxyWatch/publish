@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.159.0] — 2026-07-08
+
+### Added — Call Insight Pack
+- Call detail now includes **Audio/RTP Expert** with deterministic analysis of packet loss, jitter, MOS, one-way media, audio reconstruction state and operational recommendations.
+- New authenticated `/api/calls/:id/insights` and API v1 `/api/v1/calls/:id/insights` return CDR, Audio/RTP Expert and bounded ±24h contextual trends without raw SIP, audio or PCAP payloads.
+- New `/api/calls/:id/share-bundle` downloads an anonymous JSON package for support or external AI assistance, masking numbers, IPs and Call-ID while excluding payloads, credentials and settings.
+- Settings -> Diagnostics now includes **Call Insight Labs** with conservative OFF flags for transcription, WebRTC/TLS/SRTP lab work and T.38 detection.
+
+### Process
+- Added deterministic `test/call-insights.test.js` coverage and release invariants now run it.
+- UI smoke now covers the new Diagnostics save path after review found the new flags had no save button in that tab.
+
 ## [2.158.1] — 2026-07-02
 
 ### Fixed — safer heap-pressure trimming on high-volume installs

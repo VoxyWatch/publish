@@ -1,26 +1,26 @@
 {
-  "version": "2.159.2",
+  "version": "2.159.3",
   "release_date": "2026-07-08",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.159.2/voxywatch-v2.159.2-linux-x64.tar.gz",
-    "sha256": "953dda89b3b8f3b9342b05d399d0e15bff548c156fb9ea7ac19854a6bb77d236",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.159.2/voxywatch-v2.159.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.159.3/voxywatch-v2.159.3-linux-x64.tar.gz",
+    "sha256": "8ce1db82e8a8389a13ef3bf5712266eeaf1e5370cb0700ee8c4e21dbd19e7bcb",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.159.3/voxywatch-v2.159.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "API v1 and anonymous share hardening",
-    "Process",
-    "`/api/v1/calls/:id/insights` now uses the stable public CDR projection (`mapCallToPublicCdr`) instead of the portal's internal CDR projection.",
-    "The anonymous JSON bundle no longer exposes exact SSRC values inside `rtp_expert.metrics`; it keeps side-presence flags only."
+    "Public CDR zero-value contract",
+    "Documentation",
+    "Public CDR responses now preserve measured zero values for setup time, PDD, SIP disposition code, MOS, jitter, packet loss and SIP message count instead of conv",
+    "This keeps API v1, Call Insight responses, exports and downstream integrations from treating valid zero metrics as missing data."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "API v1 and anonymous share hardening",
-    "Process",
-    "`/api/v1/calls/:id/insights` ahora usa la proyección pública estable del CDR (`mapCallToPublicCdr`) en vez de la proyección interna del portal.",
-    "El JSON anónimo ya no expone SSRC exactos dentro de `rtp_expert.metrics`; conserva sólo flags de presencia por lado."
+    "Public CDR zero-value contract",
+    "Docs and process",
+    "The portal/API CDR projection now preserves valid numeric zero values for setup time, PDD, SIP disposition code, MOS, jitter, packet loss and SIP message count",
+    "This keeps `/api/v1/cdrs`, `/api/v1/calls/:id/insights`, exports and downstream integrations from treating measured zero values as missing data."
   ]
 }

@@ -191,7 +191,7 @@ PII, audio and raw SIP before the JSON can be attached to a ticket.
 - **Embedded SNMP agent** (v2c + v3) exposes 30+ OIDs (host, capture, VoIP KPIs, bottleneck diagnosis) and sends edge-triggered traps for capture loss, sniffer down, no-sources, disk/RAM/CPU high, RTP/kernel drops, low ASR, low MOS — with a downloadable MIB. The **same thresholds drive the bell and the traps**, so they always agree.
 
 ### 🔌 Integration API
-- A read-only, versioned REST API (**`/api/v1`**) for billing and monitoring systems: CDR search, single CDR, SIP-trace JSON, PCAP and audio.
+- A read-only, versioned REST API (**`/api/v1`**) for billing and monitoring systems: CDR search, single CDR, Call Insight Audio/RTP Expert, SIP-trace JSON, PCAP and audio.
 - **API keys** (hashed, scoped: `cdr:read` / `trace:read` / `audio:read`), per-key **IP allowlists** and **rate limits**, a stable public CDR schema decoupled from internals, RFC 9457 `problem+json` errors and a published OpenAPI spec.
 
 ### 🔐 Security & access control

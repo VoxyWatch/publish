@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.159.3] — 2026-07-08
+
+### Fixed — Public CDR zero-value contract
+- Public CDR responses now preserve measured zero values for setup time, PDD, SIP disposition code, MOS, jitter, packet loss and SIP message count instead of converting them to `null`.
+- This keeps API v1, Call Insight responses, exports and downstream integrations from treating valid zero metrics as missing data.
+
+### Documentation
+- The integration API guide now documents `/api/v1/calls/:id/insights`, including its privacy boundary, response shape and example request.
+- The public CDR field table now reflects the shipped field names and clarifies that `0` is a valid measurement while `null` means unavailable.
+
 ## [2.159.2] — 2026-07-08
 
 ### Fixed — API v1 and anonymous share hardening

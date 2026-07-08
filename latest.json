@@ -1,26 +1,26 @@
 {
-  "version": "2.159.0",
+  "version": "2.159.1",
   "release_date": "2026-07-08",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.159.0/voxywatch-v2.159.0-linux-x64.tar.gz",
-    "sha256": "9b18f93aaf553228354434e667ec342bb2b4c78e68a578a7f112580b3821f0cb",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.159.0/voxywatch-v2.159.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.159.1/voxywatch-v2.159.1-linux-x64.tar.gz",
+    "sha256": "38e02165566b707cd8b847a09a73db47bf907dd7d6356741fbdd881eb11690b3",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.159.1/voxywatch-v2.159.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Call Insight Pack",
+    "Call Insight Pack polish",
     "Process",
-    "Call detail now includes Audio/RTP Expert with deterministic analysis of packet loss, jitter, MOS, one-way media, audio reconstruction state and operational rec",
-    "New authenticated `/api/calls/:id/insights` and API v1 `/api/v1/calls/:id/insights` return CDR, Audio/RTP Expert and bounded ±24h contextual trends without raw"
+    "Audio/RTP Expert trends now keep `dimension` and `is_target`, so the UI shows the correct label and highlights the current-call row.",
+    "The Audio/RTP Expert panel now ignores stale responses if the operator switches calls before the request finishes."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Call Insight Pack para detalle de llamada",
+    "Call Insight Pack polish",
     "Process",
-    "El detalle de llamada agrega Audio/RTP Expert con análisis determinístico de pérdida, jitter, MOS, one-way media, reconstrucción de audio y recomendaciones",
-    "Nuevo `/api/calls/:id/share-bundle` descarga un JSON anónimo para soporte/IA externa: enmascara números, IPs y Call-ID, y excluye payloads, credenciales y set"
+    "Las tendencias del Audio/RTP Expert ahora conservan `dimension` e `is_target`, por lo que la UI muestra el label correcto y resalta la fila de la llamada actual",
+    "El panel Audio/RTP Expert descarta respuestas viejas si el operador cambia de llamada antes de que termine el request."
   ]
 }

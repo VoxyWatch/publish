@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.159.1] — 2026-07-08
+
+### Fixed — Call Insight Pack polish
+- Audio/RTP Expert trends now keep `dimension` and `is_target`, so the UI shows the correct label and highlights the current-call row.
+- The Audio/RTP Expert panel now ignores stale responses if the operator switches calls before the request finishes.
+- The anonymous JSON bundle now masks compressed IPv6 and IPv4-mapped addresses without leaking the host part, and preserves valid zero technical values (`setup_time_ms`, `pdd_ms`, `disposition_code`).
+
+### Process
+- `test/call-insights.test.js` now covers trend labels, current target rows, IPv6/IPv4-mapped masking and zero technical values.
+- `test/ui-smoke.test.js` now covers the anti-stale panel guard.
+
 ## [2.159.0] — 2026-07-08
 
 ### Added — Call Insight Pack

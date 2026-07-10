@@ -1,26 +1,26 @@
 {
-  "version": "3.1.1",
+  "version": "3.2.0",
   "release_date": "2026-07-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.1.1/voxywatch-v3.1.1-linux-x64.tar.gz",
-    "sha256": "7254ea3658d1e4688fc1d3b08211ef3b7ab32836ed6e003dd7d8366aee6c31a7",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.1.1/voxywatch-v3.1.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.2.0/voxywatch-v3.2.0-linux-x64.tar.gz",
+    "sha256": "3eaac8acb76b1e20d13fff3d4493e2deda83a102d6ff6749e1990a62a2c2bcd7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.2.0/voxywatch-v3.2.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Agentic dependency lifecycle",
-    "Operations",
-    "The Agentic runtime now starts through a managed runner that uses the ADK virtual environment when installed and falls back safely when it is not.",
-    "Signed updates now refresh Agentic Python dependencies only when the runtime was already enabled or active, so fresh installs still avoid any PyPI/network depen"
+    "Policy-gated agentic actions",
+    "Security and operations",
+    "Added a redacted agent context API so native agents can use live readiness, traffic snapshot, runbooks, read-only tools and recent incidents without raw SIP, au",
+    "Added a separate action policy catalog for operational recommendations. The read-only tool catalog remains read-only."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Agentic dependency lifecycle",
+    "Policy-gated agentic actions",
     "Process",
-    "`voxywatch-agentic.service` now starts through `run-agentic.sh`, which prefers the managed `.venv` when ADK dependencies are installed and falls back to system",
-    "The installer now updates Agentic Python dependencies during normal signed updates only when the runtime was already enabled or active, so fresh installs still"
+    "Added `GET /api/agentic/context`, a bounded redacted context pack for agents with platform readiness, live snapshot, read-only tools, runbooks and recent incide",
+    "Added a separate agentic action policy catalog and evaluation API so operational actions do not enter the read-only tool contract."
   ]
 }

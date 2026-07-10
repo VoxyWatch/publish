@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.2.0] — 2026-07-10
+
+### Added — Policy-gated agentic actions
+- Added a redacted agent context API so native agents can use live readiness, traffic snapshot, runbooks, read-only tools and recent incidents without raw SIP, audio/RTP or secrets.
+- Added a separate action policy catalog for operational recommendations. The read-only tool catalog remains read-only.
+- Added audited agentic decisions: agents can propose actions, operators can review them, and high-risk execution requires admin approval.
+- Approved `open_incident` and `mark_fraud_suspect` actions create deduplicated VoxyWatch incidents through the existing incident engine and notification path.
+- The Agentic sidecar now reports policy-gated suggested actions while keeping the customer's SBC outside the control boundary.
+
+### Security and operations
+- Action decisions are stored locally with secret redaction and an audit timeline.
+- Release checks now cover the new agentic action policy, context redaction and decision-store contract.
+
 ## [3.1.1] — 2026-07-10
 
 ### Fixed — Agentic dependency lifecycle

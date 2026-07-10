@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.1.1] — 2026-07-10
+
+### Fixed — Agentic dependency lifecycle
+- The Agentic runtime now starts through a managed runner that uses the ADK virtual environment when installed and falls back safely when it is not.
+- Signed updates now refresh Agentic Python dependencies only when the runtime was already enabled or active, so fresh installs still avoid any PyPI/network dependency.
+- Settings -> Diagnostics now shows ADK availability, installed `google-adk` version, requirements hash and venv readiness.
+
+### Operations
+- Release checks now block stale Agentic manifest versions, missing runner packaging and direct system Python service launches.
+
 ## [3.1.0] — 2026-07-10
 
 ### Added — LLM provider polish and agentic runtime controls

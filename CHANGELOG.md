@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.161.0] — 2026-07-10
+
+### Added — Per-user agentic chat memory
+- AI Chat now stores conversation sessions per user on the server, so each operator can reopen prior chats without mixing history with other users.
+- The floating chat widget can create a new chat, switch previous sessions and delete a chat history.
+- LLM calls now use bounded server-side history instead of trusting the browser to resend the full conversation.
+- User Profile now includes a personal AI relationship prompt and the user's AI language preference.
+- New authenticated agentic endpoints expose the read-only tool catalog for built-in chat and future ADK/sidecar runtimes.
+
+### Security and process
+- Custom system prompts are admin-only; normal users configure style through their profile prompt.
+- Agent tool execution is rate-limited.
+- Added unit coverage for user isolation, bounded context and deletion.
+
 ## [2.160.0] — 2026-07-10
 
 ### Added — Platform readiness and operational visibility

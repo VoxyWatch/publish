@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.160.0** (2026-07-02).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.161.0** (2026-07-10).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -70,6 +70,8 @@
 | **Fraud early-warning** | The "suddenly calling Cuba" detector: alerts the first day a trunk calls a country absent from its last 4 weeks — critical if it's on the (editable) IRSF high-risk list. Plus short-call storms to one destination (premium-number sweeps, hacked PBX — active from day one), abnormal growth to high-risk destinations, and international-mix spikes vs the trunk's own history. Factory runbook included: who originates, time-of-day tells, block at *your* SBC, dispute with the carrier. A **fraud-risk score (0–100)** fuses the signals via a model trained offline on labelled history (privacy-safe: training off-box, inference on-box, no data leaves your server) and gates which alerts escalate to critical. |
 | **Predictive forecast** | Seasonal forecast (Holt-Winters over the 168-bucket baseline) projects each trunk's volume/ASR hours ahead with confidence bands, and turns audio-retention burn-rate into capacity incidents *before* you run out of disk. |
 | **MCP server** | Standalone Model Context Protocol server: Claude (or any MCP agent) queries health, KPIs, trunks, CDRs and incidents through 6 read-only scoped tools. |
+| **Per-user agentic chat memory** | Built-in AI Chat keeps private conversation sessions per user, lets operators reopen/delete history, and applies each user's profile prompt and AI language preference. |
+| **Agent tools API** | Authenticated read-only tool catalog for built-in chat and future ADK/sidecar runtimes, with rate limits and no SBC/network control. |
 
 ### 2 · Capture & analysis
 
@@ -153,4 +155,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.160.0.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.161.0.

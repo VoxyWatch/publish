@@ -1,26 +1,26 @@
 {
-  "version": "2.160.0",
+  "version": "2.161.0",
   "release_date": "2026-07-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.160.0/voxywatch-v2.160.0-linux-x64.tar.gz",
-    "sha256": "ac7f38033b5aca311f22e96ef0ed56383594dddb13ecb70a42ff4844e4ecf3e8",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.160.0/voxywatch-v2.160.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.161.0/voxywatch-v2.161.0-linux-x64.tar.gz",
+    "sha256": "5b2a5b028475217609423d2ea542215051abe285538518efd6b8501acc432e67",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.161.0/voxywatch-v2.161.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Platform readiness and operational visibility",
-    "Process",
-    "Settings -> Diagnostics now includes Platform readiness, a consolidated market-readiness view for production health, configuration gaps, update safety, heavy jo",
-    "New authenticated `GET /api/platform-readiness` returns a redacted read-only readiness contract built from operational health, deployment status, onboarding, se"
+    "Per-user agentic chat memory",
+    "Security and process",
+    "AI Chat now stores conversation sessions per user on the server, so each operator can reopen prior chats without mixing history with other users.",
+    "The floating chat widget can create a new chat, switch previous sessions and delete a chat history."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Platform readiness and operational visibility",
+    "Per-user agentic chat memory",
     "Process",
-    "Settings -> Diagnostics now includes Platform readiness, a consolidated market-readiness view for production health, configuration, update safety, heavy job act",
-    "New authenticated `GET /api/platform-readiness` returns a redacted read-only readiness contract built from operational health, deployment status, onboarding, se"
+    "The AI chat now has per-user conversation sessions stored server-side, so each operator can return to previous chats without mixing history with other users.",
+    "Users can create a new chat, switch previous sessions and delete a chat history from the floating chat widget."
   ]
 }

@@ -128,6 +128,8 @@ Audio retention is **measured, not guessed** (hours of recoverable audio + write
 ### 🔗 MCP server — your voice network, exposed to *your* agents
 VoxyWatch ships a standalone **Model Context Protocol server**: connect Claude Desktop, Claude Code or any MCP-compatible agent and let it query health, KPIs, trunk status, CDRs and incidents (with evidence and diagnosis) through 6 read-only tools. Authenticated with the same scoped API keys. Your corporate AI can now interrogate your voice network.
 
+The portal also exposes an authenticated **Agent tools API** for the built-in chat and future ADK/sidecar runtimes. It is read-only, rate-limited, and exposes evidence tools instead of database internals or SBC control.
+
 Support can export an authenticated, read-only **sanitized ticket bundle** with version, fault domain, component
 status, metrics, dependencies and input/process/output signals. It uses a strict allowlist and excludes secrets,
 PII, audio and raw SIP before the JSON can be attached to a ticket.
@@ -182,6 +184,7 @@ PII, audio and raw SIP before the JSON can be attached to a ticket.
 ### 🤖 NOC AI Copilot — chat with your network  *(bring your own key)*
 - **Per-trunk copilot**: feeds the LLM a compact context (current KPIs + alarms + learned baseline + 48h trend + top SIP codes + destinations) and returns **probable cause → NOC actions → short-term risk**.
 - **NOC summary copilot**: prioritizes and groups all alarming trunks and suggests the action per group.
+- **Per-user chat memory**: each operator keeps private chat sessions, can reopen or delete prior conversations, and can define a profile prompt plus AI language.
 - **You bring the key** (OpenAI, Anthropic, Google Gemini, or OpenRouter) — your tokens, your cost, your data path. Off until you enable it.
 - **Guardrailed**: the copilot only explains and recommends; it never touches the SBC. Responses are cached to control spend, and it's bilingual.
 

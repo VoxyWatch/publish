@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.1.0] — 2026-07-10
+
+### Added — LLM provider polish and agentic runtime controls
+- Settings now uses **LLM** naming for the assistant configuration and floating assistant entrypoint.
+- Added **Perplexity (Sonar)** as a first-class LLM provider.
+- The model picker now filters provider catalogs to useful text/chat models and hides image, audio, embedding, moderation and unrelated diagnostic models.
+- Interactive LLM replies now infer language from the operator's latest message; the profile keeps the personal prompt, without a separate AI-language selector.
+- Settings -> Diagnostics now shows the native agentic runtime and lets admins enable/start or stop/disable `voxywatch-agentic.service` through VoxyWatch service-control.
+
+### Security and operations
+- The agentic sidecar remains loopback-only, off by default on new installs and separated from the read-only agent tools contract.
+- Release invariants now test the LLM model filter so vendor catalog changes do not pollute the diagnostic model selector.
+
 ## [3.0.1] — 2026-07-10
 
 ### Changed — Functional agent names

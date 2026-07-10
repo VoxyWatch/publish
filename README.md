@@ -128,7 +128,7 @@ Audio retention is **measured, not guessed** (hours of recoverable audio + write
 ### 🔗 MCP server — your voice network, exposed to *your* agents
 VoxyWatch ships a standalone **Model Context Protocol server**: connect Claude Desktop, Claude Code or any MCP-compatible agent and let it query health, KPIs, trunk status, CDRs and incidents (with evidence and diagnosis) through 6 read-only tools. Authenticated with the same scoped API keys. Your corporate AI can now interrogate your voice network.
 
-VoxyWatch v3 also ships a native **agentic runtime** foundation: `voxywatch-agentic.service`, an ADK-ready loopback sidecar with specialist agents for SIP, fraud, traffic analytics, NOC health and release status. It is installed and updated with every signed release, disabled by default on fresh installs, and uses the authenticated read-only Agent tools API instead of database internals or SBC control.
+VoxyWatch v3 also ships a native **agentic runtime** foundation: `voxywatch-agentic.service`, an ADK-ready loopback sidecar with specialist agents for SIP, fraud, traffic analytics, NOC health and release status. It is installed and updated with every signed release, disabled by default on fresh installs, visible/controllable from Settings -> Diagnostics for admins, and uses the authenticated read-only Agent tools API instead of database internals or SBC control.
 
 Support can export an authenticated, read-only **sanitized ticket bundle** with version, fault domain, component
 status, metrics, dependencies and input/process/output signals. It uses a strict allowlist and excludes secrets,

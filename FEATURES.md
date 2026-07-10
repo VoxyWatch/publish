@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.0.1** (2026-07-10).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.1.0** (2026-07-10).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -31,7 +31,7 @@
 7. Per-installation deployment status separates published, installed, validated and upgrade-compatible versions without centralizing customer data or secrets.
 8. Public AI-assisted configuration guide: customers can load `AI_VOXYWATCH_CONFIGURATION_ASSISTANT.md` into their own AI assistant to collect IPs, trunks, capture sources, thresholds, retention, alerts and users correctly.
 9. Anonymous adoption telemetry, tied to the existing Sentry toggle, reports active version/platform/tier by installation without sending customer IPs, trunks, SIP/RTP, CDRs, settings or credentials.
-10. Native agentic runtime: v3 ships an ADK-ready sidecar with specialist agents and a read-only tool contract.
+10. Native agentic runtime: v3 ships an ADK-ready sidecar with specialist agents, Diagnostics status/control and a read-only tool contract.
 11. Tutorial-ready product map: every main module and Settings section can be explained with a practical NOC scenario, a screen walkthrough and a safe validation test.
 
 ---
@@ -71,7 +71,7 @@
 | **Fraud early-warning** | The "suddenly calling Cuba" detector: alerts the first day a trunk calls a country absent from its last 4 weeks — critical if it's on the (editable) IRSF high-risk list. Plus short-call storms to one destination (premium-number sweeps, hacked PBX — active from day one), abnormal growth to high-risk destinations, and international-mix spikes vs the trunk's own history. Factory runbook included: who originates, time-of-day tells, block at *your* SBC, dispute with the carrier. A **fraud-risk score (0–100)** fuses the signals via a model trained offline on labelled history (privacy-safe: training off-box, inference on-box, no data leaves your server) and gates which alerts escalate to critical. |
 | **Predictive forecast** | Seasonal forecast (Holt-Winters over the 168-bucket baseline) projects each trunk's volume/ASR hours ahead with confidence bands, and turns audio-retention burn-rate into capacity incidents *before* you run out of disk. |
 | **MCP server** | Standalone Model Context Protocol server: Claude (or any MCP agent) queries health, KPIs, trunks, CDRs and incidents through 6 read-only scoped tools. |
-| **Per-user agentic chat memory** | Built-in AI Chat keeps private conversation sessions per user, lets operators reopen/delete history, and applies each user's profile prompt and AI language preference. |
+| **Per-user LLM memory** | Built-in LLM keeps private conversation sessions per user, lets operators reopen/delete history, applies each user's profile prompt, infers reply language from the latest operator message and supports OpenAI, Anthropic, Google Gemini, OpenRouter, Perplexity Sonar and custom OpenAI-compatible endpoints. |
 | **Agent tools API** | Authenticated read-only tool catalog for built-in chat and future ADK/sidecar runtimes, with rate limits and no SBC/network control. |
 
 ### 2 · Capture & analysis
@@ -100,7 +100,7 @@
 | Selective recording | Record audio only for the trunks that matter; stretch audio retention from hours to days on the same disk. SIP/CDR always kept. |
 | Hardened | 2 security audits + pentest (50+ fixes). CSP without unsafe-inline, CSRF/Origin checks, JWT + RBAC, OIDC SSO (Google/Microsoft/Okta/Keycloak/Auth0), optional HTTPS. |
 | Signed supply chain | Releases GPG-signed; installer/updater verifies signature **and** SHA-256 before touching anything. |
-| Self-hosted, period | Your hardware, your data. No cloud dependency. LLM keys are yours (OpenAI/Anthropic/Google/OpenRouter) and optional. |
+| Self-hosted, period | Your hardware, your data. No cloud dependency. LLM keys are yours (OpenAI/Anthropic/Google/OpenRouter/Perplexity/custom) and optional. |
 
 ### 4 · Integration & operations
 
@@ -108,6 +108,7 @@
 |---|---|
 | REST API v1 | Read-only versioned API: CDRs, Call Insight Audio/RTP Expert, traces, audio, health, stats, trunk health, **incidents**. Scoped hashed API keys, IP allowlists, rate limits, problem+json, OpenAPI spec. |
 | Platform readiness | Settings -> Diagnostics summarizes production health, configuration gaps, update safety, heavy jobs, AI troubleshooting context and hardware fit in one operator view. |
+| Agentic runtime control | Settings -> Diagnostics shows `voxywatch-agentic.service` status, specialist agents and health; admins can enable/start or stop/disable the local sidecar without touching the SBC. |
 | Sanitized support bundle | Authenticated, read-only ticket evidence with versions, fault domain, component status, metrics and dependency checks; strict allowlist excludes secrets, PII, audio and raw SIP. |
 | SNMP agent | Embedded v2c+v3 agent, 30+ OIDs, edge-triggered traps, downloadable MIB (IANA PEN 65985). |
 | Webhooks | Per-trunk and global, transition-fired (no spam), rich JSON with incident_id. |
@@ -156,4 +157,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.0.1.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.1.0.

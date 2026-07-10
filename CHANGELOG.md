@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.3.0] — 2026-07-10
+
+### Added — Agentic decisions UI
+- Settings -> Diagnostics now includes an Agentic decisions review table with filters, detail view, audit trail and approve/reject controls.
+- Approved `notify_operator` decisions reuse the existing incident notification fan-out when an `incident_id` is provided.
+- Approved `snooze_incident` decisions perform an audited ack + comment with a bounded snooze window.
+- The Agentic sidecar now exposes `/actions` and `/context-contract`, and analysis responses include proposal templates for policy-gated actions.
+
+### Safety
+- `notify_operator` and `snooze_incident` require a valid `incident_id`; invalid incident IDs are not reported as executed.
+- Threshold changes remain recommendation/manual-apply only.
+
 ## [3.2.0] — 2026-07-10
 
 ### Added — Policy-gated agentic actions

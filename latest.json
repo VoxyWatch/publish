@@ -1,26 +1,26 @@
 {
-  "version": "3.2.0",
+  "version": "3.3.0",
   "release_date": "2026-07-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.2.0/voxywatch-v3.2.0-linux-x64.tar.gz",
-    "sha256": "3eaac8acb76b1e20d13fff3d4493e2deda83a102d6ff6749e1990a62a2c2bcd7",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.2.0/voxywatch-v3.2.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.3.0/voxywatch-v3.3.0-linux-x64.tar.gz",
+    "sha256": "605de3e0fb56fa78b49ca32b6d42e0a0ba29b15a26b3ec0019c746a7690af65c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.3.0/voxywatch-v3.3.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Policy-gated agentic actions",
-    "Security and operations",
-    "Added a redacted agent context API so native agents can use live readiness, traffic snapshot, runbooks, read-only tools and recent incidents without raw SIP, au",
-    "Added a separate action policy catalog for operational recommendations. The read-only tool catalog remains read-only."
+    "Agentic decisions UI",
+    "Safety",
+    "Settings -> Diagnostics now includes an Agentic decisions review table with filters, detail view, audit trail and approve/reject controls.",
+    "Approved `notify_operator` decisions reuse the existing incident notification fan-out when an `incident_id` is provided."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Policy-gated agentic actions",
-    "Process",
-    "Added `GET /api/agentic/context`, a bounded redacted context pack for agents with platform readiness, live snapshot, read-only tools, runbooks and recent incide",
-    "Added a separate agentic action policy catalog and evaluation API so operational actions do not enter the read-only tool contract."
+    "Agentic decisions UI and action execution polish",
+    "Safety",
+    "Settings -> Diagnostics now includes an Agentic decisions review table with filters, detail, audit trail and approve/reject actions.",
+    "`notify_operator` now reuses the existing incident notification fan-out when an approved decision includes `incident_id`."
   ]
 }

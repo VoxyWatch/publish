@@ -395,6 +395,7 @@ if [ -d "${EXTRACTED}/agentic" ]; then
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/requirements.txt" "${INSTALL_DIR}/agentic/requirements.txt" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/voxywatch_agentic.py" "${INSTALL_DIR}/agentic/voxywatch_agentic.py" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/install-agentic-deps.sh" "${INSTALL_DIR}/agentic/install-agentic-deps.sh" 2>/dev/null || true
+  install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/run-agentic.sh" "${INSTALL_DIR}/agentic/run-agentic.sh" 2>/dev/null || true
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/voxywatch-agentic.service" "${INSTALL_DIR}/agentic/voxywatch-agentic.service" 2>/dev/null || true
 fi
 if [ -d "${EXTRACTED}/docs/ai" ]; then
@@ -740,7 +741,7 @@ WorkingDirectory=${INSTALL_DIR}/agentic
 EnvironmentFile=-${CONF_FILE}
 Environment=VOXYWATCH_AGENTIC_HOST=127.0.0.1
 Environment=VOXYWATCH_AGENTIC_PORT=3081
-ExecStart=/usr/bin/python3 ${INSTALL_DIR}/agentic/voxywatch_agentic.py
+ExecStart=${INSTALL_DIR}/agentic/run-agentic.sh
 Restart=on-failure
 RestartSec=5
 NoNewPrivileges=true
@@ -757,6 +758,16 @@ WantedBy=multi-user.target
 EOF
   fi
   systemctl daemon-reload 2>/dev/null || true
+  if [ "$AGENTIC_WAS_ENABLED" = "1" ] || [ "$AGENTIC_WAS_ACTIVE" = "1" ]; then
+    if [ -x "${INSTALL_DIR}/agentic/install-agentic-deps.sh" ]; then
+      info "Updating Agentic Python dependencies (runtime already opted in)..."
+      if "${INSTALL_DIR}/agentic/install-agentic-deps.sh" >/var/log/voxywatch-agentic-deps.log 2>&1; then
+        ok "Agentic dependencies updated"
+      else
+        warn "Agentic dependencies could not be updated; sidecar will keep deterministic fallback. Details: /var/log/voxywatch-agentic-deps.log"
+      fi
+    fi
+  fi
   if [ "$AGENTIC_WAS_ENABLED" = "1" ]; then
     systemctl enable voxywatch-agentic.service >/dev/null 2>&1 || true
   else

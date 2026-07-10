@@ -1,26 +1,26 @@
 {
-  "version": "3.1.0",
+  "version": "3.1.1",
   "release_date": "2026-07-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.1.0/voxywatch-v3.1.0-linux-x64.tar.gz",
-    "sha256": "e3482a04de4a01565a0ce82ba9c8819d9ad585312f1410b7f981034948d036eb",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.1.0/voxywatch-v3.1.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.1.1/voxywatch-v3.1.1-linux-x64.tar.gz",
+    "sha256": "7254ea3658d1e4688fc1d3b08211ef3b7ab32836ed6e003dd7d8366aee6c31a7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.1.1/voxywatch-v3.1.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "LLM provider polish and agentic runtime controls",
-    "Security and operations",
-    "Settings now uses LLM naming for the assistant configuration and floating assistant entrypoint.",
-    "Added Perplexity (Sonar) as a first-class LLM provider."
+    "Agentic dependency lifecycle",
+    "Operations",
+    "The Agentic runtime now starts through a managed runner that uses the ADK virtual environment when installed and falls back safely when it is not.",
+    "Signed updates now refresh Agentic Python dependencies only when the runtime was already enabled or active, so fresh installs still avoid any PyPI/network depen"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "LLM provider polish and agentic runtime controls",
-    "Settings now uses LLM naming instead of AI Chat/Chat IA for the provider-backed assistant experience.",
-    "Added Perplexity (Sonar) as a first-class LLM provider. Sonar calls use Perplexity's Sonar endpoint and model loading uses the current `/v1/models` catalog with",
-    "The provider model picker now filters to useful text/chat models and excludes image, audio, embedding, moderation and unrelated diagnostic models such as Nano B"
+    "Agentic dependency lifecycle",
+    "Process",
+    "`voxywatch-agentic.service` now starts through `run-agentic.sh`, which prefers the managed `.venv` when ADK dependencies are installed and falls back to system",
+    "The installer now updates Agentic Python dependencies during normal signed updates only when the runtime was already enabled or active, so fresh installs still"
   ]
 }

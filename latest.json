@@ -1,26 +1,26 @@
 {
-  "version": "3.3.0",
+  "version": "3.3.1",
   "release_date": "2026-07-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.3.0/voxywatch-v3.3.0-linux-x64.tar.gz",
-    "sha256": "605de3e0fb56fa78b49ca32b6d42e0a0ba29b15a26b3ec0019c746a7690af65c",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.3.0/voxywatch-v3.3.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.3.1/voxywatch-v3.3.1-linux-x64.tar.gz",
+    "sha256": "b3e57394b14dcce7391128065247b171cd711da94f5354c371389707c37f9357",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.3.1/voxywatch-v3.3.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Agentic decisions UI",
-    "Safety",
-    "Settings -> Diagnostics now includes an Agentic decisions review table with filters, detail view, audit trail and approve/reject controls.",
-    "Approved `notify_operator` decisions reuse the existing incident notification fan-out when an `incident_id` is provided."
+    "Authenticated startup",
+    "Operations",
+    "Returning browser sessions now attach the stored JWT before early `/api/settings` and `/api/time` requests.",
+    "Startup modules no longer send protected API requests without Bearer before the full auth wrapper is ready."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Agentic decisions UI and action execution polish",
-    "Safety",
-    "Settings -> Diagnostics now includes an Agentic decisions review table with filters, detail, audit trail and approve/reject actions.",
-    "`notify_operator` now reuses the existing incident notification fan-out when an approved decision includes `incident_id`."
+    "Authenticated startup noise",
+    "Process",
+    "Added an early `/api/*` fetch guard so modules that initialize before the full auth wrapper do not send protected requests without Bearer.",
+    "Returning browser sessions now attach the stored JWT before early settings/time requests, removing startup 401 noise and avoiding stale pre-auth component state"
   ]
 }

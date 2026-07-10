@@ -659,7 +659,7 @@ if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
   info "Provisioning SIPREC SRS (OFF by default)..."
   # venv con pylibsrtp para SRTP (best-effort: sin él, el SRS corre igual pero solo RTP en claro).
   # Debian mínimo NO trae `python3-venv` (ensurepip) → sin él `python3 -m venv` falla y el SRS
-  # se queda sin SRTP (causa real en C3ntro). Lo instalamos best-effort antes de crear el venv.
+  # se queda sin SRTP (causa real en Production Customer). Lo instalamos best-effort antes de crear el venv.
   if command -v apt-get >/dev/null 2>&1 && ! python3 -m ensurepip --version >/dev/null 2>&1; then
     apt-get install -y python3-venv >/dev/null 2>&1 || true
   fi

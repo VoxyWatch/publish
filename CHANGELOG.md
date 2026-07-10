@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.0.1] — 2026-07-10
+
+### Changed — Functional agent names
+- Agent display names now describe each specialist's function: Task Orchestrator, SIP Signaling Analyzer, Fraud Detection Analyst, Traffic Statistics Analyst, Platform Health Monitor and Release Update Monitor.
+- Technical agent IDs remain stable, so existing agentic contracts and integrations do not break.
+
 ## [3.0.0] — 2026-07-10
 
 ### Added — Native agentic runtime foundation

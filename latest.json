@@ -1,26 +1,26 @@
 {
-  "version": "2.159.3",
-  "release_date": "2026-07-08",
+  "version": "2.160.0",
+  "release_date": "2026-07-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.159.3/voxywatch-v2.159.3-linux-x64.tar.gz",
-    "sha256": "8ce1db82e8a8389a13ef3bf5712266eeaf1e5370cb0700ee8c4e21dbd19e7bcb",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.159.3/voxywatch-v2.159.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.160.0/voxywatch-v2.160.0-linux-x64.tar.gz",
+    "sha256": "ac7f38033b5aca311f22e96ef0ed56383594dddb13ecb70a42ff4844e4ecf3e8",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.160.0/voxywatch-v2.160.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Public CDR zero-value contract",
-    "Documentation",
-    "Public CDR responses now preserve measured zero values for setup time, PDD, SIP disposition code, MOS, jitter, packet loss and SIP message count instead of conv",
-    "This keeps API v1, Call Insight responses, exports and downstream integrations from treating valid zero metrics as missing data."
+    "Platform readiness and operational visibility",
+    "Process",
+    "Settings -> Diagnostics now includes Platform readiness, a consolidated market-readiness view for production health, configuration gaps, update safety, heavy jo",
+    "New authenticated `GET /api/platform-readiness` returns a redacted read-only readiness contract built from operational health, deployment status, onboarding, se"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Public CDR zero-value contract",
-    "Docs and process",
-    "The portal/API CDR projection now preserves valid numeric zero values for setup time, PDD, SIP disposition code, MOS, jitter, packet loss and SIP message count",
-    "This keeps `/api/v1/cdrs`, `/api/v1/calls/:id/insights`, exports and downstream integrations from treating measured zero values as missing data."
+    "Platform readiness and operational visibility",
+    "Process",
+    "Settings -> Diagnostics now includes Platform readiness, a consolidated market-readiness view for production health, configuration, update safety, heavy job act",
+    "New authenticated `GET /api/platform-readiness` returns a redacted read-only readiness contract built from operational health, deployment status, onboarding, se"
   ]
 }

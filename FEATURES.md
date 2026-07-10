@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.159.3** (2026-07-02).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v2.160.0** (2026-07-02).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -104,6 +104,7 @@
 | Feature | Copy |
 |---|---|
 | REST API v1 | Read-only versioned API: CDRs, Call Insight Audio/RTP Expert, traces, audio, health, stats, trunk health, **incidents**. Scoped hashed API keys, IP allowlists, rate limits, problem+json, OpenAPI spec. |
+| Platform readiness | Settings -> Diagnostics summarizes production health, configuration gaps, update safety, heavy jobs, AI troubleshooting context and hardware fit in one operator view. |
 | Sanitized support bundle | Authenticated, read-only ticket evidence with versions, fault domain, component status, metrics and dependency checks; strict allowlist excludes secrets, PII, audio and raw SIP. |
 | SNMP agent | Embedded v2c+v3 agent, 30+ OIDs, edge-triggered traps, downloadable MIB (IANA PEN 65985). |
 | Webhooks | Per-trunk and global, transition-fired (no spam), rich JSON with incident_id. |
@@ -152,4 +153,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.159.3.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v2.160.0.

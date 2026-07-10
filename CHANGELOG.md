@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [2.160.0] — 2026-07-10
+
+### Added — Platform readiness and operational visibility
+- Settings -> Diagnostics now includes **Platform readiness**, a consolidated market-readiness view for production health, configuration gaps, update safety, heavy job activity, AI troubleshooting context and hardware fit.
+- New authenticated `GET /api/platform-readiness` returns a redacted read-only readiness contract built from operational health, deployment status, onboarding, settings, heavy jobs and hardware limits.
+- Heavy job snapshots now expose safe running/queued job metadata without Call-ID or dedupe keys, so operators can see that audio, PCAP and DTMF work is in progress.
+- CDRs now include deterministic `quality_score`, `quality_grade` and `quality_factors` to summarize SIP/media quality per call.
+
+### Process
+- Added readiness and call-quality unit tests.
+- Release invariants now verify the new readiness endpoint, Diagnostics UI anchors and safe heavy-job visibility.
+
 ## [2.159.3] — 2026-07-08
 
 ### Fixed — Public CDR zero-value contract

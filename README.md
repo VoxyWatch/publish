@@ -193,6 +193,7 @@ PII, audio and raw SIP before the JSON can be attached to a ticket.
 ### 🔌 Integration API
 - A read-only, versioned REST API (**`/api/v1`**) for billing and monitoring systems: CDR search, single CDR, Call Insight Audio/RTP Expert, SIP-trace JSON, PCAP and audio.
 - **API keys** (hashed, scoped: `cdr:read` / `trace:read` / `audio:read`), per-key **IP allowlists** and **rate limits**, a stable public CDR schema decoupled from internals, RFC 9457 `problem+json` errors and a published OpenAPI spec.
+- **Platform readiness** in Settings -> Diagnostics combines health, configuration, update safety, heavy jobs, AI troubleshooting context and hardware fit, while each CDR carries a deterministic quality score for faster triage.
 
 ### 🔐 Security & access control
 - **JWT auth** with **RBAC** (admin / operator / viewer) and **SSO via OIDC** (Google, Microsoft, Okta, Keycloak, Auth0).

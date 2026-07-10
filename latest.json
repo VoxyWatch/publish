@@ -1,26 +1,26 @@
 {
-  "version": "2.161.0",
+  "version": "3.0.0",
   "release_date": "2026-07-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v2.161.0/voxywatch-v2.161.0-linux-x64.tar.gz",
-    "sha256": "5b2a5b028475217609423d2ea542215051abe285538518efd6b8501acc432e67",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v2.161.0/voxywatch-v2.161.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.0.0/voxywatch-v3.0.0-linux-x64.tar.gz",
+    "sha256": "01f08d9ea5c29924dc4d0e782fb6cabea078ecd834b5013a869bcf7306e4dd31",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.0.0/voxywatch-v3.0.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Per-user agentic chat memory",
-    "Security and process",
-    "AI Chat now stores conversation sessions per user on the server, so each operator can reopen prior chats without mixing history with other users.",
-    "The floating chat widget can create a new chat, switch previous sessions and delete a chat history."
+    "Native agentic runtime foundation",
+    "Security and operations",
+    "VoxyWatch now ships an ADK-ready agentic sidecar as `voxywatch-agentic.service`.",
+    "The sidecar is installed and updated with every signed VoxyWatch release, but fresh installs keep it disabled until the operator enables it."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Per-user agentic chat memory",
+    "Native agentic runtime foundation",
     "Process",
-    "The AI chat now has per-user conversation sessions stored server-side, so each operator can return to previous chats without mixing history with other users.",
-    "Users can create a new chat, switch previous sessions and delete a chat history from the floating chat widget."
+    "VoxyWatch now ships a versioned ADK-ready sidecar skeleton as `voxywatch-agentic.service`, installed under `/opt/voxywatch/agentic` and updated with every signe",
+    "The sidecar is loopback-only, disabled by default on new installs and preserved across updates if the operator had already enabled it."
   ]
 }

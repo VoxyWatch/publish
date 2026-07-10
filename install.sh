@@ -389,6 +389,14 @@ for migration in "${EXTRACTED}"/migrations/*.sql; do
 done
 install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTALL_DIR}/WIKI_INTEGRATION.md" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/AI_TROUBLESHOOTING.md" "${INSTALL_DIR}/AI_TROUBLESHOOTING.md" 2>/dev/null || true
+if [ -d "${EXTRACTED}/agentic" ]; then
+  install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/agentic"
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/manifest.json" "${INSTALL_DIR}/agentic/manifest.json" 2>/dev/null || true
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/requirements.txt" "${INSTALL_DIR}/agentic/requirements.txt" 2>/dev/null || true
+  install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/voxywatch_agentic.py" "${INSTALL_DIR}/agentic/voxywatch_agentic.py" 2>/dev/null || true
+  install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/install-agentic-deps.sh" "${INSTALL_DIR}/agentic/install-agentic-deps.sh" 2>/dev/null || true
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/voxywatch-agentic.service" "${INSTALL_DIR}/agentic/voxywatch-agentic.service" 2>/dev/null || true
+fi
 if [ -d "${EXTRACTED}/docs/ai" ]; then
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs" "${INSTALL_DIR}/docs/ai"
   find "${EXTRACTED}/docs/ai" -type d | while read -r d; do
@@ -532,6 +540,10 @@ sysctl -p /etc/sysctl.d/99-voxywatch.conf >/dev/null 2>&1 \
 
 # ── Install systemd unit files ────────────────────────────────────────────────
 info "Installing systemd units..."
+AGENTIC_WAS_ACTIVE=0
+AGENTIC_WAS_ENABLED=0
+systemctl is-active --quiet voxywatch-agentic.service 2>/dev/null && AGENTIC_WAS_ACTIVE=1 || true
+systemctl is-enabled --quiet voxywatch-agentic.service 2>/dev/null && AGENTIC_WAS_ENABLED=1 || true
 
 # Heap V8 del portal: el binario pkg/SEA IGNORA --max-old-space-size (probado 2026-06-25) — vía NODE_OPTIONS
 # o vía argv da igual: V8 crea su isolate desde el snapshot del binario ANTES de leer cualquier flag, y
@@ -705,6 +717,60 @@ EOF
   ok "SIPREC SRS installed (DORMANT and disabled; enable it with siprec_enabled=true + systemctl enable --now voxywatch-srs)"
 fi
 
+# ── Agentic runtime (ADK sidecar) — proceso APARTE, loopback, OFF por default ─
+# v3.0: el runtime agéntico viaja con cada update, pero no abre puertos externos ni
+# controla el SBC. Si ya estaba activo/habilitado antes del update, preservamos ese
+# estado; en instalaciones nuevas queda instalado y apagado hasta opt-in.
+if [ -f "${INSTALL_DIR}/agentic/voxywatch_agentic.py" ]; then
+  info "Provisioning VoxyWatch Agentic runtime (ADK sidecar, loopback)..."
+  if [ -f "${INSTALL_DIR}/agentic/voxywatch-agentic.service" ]; then
+    install -o root -g root -m 644 "${INSTALL_DIR}/agentic/voxywatch-agentic.service" /etc/systemd/system/voxywatch-agentic.service
+  else
+    cat > /etc/systemd/system/voxywatch-agentic.service << EOF
+[Unit]
+Description=VoxyWatch Agentic Runtime (ADK sidecar)
+After=network-online.target voxywatch.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=${SERVICE_USER}
+Group=${SERVICE_USER}
+WorkingDirectory=${INSTALL_DIR}/agentic
+EnvironmentFile=-${CONF_FILE}
+Environment=VOXYWATCH_AGENTIC_HOST=127.0.0.1
+Environment=VOXYWATCH_AGENTIC_PORT=3081
+ExecStart=/usr/bin/python3 ${INSTALL_DIR}/agentic/voxywatch_agentic.py
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=${DATA_DIR}
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+SyslogIdentifier=voxywatch-agentic
+
+[Install]
+WantedBy=multi-user.target
+EOF
+  fi
+  systemctl daemon-reload 2>/dev/null || true
+  if [ "$AGENTIC_WAS_ENABLED" = "1" ]; then
+    systemctl enable voxywatch-agentic.service >/dev/null 2>&1 || true
+  else
+    systemctl disable voxywatch-agentic.service >/dev/null 2>&1 || true
+  fi
+  if [ "$AGENTIC_WAS_ACTIVE" = "1" ]; then
+    systemctl restart voxywatch-agentic.service >/dev/null 2>&1 || warn "Could not restart voxywatch-agentic"
+    ok "Agentic runtime updated and restarted"
+  else
+    systemctl stop voxywatch-agentic.service >/dev/null 2>&1 || true
+    ok "Agentic runtime installed (disabled until enabled)"
+  fi
+fi
+
 # ── Service-control scripts (opt-in privilege grant) ──────────────────────────
 # Generated ALWAYS so the admin can enable/disable later without reinstalling.
 # Executed now only if the admin opted in above. The grant is scoped via a polkit
@@ -729,13 +795,14 @@ polkit.addRule(function(action, subject) {
     if (action.id == "org.freedesktop.systemd1.manage-units") {
         var u = action.lookup("unit");
         if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" ||
+            u == "voxywatch-agentic.service" ||
             u == "voxywatch-apply-update.service" || u == "systemd-timesyncd.service")
             return polkit.Result.YES;
     }
     // enable/disable persistente SOLO del SRS (la pestaña Settings → SIPREC lo activa en boot).
     if (action.id == "org.freedesktop.systemd1.manage-unit-files") {
         var uf = action.lookup("unit");
-        if (uf == "voxywatch-srs.service")
+        if (uf == "voxywatch-srs.service" || uf == "voxywatch-agentic.service")
             return polkit.Result.YES;
     }
     if (action.id == "org.freedesktop.timedate1.set-timezone" ||

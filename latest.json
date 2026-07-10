@@ -1,26 +1,24 @@
 {
-  "version": "3.0.0",
+  "version": "3.0.1",
   "release_date": "2026-07-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.0.0/voxywatch-v3.0.0-linux-x64.tar.gz",
-    "sha256": "01f08d9ea5c29924dc4d0e782fb6cabea078ecd834b5013a869bcf7306e4dd31",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.0.0/voxywatch-v3.0.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.0.1/voxywatch-v3.0.1-linux-x64.tar.gz",
+    "sha256": "58451970d7f231419f39257dc919e9f13c2e569e775281dba8987639c18663da",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.0.1/voxywatch-v3.0.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Native agentic runtime foundation",
-    "Security and operations",
-    "VoxyWatch now ships an ADK-ready agentic sidecar as `voxywatch-agentic.service`.",
-    "The sidecar is installed and updated with every signed VoxyWatch release, but fresh installs keep it disabled until the operator enables it."
+    "Functional agent names",
+    "Agent display names now describe each specialist's function: Task Orchestrator, SIP Signaling Analyzer, Fraud Detection Analyst, Traffic Statistics Analyst, Pla",
+    "Technical agent IDs remain stable, so existing agentic contracts and integrations do not break."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Native agentic runtime foundation",
-    "Process",
-    "VoxyWatch now ships a versioned ADK-ready sidecar skeleton as `voxywatch-agentic.service`, installed under `/opt/voxywatch/agentic` and updated with every signe",
-    "The sidecar is loopback-only, disabled by default on new installs and preserved across updates if the operator had already enabled it."
+    "Functional agent names",
+    "Agent display names in the v3 manifest now describe the job they perform: Task Orchestrator, SIP Signaling Analyzer, Fraud Detection Analyst, Traffic Statistics",
+    "The technical agent IDs remain stable (`orchestrator`, `sip_expert`, `fraud_guard`, `traffic_analytics`, `noc_health`, `release_watcher`) so existing contracts"
   ]
 }

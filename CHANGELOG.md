@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.0.0] — 2026-07-10
+
+### Added — Native agentic runtime foundation
+- VoxyWatch now ships an ADK-ready agentic sidecar as `voxywatch-agentic.service`.
+- The sidecar is installed and updated with every signed VoxyWatch release, but fresh installs keep it disabled until the operator enables it.
+- New authenticated agentic endpoints expose runtime status and evidence-backed analysis routing.
+- The first native specialist map includes Orchestrator, SIP Expert, Fraud Guard, Traffic Analytics, NOC Health and Release Watcher.
+- If the sidecar is not running yet, the portal returns a deterministic local routing plan instead of failing the operator workflow.
+
+### Security and operations
+- The sidecar binds to loopback only and never controls the customer's SBC.
+- Updates preserve a prior operator opt-in: active/enabled sidecars are restarted with the new release; inactive installs stay off.
+- Release invariants now block unsafe agentic defaults, missing packaging or accidental enablement on fresh installs.
+
 ## [2.161.0] — 2026-07-10
 
 ### Added — Per-user agentic chat memory

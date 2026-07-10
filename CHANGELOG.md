@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.3.1] — 2026-07-10
+
+### Fixed — Authenticated startup
+- Returning browser sessions now attach the stored JWT before early `/api/settings` and `/api/time` requests.
+- Startup modules no longer send protected API requests without Bearer before the full auth wrapper is ready.
+- This removes noisy 401 console errors and prevents early widgets from seeing stale pre-auth state.
+
+### Operations
+- Demo validation now includes authenticated browser startup checks in addition to API health checks.
+
+---
+
 ## [3.3.0] — 2026-07-10
 
 ### Added — Agentic decisions UI

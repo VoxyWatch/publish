@@ -5,6 +5,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.6.0] — 2026-07-12
+
+### Added — SIP Expert timeline, confidence and evidence
+- SIP Expert now builds a deterministic transaction timeline with transactions, dialogs, retransmissions, final response per transaction, delayed-offer, early-media, forking and early-BYE signals.
+- Each scenario can now carry confidence and evidence so operators can see the exact message, header or SDP behind the conclusion.
+- New no-LLM scenarios cover private Contact/NAT, private SDP media, SRTP/security policy, codec mismatch, T.38/fax, hold/inactive media, late offer, forking, retransmissions and routing loops.
+- The UI and Markdown export now show confidence and timeline details.
+
+### Fixed — SIP precision and false positives
+- Private Contact/SDP are informational by themselves and no longer override likely owner/root cause when a call completes successfully.
+- ACK transactions are shown as one-way instead of no-response.
+- Retransmission counting now works when the original request is message #1/index 0.
+
+### Operations
+- Added deterministic tests for ACK one-way, retransmissions, private NAT/SDP, SRTP, codec mismatch, late offer, T.38 and forking.
+
 ## [3.5.0] — 2026-07-12
 
 ### Added — Expanded deterministic SIP Expert

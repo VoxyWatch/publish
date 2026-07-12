@@ -13,7 +13,9 @@
 - SIP Expert verdict.
 - Call type: INVITE dialog, REGISTER, OPTIONS, REFER, MESSAGE, SUBSCRIBE/NOTIFY or in-dialog update.
 - RFC findings severity.
-- Deterministic scenario tags: cancellation, authentication challenge/success/failure, redirect, media negotiation failure, 503 overload, session timer, glare, early media, Q.850 reason, identity/privacy, forwarding history, transfer/join, DTMF, and no-response flows.
+- Deterministic scenario tags: cancellation, authentication challenge/success/failure, redirect, media negotiation failure, 503 overload, session timer, glare, early media, Q.850 reason, identity/privacy, forwarding history, transfer/join, DTMF, no-response, NAT/private Contact, private SDP media, SRTP/security policy, codec mismatch, T.38/fax, hold/inactive media, forking, retransmissions and routing loops.
+- Transaction timeline: transaction count, dialogs, retransmissions, final response per transaction and whether delayed-offer/early-media/forking behavior was observed.
+- Confidence and evidence: use deterministic confidence plus message/header/SDP evidence before escalating to carrier, SBC or endpoint teams.
 - SDP/media findings.
 - Response codes and transaction flow.
 
@@ -31,3 +33,5 @@
 The conclusion should separate signaling corruption, normal user behavior, policy rejection, authentication, media negotiation, routing/numbering, identity/privacy, transfer features and provider-side failure.
 
 SIP Expert is expected to be useful without an LLM. The LLM may explain or correlate the result, but deterministic findings and scenario tags are the evidence source.
+
+When a scenario is informational, do not treat it as root cause by itself. Example: private Contact/SDP can be normal inside a LAN capture; it becomes actionable when paired with no response, media failure, one-way audio or NAT traversal symptoms.

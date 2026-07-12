@@ -1,26 +1,26 @@
 {
-  "version": "3.5.0",
+  "version": "3.6.0",
   "release_date": "2026-07-12",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.5.0/voxywatch-v3.5.0-linux-x64.tar.gz",
-    "sha256": "ca9bd2e72a7023b6981ecdd404d1ac8b13d43ae6409533d05559aba1761d8178",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.5.0/voxywatch-v3.5.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.6.0/voxywatch-v3.6.0-linux-x64.tar.gz",
+    "sha256": "baf33f99481fb9cf95edfbc913ada7a2be0d0edc353370bc62043d6ee8f1e0c7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.6.0/voxywatch-v3.6.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Expanded deterministic SIP Expert",
-    "SIP dialog precision",
+    "SIP Expert timeline, confidence and evidence",
+    "SIP precision and false positives",
     "Operations",
-    "SIP Expert now recognizes common SIP scenarios without requiring an LLM: CANCEL/487 cancellation, redirects, authentication challenge/success/failure, SDP/media"
+    "SIP Expert now builds a deterministic transaction timeline with transactions, dialogs, retransmissions, final response per transaction, delayed-offer, early-med"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "SIP Expert determinístico ampliado",
-    "Precisión de diálogo SIP",
+    "SIP Expert timeline, confianza y evidencia",
+    "Precisión y falsos positivos SIP",
     "Process",
-    "SIP Expert ahora identifica escenarios SIP conocidos sin depender del LLM: cancelación con CANCEL/487, redirecciones, reto/exito/falla de autenticación, fallo"
+    "SIP Expert ahora reconstruye un timeline transaccional determinístico: transacciones, diálogos, retransmisiones, respuesta final por transacción y señales d"
   ]
 }

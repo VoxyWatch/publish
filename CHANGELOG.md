@@ -5,6 +5,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.5.0] — 2026-07-12
+
+### Added — Expanded deterministic SIP Expert
+- SIP Expert now recognizes common SIP scenarios without requiring an LLM: CANCEL/487 cancellation, redirects, authentication challenge/success/failure, SDP/media negotiation failure, 503 capacity without Retry-After, session timers, 491 glare, early media, Q.850 Reason, identity/privacy, forwarding history, transfer/join, DTMF and no-response flows.
+- The executive summary uses those deterministic scenarios to suggest likely root cause, likely owner and operational next steps.
+- The UI now shows detected scenario chips, and Markdown/JSON exports include the same scenario classification for carrier disputes or external troubleshooting.
+- RFC coverage now includes PUBLISH, CANCEL, BYE, Replaces, Join, Path, SIP Outbound, GRUU, P-Early-Media, Resource-Priority, 3GPP P-Headers, SUBSCRIBE/NOTIFY/PUBLISH Event, 422 Min-SE, 420 Unsupported and 405 Allow.
+
+### Fixed — SIP dialog precision
+- Missing ACK detection now checks each 200 OK INVITE dialog/fork by tags, preventing false negatives when multiple 200 OK responses exist and only one receives ACK.
+
+### Operations
+- Added deterministic tests for cancellation, media failure, 503 without Retry-After, REGISTER challenge-response, SUBSCRIBE/NOTIFY events and forked 200 OK without ACK.
+- SIP Analysis runbooks now document that SIP Expert should be useful without an LLM; the LLM can explain/correlate, but deterministic findings remain the evidence source.
+
 ## [3.4.0] — 2026-07-12
 
 ### Added — Operator guidance and contextual LLM

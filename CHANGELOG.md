@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.4.0] — 2026-07-12
+
+### Added — Operator guidance and contextual LLM
+- Settings -> Diagnostics now shows guided actions inside Platform readiness with priority, likely fault domain, confidence and next step.
+- Platform readiness now gives clearer update status: installed/published versions, compatibility, validation and last-check age.
+- The built-in LLM receives a sanitized UI context hint, so it can understand questions like "this call", "this incident" or "what should I do now" from the current portal view.
+- UI context is allowlisted and bounded; the assistant still verifies real data through read-only VoxyWatch tools.
+
+### Fixed — Heavy job feedback
+- Audio and PCAP buttons now stop duplicate clicks while the same heavy job is already being prepared, reducing operator confusion and repeated requests.
+
+### Operations
+- Engineering docs now document the new readiness guidance contract and the correct bug-hunter/test procedure for this repository.
+
 ## [3.3.1] — 2026-07-10
 
 ### Fixed — Authenticated startup

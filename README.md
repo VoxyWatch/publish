@@ -182,7 +182,7 @@ PII, audio and raw SIP before the JSON can be attached to a ticket.
 - History depth is **not capped by code** — it's whatever your CDR retention holds. More disk → more history → a smarter copilot.
 
 ### 🤖 NOC AI Copilot — chat with your network  *(bring your own key)*
-- **Per-trunk copilot**: feeds the LLM a compact context (current KPIs + alarms + learned baseline + 48h trend + top SIP codes + destinations) and returns **probable cause → NOC actions → short-term risk**.
+- **Contextual LLM**: keeps per-user history, applies the user's profile prompt, understands the current portal view through a sanitized context hint, and can use live read-only tools for calls, SIP ladders, trunks and incidents.
 - **NOC summary copilot**: prioritizes and groups all alarming trunks and suggests the action per group.
 - **Per-user chat memory**: each operator keeps private chat sessions, can reopen or delete prior conversations, and can define a profile prompt plus AI language.
 - **You bring the key** (OpenAI, Anthropic, Google Gemini, or OpenRouter) — your tokens, your cost, your data path. Off until you enable it.
@@ -196,7 +196,7 @@ PII, audio and raw SIP before the JSON can be attached to a ticket.
 ### 🔌 Integration API
 - A read-only, versioned REST API (**`/api/v1`**) for billing and monitoring systems: CDR search, single CDR, Call Insight Audio/RTP Expert, SIP-trace JSON, PCAP and audio.
 - **API keys** (hashed, scoped: `cdr:read` / `trace:read` / `audio:read`), per-key **IP allowlists** and **rate limits**, a stable public CDR schema decoupled from internals, RFC 9457 `problem+json` errors and a published OpenAPI spec.
-- **Platform readiness** in Settings -> Diagnostics combines health, configuration, update safety, heavy jobs, AI troubleshooting context and hardware fit, while each CDR carries a deterministic quality score for faster triage.
+- **Platform readiness** in Settings -> Diagnostics combines health, configuration, update safety, heavy jobs, AI troubleshooting context and hardware fit, then shows guided actions with priority, likely fault domain, confidence and next step. Each CDR carries a deterministic quality score for faster triage.
 
 ### 🔐 Security & access control
 - **JWT auth** with **RBAC** (admin / operator / viewer) and **SSO via OIDC** (Google, Microsoft, Okta, Keycloak, Auth0).

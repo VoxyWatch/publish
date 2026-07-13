@@ -263,6 +263,24 @@ elif tty_ok; then
 fi
 if [ "$SERVICE_CONTROL" = "yes" ]; then
   ok "Service control: ENABLED (portal can restart its services)"
+
+  # systemd delegates unprivileged D-Bus authorization to polkit. Minimal Debian
+  # images may have systemd but no polkit daemon at all; merely writing a rule
+  # then looks configured while every busctl StartUnit is rejected as denied.
+  # Install it before touching product files so an apt failure cannot leave a
+  # half-updated VoxyWatch installation.
+  command -v apt-get &>/dev/null \
+    || err "Service control requires polkit on a Debian/Ubuntu host (apt-get not found)"
+  if ! command -v pkaction &>/dev/null; then
+    info "Installing polkit for scoped portal service control..."
+    apt-get update >/dev/null 2>&1 || true
+    apt-get install -y polkitd >/dev/null 2>&1 \
+      || apt-get install -y policykit-1 >/dev/null 2>&1 \
+      || err "Could not install polkit; disable service control or install polkit manually"
+  fi
+  command -v pkaction &>/dev/null \
+    || err "Service control was requested but polkit is not available"
+  ok "polkit available for scoped D-Bus authorization"
 else
   ok "Service control: disabled (manual restarts — enable later if you want)"
 fi
@@ -796,6 +814,12 @@ set -euo pipefail
 [ "$EUID" -ne 0 ] && { echo "Must run as root:  sudo $0"; exit 1; }
 SERVICE_USER="voxywatch"
 CONF_FILE="/etc/voxywatch/voxywatch.conf"
+
+# Never claim success by writing a rule that no authorization daemon can load.
+command -v pkaction >/dev/null 2>&1 || {
+  echo "polkit is required for service control. Install package 'polkitd' and retry." >&2
+  exit 1
+}
 
 # 1) polkit rule — scoped to VoxyWatch's own units + time settings only
 mkdir -p /etc/polkit-1/rules.d

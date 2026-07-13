@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.6.1] — 2026-07-12
+
+### Fixed — One-click updates on minimal Debian installations
+- The installer now installs and verifies polkit when scoped service control is enabled. Previously it could write the authorization rule and mark service control enabled even when no polkit daemon existed, causing the Update button to fail with `Access denied`.
+- `enable-service-control.sh` now fails clearly when polkit is unavailable instead of reporting a permission that systemd cannot evaluate.
+
+### Process
+- Release invariants now require the installer to provide and verify polkit for the D-Bus updater.
+
 ## [3.6.0] — 2026-07-12
 
 ### Added — SIP Expert timeline, confidence and evidence

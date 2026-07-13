@@ -1,26 +1,26 @@
 {
-  "version": "3.6.1",
+  "version": "3.7.0",
   "release_date": "2026-07-12",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.6.1/voxywatch-v3.6.1-linux-x64.tar.gz",
-    "sha256": "c4af45e7761095c729abdcc6317e60028f9383621cf414392de17fe3940c960c",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.6.1/voxywatch-v3.6.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.7.0/voxywatch-v3.7.0-linux-x64.tar.gz",
+    "sha256": "e849ac67833bdf284b43c5da8efbf919c77c811f8ddae2aa1fed7681e4b93690",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.7.0/voxywatch-v3.7.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "One-click updates on minimal Debian installations",
-    "Process",
-    "The installer now installs and verifies polkit when scoped service control is enabled. Previously it could write the authorization rule and mark service control",
-    "`enable-service-control.sh` now fails clearly when polkit is unavailable instead of reporting a permission that systemd cannot evaluate."
+    "Outcome-first operator experience",
+    "Faster first investigation",
+    "Verifiable one-click updater",
+    "Process"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Actualización de un clic en instalaciones Debian mínimas",
-    "Process",
-    "El instalador ahora instala y verifica polkit cuando el administrador habilita el control acotado de servicios. Antes podía escribir la regla y marcar `SERVICE",
-    "`enable-service-control.sh` falla de forma explícita si polkit no está disponible, en vez de declarar habilitado un permiso que systemd no puede evaluar."
+    "Experiencia orientada a resultados",
+    "Primera experiencia más simple",
+    "Actualizador verificable",
+    "Process"
   ]
 }

@@ -5,6 +5,25 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.7.0] — 2026-07-12
+
+### Added — Outcome-first operator experience
+- Overview now starts with a prioritized queue of open incidents and degraded trunks, including impact, evidence and a direct investigation action.
+- The public demo adds one-click access and a four-step live scenario from degradation to failed calls and carrier-ready evidence.
+- Primary navigation is reduced to Overview, Investigate, Incidents and Infrastructure; Fraud, Trunks and CDR remain available under More.
+
+### Changed — Faster first investigation
+- New users start with five essential KPIs and five operational charts; every advanced widget remains available through Customize.
+- Portal and login positioning are unified as “Agentic NOC for Voice Networks”.
+- The dashboard stays hidden until authentication finishes, eliminating the misleading inactive-capture screen before login.
+
+### Fixed — Verifiable one-click updater
+- A connection closed by the portal restart is no longer reported immediately as a network failure; the UI reconnects and verifies the installed version.
+- Invalid/non-JSON updater responses are handled clearly, and the button recovers when the old version remains installed.
+
+### Process
+- Added 26 automated contracts for authentication bootstrap, demo, navigation and updater behavior, plus a reproducible visual smoke test.
+
 ## [3.6.1] — 2026-07-12
 
 ### Fixed — One-click updates on minimal Debian installations

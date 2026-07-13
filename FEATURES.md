@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.6.1** (2026-07-12).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.7.0** (2026-07-12).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -12,6 +12,9 @@
 
 **Subhead (EN):** It doesn't just capture your calls. It watches them, investigates anomalies on its own, tells you the root cause — and learns from every incident.
 **Subhead (ES):** No solo captura tus llamadas. Las vigila, investiga las anomalías por sí solo, te dice la causa raíz — y aprende de cada incidente.
+
+**Outcome message (EN):** *From a failed call to carrier-ready evidence in under five minutes.*
+**Outcome message (ES):** *De una llamada fallida a evidencia lista para el carrier en menos de cinco minutos.*
 
 **One-liner alternates:**
 - "From packets to verdicts." / "De paquetes a veredictos."
@@ -58,6 +61,8 @@
 | Feature | Copy |
 |---|---|
 | **Incident engine** | Every anomaly becomes a persistent incident with lifecycle (open → ack → resolved), deduplication, auditable timeline and stability-based auto-resolve. No alert storms — one live incident per problem. |
+| **Outcome-first Overview** | Five essential KPIs plus a prioritized queue of open incidents and degraded trunks. One click opens the exact incident evidence or affected infrastructure; advanced charts remain customizable. |
+| **Guided live demo** | The public demo moves from degraded trunk → open incident → failed calls → carrier-ready evidence in four explicit steps, with one-click access and no misleading pre-auth dashboard. |
 | **Autonomous investigator** | The moment an incident opens, VoxyWatch gathers evidence by itself: failing call samples, dominant SIP codes, failing IP paths, affected countries, and the carrier-vs-local tell (did other trunks degrade too?). An AI investigator then writes the root cause **citing that evidence**. |
 | **Structured diagnosis** | Probable cause · confidence · scope (carrier / customer / local / capacity) · recommended action. Budgeted & cached LLM usage. Works without an LLM too — raw evidence is always collected. |
 | **Actionable Telegram** | Critical incidents hit your phone with the diagnosis and inline buttons: Ack · Resolve · Investigate · approve the proposed fix. Closed action catalog (never the SBC), full audit trail. |

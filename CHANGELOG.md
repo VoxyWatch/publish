@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.7.1] — 2026-07-13
+
+### Fixed — Visible attention queue
+- The prioritized attention queue and guided demo story no longer collapse inside the fixed-height flex dashboard; both keep their content height while the dashboard continues to scroll normally.
+
+### Process
+- Authenticated visual validation against the public demo is now required for new Overview surfaces, and the CSS contract explicitly prevents flex shrinking.
+
 ## [3.7.0] — 2026-07-12
 
 ### Added — Outcome-first operator experience

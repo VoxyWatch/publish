@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.7.0** (2026-07-12).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.7.1** (2026-07-13).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---

@@ -1,26 +1,26 @@
 {
-  "version": "3.7.0",
-  "release_date": "2026-07-12",
+  "version": "3.7.1",
+  "release_date": "2026-07-13",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.7.0/voxywatch-v3.7.0-linux-x64.tar.gz",
-    "sha256": "e849ac67833bdf284b43c5da8efbf919c77c811f8ddae2aa1fed7681e4b93690",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.7.0/voxywatch-v3.7.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.7.1/voxywatch-v3.7.1-linux-x64.tar.gz",
+    "sha256": "9eb24b9ac5911821776e7d8870df4832b44305b3c7cc077779d178e491802bdf",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.7.1/voxywatch-v3.7.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Outcome-first operator experience",
-    "Faster first investigation",
-    "Verifiable one-click updater",
-    "Process"
+    "Visible attention queue",
+    "Process",
+    "The prioritized attention queue and guided demo story no longer collapse inside the fixed-height flex dashboard; both keep their content height while the dashbo",
+    "Authenticated visual validation against the public demo is now required for new Overview surfaces, and the CSS contract explicitly prevents flex shrinking."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Experiencia orientada a resultados",
-    "Primera experiencia más simple",
-    "Actualizador verificable",
-    "Process"
+    "Cola de atención visible",
+    "Process",
+    "La cola priorizada y el recorrido de demo ya no se comprimen dentro del dashboard flex de altura fija; conservan su altura y el contenido continúa desplazándo",
+    "La validación visual autenticada contra la demo se vuelve evidencia obligatoria para componentes nuevos del Overview; el contrato CSS exige `flex-shrink:0` en"
   ]
 }

@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.8.0] — 2026-07-13
+
+### Added — AI cost and freshness controls
+- Every operator can choose manual AI refresh or 30 seconds, 1, 5, 15 or 30 minutes. Administrators set the minimum interval, while critical conditions may bypass the normal wait.
+- Settings → LLM adds deterministic fast/standard/deep model routing, Prompt Caching, a chat context budget, aggregate token usage and opt-in OpenAI Batch analysis for offline trunk reviews.
+- AI usage records calls, input/output/cached/reasoning tokens, errors and latency without storing prompts, SIP/RTP, CDRs, phone numbers, customer IPs or credentials.
+
+### Changed — Savings without delaying critical detection
+- Live KPIs, alarms and evidence remain local and immediate; only the LLM narrative follows the selected freshness interval.
+- Chat history is bounded by a total context budget, outputs adapt to workload and urgency, and critical investigations retain a larger response budget.
+
+### Safety
+- Batch is admin-only, disabled by default, isolated from chat/alarms/incidents and rejects duplicate active jobs.
+
 ## [3.7.1] — 2026-07-13
 
 ### Fixed — Visible attention queue

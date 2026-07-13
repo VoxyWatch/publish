@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.7.1** (2026-07-13).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.8.0** (2026-07-13).
 > Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
 
 ---
@@ -77,6 +77,7 @@
 | **Predictive forecast** | Seasonal forecast (Holt-Winters over the 168-bucket baseline) projects each trunk's volume/ASR hours ahead with confidence bands, and turns audio-retention burn-rate into capacity incidents *before* you run out of disk. |
 | **MCP server** | Standalone Model Context Protocol server: Claude (or any MCP agent) queries health, KPIs, trunks, CDRs and incidents through 6 read-only scoped tools. |
 | **Per-user contextual LLM** | Built-in LLM keeps private conversation sessions per user, lets operators reopen/delete history, applies each user's profile prompt, infers reply language from the latest operator message, receives a sanitized hint of the current UI view/call/incident, and supports OpenAI, Anthropic, Google Gemini, OpenRouter, Perplexity Sonar and custom OpenAI-compatible endpoints. |
+| **AI cost and freshness control** | Operators choose manual, 30-second, 1-, 5-, 15- or 30-minute narrative refresh while live KPIs remain immediate. Admin floors, critical bypass, token telemetry, context/output budgets, prompt caching, deterministic model routing and offline-only Batch keep spend visible and controlled. |
 | **Agent tools API** | Authenticated read-only tool catalog for built-in chat and future ADK/sidecar runtimes, with rate limits and no SBC/network control. |
 
 ### 2 · Capture & analysis
@@ -162,4 +163,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.7.1.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.8.0.

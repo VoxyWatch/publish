@@ -1,26 +1,26 @@
 {
-  "version": "3.8.0",
-  "release_date": "2026-07-13",
+  "version": "3.8.1",
+  "release_date": "2026-07-14",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.8.0/voxywatch-v3.8.0-linux-x64.tar.gz",
-    "sha256": "32a6df490c8c913edde7b4900a7fe412a55b0fd9aec5f781984e2d95ee26da01",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.8.0/voxywatch-v3.8.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.8.1/voxywatch-v3.8.1-linux-x64.tar.gz",
+    "sha256": "d360fffc50f611a1c025a9d5a6fdb77ad844673b97f777d3d874aeedf21af79d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.8.1/voxywatch-v3.8.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "AI cost and freshness controls",
-    "Savings without delaying critical detection",
-    "Safety",
-    "Every operator can choose manual AI refresh or 30 seconds, 1, 5, 15 or 30 minutes. Administrators set the minimum interval, while critical conditions may bypass"
+    "Safer updates and trustworthy evidence",
+    "Reliability",
+    "One-click updates now require the published SHA-256 and VoxyWatch GPG signature, and the privileged helper executes only the trusted local installer delivered b",
+    "SSO identities can no longer adopt local accounts by display name or unverified email; role, password and username changes revoke existing sessions."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Control de costo y frescura de IA",
-    "Ahorro sin perder tiempo real",
-    "Safety and process",
-    "Cada operador puede elegir actualización manual, cada 30 segundos, 1, 5, 15 o 30 minutos; el administrador fija el intervalo mínimo permitido y los incidentes"
+    "Seguridad, cumplimiento e integridad operativa",
+    "Robustez y memoria",
+    "El SSO ya no puede adoptar cuentas locales por nombre o correo no verificado; cambios de usuario, rol o contraseña revocan JWT anteriores y CSRF valida el orig",
+    "El actualizador exige SHA-256 y firma GPG, rechaza versiones manuales no autenticadas y el helper root ejecuta exclusivamente el instalador local recibido dentr"
   ]
 }

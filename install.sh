@@ -173,31 +173,21 @@ if [ -n "$REPLICA_DSN" ]; then
 fi
 
 # ── Fetch latest version and asset info ───────────────────────────────────────
-if [ -z "$VERSION" ]; then
-  info "Fetching latest version..."
-  MANIFEST_JSON=$(curl -fsSL --max-time 15 "$VERSION_MANIFEST" 2>/dev/null \
-    || err "Could not fetch version manifest from ${VERSION_MANIFEST}")
-  VERSION=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['version'])" 2>/dev/null \
-    || err "Could not parse version from manifest")
-  EXPECTED_SHA256=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('linux_x64',{}).get('sha256',''))" 2>/dev/null || echo "")
-  EXPECTED_SIG_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('linux_x64',{}).get('signature',''))" 2>/dev/null || echo "")
-else
-  # Version specified manually — fetch its sha256 from the manifest SOLO si el
-  # manifiesto describe esa misma versión. El manifiesto es el canal "latest"; si
-  # se pide una versión distinta (p.ej. instalar 2.0.0 mientras el canal está en
-  # 1.2.x para no auto-desplegar el cambio breaking), su sha NO aplica → se omite
-  # la verificación (la descarga es HTTPS desde GitHub Releases).
-  MANIFEST_JSON=$(curl -fsSL --max-time 15 "$VERSION_MANIFEST" 2>/dev/null || echo "{}")
-  MANIFEST_VERSION=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('version',''))" 2>/dev/null || echo "")
-  if [ "$MANIFEST_VERSION" = "$VERSION" ]; then
-    EXPECTED_SHA256=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('linux_x64',{}).get('sha256',''))" 2>/dev/null || echo "")
-  EXPECTED_SIG_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin).get('linux_x64',{}).get('signature',''))" 2>/dev/null || echo "")
-  else
-    EXPECTED_SHA256=""
-    EXPECTED_SIG_URL=""
-    info "Version ${VERSION} differs from the channel (${MANIFEST_VERSION:-?}); skipping manifest SHA verification."
-  fi
-fi
+info "Fetching signed release metadata..."
+MANIFEST_JSON=$(curl -fsSL --max-time 15 "$VERSION_MANIFEST" 2>/dev/null \
+  || err "Could not fetch version manifest from ${VERSION_MANIFEST}")
+MANIFEST_VERSION=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['version'])" 2>/dev/null \
+  || err "Could not parse version from manifest")
+EXPECTED_SHA256=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['linux_x64']['sha256'])" 2>/dev/null \
+  || err "Manifest has no linux_x64.sha256")
+EXPECTED_SIG_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['linux_x64']['signature'])" 2>/dev/null \
+  || err "Manifest has no linux_x64.signature")
+[ -n "$VERSION" ] || VERSION="$MANIFEST_VERSION"
+[ "$VERSION" = "$MANIFEST_VERSION" ] \
+  || err "Version ${VERSION} is not the authenticated channel version (${MANIFEST_VERSION}). Refusing unsigned manual install."
+[[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || err "Invalid release version in manifest: ${VERSION}"
+[[ "$EXPECTED_SHA256" =~ ^[0-9a-fA-F]{64}$ ]] || err "Invalid or missing SHA-256 in manifest"
+[[ "$EXPECTED_SIG_URL" =~ ^https:// ]] || err "Invalid or missing HTTPS signature URL in manifest"
 ok "Version to install: v${VERSION}"
 
 # ── Prompt con cuenta regresiva ────────────────────────────────────────────────
@@ -301,7 +291,7 @@ ok "Download complete: $(du -sh "${TMPDIR}/${TARBALL_NAME}" | cut -f1)"
 
 # ── Verify SHA-256 ────────────────────────────────────────────────────────────
 ACTUAL_SHA256=$(python3 -c "import hashlib; print(hashlib.sha256(open('${TMPDIR}/${TARBALL_NAME}','rb').read()).hexdigest())")
-if [ -n "$EXPECTED_SHA256" ] && [ "$EXPECTED_SHA256" != "$ACTUAL_SHA256" ]; then
+if [ "$EXPECTED_SHA256" != "$ACTUAL_SHA256" ]; then
   err "SHA-256 mismatch — package may be corrupted or tampered with.
     Expected: ${EXPECTED_SHA256}
     Got:      ${ACTUAL_SHA256}"
@@ -313,12 +303,15 @@ ok "SHA-256 verified: ${ACTUAL_SHA256:0:16}…"
 # GPG (clave privada del vendor, OFFLINE) sí: quien controle el repo/Releases no puede re-firmar.
 # RETROCOMPATIBLE y best-effort: si el manifiesto no trae firma o no hay gpg, se continúa (el SHA
 # ya validó integridad). SOLO una firma INVÁLIDA aborta la instalación.
+command -v gpg >/dev/null 2>&1 \
+  || err "gpg is required to authenticate VoxyWatch releases. Install gnupg and retry."
 if [ -n "${EXPECTED_SIG_URL:-}" ]; then
   if command -v gpg >/dev/null 2>&1; then
     info "Verifying GPG signature..."
     if curl -fsSL --max-time 30 "$EXPECTED_SIG_URL" -o "${TMPDIR}/${TARBALL_NAME}.asc" 2>/dev/null; then
       GNUPGHOME_TMP=$(mktemp -d); chmod 700 "$GNUPGHOME_TMP"
-      _vw_release_pubkey | GNUPGHOME="$GNUPGHOME_TMP" gpg --quiet --import 2>/dev/null || true
+      _vw_release_pubkey | GNUPGHOME="$GNUPGHOME_TMP" gpg --quiet --import 2>/dev/null \
+        || err "Could not import the embedded release signing key"
       if GNUPGHOME="$GNUPGHOME_TMP" gpg --quiet --verify "${TMPDIR}/${TARBALL_NAME}.asc" "${TMPDIR}/${TARBALL_NAME}" 2>/dev/null; then
         ok "GPG signature verified (VoxyWatch Release Signing Key)"
       else
@@ -327,10 +320,10 @@ if [ -n "${EXPECTED_SIG_URL:-}" ]; then
       fi
       rm -rf "$GNUPGHOME_TMP"
     else
-      warn "Could not download the signature; continuing (SHA-256 already verified)."
+      err "Could not download the mandatory release signature"
     fi
   else
-    warn "gpg not installed — skipping signature verification (SHA-256 already verified). Install 'gnupg' for defense in depth."
+    err "gpg is required to authenticate VoxyWatch releases"
   fi
 fi
 
@@ -436,6 +429,8 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/app.js"     "${INSTALL_DIR}/ap
 install -o root -g voxywatch -m 640 "${EXTRACTED}/chart.umd.min.js"  "${INSTALL_DIR}/chart.umd.min.js"  2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/frontend-runtime.js" "${INSTALL_DIR}/frontend-runtime.js" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/update-checker.js" "${INSTALL_DIR}/update-checker.js" 2>/dev/null || true
+# Root-owned updater entrypoint delivered by the verified, signed tarball.
+install -o root -g root -m 750 "${EXTRACTED}/install.sh" "${INSTALL_DIR}/install.sh"
 ok "Files installed"
 
 # ── Write config file ─────────────────────────────────────────────────────────
@@ -911,12 +906,12 @@ LOG=/var/log/voxywatch-update.log
 exec >> "\$LOG" 2>&1
 echo "[\$(date -Is)] apply-update invoked (euid=\$EUID)"
 if [ "\$EUID" -ne 0 ]; then echo "ERROR: must run as root"; exit 1; fi
-INSTALLER_URL="https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main/install.sh"
-TMP=\$(mktemp -d); trap 'rm -rf "\$TMP"' EXIT
-echo "[\$(date -Is)] fetching official installer: \$INSTALLER_URL"
-curl -fsSL --max-time 60 "\$INSTALLER_URL" -o "\$TMP/install.sh"
-echo "[\$(date -Is)] running install.sh --update (GPG + SHA-256 verified inside)"
-bash "\$TMP/install.sh" --update
+TRUSTED_INSTALLER="${INSTALL_DIR}/install.sh"
+if [ ! -f "\$TRUSTED_INSTALLER" ] || [ ! -O "\$TRUSTED_INSTALLER" ]; then
+  echo "ERROR: trusted root-owned installer is missing"; exit 1
+fi
+echo "[\$(date -Is)] running trusted local install.sh --update"
+bash "\$TRUSTED_INSTALLER" --update
 echo "[\$(date -Is)] update finished OK"
 UPDHELPER
 chmod 750 "${INSTALL_DIR}/apply-update.sh"

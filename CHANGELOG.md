@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.8.1] — 2026-07-14
+
+### Fixed — Safer updates and trustworthy evidence
+- One-click updates now require the published SHA-256 and VoxyWatch GPG signature, and the privileged helper executes only the trusted local installer delivered by a signed package.
+- SSO identities can no longer adopt local accounts by display name or unverified email; role, password and username changes revoke existing sessions.
+- PCI recording suppression handles decimal and hexadecimal SSRC formats reliably, while call detail and CDR views ignore late responses from a previous selection.
+- SIPREC selects a routable media address per SBC, rejects non-SIPREC sessions and recovers safely from stalled setup or RTP sequence wraparound.
+
+### Reliability
+- Incremental capture catch-up is bounded in batches and advances only after call state is persisted; parsing and automatic retention no longer overlap.
+- Release validation now covers the complete frontend and SIPREC asset set plus executable security regression checks.
+
 ## [3.8.0] — 2026-07-13
 
 ### Added — AI cost and freshness controls

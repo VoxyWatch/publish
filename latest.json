@@ -1,26 +1,26 @@
 {
-  "version": "3.8.1",
+  "version": "3.8.2",
   "release_date": "2026-07-14",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.8.1/voxywatch-v3.8.1-linux-x64.tar.gz",
-    "sha256": "d360fffc50f611a1c025a9d5a6fdb77ad844673b97f777d3d874aeedf21af79d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.8.1/voxywatch-v3.8.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.8.2/voxywatch-v3.8.2-linux-x64.tar.gz",
+    "sha256": "e92498692357cece52ee4d3f1bce569a89891f3e8cdbfad5247c653f04ff2e14",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.8.2/voxywatch-v3.8.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Safer updates and trustworthy evidence",
-    "Reliability",
-    "One-click updates now require the published SHA-256 and VoxyWatch GPG signature, and the privileged helper executes only the trusted local installer delivered b",
-    "SSO identities can no longer adopt local accounts by display name or unverified email; role, password and username changes revoke existing sessions."
+    "Data and concurrency reliability",
+    "Performance",
+    "Automatic retention now evicts deleted trace ranges from memory immediately and no longer blocks its own trace-relief operation.",
+    "Incremental catch-up has a finite database timeout, processes bounded batches and refreshes its state without a stale cache response."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Seguridad, cumplimiento e integridad operativa",
-    "Robustez y memoria",
-    "El SSO ya no puede adoptar cuentas locales por nombre o correo no verificado; cambios de usuario, rol o contraseña revocan JWT anteriores y CSRF valida el orig",
-    "El actualizador exige SHA-256 y firma GPG, rechaza versiones manuales no autenticadas y el helper root ejecuta exclusivamente el instalador local recibido dentr"
+    "Datos y concurrencia",
+    "Reliability",
+    "AutoPurge conserva la frontera anterior y fuerza el desalojo del working-set tras eliminar chunks propios; su lock ya no bloquea su propio alivio de trazas.",
+    "El cursor incremental tiene timeout finito, el estado post-parse salta la caché y la detección de IDs usa la secuencia O(1), sin abrir chunks comprimidos ni p"
   ]
 }

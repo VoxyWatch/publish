@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.8.2] — 2026-07-14
+
+### Fixed — Data and concurrency reliability
+- Automatic retention now evicts deleted trace ranges from memory immediately and no longer blocks its own trace-relief operation.
+- Incremental catch-up has a finite database timeout, processes bounded batches and refreshes its state without a stale cache response.
+- Capture change detection uses constant-time sequence state, including late inserts assigned to older Timescale chunks, without scanning compressed history.
+- Diagnostic capture-ID tracking is tightly bounded per source, and four operational timers contain unexpected exceptions instead of restarting the portal.
+
+### Performance
+- The preceding hourly rollup is recomputed only when newly parsed traffic could have changed it; live traffic remains fresh while idle systems avoid redundant database work.
+
 ## [3.8.1] — 2026-07-14
 
 ### Fixed — Safer updates and trustworthy evidence

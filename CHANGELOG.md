@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.9.0] — 2026-07-14
+
+### Added — Verifiable agentic operations
+- Diagnostics adds conservative shadow mode, administrator-only short-lived traces, confidence thresholds and operator feedback.
+- Incident diagnoses cite structured evidence IDs; unverifiable citations or low confidence cannot prefill an operational proposal.
+- A deterministic release evaluation covers groundedness, action policy and Spanish/English prompt-injection canaries.
+
+### Changed — Safer agent architecture
+- The portal is now the only routing and policy authority. The optional loopback sidecar accepts typed specialist handoffs and remains disabled by default.
+- Agent runs disclose evidence truncation, iteration exhaustion and budget skips, and record an explicit prompt version for auditing.
+- UI, SIP and network-derived strings are treated as untrusted data rather than instructions. VoxyWatch still never controls a customer SBC.
+
 ## [3.8.2] — 2026-07-14
 
 ### Fixed — Data and concurrency reliability

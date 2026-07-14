@@ -1,26 +1,26 @@
 {
-  "version": "3.8.2",
+  "version": "3.9.0",
   "release_date": "2026-07-14",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.8.2/voxywatch-v3.8.2-linux-x64.tar.gz",
-    "sha256": "e92498692357cece52ee4d3f1bce569a89891f3e8cdbfad5247c653f04ff2e14",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.8.2/voxywatch-v3.8.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.9.0/voxywatch-v3.9.0-linux-x64.tar.gz",
+    "sha256": "70be633b7ee3f526b5e2caf8c94f57bd30bd9b40c0dc8a69315084adc8122468",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.9.0/voxywatch-v3.9.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Data and concurrency reliability",
-    "Performance",
-    "Automatic retention now evicts deleted trace ranges from memory immediately and no longer blocks its own trace-relief operation.",
-    "Incremental catch-up has a finite database timeout, processes bounded batches and refreshes its state without a stale cache response."
+    "Verifiable agentic operations",
+    "Safer agent architecture",
+    "Diagnostics adds conservative shadow mode, administrator-only short-lived traces, confidence thresholds and operator feedback.",
+    "Incident diagnoses cite structured evidence IDs; unverifiable citations or low confidence cannot prefill an operational proposal."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Datos y concurrencia",
-    "Reliability",
-    "AutoPurge conserva la frontera anterior y fuerza el desalojo del working-set tras eliminar chunks propios; su lock ya no bloquea su propio alivio de trazas.",
-    "El cursor incremental tiene timeout finito, el estado post-parse salta la caché y la detección de IDs usa la secuencia O(1), sin abrir chunks comprimidos ni p"
+    "Agente verificable y autonomía graduada",
+    "Seguridad y arquitectura",
+    "Golden set de 12 escenarios, eval replay determinista y gate obligatorio de release para exactitud, groundedness y prompt injection.",
+    "Citas estructuradas por `evidence_id`, verificador determinista y bloqueo de propuestas con evidencia inexistente o confianza insuficiente."
   ]
 }

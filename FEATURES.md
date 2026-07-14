@@ -1,7 +1,7 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.9.0** (2026-07-13).
-> Everything below is shipped and validated in production (live telco deployment, ~200k calls/hour peak, 32 vCPU).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.9.0** (2026-07-14).
+> Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
 
@@ -36,6 +36,7 @@
 9. Anonymous adoption telemetry, tied to the existing Sentry toggle, reports active version/platform/tier by installation without sending customer IPs, trunks, SIP/RTP, CDRs, settings or credentials.
 10. Native agentic runtime: v3 ships an ADK-ready sidecar with specialist agents, Diagnostics status/control and a read-only tool contract.
 11. Tutorial-ready product map: every main module and Settings section can be explained with a practical NOC scenario, a screen walkthrough and a safe validation test.
+12. Verifiable agentic behavior: structured evidence citations, deterministic release evals, confidence gates, shadow mode, short-lived redacted traces and prompt-injection canaries.
 
 ---
 
@@ -79,6 +80,7 @@
 | **Per-user contextual LLM** | Built-in LLM keeps private conversation sessions per user, lets operators reopen/delete history, applies each user's profile prompt, infers reply language from the latest operator message, receives a sanitized hint of the current UI view/call/incident, and supports OpenAI, Anthropic, Google Gemini, OpenRouter, Perplexity Sonar and custom OpenAI-compatible endpoints. |
 | **AI cost and freshness control** | Operators choose manual, 30-second, 1-, 5-, 15- or 30-minute narrative refresh while live KPIs remain immediate. Admin floors, critical bypass, token telemetry, context/output budgets, prompt caching, deterministic model routing and offline-only Batch keep spend visible and controlled. |
 | **Agent tools API** | Authenticated read-only tool catalog for built-in chat and future ADK/sidecar runtimes, with rate limits and no SBC/network control. |
+| **Verifiable agent decisions** | Every diagnosis can cite stable evidence IDs; unverifiable or low-confidence output stays observe-only. New actions begin in shadow, operator feedback is audited, and release evals block policy/grounding regressions. |
 
 ### 2 · Capture & analysis
 

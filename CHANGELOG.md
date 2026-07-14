@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.10.0] — 2026-07-14
+
+### Added — Visible agent quality
+- Diagnostics now provides a local per-action scorecard for shadow volume, operator feedback, accuracy, helpfulness and configurable readiness criteria.
+- Administrators can run the 12-case synthetic telecom replay from the app without contacting a model or consuming tokens.
+- Redacted visual traces show tool flow, result and latency; incident details explain why no action was taken and accept direct thumbs-up/down feedback.
+
+### Safety and privacy
+- Feedback remains inside the installation and is not delivered to VoxyWatch or an AI provider. Evaluation candidates exclude operational evidence and content.
+- Meeting shadow thresholds only marks an action ready for administrator review; it never enables or executes an action automatically.
+
 ## [3.9.0] — 2026-07-14
 
 ### Added — Verifiable agentic operations

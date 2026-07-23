@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.10.1] — 2026-07-23
+
+### Fixed — PostgreSQL integrity on inherited installations
+- The installer now idempotently repairs ownership and privileges for VoxyWatch tables and dependent sequences before applying the baseline and migrations.
+- This prevents CDR write, rollup read, and runtime index failures caused by application objects inherited from a different owner.
+
+### Changed — Actionable operational telemetry
+- Sustained CPU bottlenecks remain visible in local incidents and logs, while Sentry now receives state transitions instead of repeating the same event every five minutes.
+
 ## [3.10.0] — 2026-07-14
 
 ### Added — Visible agent quality

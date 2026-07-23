@@ -1,26 +1,26 @@
 {
-  "version": "3.10.0",
-  "release_date": "2026-07-14",
+  "version": "3.10.1",
+  "release_date": "2026-07-23",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.10.0/voxywatch-v3.10.0-linux-x64.tar.gz",
-    "sha256": "63ddda837be949c143c15180103a3d605a3059ac0eddec4b94d7928e25382cff",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.10.0/voxywatch-v3.10.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.10.1/voxywatch-v3.10.1-linux-x64.tar.gz",
+    "sha256": "5b6cb1ca442890dac4d0146de9daad55e3b3d7d1e6da5aaee9a6f7eb820eca00",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.10.1/voxywatch-v3.10.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Visible agent quality",
-    "Safety and privacy",
-    "Diagnostics now provides a local per-action scorecard for shadow volume, operator feedback, accuracy, helpfulness and configurable readiness criteria.",
-    "Administrators can run the 12-case synthetic telecom replay from the app without contacting a model or consuming tokens."
+    "PostgreSQL integrity on inherited installations",
+    "Actionable operational telemetry",
+    "The installer now idempotently repairs ownership and privileges for VoxyWatch tables and dependent sequences before applying the baseline and migrations.",
+    "This prevents CDR write, rollup read, and runtime index failures caused by application objects inherited from a different owner."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Calidad agéntica visible y accionable",
-    "Safety and privacy",
-    "Diagnostics incorpora un scorecard local por acción con volumen shadow, feedback, exactitud, utilidad y criterios configurables de preparación; nunca habilita",
-    "Un replay sintético de 12 casos y nueve escenarios telecom puede ejecutarse desde la app sin llamar modelos ni consumir tokens."
+    "Integridad PostgreSQL en instalaciones heredadas",
+    "Telemetría operativa útil",
+    "Process",
+    "El instalador repara de forma idempotente la propiedad y los privilegios de las tablas y secuencias propias de VoxyWatch antes de aplicar el baseline y las migr"
   ]
 }

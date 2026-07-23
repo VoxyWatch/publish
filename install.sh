@@ -392,6 +392,7 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/reconstruct_audio.py" "${INSTA
 install -o root -g voxywatch -m 640 "${EXTRACTED}/extract_dtmf.py"     "${INSTALL_DIR}/extract_dtmf.py" 2>/dev/null || true   # VOXY-D: faltaba instalarlo → [Errno 2] al llamarlo desde server.js
 install -o root -g voxywatch -m 640 "${EXTRACTED}/voxywatch_srs.py"   "${INSTALL_DIR}/voxywatch_srs.py" 2>/dev/null || true   # SIPREC SRS (proceso aparte, OFF por default)
 install -o root -g voxywatch -m 640 "${EXTRACTED}/schema.sql"         "${INSTALL_DIR}/schema.sql" 2>/dev/null || true
+install -o root -g voxywatch -m 640 "${EXTRACTED}/repair-ownership.sql" "${INSTALL_DIR}/repair-ownership.sql" 2>/dev/null || true
 install -o root -g voxywatch -m 750 "${EXTRACTED}/migrate.sh"         "${INSTALL_DIR}/migrate.sh" 2>/dev/null || true
 install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/migrations"
 for migration in "${EXTRACTED}"/migrations/*.sql; do
@@ -526,6 +527,12 @@ if [ -n "$INSTALLED_TS" ] && [ -n "$AVAILABLE_TS" ] && [ "$INSTALLED_TS" != "$AV
     && ok "TimescaleDB updated to ${AVAILABLE_TS}" \
     || warn "ALTER EXTENSION timescaledb UPDATE failed — check manually"
 fi
+# Reparar drift de propiedad ANTES del baseline. CREATE TABLE IF NOT EXISTS no
+# cambia el dueño de objetos heredados; sin esto fallan CDR, rollups y los
+# índices CONCURRENTLY del portal aunque el rol/base actuales sean correctos.
+${PSQL_SU} -d "${DB_NAME}" -v vw_owner="${DB_USER}" \
+  -f "${EXTRACTED}/repair-ownership.sql" >/dev/null \
+  || err "Could not repair PostgreSQL ownership and privileges"
 # El SQL se pasa por STDIN (lo lee el shell de root); así voxywatch NO necesita
 # permiso de lectura sobre el archivo en el TMPDIR de root (mktemp es 700).
 sudo -u "${SERVICE_USER}" psql -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \

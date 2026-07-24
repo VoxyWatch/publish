@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.0] — 2026-07-24
+
+### Changed — Faster portal, useful telemetry
+- Main assets are preloaded once, gzip-compressed and served with ETags plus version-bound immutable caching.
+- A valid license is retained as error context without creating an informational Sentry issue or consuming event quota.
+
+### Reliability — Reproducible database integration gate
+- A disposable local TimescaleDB cluster now validates HEP→SIP/RTP→CDR and exact rollup counts without modifying the system PostgreSQL cluster.
+
 ## [3.10.3] — 2026-07-23
 
 ### Fixed — Updater compatibility with private temporary directories

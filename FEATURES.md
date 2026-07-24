@@ -121,6 +121,7 @@
 | SNMP agent | Embedded v2c+v3 agent, 30+ OIDs, edge-triggered traps, downloadable MIB (IANA PEN 65985). |
 | Webhooks | Per-trunk and global, transition-fired (no spam), rich JSON with incident_id. |
 | Self-managing | Hardware-adaptive limits (RAM/CPU/disk derived), retention auto-purge by disk pressure, non-blocking startup, capture never interrupted. |
+| Fast local portal | Large JavaScript/CSS assets are preloaded, gzip-compressed and cached by exact release version for quick repeat visits without a CDN. |
 | Instant restarts | Persistent working-set snapshot: after any update/restart the full call history is visible in seconds (measured in production: ~40k calls restored at second 11) while the background sync converges. |
 | Bilingual | English & Spanish UI, per user. |
 | Storage | PostgreSQL + TimescaleDB (hypertables, compression, hourly rollups) — provisioned and isolated by the installer. |

@@ -531,7 +531,7 @@ fi
 # cambia el dueño de objetos heredados; sin esto fallan CDR, rollups y los
 # índices CONCURRENTLY del portal aunque el rol/base actuales sean correctos.
 ${PSQL_SU} -d "${DB_NAME}" -v vw_owner="${DB_USER}" \
-  -f "${EXTRACTED}/repair-ownership.sql" >/dev/null \
+  < "${EXTRACTED}/repair-ownership.sql" >/dev/null \
   || err "Could not repair PostgreSQL ownership and privileges"
 # El SQL se pasa por STDIN (lo lee el shell de root); así voxywatch NO necesita
 # permiso de lectura sobre el archivo en el TMPDIR de root (mktemp es 700).

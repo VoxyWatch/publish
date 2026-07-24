@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.10.3] — 2026-07-23
+
+### Fixed — Updater compatibility with private temporary directories
+- The installer streams ownership repair SQL through stdin, so PostgreSQL no longer needs to traverse root's private temporary directory.
+- The v3.10.2 SNMP separation remains included: standard MIBs for the host and private PEN 65985 for VoxyWatch service metrics.
+
 ## [3.10.2] — 2026-07-23
 
 ### Fixed — Accurate standard SNMP for PRTG

@@ -10,7 +10,7 @@ VoxyWatch ingests HEP traffic from your entire VoIP estate, correlates it into c
 
 One self-contained binary. Your hardware. Your data. No cloud, ever. The AI never touches your SBC.
 
-As of v3.10.2, agent behavior is release-gated: diagnoses cite verifiable evidence IDs, low-confidence or
+As of v3.10.3, agent behavior is release-gated: diagnoses cite verifiable evidence IDs, low-confidence or
 ungrounded recommendations stay observe-only, new actions can run in effect-free shadow mode, and
 Spanish/English prompt-injection canaries are tested before publishing. The optional local sidecar remains
 off by default; the portal is the sole routing and policy authority.

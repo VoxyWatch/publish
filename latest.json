@@ -1,26 +1,24 @@
 {
-  "version": "3.10.2",
+  "version": "3.10.3",
   "release_date": "2026-07-23",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.10.2/voxywatch-v3.10.2-linux-x64.tar.gz",
-    "sha256": "25440518f82a4cf6504bed8bff15a5db2951ee83f5c216a3461106b80cdcda2d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.10.2/voxywatch-v3.10.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.10.3/voxywatch-v3.10.3-linux-x64.tar.gz",
+    "sha256": "23e4fbef5573ba35cab9d45bb55986c4310922041029586f913f1d90b482a14d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.10.3/voxywatch-v3.10.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Accurate standard SNMP for PRTG",
-    "Compatibility",
-    "`sysUpTime` reports the VoxyWatch agent uptime, while `hrSystemUptime` reports Linux host uptime.",
-    "`sysName` exposes the host name and `hrStorageTable` uses exact filesystem size and usage."
+    "Updater compatibility with private temporary directories",
+    "The installer streams ownership repair SQL through stdin, so PostgreSQL no longer needs to traverse root's private temporary directory.",
+    "The v3.10.2 SNMP separation remains included: standard MIBs for the host and private PEN 65985 for VoxyWatch service metrics."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "SNMP estándar preciso para PRTG",
-    "Compatibility",
-    "`sysUpTime` representa el agente VoxyWatch y `hrSystemUptime` el uptime real de Linux.",
-    "`sysName` publica el hostname y `hrStorageTable` usa tamaño/uso exactos del filesystem en vez de reconstruirlos desde valores redondeados."
+    "Updater robusto en temporales privados",
+    "El instalador transmite el SQL de reparación de ownership por stdin, por lo que PostgreSQL ya no necesita atravesar el directorio temporal privado de root.",
+    "Se conserva íntegra la separación SNMP de v3.10.2: host mediante MIB estándar y servicio VoxyWatch bajo PEN 65985."
   ]
 }

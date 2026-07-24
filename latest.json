@@ -1,24 +1,26 @@
 {
-  "version": "3.10.3",
-  "release_date": "2026-07-23",
+  "version": "3.11.0",
+  "release_date": "2026-07-24",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.10.3/voxywatch-v3.10.3-linux-x64.tar.gz",
-    "sha256": "23e4fbef5573ba35cab9d45bb55986c4310922041029586f913f1d90b482a14d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.10.3/voxywatch-v3.10.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.0/voxywatch-v3.11.0-linux-x64.tar.gz",
+    "sha256": "87d9340bc044e09b9d358bce8f7e75cc351d5f65a2278fe0acb60943bda564fb",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.0/voxywatch-v3.11.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Updater compatibility with private temporary directories",
-    "The installer streams ownership repair SQL through stdin, so PostgreSQL no longer needs to traverse root's private temporary directory.",
-    "The v3.10.2 SNMP separation remains included: standard MIBs for the host and private PEN 65985 for VoxyWatch service metrics."
+    "Faster portal, useful telemetry",
+    "Reproducible database integration gate",
+    "Main assets are preloaded once, gzip-compressed and served with ETags plus version-bound immutable caching.",
+    "A valid license is retained as error context without creating an informational Sentry issue or consuming event quota."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Updater robusto en temporales privados",
-    "El instalador transmite el SQL de reparación de ownership por stdin, por lo que PostgreSQL ya no necesita atravesar el directorio temporal privado de root.",
-    "Se conserva íntegra la separación SNMP de v3.10.2: host mediante MIB estándar y servicio VoxyWatch bajo PEN 65985."
+    "Portal más rápido y observable sin ruido",
+    "Integración PostgreSQL reproducible",
+    "Los assets principales se precargan una vez, viajan comprimidos con gzip y usan ETag y caché inmutable ligada a la versión; una nueva carga ya no relee archiv",
+    "El HTML usa la versión publicada como cache-buster estable para CSS, aplicación, gráficas y updater."
   ]
 }

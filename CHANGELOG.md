@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.10.2] — 2026-07-23
+
+### Fixed — Accurate standard SNMP for PRTG
+- `sysUpTime` reports the VoxyWatch agent uptime, while `hrSystemUptime` reports Linux host uptime.
+- `sysName` exposes the host name and `hrStorageTable` uses exact filesystem size and usage.
+
+### Compatibility
+- Generic host monitoring uses SNMPv2-MIB/HOST-RESOURCES-MIB; VoxyWatch service, capture and VoIP metrics remain under private PEN 65985.
+- Historical private resource OIDs remain available as backward-compatible aliases.
+
 ## [3.10.1] — 2026-07-23
 
 ### Fixed — PostgreSQL integrity on inherited installations

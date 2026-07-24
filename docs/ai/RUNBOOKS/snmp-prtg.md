@@ -17,8 +17,20 @@
 
 VoxyWatch exposes:
 
-- Private OIDs under `1.3.6.1.4.1.65985`.
-- Selected standard aliases for generic NMS tools.
+- Host/server metrics through standard MIB-II and HOST-RESOURCES-MIB OIDs:
+  - identity and agent uptime: `1.3.6.1.2.1.1`
+  - Linux host uptime: `1.3.6.1.2.1.25.1.1.0`
+  - physical memory: `1.3.6.1.2.1.25.2.2.0` and `1.3.6.1.2.1.25.2.3.1`
+  - root filesystem: row 3 of `1.3.6.1.2.1.25.2.3.1`
+  - aggregate CPU load: `1.3.6.1.2.1.25.3.3.1.2.1`
+- VoxyWatch service/capture/VoIP metrics under the private PEN `1.3.6.1.4.1.65985`.
+
+PRTG should use standard SNMP System Uptime, Memory, Disk Free and CPU Load sensors for
+the Linux host. Use SNMP Custom/Library sensors with `VOXYWATCH-MIB` only for portal,
+sniffer, capture, HEP, VoIP, retention and VoxyWatch alarm state.
+
+Private resource OIDs under the VoxyWatch PEN remain as backward-compatible aliases.
+New NMS configurations should not use them for generic host monitoring.
 
 ## Likely Domains
 

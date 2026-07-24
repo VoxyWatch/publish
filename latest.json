@@ -1,26 +1,26 @@
 {
-  "version": "3.10.1",
+  "version": "3.10.2",
   "release_date": "2026-07-23",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.10.1/voxywatch-v3.10.1-linux-x64.tar.gz",
-    "sha256": "5b6cb1ca442890dac4d0146de9daad55e3b3d7d1e6da5aaee9a6f7eb820eca00",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.10.1/voxywatch-v3.10.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.10.2/voxywatch-v3.10.2-linux-x64.tar.gz",
+    "sha256": "25440518f82a4cf6504bed8bff15a5db2951ee83f5c216a3461106b80cdcda2d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.10.2/voxywatch-v3.10.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "PostgreSQL integrity on inherited installations",
-    "Actionable operational telemetry",
-    "The installer now idempotently repairs ownership and privileges for VoxyWatch tables and dependent sequences before applying the baseline and migrations.",
-    "This prevents CDR write, rollup read, and runtime index failures caused by application objects inherited from a different owner."
+    "Accurate standard SNMP for PRTG",
+    "Compatibility",
+    "`sysUpTime` reports the VoxyWatch agent uptime, while `hrSystemUptime` reports Linux host uptime.",
+    "`sysName` exposes the host name and `hrStorageTable` uses exact filesystem size and usage."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Integridad PostgreSQL en instalaciones heredadas",
-    "Telemetría operativa útil",
-    "Process",
-    "El instalador repara de forma idempotente la propiedad y los privilegios de las tablas y secuencias propias de VoxyWatch antes de aplicar el baseline y las migr"
+    "SNMP estándar preciso para PRTG",
+    "Compatibility",
+    "`sysUpTime` representa el agente VoxyWatch y `hrSystemUptime` el uptime real de Linux.",
+    "`sysName` publica el hostname y `hrStorageTable` usa tamaño/uso exactos del filesystem en vez de reconstruirlos desde valores redondeados."
   ]
 }

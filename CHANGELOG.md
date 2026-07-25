@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.1] — 2026-07-24
+
+### Security — Revoked sessions and private telemetry
+- Public license and health endpoints reveal operational detail only when the JWT still belongs to an active user with the current authorization version.
+- Sentry now correlates installations through an irreversible hash and no longer receives raw hardware IDs, customer names, host names or non-pseudonymous users.
+- Adoption telemetry now allowlists optional fields, preventing callers from overriding identity/event data or attaching settings and secrets.
+
+### Reliability — Fail-closed identities
+- An existing corrupt or unreadable user database can no longer be mistaken for a new installation or recreate the default administrator.
+- User changes are persisted with mode 0600 through an atomic temporary-file rename; write failures no longer return false success.
+- Bootstrap background jobs now share an observable boundary for synchronous throws and rejected promises.
+
 ## [3.11.0] — 2026-07-24
 
 ### Changed — Faster portal, useful telemetry

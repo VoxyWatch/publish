@@ -1,26 +1,26 @@
 {
-  "version": "3.11.0",
+  "version": "3.11.1",
   "release_date": "2026-07-24",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.0/voxywatch-v3.11.0-linux-x64.tar.gz",
-    "sha256": "87d9340bc044e09b9d358bce8f7e75cc351d5f65a2278fe0acb60943bda564fb",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.0/voxywatch-v3.11.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.1/voxywatch-v3.11.1-linux-x64.tar.gz",
+    "sha256": "dc92ee152085a2202e4009f0eff3621ebf2e9be88018838454a3baa9844e2620",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.1/voxywatch-v3.11.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Faster portal, useful telemetry",
-    "Reproducible database integration gate",
-    "Main assets are preloaded once, gzip-compressed and served with ETags plus version-bound immutable caching.",
-    "A valid license is retained as error context without creating an informational Sentry issue or consuming event quota."
+    "Revoked sessions and private telemetry",
+    "Fail-closed identities",
+    "Public license and health endpoints reveal operational detail only when the JWT still belongs to an active user with the current authorization version.",
+    "Sentry now correlates installations through an irreversible hash and no longer receives raw hardware IDs, customer names, host names or non-pseudonymous users."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Portal más rápido y observable sin ruido",
-    "Integración PostgreSQL reproducible",
-    "Los assets principales se precargan una vez, viajan comprimidos con gzip y usan ETag y caché inmutable ligada a la versión; una nueva carga ya no relee archiv",
-    "El HTML usa la versión publicada como cache-buster estable para CSS, aplicación, gráficas y updater."
+    "Sesiones revocadas y telemetría privada",
+    "Identidades fail-closed",
+    "Process",
+    "Los endpoints públicos de licencia y salud solo revelan detalle cuando el JWT pertenece a un usuario existente y conserva su versión de autorización; tokens"
   ]
 }

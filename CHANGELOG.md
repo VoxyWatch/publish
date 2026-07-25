@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.9] — 2026-07-25
+
+### Fixed — CSP-operable controls with verified accessibility
+- Sniffer quick restart/apply, separate RTP toggle and Enter-to-send chat now use external listeners; all 15 inline handlers blocked by CSP are gone.
+- All 261 controls and 242 buttons have accessible names, reusing visible translated labels or explicit ARIA names for ambiguous fields.
+- Settings moves focus into the dialog, traps it and restores it to the opener; eight relevant overlays expose dialog semantics.
+- ARIA names follow the ES/EN interface language, including CDR filters, webhooks and routing models.
+
+### Tests
+- Real Chrome enforces zero unnamed controls/buttons, zero inline handlers, semantic dialogs, translated labels and focus restoration.
+
 ## [3.11.8] — 2026-07-25
 
 ### Fixed — Predictable frontend HTTP boundary

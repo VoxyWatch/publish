@@ -1,26 +1,26 @@
 {
-  "version": "3.11.8",
+  "version": "3.11.9",
   "release_date": "2026-07-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.8/voxywatch-v3.11.8-linux-x64.tar.gz",
-    "sha256": "a0eb3c19df8954e9fed02523a2787893e42c8bb6c2dab1f8f5d4e679e024a0af",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.8/voxywatch-v3.11.8-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.9/voxywatch-v3.11.9-linux-x64.tar.gz",
+    "sha256": "a69b4b4c902dd1287a5d3052b38e31303795ee9bc8dd9ddc44bccdd551f36f8e",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.9/voxywatch-v3.11.9-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Predictable frontend HTTP boundary",
+    "CSP-operable controls with verified accessibility",
     "Tests",
-    "Authentication preserves caller headers and attaches the JWT when `fetch` receives `Request`, `URL` or `Headers`, not only plain URL strings and objects.",
-    "Partial alarm, AI and feature saves no longer inherit unrelated authentication, telemetry or memory values from a global settings interceptor."
+    "Sniffer quick restart/apply, separate RTP toggle and Enter-to-send chat now use external listeners; all 15 inline handlers blocked by CSP are gone.",
+    "All 261 controls and 242 buttons have accessible names, reusing visible translated labels or explicit ARIA names for ambiguous fields."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Frontera HTTP del frontend predecible",
+    "Controles operables con CSP y accesibilidad verificable",
     "Tests",
-    "La autenticación conserva encabezados y agrega el JWT cuando `fetch` recibe `Request`, `URL` o `Headers`, no sólo URLs de texto y objetos simples.",
-    "Los guardados parciales de alarmas, IA y otros módulos ya no reciben silenciosamente valores de autenticación, telemetría o memoria desde un interceptor glob"
+    "Reinicio rápido/aplicar del sniffer, el toggle RTP separado y Enter para enviar chat ya usan listeners externos; los 15 handlers inline que CSP bloqueaba fuero",
+    "Los 261 controles y 242 botones tienen nombre accesible, reutilizando etiquetas visibles traducidas o nombres ARIA específicos para campos ambiguos."
   ]
 }

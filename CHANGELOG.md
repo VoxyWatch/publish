@@ -5,6 +5,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.11] — 2026-07-25
+
+### Fixed — Capture resilience against malformed input and database outages
+- HEP over TCP rejects declared lengths smaller than its header and closes the connection instead
+  of entering a non-consuming loop.
+- HEPv3 rejects malformed or truncated chunks, while compressed payload expansion is capped at
+  1 MiB to prevent decompression bombs.
+- Failed PostgreSQL replay restores rotated spools in 1 MiB chunks instead of reading potentially
+  huge files into memory.
+- The spool disk cap now includes incoming rows and reports written versus dropped rows accurately.
+
+### Tests
+- The HEP fixture covers valid, partial and malformed framing, bounded compression, strict spool
+  capacity and streaming recovery. Valid parsing remains near 129k packets/s per worker.
+
 ## [3.11.10] — 2026-07-25
 
 ### Fixed — Per-call media isolation and bounded readers

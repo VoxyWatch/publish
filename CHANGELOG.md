@@ -5,6 +5,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.12] — 2026-07-25
+
+### Fixed — Predictable, fail-closed signed updates
+- The installer explicitly recognizes `--update`, rejects unknown options and detects missing values,
+  preventing typos from silently changing behavior.
+- Updates preserve the configured portal port; only an explicit `--port` migrates it.
+- The portal's manual fallback uses the root-owned local installer delivered by the last signed
+  release and never executes mutable code through `curl | sudo`.
+- The privileged helper rejects group/world-writable installer files, and installation fails when
+  a core service remains inactive after its retry.
+- Release downloads have bounded timeouts/retries and SHA-256 is computed as a stream.
+
+### Tests
+- Security contracts lock the trust chain, permissions, option parser, port preservation, bounded
+  transfer, streaming hash and final service verification.
+
 ## [3.11.11] — 2026-07-25
 
 ### Fixed — Capture resilience against malformed input and database outages

@@ -68,13 +68,11 @@ apt-get install -y sudo      # Debian / Ubuntu
 dnf install -y sudo          # RHEL / Rocky / Alma
 ```
 
-**Updates also require root.** Apply them by re-running the installer as root with `--update`:
+**Updates also require root.** Existing installations use the root-owned installer that arrived
+inside the last signed package:
 
 ```bash
-# A) sudo user:
-curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | sudo bash -s -- --update
-# B) already root:
-curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | bash -s -- --update
+sudo /opt/voxywatch/install.sh --update
 ```
 
 The portal checks hourly and announces a new version in the 🔔 bell (Settings → Update). The **one-click "Update now"** button applies it on its own when you allowed VoxyWatch to manage itself during install (the *Service control* prompt). That grant is scoped: a **polkit rule** that lets the unprivileged portal ask systemd to start **one root-owned helper unit** (`voxywatch-apply-update.service` → `apply-update.sh`) which only ever runs the official signed installer — never general root, and it works under `NoNewPrivileges=true`. You can toggle it anytime with `sudo /opt/voxywatch/enable-service-control.sh` / `disable-service-control.sh`. On hosts without that grant, the button shows the exact `--update` command to run as root.

@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.2] — 2026-07-24
+
+### Security — Safe HTTP and settings boundaries
+- Settings responses now pass through one recursive redaction boundary; passwords, tokens, API keys and SNMP communities never leave the server in clear text.
+- The disk endpoint no longer serializes raw settings, and masked SNMP community values safely round-trip without overwriting the stored credentials.
+- Protected mutations authenticate before accepting large payloads. Public login/API-key requests stay capped at 64 KB, while authenticated administrative imports retain their 5 MB contract.
+- Invalid or oversized JSON returns stable 400/413 responses without creating Sentry noise.
+- Public SSO errors and anonymous boot progress no longer expose provider response bodies, internal URLs or SIP/RTP/CDR volumes.
+
 ## [3.11.1] — 2026-07-24
 
 ### Security — Revoked sessions and private telemetry

@@ -1,26 +1,26 @@
 {
-  "version": "3.11.4",
+  "version": "3.11.5",
   "release_date": "2026-07-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.4/voxywatch-v3.11.4-linux-x64.tar.gz",
-    "sha256": "2c83805e98b9d049383d24ff94a6dafc8ac991025c4607ee3c47b607821aef70",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.4/voxywatch-v3.11.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.5/voxywatch-v3.11.5-linux-x64.tar.gz",
+    "sha256": "9fd2e8f91cf8e6942758c8cedc44cc190d4b43d519403a457e57faa1dfb83568",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.5/voxywatch-v3.11.5-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Bounded PostgreSQL pools and consistent control reads",
+    "Concurrent incidents and atomic audit timeline",
     "Tests",
-    "All three pools now have a finite connection/checkout budget, preventing saturation from waiting forever before `statement_timeout` starts.",
-    "Idle transactions are bounded per role and each lane exposes a distinct `application_name` for diagnostics."
+    "Simultaneous detections of the same fingerprint now converge on one incident, and every caller receives the same id without unique-index errors.",
+    "Escalations and relapses are row-serialized, so one effective transition creates exactly one event and one investigation."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Pools PostgreSQL acotados y control consistente",
+    "Incidentes concurrentes y timeline atómico",
     "Tests",
-    "Los tres pools tienen presupuesto finito de conexión/checkout; una cola saturada ya no puede esperar indefinidamente antes de que empiece `statement_timeout`.",
-    "Transacciones ociosas tienen límites por rol y cada carril publica un `application_name` identificable para diagnóstico."
+    "Aperturas simultáneas del mismo fingerprint convergen en un solo incidente y todos los detectores reciben el mismo id, sin errores de índice único.",
+    "Escalamientos y recaídas se serializan por fila; una transición efectiva produce exactamente un evento y no programa investigaciones duplicadas."
   ]
 }

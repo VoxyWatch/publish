@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.4] — 2026-07-25
+
+### Fixed — Bounded PostgreSQL pools and consistent control reads
+- All three pools now have a finite connection/checkout budget, preventing saturation from waiting forever before `statement_timeout` starts.
+- Idle transactions are bounded per role and each lane exposes a distinct `application_name` for diagnostics.
+- Capture, capacity, retention and rollup cursors always read from the primary; replica lag can no longer govern control decisions.
+- DSN query parameters cannot override the safety limits assigned to a pool role.
+
+### Tests
+- The Timescale E2E now runs the real schema and migration twice, requiring apply→skip with a stable ledger.
+- 120,000 synthetic CDRs prove through `EXPLAIN JSON` that the real keyset, rollup and trigram indexes are selected.
+- A PostgreSQL test verifies session GUCs and the actual saturated-pool checkout timeout.
+
 ## [3.11.3] — 2026-07-24
 
 ### Fixed — RFC 3261 SIP/CDR correlation

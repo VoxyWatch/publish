@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.13] — 2026-07-25
+
+### Improved — Smaller, auditable runtime code
+- Removed the obsolete blocking warm-up page, an unused call-insight helper, and a fraud resolver
+  that had no caller since its introduction. Active startup, fraud profiles, and portal behavior
+  remain unchanged.
+- A new AST-based release gate detects top-level runtime callables with only their declaration as a
+  reference. Comments and documentation can no longer hide dead code.
+
+### Tests
+- The detector regression covers live functions, HTML callbacks, comments, documentation, and `$`
+  identifiers; the complete release invariant suite executes the gate.
+
 ## [3.11.12] — 2026-07-25
 
 ### Fixed — Predictable, fail-closed signed updates

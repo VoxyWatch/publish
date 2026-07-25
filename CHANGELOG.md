@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.3] — 2026-07-24
+
+### Fixed — RFC 3261 SIP/CDR correlation
+- The sniffer and portal now recognize long and compact Call-ID, From, To and Via headers, plus `sips:`/`tel:` URIs and unquoted display names.
+- Identity and correlation headers are line-anchored, so extensions such as `X-From`, `X-To`, `X-Call-ID` and `X-CSeq` cannot shadow real SIP headers.
+- Call outcomes now use INVITE responses only and the last non-auth final response; BYE, UPDATE and CANCEL responses no longer contaminate `call_result` or `fail_code`.
+- Redirect reason text remains available, and `600 Busy Everywhere` is classified as busy.
+
+### Performance and tests
+- The precompiled CDR extractor measured 16.5% faster than the previous parser over 100,000 canonical messages.
+- The Timescale E2E gate now covers standard and compact answered dialogs, compact Call-ID fallback without a HEP correlation chunk, an INVITE-only failure sequence, and RTP persistence.
+
 ## [3.11.2] — 2026-07-24
 
 ### Security — Safe HTTP and settings boundaries

@@ -1,26 +1,26 @@
 {
-  "version": "3.11.10",
+  "version": "3.11.11",
   "release_date": "2026-07-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.10/voxywatch-v3.11.10-linux-x64.tar.gz",
-    "sha256": "b7bafe0a659ea732b453459db4affa1c8762110859821a2d3a50917906fa284e",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.10/voxywatch-v3.11.10-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.11/voxywatch-v3.11.11-linux-x64.tar.gz",
+    "sha256": "6cf4c92043c2f29d994789a1cb8ad2502b07fc36f48bd09bcb46cd0a1de5a972",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.11/voxywatch-v3.11.11-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Per-call media isolation and bounded readers",
+    "Capture resilience against malformed input and database outages",
     "Tests",
-    "RFC 4733 DTMF now accepts only SSRCs correlated with the selected call; unknown correlation returns",
-    "DTMF reads both SEG files and transitional PostgreSQL data with a hard 10,000-event limit."
+    "HEP over TCP rejects declared lengths smaller than its header and closes the connection instead",
+    "HEPv3 rejects malformed or truncated chunks, while compressed payload expansion is capped at"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Media por llamada aislada y acotada",
+    "Captura resistente a entradas adversariales y caídas de PostgreSQL",
     "Tests",
-    "DTMF RFC 4733 sólo acepta SSRC correlacionados con la llamada; sin SSRC responde vacío seguro y",
-    "DTMF lee segmentos SEG y PostgreSQL durante la transición, con un máximo explícito de 10,000 eventos."
+    "HEP sobre TCP rechaza longitudes menores al encabezado y cierra la conexión, evitando un ciclo",
+    "HEPv3 rechaza longitudes y chunks truncados; los payloads comprimidos se expanden con un límite"
   ]
 }

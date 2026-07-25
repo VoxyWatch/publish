@@ -1,26 +1,26 @@
 {
-  "version": "3.11.12",
+  "version": "3.11.13",
   "release_date": "2026-07-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.12/voxywatch-v3.11.12-linux-x64.tar.gz",
-    "sha256": "d10f2b54477bdc2e47a287bb6f697b6c6990b7a65fc4068dad63b973aa95e545",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.12/voxywatch-v3.11.12-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.13/voxywatch-v3.11.13-linux-x64.tar.gz",
+    "sha256": "759c427455a3891adda966f1da94ea76538013a9440477bcc9135d8da1e5087d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.13/voxywatch-v3.11.13-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Predictable, fail-closed signed updates",
+    "Smaller, auditable runtime code",
     "Tests",
-    "The installer explicitly recognizes `--update`, rejects unknown options and detects missing values,",
-    "Updates preserve the configured portal port; only an explicit `--port` migrates it."
+    "Removed the obsolete blocking warm-up page, an unused call-insight helper, and a fraud resolver",
+    "A new AST-based release gate detects top-level runtime callables with only their declaration as a"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Actualizaciones firmadas predecibles y fail-closed",
+    "Código ejecutable más pequeño y auditable",
     "Tests",
-    "El instalador reconoce explícitamente `--update`, rechaza opciones desconocidas y detecta valores",
-    "Una actualización conserva el puerto configurado del portal; sólo `--port` lo modifica."
+    "Se retiraron la pantalla antigua de calentamiento que ya no podía mostrarse, un helper de",
+    "Una nueva compuerta basada en AST detecta funciones JavaScript de runtime con una sola referencia."
   ]
 }

@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.5] — 2026-07-25
+
+### Fixed — Concurrent incidents and atomic audit timeline
+- Simultaneous detections of the same fingerprint now converge on one incident, and every caller receives the same id without unique-index errors.
+- Escalations and relapses are row-serialized, so one effective transition creates exactly one event and one investigation.
+- Opening, recovery, acknowledgement and resolution now commit state and timeline together; an audit failure rolls the transition back.
+- Incident comments and agent feedback no longer report success when their event was not persisted.
+- Fraud restart reconciliation reads open incidents from the primary, avoiding replica-lag zombies.
+
+### Tests
+- The Timescale E2E gate now exercises 12 concurrent opens, 10 concurrent escalations and an injected audit failure that must roll back.
+
 ## [3.11.4] — 2026-07-25
 
 ### Fixed — Bounded PostgreSQL pools and consistent control reads

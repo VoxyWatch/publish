@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.10] — 2026-07-25
+
+### Fixed — Per-call media isolation and bounded readers
+- RFC 4733 DTMF now accepts only SSRCs correlated with the selected call; unknown correlation returns
+  an empty safe result instead of mixing digits from concurrent calls.
+- DTMF reads both SEG files and transitional PostgreSQL data with a hard 10,000-event limit.
+- SEG readers bound legacy datagrams to 65,535 bytes and sidecar indexes to 4,096 SSRCs.
+- PCAP fallback streams within the call time window and matches anchored RFC `Call-ID:` or compact
+  `i:` headers, never lookalikes such as `X-Call-ID`.
+
+### Tests
+- A permanent Python regression covers SSRC isolation, deduplication, caps, truncated SEG files and
+  canonical, compact and adversarial SIP Call-ID headers.
+
 ## [3.11.9] — 2026-07-25
 
 ### Fixed — CSP-operable controls with verified accessibility

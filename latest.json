@@ -1,26 +1,26 @@
 {
-  "version": "3.11.5",
+  "version": "3.11.6",
   "release_date": "2026-07-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.5/voxywatch-v3.11.5-linux-x64.tar.gz",
-    "sha256": "9fd2e8f91cf8e6942758c8cedc44cc190d4b43d519403a457e57faa1dfb83568",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.5/voxywatch-v3.11.5-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.6/voxywatch-v3.11.6-linux-x64.tar.gz",
+    "sha256": "538713524330f7c83b58fbd028d98a75d26fb1334d9ac8c2835d7ed268eced7f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.6/voxywatch-v3.11.6-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Concurrent incidents and atomic audit timeline",
+    "Predictable AI budgets with real-time headroom",
+    "Recoverable offline Batch without RAM spikes",
     "Tests",
-    "Simultaneous detections of the same fingerprint now converge on one incident, and every caller receives the same id without unique-index errors.",
-    "Escalations and relapses are row-serialized, so one effective transition creates exactly one event and one investigation."
+    "Translation is capped at 250 tokens, alert summaries at 220, and interactive chat keeps 1,024; routine monitoring spends less while 30–60 second monitoring ke"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Incidentes concurrentes y timeline atómico",
+    "IA con presupuestos por función y monitoreo proporcional",
+    "Batch offline recuperable y sin picos de memoria",
     "Tests",
-    "Aperturas simultáneas del mismo fingerprint convergen en un solo incidente y todos los detectores reciben el mismo id, sin errores de índice único.",
-    "Escalamientos y recaídas se serializan por fila; una transición efectiva produce exactamente un evento y no programa investigaciones duplicadas."
+    "Traducción usa hasta 250 tokens, resumen de alarma 220 y chat conserva 1,024; el copiloto reduce costo en consultas rutinarias y mantiene el margen original cu"
   ]
 }

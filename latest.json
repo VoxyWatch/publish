@@ -1,26 +1,26 @@
 {
-  "version": "3.11.2",
+  "version": "3.11.3",
   "release_date": "2026-07-24",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.2/voxywatch-v3.11.2-linux-x64.tar.gz",
-    "sha256": "1828016acc55285613067ab01a2142057bf7f9e52d3f04968782d519543db901",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.2/voxywatch-v3.11.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.3/voxywatch-v3.11.3-linux-x64.tar.gz",
+    "sha256": "373361717527d5252ee1b890c3f1cfdf06f730446cfd1320e8b893665dd66d2c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.3/voxywatch-v3.11.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Safe HTTP and settings boundaries",
-    "Settings responses now pass through one recursive redaction boundary; passwords, tokens, API keys and SNMP communities never leave the server in clear text.",
-    "The disk endpoint no longer serializes raw settings, and masked SNMP community values safely round-trip without overwriting the stored credentials.",
-    "Protected mutations authenticate before accepting large payloads. Public login/API-key requests stay capped at 64 KB, while authenticated administrative imports"
+    "RFC 3261 SIP/CDR correlation",
+    "Performance and tests",
+    "The sniffer and portal now recognize long and compact Call-ID, From, To and Via headers, plus `sips:`/`tel:` URIs and unquoted display names.",
+    "Identity and correlation headers are line-anchored, so extensions such as `X-From`, `X-To`, `X-Call-ID` and `X-CSeq` cannot shadow real SIP headers."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Fronteras HTTP y settings sin secretos",
-    "Process",
-    "`GET` y `POST /api/settings` pasan por una sola proyección recursiva que enmascara contraseñas, tokens, API keys y comunidades SNMP sin mutar la configuració",
-    "`/api/disk` dejó de serializar el objeto completo de settings; las comunidades SNMP v2c/traps se muestran enmascaradas y su round-trip conserva el valor almace"
+    "Correlación SIP/CDR conforme a RFC 3261",
+    "Performance and tests",
+    "El sniffer y el portal reconocen `Call-ID`, `From`, `To` y `Via` en sus formas largas y compactas; también aceptan URI `sips:`/`tel:` y display names sin comil",
+    "Los headers de identidad y correlación están anclados por línea, por lo que extensiones como `X-From`, `X-To`, `X-Call-ID` o `X-CSeq` no pueden suplantarlos."
   ]
 }

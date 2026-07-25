@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.7] — 2026-07-25
+
+### Fixed — Resilient integrations with preserved opt-in
+- SNMP resends active traps every five minutes in addition to transition raise/clear, and its generated MIB now identifies official PEN 65985 correctly.
+- MCP bounds each message, times out stalled portal calls and returns valid JSON-RPC errors for invalid input.
+- Webhook failures log only the origin, never credentials carried in userinfo, path, query or fragment.
+- SIPREC keeps the per-dialog media address through re-INVITE and CDR generation on multihomed hosts.
+- Updates restore SIPREC only when both the enabled unit and persisted opt-in existed; fresh installations stay dormant.
+
+### Tests
+- 40 SRS assertions, a real local two-stream SIPREC E2E and new SNMP, MCP, webhook and installer lifecycle contracts.
+
 ## [3.11.6] — 2026-07-25
 
 ### Improved — Predictable AI budgets with real-time headroom

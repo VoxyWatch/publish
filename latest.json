@@ -1,26 +1,26 @@
 {
-  "version": "3.11.1",
+  "version": "3.11.2",
   "release_date": "2026-07-24",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.1/voxywatch-v3.11.1-linux-x64.tar.gz",
-    "sha256": "dc92ee152085a2202e4009f0eff3621ebf2e9be88018838454a3baa9844e2620",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.1/voxywatch-v3.11.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.2/voxywatch-v3.11.2-linux-x64.tar.gz",
+    "sha256": "1828016acc55285613067ab01a2142057bf7f9e52d3f04968782d519543db901",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.2/voxywatch-v3.11.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Revoked sessions and private telemetry",
-    "Fail-closed identities",
-    "Public license and health endpoints reveal operational detail only when the JWT still belongs to an active user with the current authorization version.",
-    "Sentry now correlates installations through an irreversible hash and no longer receives raw hardware IDs, customer names, host names or non-pseudonymous users."
+    "Safe HTTP and settings boundaries",
+    "Settings responses now pass through one recursive redaction boundary; passwords, tokens, API keys and SNMP communities never leave the server in clear text.",
+    "The disk endpoint no longer serializes raw settings, and masked SNMP community values safely round-trip without overwriting the stored credentials.",
+    "Protected mutations authenticate before accepting large payloads. Public login/API-key requests stay capped at 64 KB, while authenticated administrative imports"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Sesiones revocadas y telemetría privada",
-    "Identidades fail-closed",
+    "Fronteras HTTP y settings sin secretos",
     "Process",
-    "Los endpoints públicos de licencia y salud solo revelan detalle cuando el JWT pertenece a un usuario existente y conserva su versión de autorización; tokens"
+    "`GET` y `POST /api/settings` pasan por una sola proyección recursiva que enmascara contraseñas, tokens, API keys y comunidades SNMP sin mutar la configuració",
+    "`/api/disk` dejó de serializar el objeto completo de settings; las comunidades SNMP v2c/traps se muestran enmascaradas y su round-trip conserva el valor almace"
   ]
 }

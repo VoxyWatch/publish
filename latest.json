@@ -1,26 +1,26 @@
 {
-  "version": "3.11.7",
+  "version": "3.11.8",
   "release_date": "2026-07-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.7/voxywatch-v3.11.7-linux-x64.tar.gz",
-    "sha256": "12c7401dde30e24c08c1b6001d578311ff7afe6358695123b5356074ca0e90f0",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.7/voxywatch-v3.11.7-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.8/voxywatch-v3.11.8-linux-x64.tar.gz",
+    "sha256": "a0eb3c19df8954e9fed02523a2787893e42c8bb6c2dab1f8f5d4e679e024a0af",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.8/voxywatch-v3.11.8-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Resilient integrations with preserved opt-in",
+    "Predictable frontend HTTP boundary",
     "Tests",
-    "SNMP resends active traps every five minutes in addition to transition raise/clear, and its generated MIB now identifies official PEN 65985 correctly.",
-    "MCP bounds each message, times out stalled portal calls and returns valid JSON-RPC errors for invalid input."
+    "Authentication preserves caller headers and attaches the JWT when `fetch` receives `Request`, `URL` or `Headers`, not only plain URL strings and objects.",
+    "Partial alarm, AI and feature saves no longer inherit unrelated authentication, telemetry or memory values from a global settings interceptor."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Integraciones resilientes y opt-in preservado",
+    "Frontera HTTP del frontend predecible",
     "Tests",
-    "SNMP reenvía cada cinco minutos los traps que siguen activos, además del raise/clear por transición; la MIB ya identifica correctamente el PEN oficial 65985.",
-    "MCP limita cada mensaje, corta llamadas estancadas y responde errores JSON-RPC válidos ante entrada inválida, evitando crecimiento o espera indefinidos."
+    "La autenticación conserva encabezados y agrega el JWT cuando `fetch` recibe `Request`, `URL` o `Headers`, no sólo URLs de texto y objetos simples.",
+    "Los guardados parciales de alarmas, IA y otros módulos ya no reciben silenciosamente valores de autenticación, telemetría o memoria desde un interceptor glob"
   ]
 }

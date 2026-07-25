@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.8] — 2026-07-25
+
+### Fixed — Predictable frontend HTTP boundary
+- Authentication preserves caller headers and attaches the JWT when `fetch` receives `Request`, `URL` or `Headers`, not only plain URL strings and objects.
+- Partial alarm, AI and feature saves no longer inherit unrelated authentication, telemetry or memory values from a global settings interceptor.
+- The general settings form now declares the fields it owns, while HEP/SIPREC receives loaded settings through an explicit contract.
+
+### Tests
+- Real Chrome covers the standard Fetch contract, and an AST guard limits `window.fetch` to the two authentication wrappers.
+
 ## [3.11.7] — 2026-07-25
 
 ### Fixed — Resilient integrations with preserved opt-in

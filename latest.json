@@ -1,26 +1,26 @@
 {
-  "version": "3.11.11",
+  "version": "3.11.12",
   "release_date": "2026-07-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.11/voxywatch-v3.11.11-linux-x64.tar.gz",
-    "sha256": "6cf4c92043c2f29d994789a1cb8ad2502b07fc36f48bd09bcb46cd0a1de5a972",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.11/voxywatch-v3.11.11-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.12/voxywatch-v3.11.12-linux-x64.tar.gz",
+    "sha256": "d10f2b54477bdc2e47a287bb6f697b6c6990b7a65fc4068dad63b973aa95e545",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.12/voxywatch-v3.11.12-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Capture resilience against malformed input and database outages",
+    "Predictable, fail-closed signed updates",
     "Tests",
-    "HEP over TCP rejects declared lengths smaller than its header and closes the connection instead",
-    "HEPv3 rejects malformed or truncated chunks, while compressed payload expansion is capped at"
+    "The installer explicitly recognizes `--update`, rejects unknown options and detects missing values,",
+    "Updates preserve the configured portal port; only an explicit `--port` migrates it."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Captura resistente a entradas adversariales y caídas de PostgreSQL",
+    "Actualizaciones firmadas predecibles y fail-closed",
     "Tests",
-    "HEP sobre TCP rechaza longitudes menores al encabezado y cierra la conexión, evitando un ciclo",
-    "HEPv3 rechaza longitudes y chunks truncados; los payloads comprimidos se expanden con un límite"
+    "El instalador reconoce explícitamente `--update`, rechaza opciones desconocidas y detecta valores",
+    "Una actualización conserva el puerto configurado del portal; sólo `--port` lo modifica."
   ]
 }

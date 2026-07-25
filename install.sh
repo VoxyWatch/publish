@@ -153,13 +153,19 @@ fi
 # ── Parse arguments ───────────────────────────────────────────────────────────
 VERSION=""
 PORT_ARG=""
+UPDATE_MODE=0
+_need_arg() {
+  [ $# -ge 2 ] && [ -n "${2:-}" ] && [[ "$2" != --* ]] \
+    || err "Option $1 requires a value"
+}
 while [ $# -gt 0 ]; do
   case "$1" in
-    --version) VERSION="$2"; shift 2 ;;
-    --port)    PORT_ARG="$2"; shift 2 ;;
-    --service-control) SERVICE_CONTROL_ARG="$2"; shift 2 ;;
-    --replica-dsn) REPLICA_DSN="$2"; shift 2 ;;
-    *) shift ;;
+    --update)  UPDATE_MODE=1; shift ;;
+    --version) _need_arg "$@"; VERSION="$2"; shift 2 ;;
+    --port)    _need_arg "$@"; PORT_ARG="$2"; shift 2 ;;
+    --service-control) _need_arg "$@"; SERVICE_CONTROL_ARG="$2"; shift 2 ;;
+    --replica-dsn) _need_arg "$@"; REPLICA_DSN="$2"; shift 2 ;;
+    *) err "Unknown option: $1" ;;
   esac
 done
 
@@ -212,6 +218,11 @@ read_countdown() {
 # ── Port selection ────────────────────────────────────────────────────────────
 if [ -n "$PORT_ARG" ]; then
   PORT="$PORT_ARG"
+elif [ "$UPDATE_MODE" = "1" ] && [ -f "$CONF_FILE" ]; then
+  # Preserve the installed listener unless the operator explicitly migrates it
+  # with --port. Parse the root-owned config as data; never source shell code.
+  PORT="$(grep -oE '^PORT=[0-9]+$' "$CONF_FILE" 2>/dev/null | tail -1 | cut -d= -f2 || true)"
+  PORT="${PORT:-3080}"
 else
   echo ""
   if tty_ok; then
@@ -285,12 +296,23 @@ TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
 
 info "Downloading ${TARBALL_NAME}..."
-curl -fsSL --progress-bar "$DOWNLOAD_URL" -o "${TMPDIR}/${TARBALL_NAME}" \
+curl -fsSL --connect-timeout 15 --max-time 600 --retry 2 --progress-bar \
+  "$DOWNLOAD_URL" -o "${TMPDIR}/${TARBALL_NAME}" \
   || err "Failed to download ${DOWNLOAD_URL}"
 ok "Download complete: $(du -sh "${TMPDIR}/${TARBALL_NAME}" | cut -f1)"
 
 # ── Verify SHA-256 ────────────────────────────────────────────────────────────
-ACTUAL_SHA256=$(python3 -c "import hashlib; print(hashlib.sha256(open('${TMPDIR}/${TARBALL_NAME}','rb').read()).hexdigest())")
+ACTUAL_SHA256=$(python3 - "${TMPDIR}/${TARBALL_NAME}" <<'PY'
+import hashlib
+import sys
+
+digest = hashlib.sha256()
+with open(sys.argv[1], "rb") as source:
+    for chunk in iter(lambda: source.read(1024 * 1024), b""):
+        digest.update(chunk)
+print(digest.hexdigest())
+PY
+)
 if [ "$EXPECTED_SHA256" != "$ACTUAL_SHA256" ]; then
   err "SHA-256 mismatch — package may be corrupted or tampered with.
     Expected: ${EXPECTED_SHA256}
@@ -301,8 +323,7 @@ ok "SHA-256 verified: ${ACTUAL_SHA256:0:16}…"
 # ── Verify GPG signature (defensa en profundidad, más allá del SHA del manifiesto) ────────────
 # El SHA viene del MISMO manifiesto que la URL → no protege si el canal se compromete. La firma
 # GPG (clave privada del vendor, OFFLINE) sí: quien controle el repo/Releases no puede re-firmar.
-# RETROCOMPATIBLE y best-effort: si el manifiesto no trae firma o no hay gpg, se continúa (el SHA
-# ya validó integridad). SOLO una firma INVÁLIDA aborta la instalación.
+# La firma es obligatoria y fail-closed: ausencia de URL, gpg, descarga o verificación aborta.
 command -v gpg >/dev/null 2>&1 \
   || err "gpg is required to authenticate VoxyWatch releases. Install gnupg and retry."
 if [ -n "${EXPECTED_SIG_URL:-}" ]; then
@@ -913,15 +934,15 @@ chown root:voxywatch "${INSTALL_DIR}/disable-service-control.sh" 2>/dev/null || 
 
 # ── Privileged update helper (root-owned) ─────────────────────────────────────
 # Installed ALWAYS. Root-owned, group-executable by voxywatch but NOT writable by it
-# (0750 root:voxywatch). Lets the portal apply a one-click update via a SCOPED sudoers
-# rule (added by enable-service-control.sh) WITHOUT granting general root. It only ever
+# (0750 root:voxywatch). Lets the portal apply a one-click update through the scoped
+# systemd/polkit unit WITHOUT granting general root. It only ever
 # runs the OFFICIAL signed installer in --update mode — the unprivileged caller cannot
 # inject a target (no arguments are honored), and install.sh re-verifies GPG + SHA-256
 # before touching anything. This is the single privileged operation the portal can run.
 cat > "${INSTALL_DIR}/apply-update.sh" << UPDHELPER
 #!/bin/bash
-# VoxyWatch — privileged update helper. DO NOT add arguments here: the sudoers grant is
-# scoped to this exact path so the caller can only ask for "update to the official latest".
+# VoxyWatch — privileged update helper. DO NOT add arguments here: the polkit grant is
+# scoped to the fixed systemd unit, so the caller can only ask for the official latest.
 set -euo pipefail
 LOG=/var/log/voxywatch-update.log
 exec >> "\$LOG" 2>&1
@@ -930,6 +951,9 @@ if [ "\$EUID" -ne 0 ]; then echo "ERROR: must run as root"; exit 1; fi
 TRUSTED_INSTALLER="${INSTALL_DIR}/install.sh"
 if [ ! -f "\$TRUSTED_INSTALLER" ] || [ ! -O "\$TRUSTED_INSTALLER" ]; then
   echo "ERROR: trusted root-owned installer is missing"; exit 1
+fi
+if find "\$TRUSTED_INSTALLER" -maxdepth 0 -perm /022 -print -quit | grep -q .; then
+  echo "ERROR: trusted installer is writable by group or others"; exit 1
 fi
 echo "[\$(date -Is)] running trusted local install.sh --update"
 bash "\$TRUSTED_INSTALLER" --update
@@ -986,6 +1010,7 @@ systemctl start voxywatch
 # v2.0.4: verificar que ambos quedaron activos (un update no debe dejar el sistema
 # abajo). Si alguno no levantó, reintentar una vez y avisar dónde mirar.
 sleep 1
+SERVICE_START_FAILED=0
 for _svc in voxywatch-sniffer voxywatch; do
   if systemctl is-active --quiet "$_svc"; then
     ok "${_svc} active"
@@ -997,9 +1022,12 @@ for _svc in voxywatch-sniffer voxywatch; do
       ok "${_svc} active (after retry)"
     else
       warn "${_svc} is NOT active — check: journalctl -u ${_svc} -n 50 --no-pager"
+      SERVICE_START_FAILED=1
     fi
   fi
 done
+[ "$SERVICE_START_FAILED" = "0" ] \
+  || err "Installation files were applied, but one or more core services failed health verification"
 
 # ── Get HWID ──────────────────────────────────────────────────────────────────
 SERVER_IP=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "YOUR-IP")

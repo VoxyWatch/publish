@@ -677,6 +677,16 @@ EOF
 # Si el SRS cae, la captura HEP NO se ve afectada (proceso separado). SRTP: pylibsrtp (best-effort).
 if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
   info "Provisioning SIPREC SRS (OFF by default)..."
+  # Una instalación nueva queda dormida. En una actualización, preservar el opt-in solo si
+  # coinciden las dos fuentes de verdad: unit previamente enabled + flag persistido true.
+  # Esto evita apagar grabación SIPREC en cada release sin revivir el bug histórico default-ON.
+  SRS_RESTORE_ENABLED=0
+  if systemctl is-enabled --quiet voxywatch-srs.service 2>/dev/null \
+     && python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); raise SystemExit(0 if d.get("siprec_enabled") is True else 1)' \
+          "${DATA_DIR}/voxywatch_settings.json" 2>/dev/null; then
+    SRS_RESTORE_ENABLED=1
+  fi
+  systemctl stop voxywatch-srs.service >/dev/null 2>&1 || true
   # venv con pylibsrtp para SRTP (best-effort: sin él, el SRS corre igual pero solo RTP en claro).
   # Debian mínimo NO trae `python3-venv` (ensurepip) → sin él `python3 -m venv` falla y el SRS
   # se queda sin SRTP (causa real en Production Customer). Lo instalamos best-effort antes de crear el venv.
@@ -732,10 +742,14 @@ SyslogIdentifier=voxywatch-srs
 WantedBy=multi-user.target
 EOF
   systemctl daemon-reload 2>/dev/null || true
-  # NO enable/start: el unit queda instalado pero detenido y disabled. Si una versión previa
-  # lo había dejado corriendo/enabled (bug v2.81.0), lo apagamos aquí en el --update.
-  systemctl disable --now voxywatch-srs.service >/dev/null 2>&1 || true
-  ok "SIPREC SRS installed (DORMANT and disabled; enable it with siprec_enabled=true + systemctl enable --now voxywatch-srs)"
+  if [ "$SRS_RESTORE_ENABLED" = "1" ]; then
+    systemctl enable --now voxywatch-srs.service >/dev/null 2>&1 \
+      || warn "SRS was opted in but could not be restarted; check systemctl status voxywatch-srs"
+    ok "SIPREC SRS updated and prior explicit opt-in restored"
+  else
+    systemctl disable --now voxywatch-srs.service >/dev/null 2>&1 || true
+    ok "SIPREC SRS installed (DORMANT and disabled; enable it with siprec_enabled=true + systemctl enable --now voxywatch-srs)"
+  fi
 fi
 
 # ── Agentic runtime (ADK sidecar) — proceso APARTE, loopback, OFF por default ─

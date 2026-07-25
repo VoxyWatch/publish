@@ -1,26 +1,26 @@
 {
-  "version": "3.11.6",
+  "version": "3.11.7",
   "release_date": "2026-07-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.6/voxywatch-v3.11.6-linux-x64.tar.gz",
-    "sha256": "538713524330f7c83b58fbd028d98a75d26fb1334d9ac8c2835d7ed268eced7f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.6/voxywatch-v3.11.6-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.7/voxywatch-v3.11.7-linux-x64.tar.gz",
+    "sha256": "12c7401dde30e24c08c1b6001d578311ff7afe6358695123b5356074ca0e90f0",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.7/voxywatch-v3.11.7-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Predictable AI budgets with real-time headroom",
-    "Recoverable offline Batch without RAM spikes",
+    "Resilient integrations with preserved opt-in",
     "Tests",
-    "Translation is capped at 250 tokens, alert summaries at 220, and interactive chat keeps 1,024; routine monitoring spends less while 30–60 second monitoring ke"
+    "SNMP resends active traps every five minutes in addition to transition raise/clear, and its generated MIB now identifies official PEN 65985 correctly.",
+    "MCP bounds each message, times out stalled portal calls and returns valid JSON-RPC errors for invalid input."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "IA con presupuestos por función y monitoreo proporcional",
-    "Batch offline recuperable y sin picos de memoria",
+    "Integraciones resilientes y opt-in preservado",
     "Tests",
-    "Traducción usa hasta 250 tokens, resumen de alarma 220 y chat conserva 1,024; el copiloto reduce costo en consultas rutinarias y mantiene el margen original cu"
+    "SNMP reenvía cada cinco minutos los traps que siguen activos, además del raise/clear por transición; la MIB ya identifica correctamente el PEN oficial 65985.",
+    "MCP limita cada mensaje, corta llamadas estancadas y responde errores JSON-RPC válidos ante entrada inválida, evitando crecimiento o espera indefinidos."
   ]
 }

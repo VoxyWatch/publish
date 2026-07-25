@@ -5,6 +5,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.6] — 2026-07-25
+
+### Improved — Predictable AI budgets with real-time headroom
+- Translation is capped at 250 tokens, alert summaries at 220, and interactive chat keeps 1,024; routine monitoring spends less while 30–60 second monitoring keeps the original evidence headroom.
+- Per-user manual/30s/1m/5m/15m/30m frequency remains persistent and cannot bypass the administrator floor.
+- Provider timeouts, DNS/TLS failures and malformed JSON now count in error telemetry exactly once.
+
+### Fixed — Recoverable offline Batch without RAM spikes
+- Corrupt local tracking fails closed, and a remotely created Batch id remains visible if local persistence fails.
+- JSONL results stream directly to the browser instead of being fully loaded into portal memory.
+- Batch refresh and download require OpenAI and its API key to be configured.
+
+### Tests
+- New contracts cover tier budgets, atomic tracking/corruption, streaming and transport/decode failures.
+
 ## [3.11.5] — 2026-07-25
 
 ### Fixed — Concurrent incidents and atomic audit timeline

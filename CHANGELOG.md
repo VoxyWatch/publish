@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.14.2] — 2026-07-26
+
+### Improved — A truly simpler Basic mode
+- Basic now hides Data, SIPREC, IP Directory, API and SNMP, plus internal AI, agentic runtime and
+  lab controls. Daily operation, Diagnostics and Update remain visible.
+- Empty navigation groups disappear instead of leaving confusing headings.
+- A guided action that requires a technical tab explicitly enables Advanced before navigating, so
+  the active panel and its selector cannot get out of sync.
+- Basic/Advanced exposes its selected state to assistive technology without changing permissions or
+  any saved configuration.
+
 ## [3.14.1] — 2026-07-26
 
 ### Fixed — Reliable bootstrap for new frontend assets

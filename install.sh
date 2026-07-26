@@ -45,7 +45,11 @@ else
 fi
 ok()   { echo -e "${GREEN}  ✓${NC} $1"; }
 warn() { echo -e "${YELLOW}  ⚠${NC}  $1"; }
-err()  { echo -e "${RED}  ✗${NC} $1"; exit 1; }
+err()  {
+  echo -e "${RED}  ✗${NC} $1"
+  if declare -F rollback_update >/dev/null 2>&1; then rollback_update "installer_error"; fi
+  exit 1
+}
 info() { echo -e "${CYAN}  →${NC} $1"; }
 # tty_ok: ¿hay terminal interactiva para prompts? Silencioso si no la hay (timer,
 # ssh sin tty, curl|bash sin terminal) — evita el ruido "/dev/tty: No such device".
@@ -362,6 +366,69 @@ if ! id "$SERVICE_USER" &>/dev/null; then
   ok "User '${SERVICE_USER}' created"
 else
   ok "User '${SERVICE_USER}' already exists"
+fi
+
+# ── Transactional file rollback for updates ──────────────────────────────────
+# Database migrations are additive and remain applied; old binaries must stay
+# forward-compatible with additive schema. Customer data is never copied,
+# deleted or restored here. The snapshot contains only product files, config,
+# units and kernel tuning, under a root-only directory.
+ROLLBACK_READY=0
+ROLLBACK_ARCHIVE=""
+ROLLBACK_ROOT="/var/backups/voxywatch"
+rollback_update() {
+  local reason="${1:-unexpected_error}"
+  [ "$ROLLBACK_READY" = "1" ] || return 0
+  ROLLBACK_READY=0
+  trap - ERR
+  warn "Update failed (${reason}); restoring the previous VoxyWatch files..."
+  systemctl stop voxywatch voxywatch-sniffer 2>/dev/null || true
+  if tar -xzf "$ROLLBACK_ARCHIVE" -C /; then
+    systemctl daemon-reload 2>/dev/null || true
+    systemctl start voxywatch-sniffer 2>/dev/null || true
+    systemctl start voxywatch 2>/dev/null || true
+    if systemctl is-active --quiet voxywatch && systemctl is-active --quiet voxywatch-sniffer; then
+      ok "Previous VoxyWatch files restored; core services are active"
+    else
+      warn "Previous files restored, but a core service needs manual inspection"
+    fi
+  else
+    warn "Automatic rollback extraction failed; backup preserved at ${ROLLBACK_ARCHIVE}"
+  fi
+}
+rollback_unexpected() {
+  local rc=$?
+  trap - ERR
+  rollback_update "unexpected_command_failure"
+  exit "$rc"
+}
+
+if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; then
+  PREVIOUS_VERSION=$(sed -n 's/^VERSION=//p' "$CONF_FILE" | head -1)
+  ROLLBACK_STAMP=$(date -u '+%Y%m%dT%H%M%SZ')
+  ROLLBACK_DIR="${ROLLBACK_ROOT}/${PREVIOUS_VERSION:-unknown}-${ROLLBACK_STAMP}"
+  install -d -o root -g root -m 700 "$ROLLBACK_ROOT" "$ROLLBACK_DIR"
+  ROLLBACK_ARCHIVE="${ROLLBACK_DIR}/system-files.tar.gz"
+  _rollback_paths=(opt/voxywatch etc/voxywatch)
+  for _p in \
+    etc/systemd/system/voxywatch.service \
+    etc/systemd/system/voxywatch-sniffer.service \
+    etc/systemd/system/voxywatch-srs.service \
+    etc/systemd/system/voxywatch-agentic.service \
+    etc/systemd/system/voxywatch-apply-update.service \
+    etc/sysctl.d/99-voxywatch.conf; do
+    [ -e "/${_p}" ] && _rollback_paths+=("$_p")
+  done
+  tar --exclude='opt/voxywatch/agentic/.venv' --exclude='opt/voxywatch/srs-venv' \
+    -C / -czf "$ROLLBACK_ARCHIVE" "${_rollback_paths[@]}" \
+    || err "Could not create the pre-update rollback snapshot"
+  chmod 600 "$ROLLBACK_ARCHIVE"
+  printf 'previous_version=%s\ncreated_at=%s\nschema_policy=additive-forward-compatible\n' \
+    "${PREVIOUS_VERSION:-unknown}" "$ROLLBACK_STAMP" > "${ROLLBACK_DIR}/manifest"
+  chmod 600 "${ROLLBACK_DIR}/manifest"
+  ROLLBACK_READY=1
+  trap rollback_unexpected ERR
+  ok "Pre-update rollback snapshot ready (${PREVIOUS_VERSION:-unknown})"
 fi
 
 # ── Stop existing services (ignore errors if not installed yet) ───────────────
@@ -1032,6 +1099,11 @@ for _svc in voxywatch-sniffer voxywatch; do
 done
 [ "$SERVICE_START_FAILED" = "0" ] \
   || err "Installation files were applied, but one or more core services failed health verification"
+
+# The new release is healthy. Keep the root-only snapshot for an explicit
+# operator rollback, but disarm automatic restoration before final reporting.
+ROLLBACK_READY=0
+trap - ERR
 
 # ── Get HWID ──────────────────────────────────────────────────────────────────
 SERVER_IP=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "YOUR-IP")

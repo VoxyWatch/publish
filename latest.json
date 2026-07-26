@@ -1,26 +1,26 @@
 {
-  "version": "3.12.0",
+  "version": "3.13.0",
   "release_date": "2026-07-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.12.0/voxywatch-v3.12.0-linux-x64.tar.gz",
-    "sha256": "87ac2c3f640c430d0fcbc4199c03fed90f7fbabf50258109749725492a349019",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.12.0/voxywatch-v3.12.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.13.0/voxywatch-v3.13.0-linux-x64.tar.gz",
+    "sha256": "96405ad31e5993b0a72384562576878b0b065a6cf249bfeb3d6127aa480270d2",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.13.0/voxywatch-v3.13.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Clearer setup and safer AI operation",
-    "AI integrity and cost controls",
-    "Settings now opens in a simpler basic mode with advanced mode, full search, use-case guidance,",
-    "AI setup reports provider capabilities, offers an explicit connection/model test and breaks token"
+    "Safer automatic update recovery",
+    "Reliable first startup",
+    "Existing installations now create a root-only snapshot of application files, configuration, service",
+    "If installation or final portal/sniffer health verification fails, VoxyWatch restores the previous"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Integridad y límites de IA",
-    "Settings y preparación comercial",
-    "Tests",
-    "Un historial de chats corrupto falla cerrado, conserva el archivo original y devuelve un error"
+    "Primer arranque confiable",
+    "Recuperación automática de actualizaciones",
+    "El almacén local de usuarios crea de forma segura su directorio padre cuando una instalación,",
+    "Antes de modificar una instalación existente, el instalador crea un snapshot root-only de binarios,"
   ]
 }

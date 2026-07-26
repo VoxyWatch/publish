@@ -958,8 +958,10 @@ if find "\$TRUSTED_INSTALLER" -maxdepth 0 -perm /022 -print -quit | grep -q .; t
   echo "ERROR: trusted installer is writable by group or others"; exit 1
 fi
 echo "[\$(date -Is)] running trusted local install.sh --update"
-bash "\$TRUSTED_INSTALLER" --update
-echo "[\$(date -Is)] update finished OK"
+# Reemplaza el proceso del helper. El instalador sobrescribe apply-update.sh durante
+# el upgrade; si Bash siguiera leyendo este archivo después, podría mezclar bytes de
+# ambas versiones y terminar con un falso error de sintaxis aunque el update concluyera.
+exec bash "\$TRUSTED_INSTALLER" --update
 UPDHELPER
 chmod 750 "${INSTALL_DIR}/apply-update.sh"
 # Ownership is SECURITY-CRITICAL (must be root-owned so voxywatch can't rewrite what it sudo-runs).

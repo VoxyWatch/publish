@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.15] — 2026-07-25
+
+### Fixed — GUI updates finish cleanly
+- The privileged helper now replaces its own process with the signed installer before an upgrade
+  overwrites that helper. This prevents a false shell syntax failure after all update files were
+  already installed successfully.
+- A regression gate now requires this atomic process handoff in every future installer.
+
 ## [3.11.14] — 2026-07-25
 
 ### Fixed — Observable persistence

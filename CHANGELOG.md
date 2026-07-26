@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.14.1] — 2026-07-26
+
+### Fixed — Reliable bootstrap for new frontend assets
+- A signed binary can now serve an embedded frontend asset when the trusted installer from the
+  previous release did not yet know that filename. Direct upgrades from v3.13.0 no longer leave
+  `product-ux.js` unavailable.
+- Current installers require the product UX asset to be present and fail closed on an incomplete
+  package instead of reporting a successful installation.
+
 ## [3.14.0] — 2026-07-26
 
 ### Improved — Market-ready product experience

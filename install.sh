@@ -519,7 +519,7 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/app.js"     "${INSTALL_DIR}/ap
 # TICKET-021: Chart.js self-hosted + update-checker externalizado (la CSP bloquea CDN/inline)
 install -o root -g voxywatch -m 640 "${EXTRACTED}/chart.umd.min.js"  "${INSTALL_DIR}/chart.umd.min.js"  2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/frontend-runtime.js" "${INSTALL_DIR}/frontend-runtime.js" 2>/dev/null || true
-install -o root -g voxywatch -m 640 "${EXTRACTED}/product-ux.js" "${INSTALL_DIR}/product-ux.js" 2>/dev/null || true
+install -o root -g voxywatch -m 640 "${EXTRACTED}/product-ux.js" "${INSTALL_DIR}/product-ux.js"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/update-checker.js" "${INSTALL_DIR}/update-checker.js" 2>/dev/null || true
 # Root-owned updater entrypoint delivered by the verified, signed tarball.
 install -o root -g root -m 750 "${EXTRACTED}/install.sh" "${INSTALL_DIR}/install.sh"

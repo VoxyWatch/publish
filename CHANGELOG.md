@@ -5,6 +5,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.12.0] — 2026-07-25
+
+### Improved — Clearer setup and safer AI operation
+- Settings now opens in a simpler basic mode with advanced mode, full search, use-case guidance,
+  a VoIP glossary and a visible unsaved-changes indicator.
+- AI setup reports provider capabilities, offers an explicit connection/model test and breaks token
+  usage down by workload. Future lab flags are no longer presented as working features.
+- Optional API, telemetry and SNMP integrations no longer prevent a healthy installation from being
+  reported as market-ready.
+
+### Fixed — AI integrity and cost controls
+- Corrupt chat history fails closed and remains untouched instead of being silently replaced.
+- Legacy chat payloads now enforce message count, per-message and total-size limits before provider use.
+- Incident investigations reuse a persistent diagnosis while material evidence is unchanged and cap
+  concurrent LLM narratives, without delaying local evidence or manual critical analysis.
+- The deterministic agent replay expands from 12 to 20 telecom scenarios.
+
 ## [3.11.15] — 2026-07-25
 
 ### Fixed — GUI updates finish cleanly

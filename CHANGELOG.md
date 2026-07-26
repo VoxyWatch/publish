@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.14.0] — 2026-07-26
+
+### Improved — Market-ready product experience
+- Settings keeps English as the default language and Spanish as the secondary language, clearly
+  explains Basic versus Advanced mode, and keeps Diagnostics available in the basic workflow.
+- Empty HEP source, trunk, monitoring and incident views now explain the state and provide a direct
+  next action instead of leaving the operator at a dead end.
+- Diagnostics adds an executive summary and explicit safe checks for API, SNMP, SIPREC, the agentic
+  runtime and AI capabilities. Tests that send external messages still require a deliberate click.
+- AI settings provide a conservative monthly request and output-token volume preview based on the
+  selected schedule and workload, without presenting incomplete provider pricing as a real cost.
+- Guided readiness actions use structured destinations, small-screen layouts are more usable, and
+  feedback privacy is explicit: feedback remains local to the installation.
+
 ## [3.13.0] — 2026-07-25
 
 ### Added — Safer automatic update recovery

@@ -1,26 +1,26 @@
 {
-  "version": "3.13.0",
-  "release_date": "2026-07-25",
+  "version": "3.14.0",
+  "release_date": "2026-07-26",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.13.0/voxywatch-v3.13.0-linux-x64.tar.gz",
-    "sha256": "96405ad31e5993b0a72384562576878b0b065a6cf249bfeb3d6127aa480270d2",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.13.0/voxywatch-v3.13.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.14.0/voxywatch-v3.14.0-linux-x64.tar.gz",
+    "sha256": "d846765bed55cb1ec77a14393ea2be4b5b16a60ec94042418f1dc32a8662a79c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.14.0/voxywatch-v3.14.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Safer automatic update recovery",
-    "Reliable first startup",
-    "Existing installations now create a root-only snapshot of application files, configuration, service",
-    "If installation or final portal/sniffer health verification fails, VoxyWatch restores the previous"
+    "Market-ready product experience",
+    "Settings keeps English as the default language and Spanish as the secondary language, clearly",
+    "Empty HEP source, trunk, monitoring and incident views now explain the state and provide a direct",
+    "Diagnostics adds an executive summary and explicit safe checks for API, SNMP, SIPREC, the agentic"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Primer arranque confiable",
-    "Recuperación automática de actualizaciones",
-    "El almacén local de usuarios crea de forma segura su directorio padre cuando una instalación,",
-    "Antes de modificar una instalación existente, el instalador crea un snapshot root-only de binarios,"
+    "UX lista para adopción",
+    "Settings conserva inglés como idioma predeterminado y español como segundo idioma, explica claramente",
+    "Los estados vacíos de fuentes HEP, troncales, monitoreo e incidentes ahora explican qué significa el",
+    "Diagnostics incorpora un resumen ejecutivo y un centro de pruebas seguras para API, SNMP, SIPREC,"
   ]
 }

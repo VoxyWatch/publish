@@ -5,6 +5,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.13.0] — 2026-07-25
+
+### Added — Safer automatic update recovery
+- Existing installations now create a root-only snapshot of application files, configuration, service
+  units and system tuning before an update changes them.
+- If installation or final portal/sniffer health verification fails, VoxyWatch restores the previous
+  files and restarts the prior core services. Customer traffic data is never copied or restored.
+
+### Fixed — Reliable first startup
+- The local user store safely creates a missing parent data directory while preserving atomic writes,
+  restrictive file permissions and fail-closed behavior.
+
 ## [3.12.0] — 2026-07-25
 
 ### Improved — Clearer setup and safer AI operation

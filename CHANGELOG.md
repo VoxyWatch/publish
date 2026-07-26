@@ -5,6 +5,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.14.3] — 2026-07-26
+
+### Fixed — Cleaner PostgreSQL error signal
+- Expected PostgreSQL administrative shutdowns (`SQLSTATE 57P01`) remain visible in the local journal
+  but no longer create a Sentry issue.
+- Real primary, read and rollup pool failures are reported once. Previously console capture and an
+  explicit exception could create two issues for one event.
+- A dedicated policy test prevents controlled restarts from being classified as product defects
+  without suppressing unexpected connection failures.
+
 ## [3.14.2] — 2026-07-26
 
 ### Improved — A truly simpler Basic mode

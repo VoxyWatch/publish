@@ -1,26 +1,26 @@
 {
-  "version": "3.14.2",
+  "version": "3.14.3",
   "release_date": "2026-07-26",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.14.2/voxywatch-v3.14.2-linux-x64.tar.gz",
-    "sha256": "34399a557b95c18de12561a6fa88f0f6ac61c91f36ed80c87d110f60e70b6fc8",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.14.2/voxywatch-v3.14.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.14.3/voxywatch-v3.14.3-linux-x64.tar.gz",
+    "sha256": "72c08c808669b743f86bcdcedf41b0f9a7774e6342b0fe53502c8f29d7c17657",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.14.3/voxywatch-v3.14.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "A truly simpler Basic mode",
-    "Basic now hides Data, SIPREC, IP Directory, API and SNMP, plus internal AI, agentic runtime and",
-    "Empty navigation groups disappear instead of leaving confusing headings.",
-    "A guided action that requires a technical tab explicitly enables Advanced before navigating, so"
+    "Cleaner PostgreSQL error signal",
+    "Expected PostgreSQL administrative shutdowns (`SQLSTATE 57P01`) remain visible in the local journal",
+    "Real primary, read and rollup pool failures are reported once. Previously console capture and an",
+    "A dedicated policy test prevents controlled restarts from being classified as product defects"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Basic realmente simplificado",
-    "Basic oculta por defecto Data, SIPREC, IP Directory, API y SNMP, además de los controles internos",
-    "Los encabezados de grupos sin pestañas visibles también desaparecen, evitando categorías vacías.",
-    "Una guía o acción directa que necesita una pestaña técnica cambia explícitamente a Advanced antes de"
+    "Señal limpia de errores PostgreSQL",
+    "El cierre administrativo esperado de PostgreSQL (`SQLSTATE 57P01`) permanece visible como aviso",
+    "Los errores reales de los pools primary/read/rollup se reportan una sola vez. Antes `console.error`",
+    "Una política y prueba dedicadas impiden volver a confundir reinicios controlados con defectos del"
   ]
 }

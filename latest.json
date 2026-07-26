@@ -1,26 +1,26 @@
 {
-  "version": "3.11.13",
+  "version": "3.11.14",
   "release_date": "2026-07-25",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.13/voxywatch-v3.11.13-linux-x64.tar.gz",
-    "sha256": "759c427455a3891adda966f1da94ea76538013a9440477bcc9135d8da1e5087d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.13/voxywatch-v3.11.13-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.11.14/voxywatch-v3.11.14-linux-x64.tar.gz",
+    "sha256": "92e0baede54ff0b848094b04effc92d93dfe0ea26c662e25ba978ea2b9867a96",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.11.14/voxywatch-v3.11.14-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Smaller, auditable runtime code",
-    "Tests",
-    "Removed the obsolete blocking warm-up page, an unused call-insight helper, and a fraud resolver",
-    "A new AST-based release gate detects top-level runtime callables with only their declaration as a"
+    "Observable persistence",
+    "Python and reproducible builds",
+    "Security and maintenance",
+    "Performance and robustness"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Código ejecutable más pequeño y auditable",
-    "Tests",
-    "Se retiraron la pantalla antigua de calentamiento que ya no podía mostrarse, un helper de",
-    "Una nueva compuerta basada en AST detecta funciones JavaScript de runtime con una sola referencia."
+    "Persistencia observable",
+    "Python y build reproducible",
+    "Security and maintenance",
+    "Performance and robustness"
   ]
 }

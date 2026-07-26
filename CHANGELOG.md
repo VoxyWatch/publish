@@ -5,6 +5,40 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.11.14] — 2026-07-25
+
+### Fixed — Observable persistence
+- Corrupt or unwritable AI usage history no longer appears as zero usage or gets overwritten;
+  the bilingual API and UI keep the failure visible until read/write access recovers.
+- Rollup cursors and sealing no longer report success when metadata persistence or the one-minute
+  refresh fails; the error reaches observable operational state.
+
+### Fixed — Python and reproducible builds
+- The agentic sidecar rejects negative HTTP lengths and bodies larger than 1 MiB before reading,
+  and times out incomplete local bodies after 10 seconds.
+- Exceptionally long Call-IDs use bounded deterministic WAV/PCAP names with exact Node/Python
+  parity, while normal historical names remain unchanged.
+- Installation now fails closed if required Audio, PCAP, or DTMF helpers cannot be installed.
+- Build staging installs production dependencies without removing development test tooling and
+  includes the agentic replay fixtures required by the packaged binary.
+
+### Security and maintenance
+- Sentry and Nodemailer were updated to audited versions, reducing known installed dependency
+  findings from eight to zero without forced upgrades.
+- A release gate checks imports across all 22 versioned Python files.
+
+### Performance and robustness
+- Dashboard window caches are bounded to 64 entries and 30 seconds.
+- Repeated HTTP cleanup can no longer cancel shared Audio/PCAP/DTMF work still used by another request.
+- Copilot retains at most 256 analyses for one physical hour without changing the operator-selected
+  freshness or the critical-traffic bypass.
+
+### Documentation and tests
+- Runtime contracts, versioned feature catalogs, and the canonical release path are now guarded
+  against drift; 69 unreachable lines from the obsolete native-package publisher were removed.
+- The final regression covers JavaScript, Python, headless UI, SRS, ephemeral PostgreSQL/Timescale,
+  deterministic inventory, dependency audit, and release invariants.
+
 ## [3.11.13] — 2026-07-25
 
 ### Improved — Smaller, auditable runtime code

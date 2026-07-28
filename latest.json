@@ -1,26 +1,24 @@
 {
-  "version": "3.15.1",
+  "version": "3.15.2",
   "release_date": "2026-07-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.15.1/voxywatch-v3.15.1-linux-x64.tar.gz",
-    "sha256": "bda2420599254e61222eb552b8691ac7c8ab9f716d284bb2ea1ae05a9fdccc69",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.15.1/voxywatch-v3.15.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.15.2/voxywatch-v3.15.2-linux-x64.tar.gz",
+    "sha256": "2a8253d497c02cb0371c4537e96c629261cd815896a43e74fc2697e774042baa",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.15.2/voxywatch-v3.15.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Light by default, theme remembered per account",
-    "New accounts and accounts without a preference now open VoxyWatch in the light theme from the",
-    "Switching to dark or back to light persists on that user's profile. Two accounts sharing one",
-    "The old browser-wide value no longer controls the theme because previous versions wrote the dark"
+    "AI chat responds again",
+    "`/api/ai/chat` now invokes the context-limiter alias that is actually imported. The previous",
+    "A wiring regression now binds the endpoint call to `limitAiMessages`, preventing helper-only tests"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "tema claro por default y preferencia por usuario",
-    "Una cuenta nueva o sin preferencia abre VoxyWatch en tema claro desde el primer render.",
-    "Cambiar a oscuro o volver a claro persiste en el perfil de esa identidad, por lo que dos usuarios",
-    "La llave global anterior deja de gobernar el tema porque la versión previa escribía `dark` aun sin"
+    "el chat IA vuelve a responder",
+    "`/api/ai/chat` ya invoca el alias realmente importado para acotar el contexto. La referencia anterior",
+    "Una regresión de wiring verifica que el handler use `limitAiMessages`, impidiendo que una suite del helper"
   ]
 }

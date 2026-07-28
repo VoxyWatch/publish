@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.15.2] — 2026-07-28
+
+### Fixed — AI chat responds again
+- `/api/ai/chat` now invokes the context-limiter alias that is actually imported. The previous
+  `limitMessages` reference raised a `ReferenceError` before contacting the configured provider.
+- A wiring regression now binds the endpoint call to `limitAiMessages`, preventing helper-only tests
+  from passing while the integrated route retains an undefined identifier.
+
 ## [3.15.1] — 2026-07-28
 
 ### Changed — Light by default, theme remembered per account

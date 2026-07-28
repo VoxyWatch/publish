@@ -26,6 +26,8 @@ rate-limited and audited; remote use requires an explicit administrator configur
 As of v3.15.1, VoxyWatch opens in light mode by default. Light/dark selection is stored per account,
 so different users sharing one browser keep independent preferences.
 
+v3.15.2 restores AI chat responses after fixing an internal context-limiter wiring regression.
+
 </div>
 
 ---

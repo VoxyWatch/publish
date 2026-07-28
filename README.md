@@ -45,6 +45,27 @@ Then open **`http://YOUR-IP:3080`**.
 
 > ⚠️ **Change the default password immediately** — Settings → Security → Users.
 
+### Connect an AI client through MCP
+
+VoxyWatch 3.15.0 includes an optional read-only MCP gateway for ChatGPT, Claude, Codex and other
+compatible clients. It uses the portal listener; **do not open a separate MCP port**.
+
+- Local endpoint: `http://127.0.0.1:3080/mcp`
+- Remote endpoint: `https://YOUR-VOXYWATCH-HOST/mcp` through the existing reverse proxy on TCP 443
+- Protocol/transport: MCP `2025-11-25`, stateless Streamable HTTP JSON responses
+- Authentication: scoped VoxyWatch API key, or OAuth access token validated with issuer, audience and JWKS
+- Scopes: `mcp:read`, `mcp:traffic`, `mcp:incidents`; `mcp:sensitive` is an additional explicit opt-in
+
+In **Settings → Integration API**, enable the Integration API and MCP, create a key with only the
+needed scopes, and run the built-in MCP test. For remote access, also enable Remote MCP, configure
+HTTPS, list browser Origins when applicable, and preferably configure an OAuth identity provider.
+Keep Sensitive data disabled unless the use case truly requires raw identifiers. The live-traffic
+tool supports client-selected refresh intervals from 5 seconds to 30 minutes.
+
+The gateway starts disabled. It never writes to VoxyWatch, returns audio/RTP/PCAP/DTMF, or controls
+an SBC. Remote access should be firewall-restricted to TCP 443; portal port 3080 should remain private
+behind the reverse proxy.
+
 ### AI-assisted configuration
 
 After the first login, open **Settings → Getting started**. If you want your own AI assistant to help configure VoxyWatch, ask it to read:

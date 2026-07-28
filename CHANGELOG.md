@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.15.1] — 2026-07-28
+
+### Changed — Light by default, theme remembered per account
+- New accounts and accounts without a preference now open VoxyWatch in the light theme from the
+  first render.
+- Switching to dark or back to light persists on that user's profile. Two accounts sharing one
+  browser no longer overwrite each other's choice, and the preference follows the account to
+  another device.
+- The old browser-wide value no longer controls the theme because previous versions wrote the dark
+  default there even without user intent. Every choice made from this release onward is attributable.
+
 ## [3.15.0] — 2026-07-28
 
 ### Added — Local and remote MCP with live traffic

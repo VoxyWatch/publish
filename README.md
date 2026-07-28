@@ -23,6 +23,9 @@ As of v3.15.0, the optional MCP gateway lets local or remote AI clients inspect 
 traffic through the existing portal HTTPS endpoint. It is off by default, scope-gated, redacted,
 rate-limited and audited; remote use requires an explicit administrator configuration.
 
+As of v3.15.1, VoxyWatch opens in light mode by default. Light/dark selection is stored per account,
+so different users sharing one browser keep independent preferences.
+
 </div>
 
 ---

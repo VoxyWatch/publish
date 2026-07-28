@@ -1,26 +1,26 @@
 {
-  "version": "3.15.0",
+  "version": "3.15.1",
   "release_date": "2026-07-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.15.0/voxywatch-v3.15.0-linux-x64.tar.gz",
-    "sha256": "3e6be1bf08c8cfdd8cd0b4093d9b7736726ac3968d5e4b9c3e8903ed5e912b23",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.15.0/voxywatch-v3.15.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.15.1/voxywatch-v3.15.1-linux-x64.tar.gz",
+    "sha256": "bda2420599254e61222eb552b8691ac7c8ab9f716d284bb2ea1ae05a9fdccc69",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.15.1/voxywatch-v3.15.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Local and remote MCP with live traffic",
-    "ChatGPT, Claude, Codex and other MCP clients can inspect VoxyWatch through local stdio or",
-    "A live-traffic tool returns active and recent calls, signaling outcome, quality, attribution and",
-    "Settings adds local/remote enablement, Origin and tool allowlists, bounded responses, OAuth/JWKS"
+    "Light by default, theme remembered per account",
+    "New accounts and accounts without a preference now open VoxyWatch in the light theme from the",
+    "Switching to dark or back to light persists on that user's profile. Two accounts sharing one",
+    "The old browser-wide value no longer controls the theme because previous versions wrote the dark"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "MCP local y remoto con tráfico en vivo",
-    "ChatGPT, Claude, Codex y otros clientes MCP pueden consultar la observabilidad de VoxyWatch mediante",
-    "Una nueva herramienta entrega llamadas activas y recientes, calidad, señalización, atribución y",
-    "Settings incorpora activación local/remota, allowlist de orígenes, límite de respuesta, catálogo"
+    "tema claro por default y preferencia por usuario",
+    "Una cuenta nueva o sin preferencia abre VoxyWatch en tema claro desde el primer render.",
+    "Cambiar a oscuro o volver a claro persiste en el perfil de esa identidad, por lo que dos usuarios",
+    "La llave global anterior deja de gobernar el tema porque la versión previa escribía `dark` aun sin"
   ]
 }

@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.14.4] — 2026-07-28
+
+### Fixed — Recoverable and predictable Overview
+- Overview now discloses how many widgets are hidden and can reveal every widget with one action.
+- Restore defaults resets both visibility and ordering without touching product data, filters or settings.
+- Legacy, partial or invalid browser preferences are sanitized before use. Missing widgets follow their
+  documented default instead of appearing unexpectedly.
+- Recovery controls and accessible status text ship in English by default and Spanish as the second language.
+
 ## [3.14.3] — 2026-07-26
 
 ### Fixed — Cleaner PostgreSQL error signal

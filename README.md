@@ -15,6 +15,9 @@ ungrounded recommendations stay observe-only, new actions can run in effect-free
 Spanish/English prompt-injection canaries are tested before publishing. The optional local sidecar remains
 off by default; the portal is the sole routing and policy authority.
 
+As of v3.14.4, Overview makes hidden widgets explicit and provides one-click **Show all** and
+**Restore defaults** recovery, including safe handling of older browser preferences.
+
 </div>
 
 ---

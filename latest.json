@@ -1,26 +1,26 @@
 {
-  "version": "3.14.3",
-  "release_date": "2026-07-26",
+  "version": "3.14.4",
+  "release_date": "2026-07-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.14.3/voxywatch-v3.14.3-linux-x64.tar.gz",
-    "sha256": "72c08c808669b743f86bcdcedf41b0f9a7774e6342b0fe53502c8f29d7c17657",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.14.3/voxywatch-v3.14.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.14.4/voxywatch-v3.14.4-linux-x64.tar.gz",
+    "sha256": "8dbcb6288e1adf8ee5154ad8cd98224ba2ab8c736ca3ca8d343d4d858f542c47",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.14.4/voxywatch-v3.14.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Cleaner PostgreSQL error signal",
-    "Expected PostgreSQL administrative shutdowns (`SQLSTATE 57P01`) remain visible in the local journal",
-    "Real primary, read and rollup pool failures are reported once. Previously console capture and an",
-    "A dedicated policy test prevents controlled restarts from being classified as product defects"
+    "Recoverable and predictable Overview",
+    "Overview now discloses how many widgets are hidden and can reveal every widget with one action.",
+    "Restore defaults resets both visibility and ordering without touching product data, filters or settings.",
+    "Legacy, partial or invalid browser preferences are sanitized before use. Missing widgets follow their"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Señal limpia de errores PostgreSQL",
-    "El cierre administrativo esperado de PostgreSQL (`SQLSTATE 57P01`) permanece visible como aviso",
-    "Los errores reales de los pools primary/read/rollup se reportan una sola vez. Antes `console.error`",
-    "Una política y prueba dedicadas impiden volver a confundir reinicios controlados con defectos del"
+    "Overview recuperable y predecible",
+    "Overview muestra cuántos widgets permanecen ocultos y permite revelar todos con una sola acción.",
+    "`Restaurar valores predeterminados` recupera tanto la visibilidad como el orden original sin borrar",
+    "Las preferencias antiguas, parciales o con valores inválidos se saneán antes de aplicarse. Los widgets"
   ]
 }

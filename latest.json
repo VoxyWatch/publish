@@ -1,26 +1,26 @@
 {
-  "version": "3.14.4",
+  "version": "3.15.0",
   "release_date": "2026-07-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.14.4/voxywatch-v3.14.4-linux-x64.tar.gz",
-    "sha256": "8dbcb6288e1adf8ee5154ad8cd98224ba2ab8c736ca3ca8d343d4d858f542c47",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.14.4/voxywatch-v3.14.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.15.0/voxywatch-v3.15.0-linux-x64.tar.gz",
+    "sha256": "3e6be1bf08c8cfdd8cd0b4093d9b7736726ac3968d5e4b9c3e8903ed5e912b23",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.15.0/voxywatch-v3.15.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Recoverable and predictable Overview",
-    "Overview now discloses how many widgets are hidden and can reveal every widget with one action.",
-    "Restore defaults resets both visibility and ordering without touching product data, filters or settings.",
-    "Legacy, partial or invalid browser preferences are sanitized before use. Missing widgets follow their"
+    "Local and remote MCP with live traffic",
+    "ChatGPT, Claude, Codex and other MCP clients can inspect VoxyWatch through local stdio or",
+    "A live-traffic tool returns active and recent calls, signaling outcome, quality, attribution and",
+    "Settings adds local/remote enablement, Origin and tool allowlists, bounded responses, OAuth/JWKS"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Overview recuperable y predecible",
-    "Overview muestra cuántos widgets permanecen ocultos y permite revelar todos con una sola acción.",
-    "`Restaurar valores predeterminados` recupera tanto la visibilidad como el orden original sin borrar",
-    "Las preferencias antiguas, parciales o con valores inválidos se saneán antes de aplicarse. Los widgets"
+    "MCP local y remoto con tráfico en vivo",
+    "ChatGPT, Claude, Codex y otros clientes MCP pueden consultar la observabilidad de VoxyWatch mediante",
+    "Una nueva herramienta entrega llamadas activas y recientes, calidad, señalización, atribución y",
+    "Settings incorpora activación local/remota, allowlist de orígenes, límite de respuesta, catálogo"
   ]
 }

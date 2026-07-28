@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.14.4** (2026-07-28).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.15.0** (2026-07-28).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -28,7 +28,8 @@
 1. Autonomous incident investigation with evidence-cited AI diagnosis.
 2. Per-trunk statistical baselines + anti-false-positive engine (−92% critical noise, validated on production data) — now with **per-trunk auto-calibration**: each trunk is judged against *its own* learned normal, not a global threshold.
 3. Actionable Telegram notifications with human-approved remediation.
-4. MCP server: your own AI agents can interrogate the platform.
+4. MCP gateway: local or remote AI clients can inspect live traffic through read-only, scoped,
+   redacted and audited tools, with refresh intervals from 5 seconds to 30 minutes.
 5. Carrier/country attribution built-in (E.164 engine, 197 country codes).
 6. 100% self-hosted, single binary, the AI never touches the SBC.
 7. Per-installation deployment status separates published, installed, validated and upgrade-compatible versions without centralizing customer data or secrets.
@@ -166,4 +167,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.14.4.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.15.0.

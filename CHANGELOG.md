@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [3.15.0] — 2026-07-28
+
+### Added — Local and remote MCP with live traffic
+- ChatGPT, Claude, Codex and other MCP clients can inspect VoxyWatch through local stdio or
+  Streamable HTTP at `/mcp`, reusing the portal HTTP(S) port.
+- A live-traffic tool returns active and recent calls, signaling outcome, quality, attribution and
+  data freshness with a client-selected refresh interval from 5 seconds to 30 minutes.
+- Settings adds local/remote enablement, Origin and tool allowlists, bounded responses, OAuth/JWKS
+  resource-server configuration and a deterministic live test.
+- Least-privilege scopes separate health, traffic, incidents and sensitive data. Phone numbers, IPs,
+  Call-IDs and raw signaling stay redacted unless both the administrator and token explicitly allow them.
+- Local audit records actor, tool, latency, size and outcome without storing tokens, arguments or traffic.
+  Audio, RTP, PCAP, DTMF, writes and SBC control remain outside the MCP contract.
+
 ## [3.14.4] — 2026-07-28
 
 ### Fixed — Recoverable and predictable Overview

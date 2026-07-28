@@ -8,7 +8,8 @@
 
 VoxyWatch ingests HEP traffic from your entire VoIP estate, correlates it into calls with playable audio, attributes every call to its carrier and destination, and learns each trunk's statistical "normal". When something drifts, an **autonomous AI investigator** opens an incident, gathers the evidence (failing calls, dominant SIP codes, carrier-vs-local scope), writes the probable root cause, and pings your phone with **action buttons** — acknowledge, resolve, investigate deeper, or approve a safe remediation. Every resolution it sees makes the next diagnosis smarter.
 
-One self-contained binary. Your hardware. Your data. No cloud, ever. The AI never touches your SBC.
+One self-contained binary. Your hardware. Your data stays local unless an administrator explicitly
+enables an external AI or remote MCP integration. The AI never touches your SBC.
 
 As of v3.10.3, agent behavior is release-gated: diagnoses cite verifiable evidence IDs, low-confidence or
 ungrounded recommendations stay observe-only, new actions can run in effect-free shadow mode, and
@@ -17,6 +18,10 @@ off by default; the portal is the sole routing and policy authority.
 
 As of v3.14.4, Overview makes hidden widgets explicit and provides one-click **Show all** and
 **Restore defaults** recovery, including safe handling of older browser preferences.
+
+As of v3.15.0, the optional MCP gateway lets local or remote AI clients inspect live, read-only
+traffic through the existing portal HTTPS endpoint. It is off by default, scope-gated, redacted,
+rate-limited and audited; remote use requires an explicit administrator configuration.
 
 </div>
 

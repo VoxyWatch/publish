@@ -1,24 +1,26 @@
 {
-  "version": "3.17.2",
+  "version": "3.17.3",
   "release_date": "2026-07-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.2/voxywatch-v3.17.2-linux-x64.tar.gz",
-    "sha256": "5a99e277772cbd23d1ff1f897d1b7a1363f4be2b90e4c4045fb9c525f80747c5",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.2/voxywatch-v3.17.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.3/voxywatch-v3.17.3-linux-x64.tar.gz",
+    "sha256": "621fca9652bd85e512dd020f3fe473abc37ea6c5469fdbc181065d925663f975",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.3/voxywatch-v3.17.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "operational guides install on the first upgrade",
-    "Flash Call and MCP guides also travel through the documentation path recognized by older",
-    "Package and regression gates now require the backward-compatible documentation paths."
+    "public capabilities reconciled with the runtime",
+    "`IMPLEMENTED_FEATURES.md` maps shipped functions and labels each area Active, Configurable,",
+    "README and Features now cover Asterisk import, DTMF, anonymous call sharing, Flash Calls,",
+    "Release gates derive the 12-tool MCP, 7-agent and 7-runbook catalogs from code and require the"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "las guías operativas se instalan desde cualquier versión anterior",
-    "Flash Call y MCP viajan también bajo el contrato documental que los instaladores anteriores ya",
-    "El manifiesto del tarball y la regresión documental exigen ambas rutas de compatibilidad."
+    "catálogo público comparado contra el runtime",
+    "`IMPLEMENTED_FEATURES.md` documenta las funciones realmente enviadas y distingue Active,",
+    "README/Features incorporan Asterisk import, DTMF, bundle anónimo, Flash Call, siete agentes,",
+    "El gate documental deriva del código los catálogos de 12 tools MCP, 7 agentes y 7 runbooks;"
   ]
 }

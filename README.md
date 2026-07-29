@@ -28,6 +28,9 @@ so different users sharing one browser keep independent preferences.
 
 v3.15.2 restores AI chat responses after fixing an internal context-limiter wiring regression.
 
+For a status-labelled map of everything implemented in the signed release, see
+the **[Implemented Feature Reference](IMPLEMENTED_FEATURES.md)**.
+
 </div>
 
 ---
@@ -169,7 +172,7 @@ Critical incidents reach your phone with the diagnosis attached and **inline but
 Notifications are **personal**: your team creates one Telegram bot for the installation (a 2-minute guided wizard), then **each portal user links their own chat with a one-time code** — no tokens, no chat IDs. Every action is audited under the real portal username and **gated by role** (viewers receive read-only notifications). Each user picks their minimum severity, opts into the digest, and can also receive incidents **by email** (global SMTP with Gmail/Microsoft 365 presets, step-by-step in-product guide and live test). An optional NOC-room group chat receives everything.
 
 ### 📚 Runbooks + case memory
-Ships with field runbooks (low ASR, packet loss, capture down, traffic drop) that the investigator **follows and cites step by step** — and you can add your own as JSON. When you resolve an incident and write down the cause, that resolution becomes **institutional memory**: the next time the same pattern fires, the diagnosis references it — *"same as incident #123 (Jun 3), resolved: carrier maintenance"*.
+Ships with seven field runbooks (low ASR, packet loss, capture down, one-way audio, Flash Call patterns, fraud suspects and traffic-volume drops) that the investigator **follows and cites step by step** — and you can add your own as JSON. When you resolve an incident and write down the cause, that resolution becomes **institutional memory**: the next time the same pattern fires, the diagnosis references it — *"same as incident #123 (Jun 3), resolved: carrier maintenance"*.
 
 ### 🛡️ Statistical confidence (anti-false-positives)
 Declaring CRITICAL requires earning it: a **minimum sample** of calls, **Wilson confidence intervals** on rates (a trunk with 2 calls can't trip a critical), **measurement coverage** for quality metrics (MOS/loss only alarm when actually measured on enough calls), **deviation from the trunk's own robust seasonal baseline** (median/MAD per day-of-week × hour — chronic mediocrity ≠ incident), and **sustained degradation** across consecutive evaluations (hysteresis). Validated against production incidents: **−92% critical noise**. Everything stays recorded and visible — confidence only gates *what wakes you up*.
@@ -179,10 +182,10 @@ Declaring CRITICAL requires earning it: a **minimum sample** of calls, **Wilson 
 ### 📋 Capacity forecast & scheduled digest
 Audio retention is **measured, not guessed** (hours of recoverable audio + write rate, exposed in the API) and can open a capacity incident before you run out. A **daily/weekly digest** (incidents, trunk health, volume vs previous period, capacity) lands in Telegram or your webhook on schedule — or on demand via API.
 
-### 🔗 MCP server — your voice network, exposed to *your* agents
+### 🔗 MCP gateway — your voice network, exposed to *your* agents
 VoxyWatch ships a **Model Context Protocol gateway**: connect ChatGPT, Claude, Codex or another compatible client locally or remotely and query live traffic, health, KPIs, trunk status, CDRs, incidents, baselines, forecasts and Flash Call evidence through 12 read-only scoped tools. API-key or OAuth authentication, redaction, bounded results and local audit keep access explicit. [Read the MCP Server guide](MCP_SERVER.md).
 
-VoxyWatch v3 also ships a native **agentic runtime** foundation: `voxywatch-agentic.service`, an ADK-ready loopback sidecar with specialist agents for SIP, fraud, traffic analytics, NOC health and release status. It is installed and updated with every signed release, disabled by default on fresh installs, visible/controllable from Settings -> Diagnostics for admins, and uses the authenticated read-only Agent tools API instead of database internals or SBC control.
+VoxyWatch v3 also ships a native **agentic runtime** foundation: `voxywatch-agentic.service`, an ADK-ready loopback sidecar with a Task Orchestrator and specialists for SIP, fraud, Flash Calls, traffic analytics, platform health and release status. It is installed and updated with every signed release, disabled by default on fresh installs, visible/controllable from Settings -> Diagnostics for admins, and uses the authenticated read-only Agent tools API instead of database internals or SBC control.
 
 Support can export an authenticated, read-only **sanitized ticket bundle** with version, fault domain, component
 status, metrics, dependencies and input/process/output signals. It uses a strict allowlist and excludes secrets,
@@ -296,7 +299,7 @@ PCI-DSS compliant (Req. 3.2: the CVV must never be retained).
 | `reconstruct_audio.py` | SIPREC stereo audio reconstruction (multi-codec) |
 | `generate_pcap.py` | Per-call PCAP export |
 | PostgreSQL + TimescaleDB | Dedicated, isolated capture database |
-| `voxywatch-mcp.js` | MCP server — expose VoxyWatch to Claude / any MCP-compatible agent (read-only) |
+| `voxywatch-mcp.js` | Local stdio bridge to the scoped VoxyWatch MCP gateway (read-only) |
 | `get-hwid.js` | Hardware ID tool for license activation |
 
 ---

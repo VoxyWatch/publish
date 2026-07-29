@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.17.3] — 2026-07-28
+
+### Documentation — public capabilities reconciled with the runtime
+- `IMPLEMENTED_FEATURES.md` maps shipped functions and labels each area Active, Configurable,
+  Opt-in or Signal-dependent, with explicit exclusions.
+- README and Features now cover Asterisk import, DTMF, anonymous call sharing, Flash Calls,
+  seven agents and seven runbooks, and describe the actual deterministic seasonal forecast.
+- Release gates derive the 12-tool MCP, 7-agent and 7-runbook catalogs from code and require the
+  reference in build, installed documentation and GitHub.
+
 ## [3.17.2] — 2026-07-28
 
 ### Fixed — operational guides install on the first upgrade

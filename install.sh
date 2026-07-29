@@ -511,7 +511,7 @@ if [ -d "${EXTRACTED}/docs/ai" ]; then
     install -o root -g voxywatch -m 640 "$f" "${INSTALL_DIR}/docs/ai/${rel}"
   done
 fi
-for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md; do
+for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md IMPLEMENTED_FEATURES.md; do
   [ -f "${EXTRACTED}/docs/${operational_doc}" ] || continue
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/docs/${operational_doc}" \

@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.17.2** (2026-07-28).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.17.3** (2026-07-28).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -38,6 +38,7 @@
 10. Native agentic runtime: v3 ships an ADK-ready sidecar with specialist agents, Diagnostics status/control and a read-only tool contract.
 11. Tutorial-ready product map: every main module and Settings section can be explained with a practical NOC scenario, a screen walkthrough and a safe validation test.
 12. Verifiable agentic behavior: structured evidence citations, deterministic release evals, confidence gates, shadow mode, short-lived redacted traces and prompt-injection canaries.
+13. Verifiable implementation catalog: [Implemented Feature Reference](IMPLEMENTED_FEATURES.md) labels what is active, configurable, opt-in or signal-dependent and lists deliberate exclusions.
 
 ---
 
@@ -69,14 +70,14 @@
 | **Structured diagnosis** | Probable cause · confidence · scope (carrier / customer / local / capacity) · recommended action. Budgeted & cached LLM usage. Works without an LLM too — raw evidence is always collected. |
 | **Actionable Telegram** | Critical incidents hit your phone with the diagnosis and inline buttons: Ack · Resolve · Investigate · approve the proposed fix. Closed action catalog (never the SBC), full audit trail. |
 | **Per-user notifications** | One bot per installation; each user links their own Telegram with a one-time code (no tokens, no chat IDs) and/or enables email. Actions audited under the real username and gated by role; per-user severity threshold and digest opt-in. Global SMTP with Gmail/365 presets, in-product step-by-step guide and live test. |
-| **Runbooks** | Field procedures the investigator follows and cites step by step. Ships with 4; add your own as JSON. |
+| **Runbooks** | Seven field procedures cover low ASR, packet loss, capture down, one-way audio, Flash Calls, fraud suspects and traffic-volume drops. The investigator cites them step by step; add your own as JSON. |
 | **Case memory** | Human resolutions become institutional memory: "same as incident #123 (Jun 3) — carrier maintenance". The system gets smarter with every incident you close. |
 | **Anti-false-positives** | CRITICAL must be earned: minimum sample size, **Wilson confidence intervals** on rates (a trunk with 2 calls can't trip a critical), measurement coverage, deviation from the trunk's *own* robust seasonal baseline (median/MAD), sustained degradation (hysteresis). −92% noise, zero lost records. |
 | **Auto-calibrated thresholds** | Opt-in: each mature trunk derives its own alarm thresholds from its learned history (median ± k·MAD) — a wholesale trunk that *normally* runs 25% ASR stops false-alarming at 25%, while a retail trunk alarms the moment it dips below *its* 90%. Manual overrides always win. Validated A/B on production: −40% alarms, no real signal lost. |
 | **Capacity forecast** | Audio retention measured in hours + write rate; capacity incidents before you run out; daily/weekly digest via Telegram/webhook. |
 | **Three-tier alarms** | (1) Manual thresholds — editable SIP failure-rate rules per class/code, global and per trunk, plus SBC-vs-carrier reject attribution. (2) Learned patterns — a 168-bucket seasonal baseline (day-of-week × hour, robust median/MAD) compares your Monday against *your* Mondays: traffic spikes, anomalous silence, ASR/PDD drift against that hour's normal. (3) Honest learning: without enough history the system stays silent instead of guessing. |
 | **Fraud early-warning** | The "suddenly calling Cuba" detector: alerts the first day a trunk calls a country absent from its last 4 weeks — critical if it's on the (editable) IRSF high-risk list. Plus short-call storms to one destination (premium-number sweeps, hacked PBX — active from day one), abnormal growth to high-risk destinations, and international-mix spikes vs the trunk's own history. Factory runbook included: who originates, time-of-day tells, block at *your* SBC, dispute with the carrier. A **fraud-risk score (0–100)** fuses the signals via a model trained offline on labelled history (privacy-safe: training off-box, inference on-box, no data leaves your server) and gates which alerts escalate to critical. |
-| **Predictive forecast** | Seasonal forecast (Holt-Winters over the 168-bucket baseline) projects each trunk's volume/ASR hours ahead with confidence bands, and turns audio-retention burn-rate into capacity incidents *before* you run out of disk. |
+| **Predictive forecast** | A deterministic seasonal forecast uses the robust 168-bucket day/hour baseline plus the recent level to project each trunk's volume/ASR with a bounded confidence band, and turns audio-retention burn-rate into capacity incidents *before* you run out of disk. |
 | **Flash Call Intelligence** | Passive, deterministic detection of probable missed-call authentication traffic from originator `CANCEL` timing, `487`, no-answer/no-media evidence and destination fan-out. Starts in Shadow, can create sustained recoverable incidents in Alerting, and never blocks or controls the SBC. [Operational guide](FLASH_CALL_DETECTION.md). |
 | **MCP gateway** | ChatGPT, Claude, Codex and other MCP clients can query live traffic, health, KPIs, trunks, CDRs, incidents, baselines, forecasts and Flash Call evidence through 12 local/remote read-only tools. API-key/OAuth scopes, redaction, rate limits, bounded results and local audit. [Configuration guide](MCP_SERVER.md). |
 | **Per-user contextual LLM** | Built-in LLM keeps private conversation sessions per user, lets operators reopen/delete history, applies each user's profile prompt, infers reply language from the latest operator message, receives a sanitized hint of the current UI view/call/incident, and supports OpenAI, Anthropic, Google Gemini, OpenRouter, Perplexity Sonar and custom OpenAI-compatible endpoints. |
@@ -95,6 +96,8 @@
 | SIP/RFC compliance panel | Every call flow can be audited against core SIP/RFC rules with a clear verdict, prioritized findings, detected standards, clickable message evidence and Markdown/JSON export for tickets or tutorials. |
 | SIP Expert | One-click trace diagnosis that classifies call setup, REGISTER, OPTIONS, REFER, MESSAGE, subscriptions and in-dialog updates; flags malformed signaling, RFC violations and STIR/SHAKEN Identity status; then gives an executive summary with likely root cause, suggested owner and operator-ready recommendations. |
 | **Codec-agnostic capture** | Every call is captured and analyzed **regardless of codec**, over **both HEP and SIPREC** — the SIP ladder, CDR, attribution and quality metrics (jitter/loss/PDD) work for any payload type. Audio *reconstruction* to playable WAV covers the common set below; capture itself never drops a call for using an exotic codec. |
+| **Asterisk import** | Upload sanitized `chan_sip`, PJSIP and dial-plan files, preview detected trunks/IPs/prefixes and warnings, then merge only after operator review. |
+| **Portable call evidence** | Export SIP text, SIP Expert Markdown/JSON, PCAP and a bounded anonymous call-share JSON. RTP-event DTMF is shown when captured; share bundles exclude raw SIP/RTP/audio, exact IPs and full numbers. |
 | Quality metrics | MOS (E-model), jitter, loss, PDD, RTCP enrichment. Honest "not enough signal" instead of invented numbers. |
 | **One-way audio detection** | Multi-leg media correlation (handles B2BUA SBCs that keep the Call-ID across legs) tags every answered call: two-way / **one-way** (with which side is missing) / not-correlated. Per-trunk one-way % feeds a configurable alarm with a learned baseline — chronic asymmetry (media bypass) never alerts, only the *change* does. Factory runbook: NAT/firewall tells, codec renegotiation, where to fix it. |
 | Playable stereo audio | SIPREC reconstruction, caller/callee channels, in-browser player. PCMU/PCMA, G.722, G.729 + AMR/GSM/G.723 via SDP hints. Per-call PCAP export. |
@@ -168,4 +171,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.17.2.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.17.3.

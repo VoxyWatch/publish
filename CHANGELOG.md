@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.16.0] — 2026-07-28
+
+### Added — passive flash-call detection in shadow mode
+- SIP correlation now records normalized origin-cancel timing and `487` evidence without retaining
+  raw signaling.
+- A deterministic on-box detector measures repeated cancel timing, low variance, destination fan-out,
+  unanswered calls and absence of media without using AI.
+- The feature starts in shadow mode: it observes bounded in-memory evidence but does not alert, block
+  traffic or control the SBC.
+
 All notable changes to VoxyWatch are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 

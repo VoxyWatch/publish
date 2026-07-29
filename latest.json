@@ -1,24 +1,26 @@
 {
-  "version": "3.15.2",
+  "version": "3.16.0",
   "release_date": "2026-07-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.15.2/voxywatch-v3.15.2-linux-x64.tar.gz",
-    "sha256": "2a8253d497c02cb0371c4537e96c629261cd815896a43e74fc2697e774042baa",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.15.2/voxywatch-v3.15.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.16.0/voxywatch-v3.16.0-linux-x64.tar.gz",
+    "sha256": "78b78bddb567e4483f299cb6d256f2ac42868ea3c8004ffe6a0ad90a9d3e1767",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.16.0/voxywatch-v3.16.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "AI chat responds again",
-    "`/api/ai/chat` now invokes the context-limiter alias that is actually imported. The previous",
-    "A wiring regression now binds the endpoint call to `limitAiMessages`, preventing helper-only tests"
+    "passive flash-call detection in shadow mode",
+    "SIP correlation now records normalized origin-cancel timing and `487` evidence without retaining",
+    "A deterministic on-box detector measures repeated cancel timing, low variance, destination fan-out,",
+    "The feature starts in shadow mode: it observes bounded in-memory evidence but does not alert, block"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "el chat IA vuelve a responder",
-    "`/api/ai/chat` ya invoca el alias realmente importado para acotar el contexto. La referencia anterior",
-    "Una regresión de wiring verifica que el handler use `limitAiMessages`, impidiendo que una suite del helper"
+    "detección pasiva de flash calls en sombra",
+    "El correlador SIP conserva de forma aditiva el instante y el lado del `CANCEL`, y deriva el tiempo",
+    "Un detector local y determinístico agrupa por troncal y origen, mide repetición temporal, MAD,",
+    "La función nace en modo `shadow`: observa y registra un snapshot acotado en RAM, pero todavía no"
   ]
 }

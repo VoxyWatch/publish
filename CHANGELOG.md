@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.17.1] — 2026-07-28
+
+### Documentation — adoption guides for Flash Call Detection and MCP
+- A new Flash Call guide covers SIP prerequisites, modes, every default threshold, evidence
+  interpretation, safe simulation, false-positive tuning, incidents, privacy and limitations.
+- The MCP guide now documents the 12 live read-only tools, scopes, redaction, OAuth/API-key
+  authentication, local and remote clients, network exposure, rollout and troubleshooting.
+- README and Features link both guides, and signed packages install local copies for operators.
+
 ## [3.17.0] — 2026-07-28
 
 ### Added — operational and explainable Flash Call Intelligence

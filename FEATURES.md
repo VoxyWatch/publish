@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.17.0** (2026-07-28).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.17.1** (2026-07-28).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -77,7 +77,8 @@
 | **Three-tier alarms** | (1) Manual thresholds — editable SIP failure-rate rules per class/code, global and per trunk, plus SBC-vs-carrier reject attribution. (2) Learned patterns — a 168-bucket seasonal baseline (day-of-week × hour, robust median/MAD) compares your Monday against *your* Mondays: traffic spikes, anomalous silence, ASR/PDD drift against that hour's normal. (3) Honest learning: without enough history the system stays silent instead of guessing. |
 | **Fraud early-warning** | The "suddenly calling Cuba" detector: alerts the first day a trunk calls a country absent from its last 4 weeks — critical if it's on the (editable) IRSF high-risk list. Plus short-call storms to one destination (premium-number sweeps, hacked PBX — active from day one), abnormal growth to high-risk destinations, and international-mix spikes vs the trunk's own history. Factory runbook included: who originates, time-of-day tells, block at *your* SBC, dispute with the carrier. A **fraud-risk score (0–100)** fuses the signals via a model trained offline on labelled history (privacy-safe: training off-box, inference on-box, no data leaves your server) and gates which alerts escalate to critical. |
 | **Predictive forecast** | Seasonal forecast (Holt-Winters over the 168-bucket baseline) projects each trunk's volume/ASR hours ahead with confidence bands, and turns audio-retention burn-rate into capacity incidents *before* you run out of disk. |
-| **MCP server** | Standalone Model Context Protocol server: Claude (or any MCP agent) queries health, KPIs, trunks, CDRs and incidents through 6 read-only scoped tools. |
+| **Flash Call Intelligence** | Passive, deterministic detection of probable missed-call authentication traffic from originator `CANCEL` timing, `487`, no-answer/no-media evidence and destination fan-out. Starts in Shadow, can create sustained recoverable incidents in Alerting, and never blocks or controls the SBC. [Operational guide](FLASH_CALL_DETECTION.md). |
+| **MCP gateway** | ChatGPT, Claude, Codex and other MCP clients can query live traffic, health, KPIs, trunks, CDRs, incidents, baselines, forecasts and Flash Call evidence through 12 local/remote read-only tools. API-key/OAuth scopes, redaction, rate limits, bounded results and local audit. [Configuration guide](MCP_SERVER.md). |
 | **Per-user contextual LLM** | Built-in LLM keeps private conversation sessions per user, lets operators reopen/delete history, applies each user's profile prompt, infers reply language from the latest operator message, receives a sanitized hint of the current UI view/call/incident, and supports OpenAI, Anthropic, Google Gemini, OpenRouter, Perplexity Sonar and custom OpenAI-compatible endpoints. |
 | **AI cost and freshness control** | Operators choose manual, 30-second, 1-, 5-, 15- or 30-minute narrative refresh while live KPIs remain immediate. Admin floors, critical bypass, token telemetry, context/output budgets, prompt caching, deterministic model routing and offline-only Batch keep spend visible and controlled. |
 | **Agent tools API** | Authenticated read-only tool catalog for built-in chat and future ADK/sidecar runtimes, with rate limits and no SBC/network control. |
@@ -167,4 +168,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.17.0.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.17.1.

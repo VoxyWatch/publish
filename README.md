@@ -71,6 +71,23 @@ The gateway starts disabled. It never writes to VoxyWatch, returns audio/RTP/PCA
 an SBC. Remote access should be firewall-restricted to TCP 443; portal port 3080 should remain private
 behind the reverse proxy.
 
+Full configuration, the current 12-tool catalog, client examples, security
+controls and troubleshooting are in the
+**[MCP Server guide](MCP_SERVER.md)**.
+
+### Detect Flash Call authentication patterns
+
+Flash Call Intelligence passively identifies repeated originator-side SIP
+`CANCEL` patterns, timing concentration, destination fan-out, unanswered calls
+and absence of media. Detection is deterministic, local and token-free.
+
+It starts in **Shadow** mode. Operators can validate the synthetic detector,
+review evidence and then enable sustained **Alerting** from the Fraud view.
+VoxyWatch never blocks or reroutes these calls and never controls the SBC.
+
+See **[Flash Call Detection](FLASH_CALL_DETECTION.md)** for prerequisites,
+thresholds, interpretation, false-positive tuning, privacy and safe rollout.
+
 ### AI-assisted configuration
 
 After the first login, open **Settings → Getting started**. If you want your own AI assistant to help configure VoxyWatch, ask it to read:
@@ -163,7 +180,7 @@ Declaring CRITICAL requires earning it: a **minimum sample** of calls, **Wilson 
 Audio retention is **measured, not guessed** (hours of recoverable audio + write rate, exposed in the API) and can open a capacity incident before you run out. A **daily/weekly digest** (incidents, trunk health, volume vs previous period, capacity) lands in Telegram or your webhook on schedule — or on demand via API.
 
 ### 🔗 MCP server — your voice network, exposed to *your* agents
-VoxyWatch ships a standalone **Model Context Protocol server**: connect Claude Desktop, Claude Code or any MCP-compatible agent and let it query health, KPIs, trunk status, CDRs and incidents (with evidence and diagnosis) through 6 read-only tools. Authenticated with the same scoped API keys. Your corporate AI can now interrogate your voice network.
+VoxyWatch ships a **Model Context Protocol gateway**: connect ChatGPT, Claude, Codex or another compatible client locally or remotely and query live traffic, health, KPIs, trunk status, CDRs, incidents, baselines, forecasts and Flash Call evidence through 12 read-only scoped tools. API-key or OAuth authentication, redaction, bounded results and local audit keep access explicit. [Read the MCP Server guide](MCP_SERVER.md).
 
 VoxyWatch v3 also ships a native **agentic runtime** foundation: `voxywatch-agentic.service`, an ADK-ready loopback sidecar with specialist agents for SIP, fraud, traffic analytics, NOC health and release status. It is installed and updated with every signed release, disabled by default on fresh installs, visible/controllable from Settings -> Diagnostics for admins, and uses the authenticated read-only Agent tools API instead of database internals or SBC control.
 

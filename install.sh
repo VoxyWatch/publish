@@ -511,6 +511,12 @@ if [ -d "${EXTRACTED}/docs/ai" ]; then
     install -o root -g voxywatch -m 640 "$f" "${INSTALL_DIR}/docs/ai/${rel}"
   done
 fi
+for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md; do
+  [ -f "${EXTRACTED}/docs/${operational_doc}" ] || continue
+  install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs"
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/docs/${operational_doc}" \
+    "${INSTALL_DIR}/docs/${operational_doc}"
+done
 
 # Frontend assets — van junto al binario en INSTALL_DIR.
 # El binario los sirve desde path.dirname(process.execPath) = /opt/voxywatch/

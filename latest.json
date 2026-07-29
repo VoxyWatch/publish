@@ -1,26 +1,26 @@
 {
-  "version": "3.17.0",
+  "version": "3.17.1",
   "release_date": "2026-07-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.0/voxywatch-v3.17.0-linux-x64.tar.gz",
-    "sha256": "1c30be0d2d043780ee35c50b04e2aa36c0ced77a07334ab024dfec6429cda527",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.0/voxywatch-v3.17.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.1/voxywatch-v3.17.1-linux-x64.tar.gz",
+    "sha256": "61409420e13f5735e6eb951771e512b76c94941a49c85b2e2d0382d26eb90819",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.1/voxywatch-v3.17.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "operational and explainable Flash Call Intelligence",
-    "Alerting mode turns only sustained high-confidence patterns into deduplicated, recoverable incidents",
-    "The Fraud view shows probable volume, deterministic score, cancel timing/MAD, destination fan-out and",
-    "A dedicated read-only specialist receives aggregate evidence with hashed source identifiers; AI is not"
+    "adoption guides for Flash Call Detection and MCP",
+    "A new Flash Call guide covers SIP prerequisites, modes, every default threshold, evidence",
+    "The MCP guide now documents the 12 live read-only tools, scopes, redaction, OAuth/API-key",
+    "README and Features link both guides, and signed packages install local copies for operators."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Flash Call Intelligence operativo y explicable",
-    "El modo `alerting` convierte únicamente patrones sostenidos por encima del score configurado en",
-    "La pestaña Fraude muestra volumen probable, score, troncal/origen, moda y MAD de cancelación,",
-    "El especialista `flash_call_analyst` y su tool read-only explican evidencia determinística con el"
+    "Flash Call Detection y MCP listos para adopción",
+    "Nuevas guías públicas en inglés explican operación, configuración, umbrales, falsos positivos,",
+    "La guía MCP documenta sus 12 tools read-only reales, scopes, redacción, OAuth/API keys,",
+    "README y catálogo público enlazan ambas guías; el paquete firmado las instala localmente y el"
   ]
 }

@@ -1,26 +1,26 @@
 {
-  "version": "3.16.0",
+  "version": "3.17.0",
   "release_date": "2026-07-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.16.0/voxywatch-v3.16.0-linux-x64.tar.gz",
-    "sha256": "78b78bddb567e4483f299cb6d256f2ac42868ea3c8004ffe6a0ad90a9d3e1767",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.16.0/voxywatch-v3.16.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.0/voxywatch-v3.17.0-linux-x64.tar.gz",
+    "sha256": "1c30be0d2d043780ee35c50b04e2aa36c0ced77a07334ab024dfec6429cda527",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.0/voxywatch-v3.17.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "passive flash-call detection in shadow mode",
-    "SIP correlation now records normalized origin-cancel timing and `487` evidence without retaining",
-    "A deterministic on-box detector measures repeated cancel timing, low variance, destination fan-out,",
-    "The feature starts in shadow mode: it observes bounded in-memory evidence but does not alert, block"
+    "operational and explainable Flash Call Intelligence",
+    "Alerting mode turns only sustained high-confidence patterns into deduplicated, recoverable incidents",
+    "The Fraud view shows probable volume, deterministic score, cancel timing/MAD, destination fan-out and",
+    "A dedicated read-only specialist receives aggregate evidence with hashed source identifiers; AI is not"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "detección pasiva de flash calls en sombra",
-    "El correlador SIP conserva de forma aditiva el instante y el lado del `CANCEL`, y deriva el tiempo",
-    "Un detector local y determinístico agrupa por troncal y origen, mide repetición temporal, MAD,",
-    "La función nace en modo `shadow`: observa y registra un snapshot acotado en RAM, pero todavía no"
+    "Flash Call Intelligence operativo y explicable",
+    "El modo `alerting` convierte únicamente patrones sostenidos por encima del score configurado en",
+    "La pestaña Fraude muestra volumen probable, score, troncal/origen, moda y MAD de cancelación,",
+    "El especialista `flash_call_analyst` y su tool read-only explican evidencia determinística con el"
   ]
 }

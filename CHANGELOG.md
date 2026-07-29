@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.17.0] — 2026-07-28
+
+### Added — operational and explainable Flash Call Intelligence
+- Alerting mode turns only sustained high-confidence patterns into deduplicated, recoverable incidents
+  through existing notification channels, without blocking traffic or controlling the SBC.
+- The Fraud view shows probable volume, deterministic score, cancel timing/MAD, destination fan-out and
+  configurable estimated displaced A2P value, with advanced thresholds collapsed by default.
+- A dedicated read-only specialist receives aggregate evidence with hashed source identifiers; AI is not
+  involved in detection, scoring, incidents or estimation.
+- A read-only synthetic test validates the detector without inserting CDRs or creating incidents.
+
 ## [3.16.0] — 2026-07-28
 
 ### Added — passive flash-call detection in shadow mode

@@ -1,26 +1,24 @@
 {
-  "version": "3.17.1",
+  "version": "3.17.2",
   "release_date": "2026-07-28",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.1/voxywatch-v3.17.1-linux-x64.tar.gz",
-    "sha256": "61409420e13f5735e6eb951771e512b76c94941a49c85b2e2d0382d26eb90819",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.1/voxywatch-v3.17.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.2/voxywatch-v3.17.2-linux-x64.tar.gz",
+    "sha256": "5a99e277772cbd23d1ff1f897d1b7a1363f4be2b90e4c4045fb9c525f80747c5",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.2/voxywatch-v3.17.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "adoption guides for Flash Call Detection and MCP",
-    "A new Flash Call guide covers SIP prerequisites, modes, every default threshold, evidence",
-    "The MCP guide now documents the 12 live read-only tools, scopes, redaction, OAuth/API-key",
-    "README and Features link both guides, and signed packages install local copies for operators."
+    "operational guides install on the first upgrade",
+    "Flash Call and MCP guides also travel through the documentation path recognized by older",
+    "Package and regression gates now require the backward-compatible documentation paths."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Flash Call Detection y MCP listos para adopción",
-    "Nuevas guías públicas en inglés explican operación, configuración, umbrales, falsos positivos,",
-    "La guía MCP documenta sus 12 tools read-only reales, scopes, redacción, OAuth/API keys,",
-    "README y catálogo público enlazan ambas guías; el paquete firmado las instala localmente y el"
+    "las guías operativas se instalan desde cualquier versión anterior",
+    "Flash Call y MCP viajan también bajo el contrato documental que los instaladores anteriores ya",
+    "El manifiesto del tarball y la regresión documental exigen ambas rutas de compatibilidad."
   ]
 }

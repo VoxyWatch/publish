@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.17.2] — 2026-07-28
+
+### Fixed — operational guides install on the first upgrade
+- Flash Call and MCP guides also travel through the documentation path recognized by older
+  installers, so a direct signed upgrade installs them without requiring a second update.
+- Package and regression gates now require the backward-compatible documentation paths.
+
 ## [3.17.1] — 2026-07-28
 
 ### Documentation — adoption guides for Flash Call Detection and MCP

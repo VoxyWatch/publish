@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.26.1] — 2026-08-02
+
+### Fixed — consistent form fields in light and dark themes
+- Normalized all Settings inputs, selects and text areas to the same theme-aware background, text and border treatment, including previously browser-default SNMP and agent-runtime number fields.
+- Profile fields no longer use hard-coded dark colors and now follow each user's light or dark theme for normal, focused, placeholder and disabled states.
+- Updated the stylesheet cache identifier so existing browsers receive the correction immediately after upgrading.
+
 ## [3.26.0] — 2026-08-02
 
 ### Added — grounded, organization-aware AI context

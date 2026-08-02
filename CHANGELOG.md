@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.17.6] — 2026-08-01
+
+### Changed — Service Control enabled by default
+- Fresh installs now select Service Control `yes` in both interactive terminals and unattended
+  non-TTY runs; pressing Enter or letting the countdown expire also accepts it.
+- An explicit decline and a persisted `disabled` preference still take precedence, so an update
+  never re-enables permissions that an administrator revoked.
+- An executable regression covers the default and every precedence path before release.
+
 ## [3.17.5] — 2026-08-01
 
 ### Improved — a distinctive installer welcome

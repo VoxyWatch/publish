@@ -1,26 +1,26 @@
 {
-  "version": "3.17.5",
+  "version": "3.17.6",
   "release_date": "2026-08-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.5/voxywatch-v3.17.5-linux-x64.tar.gz",
-    "sha256": "38a627be5016bc36dadff53d97e65c03bc5aa8a1648e14548068e97f4223b7cf",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.5/voxywatch-v3.17.5-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.6/voxywatch-v3.17.6-linux-x64.tar.gz",
+    "sha256": "3eaf2186e62e0b0b7af9deb0e066140f5203f36750af6288b14a0204e7d825c5",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.6/voxywatch-v3.17.6-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "a distinctive installer welcome",
-    "Interactive installs now open with a VoxyWatch ASCII splash, radio-signal mark and product tagline,",
-    "Timers, CI and non-TTY updates retain a compact heading to keep captured logs readable.",
-    "An executable regression covers both modes, safe artwork width and preflight placement while the"
+    "Service Control enabled by default",
+    "Fresh installs now select Service Control `yes` in both interactive terminals and unattended",
+    "An explicit decline and a persisted `disabled` preference still take precedence, so an update",
+    "An executable regression covers the default and every precedence path before release."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "una bienvenida propia para el instalador",
-    "Las instalaciones interactivas abren con un splash ASCII de VoxyWatch, emblema de señal y lema,",
-    "Los timers, CI y actualizaciones sin TTY conservan una cabecera compacta para no contaminar logs.",
-    "Una regresión ejecutable valida ambos modos, el ancho seguro del arte y que siga apareciendo antes"
+    "Service Control habilitado por defecto",
+    "Las instalaciones nuevas seleccionan Service Control en `yes` tanto en terminal interactiva como",
+    "Una negativa explícita y la preferencia `disabled` ya persistida siguen teniendo prioridad, por lo",
+    "Una regresión ejecutable cubre el default y cada precedencia antes de publicar el instalador."
   ]
 }

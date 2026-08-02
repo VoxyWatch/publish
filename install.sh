@@ -306,14 +306,29 @@ echo ""
 # Lets the unprivileged ${SERVICE_USER} user restart its OWN services and apply
 # timezone/NTP/DNS from the web portal — a scoped, non-root grant (see the
 # generated enable-service-control.sh for exactly what it allows).
-SERVICE_CONTROL="no"
+_service_control_choice() {
+  local explicit="${1:-}" previous="${2:-}" answer="${3:-}"
+  if [ -n "$explicit" ]; then
+    case "$explicit" in yes|enabled|y) printf 'yes' ;; *) printf 'no' ;; esac
+  elif [ "$previous" = "enabled" ]; then
+    printf 'yes'
+  elif [ "$previous" = "disabled" ]; then
+    printf 'no'
+  else
+    # Fresh installs default to enabled. An interactive N/n declines; Enter,
+    # countdown expiry and non-TTY/unattended installs all select Yes.
+    case "$answer" in [Nn]*) printf 'no' ;; *) printf 'yes' ;; esac
+  fi
+}
+
+SERVICE_CONTROL="yes"
 # Preserve the previous choice on re-install / auto-update.
 PREV_SC=""
 [ -f "${CONF_FILE}" ] && PREV_SC=$(grep -oP '(?<=^SERVICE_CONTROL=)\S+' "${CONF_FILE}" 2>/dev/null || echo "")
 if [ -n "${SERVICE_CONTROL_ARG:-}" ]; then
-  case "$SERVICE_CONTROL_ARG" in yes|enabled|y) SERVICE_CONTROL="yes" ;; *) SERVICE_CONTROL="no" ;; esac
-elif [ "$PREV_SC" = "enabled" ]; then
-  SERVICE_CONTROL="yes"   # keep prior grant across updates
+  SERVICE_CONTROL="$(_service_control_choice "$SERVICE_CONTROL_ARG" "$PREV_SC" "")"
+elif [ "$PREV_SC" = "enabled" ] || [ "$PREV_SC" = "disabled" ]; then
+  SERVICE_CONTROL="$(_service_control_choice "" "$PREV_SC" "")" # preserve prior choice
 elif tty_ok; then
   echo -e "  ${BOLD}Service control${NC}"
   echo "  VoxyWatch can restart its own services (the HEP sniffer) and apply"
@@ -323,7 +338,9 @@ elif tty_ok; then
   echo "  command to run by hand each time (you can enable it later)."
   # Default = SÍ al expirar la cuenta regresiva (instalación desatendida).
   SC_INPUT="$(read_countdown 10 "$(printf '%bAllow VoxyWatch to manage its own services?%b [Y/n]' "$BOLD" "$NC")")"
-  case "$SC_INPUT" in [Nn]*) SERVICE_CONTROL="no" ;; *) SERVICE_CONTROL="yes" ;; esac
+  SERVICE_CONTROL="$(_service_control_choice "" "" "$SC_INPUT")"
+else
+  SERVICE_CONTROL="$(_service_control_choice "" "" "")"
 fi
 if [ "$SERVICE_CONTROL" = "yes" ]; then
   ok "Service control: ENABLED (portal can restart its services)"

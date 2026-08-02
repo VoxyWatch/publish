@@ -1,26 +1,26 @@
 {
-  "version": "3.20.3",
+  "version": "3.20.4",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.3/voxywatch-v3.20.3-linux-x64.tar.gz",
-    "sha256": "4d36a8fa701568eac51ee807b3e951070f5b5cfde52798fe1faa7d87a94ef9fe",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.3/voxywatch-v3.20.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.4/voxywatch-v3.20.4-linux-x64.tar.gz",
+    "sha256": "0fc474e33a234273dc6b591716dc831b7a17677f2c8b3ebb0d3c0ed081e39cf7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.4/voxywatch-v3.20.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "reproducible functional and protocol validation",
-    "Added a real-browser public-demo audit for primary views, roles, Settings, Investigate, mobile layout, SIP details, network/console health and optional live AI",
-    "Added wire-level validators for standard/private SNMP OIDs and the Google ADK sidecar.",
-    "The local MCP bridge now proves authenticated stdio-to-HTTP forwarding and bounded timeout recovery."
+    "careful Express 5 migration",
+    "Upgraded the portal HTTP framework from Express 4.22 to Express 5.2.1 without changing public routes or the capture path.",
+    "Preserved controlled empty-body handling, pinned scalar query parsing and adapted startup bind-error handling.",
+    "Added migration guards for every portal route, removed APIs, rejected async handlers and occupied-port startup failures."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "reproducible functional and protocol validation",
-    "Added a real-browser public-demo audit covering seven primary views, roles, Settings disclosure, Investigate, mobile layout, SIP drawer, network/console health",
-    "Added wire-level validators for the embedded SNMP agent and Google ADK sidecar; SNMP checks standard host MIBs and private service OIDs through an external clie",
-    "The local MCP bridge now proves its authenticated stdio-to-HTTP path as well as bounded timeout recovery."
+    "careful Express 5 migration",
+    "Upgraded the portal HTTP framework from Express 4.22 to Express 5.2.1 without changing public API routes or the capture path.",
+    "Preserved the established empty-JSON-body contract so validation errors remain controlled 4xx responses instead of destructuring failures.",
+    "Pinned scalar query parsing and adapted HTTP startup to Express 5's callback-based listen errors."
   ]
 }

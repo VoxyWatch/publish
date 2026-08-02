@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.20.4] — 2026-08-02
+
+### Changed — careful Express 5 migration
+- Upgraded the portal HTTP framework from Express 4.22 to Express 5.2.1 without changing public routes or the capture path.
+- Preserved controlled empty-body handling, pinned scalar query parsing and adapted startup bind-error handling.
+- Added migration guards for every portal route, removed APIs, rejected async handlers and occupied-port startup failures.
+
 ## [3.20.3] — 2026-08-02
 
 ### Improved — reproducible functional and protocol validation

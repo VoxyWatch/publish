@@ -1,26 +1,26 @@
 {
-  "version": "3.19.3",
+  "version": "3.19.4",
   "release_date": "2026-08-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.3/voxywatch-v3.19.3-linux-x64.tar.gz",
-    "sha256": "72739b1946c3053b1b86e5a50ede486da257306ee79895d5b021493dbc6f2db4",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.3/voxywatch-v3.19.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.4/voxywatch-v3.19.4-linux-x64.tar.gz",
+    "sha256": "1617c12b22ec84eb5e454329d14874624da0f1117696998616c8a9bfa47709f7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.4/voxywatch-v3.19.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "complete English-first interface and localized API errors",
-    "Static HTML, dynamic settings/agent/free-tier messages and data counters now start in English and switch fully to Spanish per user, without mixed-language flash",
-    "API errors carry stable machine codes and return English by default while preserving detailed Spanish for users who select Spanish.",
-    "Executable guards now synchronize HTML defaults, validate i18n markers and reject visible Spanish literals outside the translation system."
+    "trial-license path in the free-tier limit dialog",
+    "The free-tier limit dialog now displays the server Hardware ID with a copy button, using the existing license-status response without widening data exposure.",
+    "A bilingual callout invites evaluators to request a full trial license at `support@voxywatch.com`.",
+    "HWID copy works through the secure Clipboard API and includes a fallback for direct HTTP installations."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "complete English-first interface and localized API errors",
-    "Static HTML, dynamic settings/agent/free-tier messages and data counters now start in English and switch fully to Spanish per user, without mixed-language flash",
-    "API errors carry stable machine codes and return English by default while preserving detailed Spanish for users who select Spanish.",
-    "New executable guards synchronize HTML with the English dictionary, reject invalid i18n markers and block visible Spanish literals outside the translation syste"
+    "trial-license path in the free-tier limit dialog",
+    "The free-tier limit dialog now displays the server Hardware ID with a copy button, using the existing license-status response without widening data exposure.",
+    "A bilingual callout invites evaluators to request a full trial license at `support@voxywatch.com`.",
+    "HWID copy works through the secure Clipboard API and includes a fallback for direct HTTP installations."
   ]
 }

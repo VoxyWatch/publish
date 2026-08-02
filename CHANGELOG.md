@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.19.4] — 2026-08-01
+
+### Added — trial-license path in the free-tier limit dialog
+- The free-tier limit dialog now displays the server Hardware ID with a copy button, using the existing license-status response without widening data exposure.
+- A bilingual callout invites evaluators to request a full trial license at `support@voxywatch.com`.
+- HWID copy works through the secure Clipboard API and includes a fallback for direct HTTP installations.
+
 ## [3.19.3] — 2026-08-01
 
 ### Fixed — complete English-first interface and localized API errors

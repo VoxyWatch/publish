@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.17.7] — 2026-08-01
+
+### Changed — every install offers Service Control as Yes again
+- Reinstalls and updates no longer inherit a previous decline: every run selects Service Control
+  `yes` by default, including non-TTY updater executions.
+- `n` and `--service-control no` still disable it for the current run; the next reinstall/update
+  starts from Yes again to keep frequent portal releases straightforward.
+- The installer notice now explains that scope and a regression prevents persisted `disabled` state returning.
+
 ## [3.17.6] — 2026-08-01
 
 ### Changed — Service Control enabled by default

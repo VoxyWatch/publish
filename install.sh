@@ -302,45 +302,36 @@ fi
 ok "Web portal port: ${PORT}"
 echo ""
 
-# ── Service control permission (opt-in) ───────────────────────────────────────
+# ── Service control permission (enabled by default per install/update) ────────
 # Lets the unprivileged ${SERVICE_USER} user restart its OWN services and apply
 # timezone/NTP/DNS from the web portal — a scoped, non-root grant (see the
 # generated enable-service-control.sh for exactly what it allows).
 _service_control_choice() {
-  local explicit="${1:-}" previous="${2:-}" answer="${3:-}"
+  local explicit="${1:-}" answer="${2:-}"
   if [ -n "$explicit" ]; then
     case "$explicit" in yes|enabled|y) printf 'yes' ;; *) printf 'no' ;; esac
-  elif [ "$previous" = "enabled" ]; then
-    printf 'yes'
-  elif [ "$previous" = "disabled" ]; then
-    printf 'no'
   else
-    # Fresh installs default to enabled. An interactive N/n declines; Enter,
-    # countdown expiry and non-TTY/unattended installs all select Yes.
+    # Every install/update defaults to enabled. An interactive N/n declines for
+    # this run; Enter, countdown expiry and non-TTY runs all select Yes.
     case "$answer" in [Nn]*) printf 'no' ;; *) printf 'yes' ;; esac
   fi
 }
 
 SERVICE_CONTROL="yes"
-# Preserve the previous choice on re-install / auto-update.
-PREV_SC=""
-[ -f "${CONF_FILE}" ] && PREV_SC=$(grep -oP '(?<=^SERVICE_CONTROL=)\S+' "${CONF_FILE}" 2>/dev/null || echo "")
 if [ -n "${SERVICE_CONTROL_ARG:-}" ]; then
-  SERVICE_CONTROL="$(_service_control_choice "$SERVICE_CONTROL_ARG" "$PREV_SC" "")"
-elif [ "$PREV_SC" = "enabled" ] || [ "$PREV_SC" = "disabled" ]; then
-  SERVICE_CONTROL="$(_service_control_choice "" "$PREV_SC" "")" # preserve prior choice
+  SERVICE_CONTROL="$(_service_control_choice "$SERVICE_CONTROL_ARG" "")"
 elif tty_ok; then
   echo -e "  ${BOLD}Service control${NC}"
   echo "  VoxyWatch can restart its own services (the HEP sniffer) and apply"
   echo "  timezone / NTP / DNS changes directly from the web portal."
   echo "  This is a SCOPED permission — limited to VoxyWatch's own services, not"
-  echo "  general root. If you decline, the portal will instead show you the exact"
-  echo "  command to run by hand each time (you can enable it later)."
+  echo "  general root. If you decline, it stays disabled for this installation;"
+  echo "  a future reinstall/update will offer Yes by default again."
   # Default = SÍ al expirar la cuenta regresiva (instalación desatendida).
   SC_INPUT="$(read_countdown 10 "$(printf '%bAllow VoxyWatch to manage its own services?%b [Y/n]' "$BOLD" "$NC")")"
-  SERVICE_CONTROL="$(_service_control_choice "" "" "$SC_INPUT")"
+  SERVICE_CONTROL="$(_service_control_choice "" "$SC_INPUT")"
 else
-  SERVICE_CONTROL="$(_service_control_choice "" "" "")"
+  SERVICE_CONTROL="$(_service_control_choice "" "")"
 fi
 if [ "$SERVICE_CONTROL" = "yes" ]; then
   ok "Service control: ENABLED (portal can restart its services)"

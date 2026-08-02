@@ -9,7 +9,7 @@ It never stops or restarts the HEP sniffer.
 Transfer the license file to the server through your normal secure administration channel, then run:
 
 ```sh
-sudo voxywatch-license install /path/to/license.key
+sudo /opt/voxywatch/voxywatch-portal license install /path/to/license.key
 ```
 
 ## Install through standard input
@@ -17,7 +17,15 @@ sudo voxywatch-license install /path/to/license.key
 To avoid keeping another copy on the server:
 
 ```sh
-sudo voxywatch-license install --stdin < license.key
+sudo /opt/voxywatch/voxywatch-portal license install --stdin < license.key
+```
+
+The full `/opt/voxywatch/voxywatch-portal license` entrypoint is canonical and works immediately on
+the first signed upgrade from any older installer. Fresh installations, and systems where the current
+installer has already run, also provide the shorter convenience alias:
+
+```sh
+sudo voxywatch-license install /path/to/license.key
 ```
 
 Do not paste the license value as a command-line argument or place it in a shell variable. The CLI

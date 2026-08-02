@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.18.1] — 2026-08-01
+
+### Fixed — license CLI available on the first upgrade hop
+- The canonical entrypoint now lives in the binary every historical installer already replaces:
+  `/opt/voxywatch/voxywatch-portal license install …`, so it works on the first signed upgrade.
+- `voxywatch-license` remains a convenience alias once the current installer has been able to create it.
+- Release tooling executes the extracted binary's CLI before publication, preventing documentation of
+  a command that is not yet reachable after a direct upgrade from an older version.
+
 ## [3.18.0] — 2026-08-01
 
 ### Added — secure command-line product license activation

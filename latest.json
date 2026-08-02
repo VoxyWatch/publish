@@ -1,26 +1,26 @@
 {
-  "version": "3.18.0",
+  "version": "3.18.1",
   "release_date": "2026-08-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.18.0/voxywatch-v3.18.0-linux-x64.tar.gz",
-    "sha256": "79120657302feecb203365d8b1bb5b36f7fcd8deafa1dd692088bf04edd2198d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.18.0/voxywatch-v3.18.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.18.1/voxywatch-v3.18.1-linux-x64.tar.gz",
+    "sha256": "da5671b96adf723a2bb4abfb8917a80d8d2aff4947747877572c27eb33bd98cb",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.18.1/voxywatch-v3.18.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "secure command-line product license activation",
-    "New `sudo voxywatch-license install /path/license.key` and `--stdin` mode activate a license without",
-    "The root-only CLI bounds input, reuses RSA/HWID/expiry validation, atomically writes mode `0640`",
-    "A failed restart restores the previous license, invalid input never changes disk, and GUI uploads now"
+    "license CLI available on the first upgrade hop",
+    "The canonical entrypoint now lives in the binary every historical installer already replaces:",
+    "`voxywatch-license` remains a convenience alias once the current installer has been able to create it.",
+    "Release tooling executes the extracted binary's CLI before publication, preventing documentation of"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "activación segura de licencia por línea de comando",
-    "Nuevo `sudo voxywatch-license install /ruta/license.key` y modo `--stdin`, sin necesidad de entrar",
-    "El CLI exige root, limita entrada, reutiliza la validación RSA/HWID/vencimiento, escribe atómicamente",
-    "Si el reinicio falla restaura la licencia anterior. Una licencia inválida no toca disco; la GUI también"
+    "CLI de licencia disponible desde el primer salto",
+    "La entrada canónica ahora vive dentro del binario que todo instalador histórico ya reemplaza:",
+    "`voxywatch-license` permanece como alias cómodo cuando el instalador vigente ya pudo crearlo.",
+    "El release ejecuta el CLI del binario extraído antes de publicar, evitando documentar comandos que"
   ]
 }

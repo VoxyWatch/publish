@@ -335,14 +335,14 @@ Licenses are hardware-bound (MAC + hostname), offline-validated (RSA), and avail
 **Activate:**
 
 ```bash
-sudo voxywatch-license install /path/to/license.key
+sudo /opt/voxywatch/voxywatch-portal license install /path/to/license.key
 # or without retaining another server-side copy:
-sudo voxywatch-license install --stdin < license.key
+sudo /opt/voxywatch/voxywatch-portal license install --stdin < license.key
 ```
 
 The command verifies signature, HWID and expiration before an atomic replacement, restarts only the
 portal when active and restores the previous license if activation fails. See the
-**[License CLI guide](LICENSE_CLI.md)**.
+**[License CLI guide](LICENSE_CLI.md)**. A fresh install also exposes `voxywatch-license` as a shorter alias.
 
 No restart required — the portal picks it up within seconds. Get your **Hardware ID** from **Settings → License** or:
 

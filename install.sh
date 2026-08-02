@@ -605,7 +605,7 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/update-checker.js" "${INSTALL_
 install -o root -g root -m 750 "${EXTRACTED}/install.sh" "${INSTALL_DIR}/install.sh"
 cat > "${INSTALL_DIR}/voxywatch-license" << 'LICENSE_CLI_EOF'
 #!/bin/sh
-exec /opt/voxywatch/voxywatch-portal --license-cli "$@"
+exec /opt/voxywatch/voxywatch-portal license "$@"
 LICENSE_CLI_EOF
 chown root:root "${INSTALL_DIR}/voxywatch-license"
 chmod 755 "${INSTALL_DIR}/voxywatch-license"
@@ -1224,8 +1224,9 @@ echo -e "  ${BOLD}License${NC} (optional — free tier works without one):"
 echo -e "  Purchase: ${CYAN}https://voxywatch.com${NC}"
 echo "    Once received, upload from the portal: Settings → License"
 echo "    Or securely from the command line:"
-echo "      sudo voxywatch-license install /path/to/license.key"
-echo "      sudo voxywatch-license install --stdin < license.key"
+echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install /path/to/license.key"
+echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install --stdin < license.key"
+echo "    Convenience alias (fresh install or after this installer has run): voxywatch-license"
 echo ""
 echo -e "  ${BOLD}Service logs:${NC}"
 echo "    journalctl -fu voxywatch"

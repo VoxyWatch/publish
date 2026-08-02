@@ -106,7 +106,8 @@ can be added as JSON.
 ## AI and agentic functions
 
 - Optional BYO-provider chat for OpenAI, Anthropic, Google Gemini, OpenRouter,
-  OpenRouter Free, DeepSeek, Perplexity Sonar and compatible endpoints.
+  OpenRouter Free, DeepSeek, Groq, Perplexity Sonar and customer-owned Ollama,
+  vLLM or LM Studio servers.
 - Per-user private chat history, response language, profile prompt and
   sanitized UI context.
 - Deterministic model routing, context/output budgets, usage/latency telemetry,

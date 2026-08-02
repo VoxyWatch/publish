@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.24.0** (2026-08-02).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.25.0** (2026-08-02).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -82,8 +82,8 @@
 | **MCP gateway** | ChatGPT, Claude, Codex and other MCP clients get 13 read-only evidence/setup-status tools plus one separately gated initial-setup tool. OAuth/API-key scopes, dry-run, confirmation, secret rejection, redaction, bounds and content-free audit keep access explicit. [MCP guide](MCP_SERVER.md) · [setup channels](INITIAL_SETUP_CHANNELS.md). |
 | **License CLI** | Root administrators can validate and atomically replace a product license without portal access; the command protects process/log output, restarts only the portal and rolls back on activation failure. [Command guide](LICENSE_CLI.md). |
 | **Secure LLM credentials** | Per-provider credentials can use encrypted web storage, protected Linux/systemd files, or environment/`_FILE` injection. The browser receives only status and the final four characters for web-managed keys. [Credential guide](AI_CREDENTIALS.md). |
-| **Credential-aware model discovery** | Prepare a provider with conservative unverified presets before adding a key, then replace them with the live account-authorized catalog after configuration. Public OpenRouter and keyless Custom discovery remain available. |
-| **Per-user contextual LLM** | Built-in LLM keeps private conversation sessions per user, lets operators reopen/delete history, applies each user's profile prompt, infers reply language from the latest operator message, receives a sanitized hint of the current UI view/call/incident, and supports OpenAI, Anthropic, Google Gemini, OpenRouter, OpenRouter Free, DeepSeek, Perplexity Sonar and custom OpenAI-compatible endpoints. |
+| **Credential-aware model discovery** | Prepare a managed provider with conservative unverified presets before adding a key, then replace them with the live account-authorized catalog after configuration. Custom Ollama-style servers use the exact model name configured by their administrator. |
+| **Per-user contextual LLM** | Built-in LLM keeps private conversation sessions per user, lets operators reopen/delete history, applies each user's profile prompt, infers reply language from the latest operator message, receives a sanitized hint of the current UI view/call/incident, and supports OpenAI, Anthropic, Google Gemini, OpenRouter, OpenRouter Free, DeepSeek, Groq, Perplexity Sonar and customer-owned Ollama, vLLM or LM Studio servers. |
 | **AI cost and freshness control** | Operators choose manual, 30-second, 1-, 5-, 15- or 30-minute narrative refresh while live KPIs remain immediate. Admin floors, critical bypass, token telemetry, context/output budgets, prompt caching, deterministic model routing and offline-only Batch keep spend visible and controlled. |
 | **Agent tools API** | Authenticated read-only tool catalog for built-in chat and future ADK/sidecar runtimes, with rate limits and no SBC/network control. |
 | **Verifiable agent decisions** | Every diagnosis can cite stable evidence IDs; unverifiable or low-confidence output stays observe-only. New actions begin in shadow, operator feedback is audited, and release evals block policy/grounding regressions. |
@@ -116,7 +116,7 @@
 | Selective recording | Record audio only for the trunks that matter; stretch audio retention from hours to days on the same disk. SIP/CDR always kept. |
 | Hardened | 2 security audits + pentest (50+ fixes). CSP without unsafe-inline, CSRF/Origin checks, JWT + RBAC, OIDC SSO (Google/Microsoft/Okta/Keycloak/Auth0), optional HTTPS. |
 | Signed supply chain | Releases GPG-signed; installer/updater verifies signature **and** SHA-256 before touching anything. |
-| Self-hosted, period | Your hardware, your data. No cloud dependency. LLM keys are yours (OpenAI/Anthropic/Google/OpenRouter/DeepSeek/Perplexity/custom) and optional. |
+| Self-hosted, period | Your hardware, your data. No cloud dependency. LLM keys are yours (OpenAI/Anthropic/Google/OpenRouter/DeepSeek/Groq/Perplexity/custom) and optional. |
 
 ### 4 · Integration & operations
 
@@ -174,4 +174,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.24.0.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.25.0.

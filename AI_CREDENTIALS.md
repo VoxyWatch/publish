@@ -8,14 +8,14 @@ VoxyWatch supports one explicit credential source per selected LLM provider. It 
 
 This is the recommended choice when an administrator enters the key in the web portal. The value is encrypted with AES-256-GCM in `voxywatch_ai_credentials.json`; the independent 256-bit master key and vault are permission-restricted. `voxywatch_settings.json` stores only `ai_key_source` and never the API key. The browser receives only a masked value ending in the final four characters.
 
-### Linux system credential
+### Protected Linux credential file
 
 The service reads `voxywatch-llm-<provider>.key` from `$CREDENTIALS_DIRECTORY` when supplied by systemd, otherwise from `/etc/voxywatch/credentials/`. The installer creates the latter directory as `root:voxywatch` mode `0750`.
 
 Provision it without exposing the value in process arguments or shell history:
 
 ```console
-sudo voxywatch-ai-key set --provider openai --stdin
+sudo voxywatch-ai-key set --provider openai --stdin --source system-credential
 sudo voxywatch-ai-key status --provider openai --source system-credential
 ```
 
@@ -33,6 +33,7 @@ Customers that manage service configuration externally can select `Environment v
 | OpenRouter | `OPENROUTER_API_KEY` | `OPENROUTER_API_KEY_FILE` |
 | OpenRouter Free | `OPENROUTER_API_KEY` | `OPENROUTER_API_KEY_FILE` |
 | DeepSeek | `DEEPSEEK_API_KEY` | `DEEPSEEK_API_KEY_FILE` |
+| Groq | `GROQ_API_KEY` | `GROQ_API_KEY_FILE` |
 | Perplexity | `PERPLEXITY_API_KEY` | `PERPLEXITY_API_KEY_FILE` |
 | Custom | `VOXYWATCH_CUSTOM_LLM_API_KEY` | `VOXYWATCH_CUSTOM_LLM_API_KEY_FILE` |
 
@@ -46,6 +47,6 @@ Old plaintext `ai_api_key` settings are migrated once into the encrypted store a
 
 ## Model discovery before and after credentials
 
-Settings can show a small, release-pinned recommended catalog before a credential exists. These entries are configuration presets, not a claim that the customer's account can use them. **Show recommended models** replaces any previous list and selected model; it never carries a stale identifier into the new recommendations. After the selected provider credential is available, **Load available models** asks that provider for the models authorized for the account and marks the result as provider-verified. OpenRouter's public catalog and keyless Custom/Ollama-style endpoints remain discoverable without a credential.
+Settings can show a small, release-pinned recommended catalog before a credential exists. These entries are configuration presets, not a claim that the customer's account can use them. **Show recommended models** replaces any previous list and selected model; it never carries a stale identifier into the new recommendations. After the selected provider credential is available, **Load available models** asks that provider for the models authorized for the account and marks the result as provider-verified. OpenRouter retains its public catalog. Custom servers intentionally have no catalog controls because self-hosted APIs do not consistently expose model discovery; the administrator enters the exact model name configured in Ollama, vLLM or LM Studio.
 
 **Test connection** never treats a recommended or public catalog as proof that a credential works. A missing or rejected credential is reported in the active UI language. Administrators can always type a model identifier manually; image, audio, embedding, realtime and robotics-specialized models are excluded from the assisted NOC list.

@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.25.0] — 2026-08-02
+
+### Changed — clearer LLM setup
+- Simplified **Custom server** for customer-owned Ollama, vLLM and LM Studio endpoints and removed unreliable model-catalog controls.
+- Added Groq as a first-class provider with secure credentials, live discovery, chat and agent tools.
+- Settings now identifies exact environment variables and protected Linux credential files, with safe setup instructions.
+- Removed the speculative Token volume preview; measured token usage remains available.
+
 ## [3.24.0] — 2026-08-02
 
 ### Added — unified initial setup for Settings, CLI and MCP

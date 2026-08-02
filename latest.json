@@ -1,26 +1,24 @@
 {
-  "version": "3.19.0",
+  "version": "3.19.1",
   "release_date": "2026-08-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.0/voxywatch-v3.19.0-linux-x64.tar.gz",
-    "sha256": "5d5db225f1ab6db7e999d95c92cbbb27c6bd4093d3b04d72b8cad7d90740121c",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.0/voxywatch-v3.19.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.1/voxywatch-v3.19.1-linux-x64.tar.gz",
+    "sha256": "ba786c87153d34f400ff560c3b9bbfaea923967f10f9ed2260b6f303fd53fab6",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.1/voxywatch-v3.19.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "secure, customer-controlled LLM credentials",
-    "AI Settings now supports an AES-256-GCM encrypted VoxyWatch store, a protected Linux/systemd",
-    "Web-managed keys are removed from normal settings and only their final four characters return to the",
-    "New `voxywatch-ai-key` CLI reads secrets only from stdin, selects the provider/source and restarts only"
+    "free-plan notices follow the user's language",
+    "The usage banner and concurrent-limit dialog now start in English and switch completely to Spanish when",
+    "A regression test prevents Spanish literals from returning to the English-first free-plan components."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "secure, customer-controlled LLM credentials",
-    "AI Settings now offers an encrypted VoxyWatch store, a Linux/systemd credential, or provider-specific",
-    "Keys entered in the portal are encrypted with AES-256-GCM outside `voxywatch_settings.json`; only the final",
-    "New `voxywatch-ai-key` CLI provisions a provider credential from stdin without exposing it in argv or shell"
+    "free-plan notices respect the selected language",
+    "The free-plan usage banner and concurrent-limit dialog now render in English by default and switch fully",
+    "Removed Spanish literals from the initial HTML and runtime limit message. A dedicated regression checks both"
   ]
 }

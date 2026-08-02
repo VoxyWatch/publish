@@ -1,26 +1,26 @@
 {
-  "version": "3.21.0",
+  "version": "3.21.1",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.21.0/voxywatch-v3.21.0-linux-x64.tar.gz",
-    "sha256": "005454cbebce58f6e5e160deb8558141593854e575e70bf247209ee52f7f93e5",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.21.0/voxywatch-v3.21.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.21.1/voxywatch-v3.21.1-linux-x64.tar.gz",
+    "sha256": "07bb77c633a1cb98c2148fab8d7b36b7ca8806a96b0231423b409a393ba0f383",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.21.1/voxywatch-v3.21.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "official MCP, native ADK workflow and local API documentation",
-    "The remote MCP endpoint now uses the official Model Context Protocol TypeScript SDK while retaining VoxyWatch scopes, redaction, bounded results, opaque call re",
-    "The optional loopback sidecar now runs portal-selected specialist handoffs as a native, token-free Google ADK workflow with verifiable evidence citations and no",
-    "MCP tool arguments and agentic analysis requests now use compile-once JSON Schema validation with errors that never echo submitted values."
+    "reliable first upgrade for the ADK workflow",
+    "The established agentic runtime now contains an embedded native ADK workflow fallback, so an older installer that does not yet recognize the new module filename",
+    "Clean installs and subsequent updates still receive the separate workflow module; capture, portal availability and deterministic fallback are unchanged.",
+    "Added a release regression test for the exact old-installer transition observed on the public demo."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "standards-based AI integrations and API contracts",
-    "Planned",
-    "Replaced the hand-written remote MCP protocol transport with the official TypeScript SDK while preserving VoxyWatch scopes, redaction, opaque call references, r",
-    "Added a token-free native Google ADK workflow that executes only portal-authorized specialist handoffs and returns grounded `voxywatch-agent-finding/v1` finding"
+    "ADK survives the first signed upgrade",
+    "Embedded a native ADK workflow fallback in the already-established agentic runtime file so an older explicit-file installer cannot omit the new module during th",
+    "Added a release regression test that forces the separate workflow module to be unavailable and still requires native ADK execution.",
+    "Kept the separate module for clean installs and later updates; the portal, capture and deterministic fallback remain unchanged."
   ]
 }

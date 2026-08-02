@@ -1,22 +1,24 @@
 {
-  "version": "3.27.1",
+  "version": "3.28.0",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.27.1/voxywatch-v3.27.1-linux-x64.tar.gz",
-    "sha256": "76536734915b3407965616fcd62b191fc1a1c46b6008aafd0104b97f330514b1",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.27.1/voxywatch-v3.27.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.28.0/voxywatch-v3.28.0-linux-x64.tar.gz",
+    "sha256": "b0a23b9880d953ef099d6ead2492fa1b805b9e53aee954dae3b842c6de575e4f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.28.0/voxywatch-v3.28.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "system diagnostics visible to read-only roles",
-    "Moved the port, timezone, NTP and DNS card outside the admin-only diagnostics container so viewers and demo mode can see it without gaining access to sensitive"
+    "telemetry belongs in Diagnostics",
+    "Moved the complete Diagnostics & Telemetry card from General to Diagnostics, including Sentry/adoption consent, privacy details, network destinations and the di",
+    "Diagnostics now provides its own save action for this setting while preserving the existing value, permissions and immediate runtime behavior."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "diagnóstico del sistema visible para roles de sólo lectura",
-    "La tarjeta de puerto, timezone, NTP y DNS quedó fuera del contenedor de diagnóstico administrativo, de modo que usuarios viewer y el modo demo pueden verla si"
+    "telemetría dentro de Diagnostics",
+    "Se movió completa la tarjeta Diagnostics & Telemetry desde General hacia Diagnostics, incluido el consentimiento de Sentry/telemetría anónima, el detalle de",
+    "Diagnostics ahora incluye su propio botón para guardar este ajuste; el valor, permisos y aplicación inmediata permanecen sin cambios."
   ]
 }

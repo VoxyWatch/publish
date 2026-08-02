@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.28.0] — 2026-08-02
+
+### Changed — telemetry belongs in Diagnostics
+- Moved the complete Diagnostics & Telemetry card from General to Diagnostics, including Sentry/adoption consent, privacy details, network destinations and the disabled-state notice.
+- Diagnostics now provides its own save action for this setting while preserving the existing value, permissions and immediate runtime behavior.
+
 ## [3.27.1] — 2026-08-02
 
 ### Fixed — system diagnostics visible to read-only roles

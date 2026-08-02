@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.20.2] — 2026-08-02
+
+### Fixed — role-clean update checks
+- Viewer and demo sessions no longer call the admin-only update discovery endpoint on page load, hourly polling or Diagnostics.
+- Administrators retain manual and scheduled release checks after authentication.
+
 ## [3.20.1] — 2026-08-02
 
 ### Fixed — complete mobile Investigate and cleaner viewer sessions

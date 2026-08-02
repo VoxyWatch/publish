@@ -1,26 +1,24 @@
 {
-  "version": "3.20.1",
+  "version": "3.20.2",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.1/voxywatch-v3.20.1-linux-x64.tar.gz",
-    "sha256": "c3727015f9f57158d5b0289c06e9508fa441ab0e7d081f46530f30a6d0ddbf43",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.1/voxywatch-v3.20.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.2/voxywatch-v3.20.2-linux-x64.tar.gz",
+    "sha256": "3f401380d4ab8570ce5f66443966ca694a4c498c904a226ea4d7a405370d354a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.2/voxywatch-v3.20.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "complete mobile Investigate and cleaner viewer sessions",
-    "repeatable full functional audit",
-    "Investigate now stacks captured sessions and call analysis on phones, keeping the full workflow within the viewport.",
-    "The closed SIP drawer, header telemetry and navigation no longer widen the mobile page."
+    "role-clean update checks",
+    "Viewer and demo sessions no longer call the admin-only update discovery endpoint on page load, hourly polling or Diagnostics.",
+    "Administrators retain manual and scheduled release checks after authentication."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "complete mobile Investigate and quieter role-aware polling",
-    "repeatable full functional audit",
-    "Investigate now stacks the session list and selected-call analysis on narrow screens instead of pushing the detail hundreds of pixels off-screen.",
-    "The closed SIP message drawer no longer widens the mobile document; navigation and header telemetry scroll inside their own bounded regions."
+    "role-clean update checks",
+    "Viewer and demo sessions no longer call the admin-only update discovery endpoint on page load, hourly polling or Diagnostics.",
+    "Administrators retain manual and scheduled release checks after authentication."
   ]
 }

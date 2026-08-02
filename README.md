@@ -43,6 +43,8 @@ curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh |
 
 Supports **Debian 11+**, **Ubuntu 20.04+**, **RHEL / CentOS / Rocky / AlmaLinux 8+**.
 The installer auto-detects your distro and CPU architecture, provisions a dedicated PostgreSQL + TimescaleDB cluster, and starts everything as systemd services.
+On minimal hosts it also installs the mandatory GnuPG verifier through the detected OS package manager
+before downloading VoxyWatch. Package signature verification remains fail-closed.
 
 Then open **`http://YOUR-IP:3080`**.
 

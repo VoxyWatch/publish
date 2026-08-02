@@ -1,26 +1,26 @@
 {
-  "version": "3.17.3",
-  "release_date": "2026-07-28",
+  "version": "3.17.4",
+  "release_date": "2026-08-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.3/voxywatch-v3.17.3-linux-x64.tar.gz",
-    "sha256": "621fca9652bd85e512dd020f3fe473abc37ea6c5469fdbc181065d925663f975",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.3/voxywatch-v3.17.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.4/voxywatch-v3.17.4-linux-x64.tar.gz",
+    "sha256": "5b6773801878c76208ee012df8caf68dbd1300801a4fddc7f8b24633fc4523d4",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.4/voxywatch-v3.17.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "public capabilities reconciled with the runtime",
-    "`IMPLEMENTED_FEATURES.md` maps shipped functions and labels each area Active, Configurable,",
-    "README and Features now cover Asterisk import, DTMF, anonymous call sharing, Flash Calls,",
-    "Release gates derive the 12-tool MCP, 7-agent and 7-runbook catalogs from code and require the"
+    "minimal-host installation without preinstalled GnuPG",
+    "The installer detects a missing `gpg` before fetching release metadata or downloading the package,",
+    "Unsupported package managers, repository failures or a still-missing executable abort fail-closed;",
+    "An executable regression covers apt/dnf/yum success and failure paths plus pre-download ordering."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "catálogo público comparado contra el runtime",
-    "`IMPLEMENTED_FEATURES.md` documenta las funciones realmente enviadas y distingue Active,",
-    "README/Features incorporan Asterisk import, DTMF, bundle anónimo, Flash Call, siete agentes,",
-    "El gate documental deriva del código los catálogos de 12 tools MCP, 7 agentes y 7 runbooks;"
+    "instalación en sistemas mínimos sin GnuPG",
+    "El instalador detecta la ausencia de `gpg` antes de consultar o descargar el release y provisiona",
+    "Si no hay gestor compatible, el repositorio del sistema falla o `gpg` sigue ausente, la instalación",
+    "Una regresión ejecutable simula éxito y fallo para apt/dnf/yum y verifica el orden previo a la descarga."
   ]
 }

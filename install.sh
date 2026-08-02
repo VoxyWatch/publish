@@ -55,6 +55,32 @@ info() { echo -e "${CYAN}  →${NC} $1"; }
 # ssh sin tty, curl|bash sin terminal) — evita el ruido "/dev/tty: No such device".
 tty_ok() { { true </dev/tty; } 2>/dev/null; }
 
+# GPG is a mandatory trust dependency, not an optional media/UI helper. Install it
+# before fetching the release metadata or the 42 MB artifact so a minimal host does
+# not waste bandwidth and then fail. Package-manager trust remains the OS boundary;
+# the VoxyWatch tarball is still verified independently with the embedded vendor key.
+ensure_gpg() {
+  command -v gpg >/dev/null 2>&1 && return 0
+  info "GnuPG not found — installing the mandatory signature verifier..."
+  if command -v apt-get >/dev/null 2>&1; then
+    DEBIAN_FRONTEND=noninteractive apt-get update >/dev/null 2>&1 \
+      || warn "Could not refresh apt metadata; trying the existing package cache"
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gnupg >/dev/null 2>&1 \
+      || err "Could not install mandatory GnuPG with apt. Fix the OS repositories and retry."
+  elif command -v dnf >/dev/null 2>&1; then
+    dnf install -y gnupg2 >/dev/null 2>&1 \
+      || err "Could not install mandatory GnuPG with dnf. Fix the OS repositories and retry."
+  elif command -v yum >/dev/null 2>&1; then
+    yum install -y gnupg2 >/dev/null 2>&1 \
+      || err "Could not install mandatory GnuPG with yum. Fix the OS repositories and retry."
+  else
+    err "gpg is required to authenticate VoxyWatch releases, and no supported package manager (apt, dnf or yum) was found. Install GnuPG and retry."
+  fi
+  command -v gpg >/dev/null 2>&1 \
+    || err "gpg is required to authenticate VoxyWatch releases, but it is still unavailable after package installation."
+  ok "GnuPG available — signed release verification enabled"
+}
+
 # Clave pública GPG del vendor (VoxyWatch Release Signing Key, 80EDE252…). Embebida AQUÍ a
 # propósito: la confianza se ancla en este install.sh (que el operador revisa al instalar),
 # no en un archivo descargable del mismo repo. Se usa para verificar la firma del tarball.
@@ -181,6 +207,10 @@ REPLICA_ENV=""
 if [ -n "$REPLICA_DSN" ]; then
   REPLICA_ENV="Environment=VOXYWATCH_DB_REPLICA_DSN=${REPLICA_DSN}"
 fi
+
+# Install the mandatory verifier only after arguments and the install mutex have
+# been validated, but before any release metadata or artifact is downloaded.
+ensure_gpg
 
 # ── Fetch latest version and asset info ───────────────────────────────────────
 info "Fetching signed release metadata..."

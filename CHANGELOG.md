@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.17.4] — 2026-08-01
+
+### Fixed — minimal-host installation without preinstalled GnuPG
+- The installer detects a missing `gpg` before fetching release metadata or downloading the package,
+  and provisions the mandatory verifier through apt, dnf or yum.
+- Unsupported package managers, repository failures or a still-missing executable abort fail-closed;
+  SHA-256, the embedded vendor key and the detached GPG signature remain mandatory.
+- An executable regression covers apt/dnf/yum success and failure paths plus pre-download ordering.
+
 ## [3.17.3] — 2026-07-28
 
 ### Documentation — public capabilities reconciled with the runtime

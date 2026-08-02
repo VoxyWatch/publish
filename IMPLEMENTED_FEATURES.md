@@ -155,7 +155,8 @@ tool.
 - Secrets masked from settings responses, support evidence and browser password
   managers.
 - GPG-signed packages, SHA-256 manifest verification, rollback snapshot and
-  health-gated signed updater.
+  health-gated signed updater. Minimal hosts provision the mandatory GnuPG
+  verifier before release download and still fail closed if it remains unavailable.
 - Hardware-bound license/free-tier enforcement without exposing license
   secrets.
 - Optional Sentry error reporting plus anonymous adoption telemetry; no SIP,

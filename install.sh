@@ -445,6 +445,7 @@ ROLLBACK_READY=0
 ROLLBACK_ARCHIVE=""
 ROLLBACK_ROOT="/var/backups/voxywatch"
 LICENSE_CLI_LINK_WAS_PRESENT=0
+AI_KEY_CLI_LINK_WAS_PRESENT=0
 rollback_update() {
   local reason="${1:-unexpected_error}"
   [ "$ROLLBACK_READY" = "1" ] || return 0
@@ -454,6 +455,7 @@ rollback_update() {
   systemctl stop voxywatch voxywatch-sniffer 2>/dev/null || true
   if tar -xzf "$ROLLBACK_ARCHIVE" -C /; then
     [ "$LICENSE_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-license
+    [ "$AI_KEY_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-ai-key
     systemctl daemon-reload 2>/dev/null || true
     systemctl start voxywatch-sniffer 2>/dev/null || true
     systemctl start voxywatch 2>/dev/null || true
@@ -477,6 +479,9 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
   if [ -e /usr/local/sbin/voxywatch-license ] || [ -L /usr/local/sbin/voxywatch-license ]; then
     LICENSE_CLI_LINK_WAS_PRESENT=1
   fi
+  if [ -e /usr/local/sbin/voxywatch-ai-key ] || [ -L /usr/local/sbin/voxywatch-ai-key ]; then
+    AI_KEY_CLI_LINK_WAS_PRESENT=1
+  fi
   PREVIOUS_VERSION=$(sed -n 's/^VERSION=//p' "$CONF_FILE" | head -1)
   ROLLBACK_STAMP=$(date -u '+%Y%m%dT%H%M%SZ')
   ROLLBACK_DIR="${ROLLBACK_ROOT}/${PREVIOUS_VERSION:-unknown}-${ROLLBACK_STAMP}"
@@ -490,7 +495,8 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
     etc/systemd/system/voxywatch-agentic.service \
     etc/systemd/system/voxywatch-apply-update.service \
     etc/sysctl.d/99-voxywatch.conf \
-    usr/local/sbin/voxywatch-license; do
+    usr/local/sbin/voxywatch-license \
+    usr/local/sbin/voxywatch-ai-key; do
     [ -e "/${_p}" ] && _rollback_paths+=("$_p")
   done
   tar --exclude='opt/voxywatch/agentic/.venv' --exclude='opt/voxywatch/srs-venv' \
@@ -585,7 +591,7 @@ if [ -d "${EXTRACTED}/docs/ai" ]; then
     install -o root -g voxywatch -m 640 "$f" "${INSTALL_DIR}/docs/ai/${rel}"
   done
 fi
-for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md; do
+for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md AI_CREDENTIALS.md; do
   [ -f "${EXTRACTED}/docs/${operational_doc}" ] || continue
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/docs/${operational_doc}" \
@@ -611,6 +617,14 @@ chown root:root "${INSTALL_DIR}/voxywatch-license"
 chmod 755 "${INSTALL_DIR}/voxywatch-license"
 install -d -o root -g root -m 755 /usr/local/sbin
 ln -sfn "${INSTALL_DIR}/voxywatch-license" /usr/local/sbin/voxywatch-license
+cat > "${INSTALL_DIR}/voxywatch-ai-key" << 'AI_KEY_CLI_EOF'
+#!/bin/sh
+exec /opt/voxywatch/voxywatch-portal ai-key "$@"
+AI_KEY_CLI_EOF
+chown root:root "${INSTALL_DIR}/voxywatch-ai-key"
+chmod 755 "${INSTALL_DIR}/voxywatch-ai-key"
+ln -sfn "${INSTALL_DIR}/voxywatch-ai-key" /usr/local/sbin/voxywatch-ai-key
+install -d -o root -g voxywatch -m 750 "${CONF_DIR}/credentials"
 ok "Files installed"
 
 # ── Write config file ─────────────────────────────────────────────────────────
@@ -1227,6 +1241,10 @@ echo "    Or securely from the command line:"
 echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install /path/to/license.key"
 echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install --stdin < license.key"
 echo "    Convenience alias (fresh install or after this installer has run): voxywatch-license"
+echo ""
+echo -e "  ${BOLD}LLM credential${NC} (optional, never pass the value as an argument):"
+echo "      sudo voxywatch-ai-key set --provider openai --stdin"
+echo "    Or select a customer-managed system credential/environment in Settings → LLM"
 echo ""
 echo -e "  ${BOLD}Service logs:${NC}"
 echo "    journalctl -fu voxywatch"

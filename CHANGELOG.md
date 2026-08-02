@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.19.7] — 2026-08-02
+
+### Fixed — accurate and understandable SIP retransmissions
+- Normal SIP responses no longer inflate the retransmission counter merely because they share the request CSeq.
+- Transaction identity now includes request method, CSeq and network direction, preventing B2BUA legs from being merged.
+- Severity is proportional: 1–2 informational, 3–5 warning and 6+ critical; Investigate explains the metric in English or Spanish.
+
 ## [3.19.6] — 2026-08-02
 
 ### Changed — progressive disclosure in Investigate

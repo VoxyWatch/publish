@@ -1,26 +1,26 @@
 {
-  "version": "3.19.6",
+  "version": "3.19.7",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.6/voxywatch-v3.19.6-linux-x64.tar.gz",
-    "sha256": "eedccb3baa38d73d08883290299bf405bf55df99cfd546716a58f395f0d08f17",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.6/voxywatch-v3.19.6-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.7/voxywatch-v3.19.7-linux-x64.tar.gz",
+    "sha256": "76b5684f83e97509d100fe5e889c30f9cd9552ed483e27bab85945a5dd259d80",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.7/voxywatch-v3.19.7-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "progressive disclosure in Investigate",
-    "Audio/RTP Expert, SIP Expert and the detailed SIP message table are collapsed by default, keeping the essential call data and SIP arrow ladder immediately visib",
-    "Advanced sections remain one click away; the SIP Expert action opens its analysis explicitly.",
-    "The full header Call-ID now wraps across lines instead of being shortened with an ellipsis."
+    "accurate and understandable SIP retransmissions",
+    "Normal SIP responses no longer inflate the retransmission counter merely because they share the request CSeq.",
+    "Transaction identity now includes request method, CSeq and network direction, preventing B2BUA legs from being merged.",
+    "Severity is proportional: 1–2 informational, 3–5 warning and 6+ critical; Investigate explains the metric in English or Spanish."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "progressive disclosure in Investigate",
-    "Audio/RTP Expert, SIP Expert and the detailed SIP message table are collapsed by default, keeping the essential call data and SIP arrow ladder immediately visib",
-    "Advanced sections remain one click away; the SIP Expert action opens its analysis explicitly.",
-    "The full header Call-ID now wraps across lines instead of being shortened with an ellipsis."
+    "accurate and understandable SIP retransmissions",
+    "Normal SIP responses no longer inflate the retransmission counter merely because they share the request CSeq.",
+    "Transaction identity now includes request method, CSeq and network direction, preventing B2BUA legs from being merged.",
+    "Severity is proportional: 1–2 informational, 3–5 warning and 6+ critical; Investigate explains the metric in English or Spanish."
   ]
 }

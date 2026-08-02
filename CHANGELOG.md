@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.19.0] — 2026-08-01
+
+### Added — secure, customer-controlled LLM credentials
+- AI Settings now supports an AES-256-GCM encrypted VoxyWatch store, a protected Linux/systemd
+  credential, or provider-specific environment and `_FILE` variables with explicit fail-closed selection.
+- Web-managed keys are removed from normal settings and only their final four characters return to the
+  browser. Existing plaintext settings migrate automatically without exposing the value.
+- New `voxywatch-ai-key` CLI reads secrets only from stdin, selects the provider/source and restarts only
+  the portal. Gemini credentials now use the `x-goog-api-key` header instead of request URLs.
+
 ## [3.18.1] — 2026-08-01
 
 ### Fixed — license CLI available on the first upgrade hop

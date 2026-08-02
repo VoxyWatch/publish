@@ -30,6 +30,8 @@ v3.15.2 restores AI chat responses after fixing an internal context-limiter wiri
 
 For a status-labelled map of everything implemented in the signed release, see
 the **[Implemented Feature Reference](IMPLEMENTED_FEATURES.md)**.
+LLM credentials can be supplied without storing plaintext in normal settings; see the
+**[LLM credential management guide](AI_CREDENTIALS.md)**.
 
 </div>
 

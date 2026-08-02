@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.19.3] — 2026-08-01
+
+### Fixed — complete English-first interface and localized API errors
+- Static HTML, dynamic settings/agent/free-tier messages and data counters now start in English and switch fully to Spanish per user, without mixed-language flashes.
+- API errors carry stable machine codes and return English by default while preserving detailed Spanish for users who select Spanish.
+- Executable guards now synchronize HTML defaults, validate i18n markers and reject visible Spanish literals outside the translation system.
+
 ## [3.19.2] — 2026-08-01
 
 ### Fixed — capacity warning follows the user's language

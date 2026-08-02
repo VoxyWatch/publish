@@ -1,24 +1,26 @@
 {
-  "version": "3.19.2",
+  "version": "3.19.3",
   "release_date": "2026-08-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.2/voxywatch-v3.19.2-linux-x64.tar.gz",
-    "sha256": "321a434066cb86c37df7d4eeda529deb9d6fb57bbf6212b31cf9cc589c912593",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.2/voxywatch-v3.19.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.3/voxywatch-v3.19.3-linux-x64.tar.gz",
+    "sha256": "72739b1946c3053b1b86e5a50ede486da257306ee79895d5b021493dbc6f2db4",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.3/voxywatch-v3.19.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "capacity warning follows the user's language",
-    "The live free-tier capacity warning now starts in English and switches immediately to Spanish only when selected by that user.",
-    "Server-provided capacity values are safely escaped, and a regression test prevents fixed Spanish text from returning."
+    "complete English-first interface and localized API errors",
+    "Static HTML, dynamic settings/agent/free-tier messages and data counters now start in English and switch fully to Spanish per user, without mixed-language flash",
+    "API errors carry stable machine codes and return English by default while preserving detailed Spanish for users who select Spanish.",
+    "Executable guards now synchronize HTML defaults, validate i18n markers and reject visible Spanish literals outside the translation system."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "capacity warning respects the selected language",
-    "The live free-tier capacity warning now starts in English and switches immediately to Spanish only for users who select it.",
-    "Server-provided capacity values are escaped before rendering, and a regression test prevents fixed Spanish text from returning."
+    "complete English-first interface and localized API errors",
+    "Static HTML, dynamic settings/agent/free-tier messages and data counters now start in English and switch fully to Spanish per user, without mixed-language flash",
+    "API errors carry stable machine codes and return English by default while preserving detailed Spanish for users who select Spanish.",
+    "New executable guards synchronize HTML with the English dictionary, reject invalid i18n markers and block visible Spanish literals outside the translation syste"
   ]
 }

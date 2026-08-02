@@ -214,6 +214,7 @@ fi
 VERSION=""
 PORT_ARG=""
 UPDATE_MODE=0
+REFRESH_EXTERNAL_DEPS=0
 _need_arg() {
   [ $# -ge 2 ] && [ -n "${2:-}" ] && [[ "$2" != --* ]] \
     || err "Option $1 requires a value"
@@ -221,6 +222,7 @@ _need_arg() {
 while [ $# -gt 0 ]; do
   case "$1" in
     --update)  UPDATE_MODE=1; shift ;;
+    --refresh-external-dependencies) REFRESH_EXTERNAL_DEPS=1; shift ;;
     --version) _need_arg "$@"; VERSION="$2"; shift 2 ;;
     --port)    _need_arg "$@"; PORT_ARG="$2"; shift 2 ;;
     --service-control) _need_arg "$@"; SERVICE_CONTROL_ARG="$2"; shift 2 ;;
@@ -228,6 +230,8 @@ while [ $# -gt 0 ]; do
     *) err "Unknown option: $1" ;;
   esac
 done
+[ "$REFRESH_EXTERNAL_DEPS" = "0" ] || [ "$UPDATE_MODE" = "1" ] \
+  || err "--refresh-external-dependencies requires --update and a planned maintenance window"
 
 # P2 (opt-in): réplica de lectura. Si se pasa --replica-dsn o está la env VOXYWATCH_DB_REPLICA_DSN,
 # el portal enruta sus LECTURAS (UI/métricas/CDR) a la réplica; escrituras e ingesta van al primario.
@@ -575,11 +579,13 @@ if [ -d "${EXTRACTED}/agentic" ]; then
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/agentic"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/manifest.json" "${INSTALL_DIR}/agentic/manifest.json" 2>/dev/null || true
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/requirements.txt" "${INSTALL_DIR}/agentic/requirements.txt" 2>/dev/null || true
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/requirements.lock.txt" "${INSTALL_DIR}/agentic/requirements.lock.txt" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/voxywatch_agentic.py" "${INSTALL_DIR}/agentic/voxywatch_agentic.py" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/install-agentic-deps.sh" "${INSTALL_DIR}/agentic/install-agentic-deps.sh" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/run-agentic.sh" "${INSTALL_DIR}/agentic/run-agentic.sh" 2>/dev/null || true
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/voxywatch-agentic.service" "${INSTALL_DIR}/agentic/voxywatch-agentic.service" 2>/dev/null || true
 fi
+install -o root -g voxywatch -m 640 "${EXTRACTED}/external-dependencies.json" "${INSTALL_DIR}/external-dependencies.json"
 if [ -d "${EXTRACTED}/docs/ai" ]; then
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs" "${INSTALL_DIR}/docs/ai"
   find "${EXTRACTED}/docs/ai" -type d | while read -r d; do
@@ -645,30 +651,56 @@ ok "Config written: ${CONF_FILE}"
 info "Provisioning PostgreSQL + TimescaleDB (cluster ${PG_CLUSTER} on :${PG_PORT})..."
 command -v apt-get &>/dev/null || err "The PostgreSQL+TimescaleDB database requires Debian/Ubuntu (apt). RHEL: contact support."
 
-# 1) Repo TimescaleDB + paquetes base (postgresql-common trae pg_createcluster;
-#    python3-psycopg2 = cliente del sniffer, sin pip)
-if [ ! -f /etc/apt/sources.list.d/timescaledb.list ]; then
-  apt-get install -y gnupg lsb-release wget ca-certificates >/dev/null 2>&1 || true
-  echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -cs) main" \
-    > /etc/apt/sources.list.d/timescaledb.list
-  wget -qO- https://packagecloud.io/timescale/timescaledb/gpgkey \
-    | gpg --dearmor -o /etc/apt/trusted.gpg.d/timescaledb.gpg 2>/dev/null || true
+# 1) External software policy. A normal product update must not turn into an OS,
+# PostgreSQL, TimescaleDB or Python upgrade. Fresh installs provision dependencies;
+# an operator may refresh them only with the explicit maintenance flag.
+PG_VER=""
+if [ "$UPDATE_MODE" = "1" ]; then
+  PG_VER="$(pg_lsclusters -h 2>/dev/null | awk -v c="$PG_CLUSTER" '$2 == c { print $1; exit }')"
+  [ -n "$PG_VER" ] || PG_VER="$(ls /usr/lib/postgresql/ 2>/dev/null | sort -n | tail -1)"
 fi
-apt-get update >/dev/null 2>&1 || true
-apt-get install -y postgresql postgresql-common python3-psycopg2 >/dev/null 2>&1 \
-  || err "Could not install postgresql / python3-psycopg2"
+
+if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
+  if [ ! -f /etc/apt/sources.list.d/timescaledb.list ]; then
+    apt-get install -y --no-install-recommends gnupg lsb-release wget ca-certificates >/dev/null 2>&1 || true
+    echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -cs) main" \
+      > /etc/apt/sources.list.d/timescaledb.list
+    wget -qO- https://packagecloud.io/timescale/timescaledb/gpgkey \
+      | gpg --dearmor -o /etc/apt/trusted.gpg.d/timescaledb.gpg 2>/dev/null || true
+  fi
+  apt-get update >/dev/null 2>&1 || err "Could not refresh package metadata for the controlled dependency operation"
+  if [ "$UPDATE_MODE" = "1" ]; then
+    [ -n "$PG_VER" ] || err "Could not identify the existing PostgreSQL major version"
+    # Never install the postgresql meta-package during a refresh: that could add
+    # a new major and create an empty cluster. Refresh only the installed major.
+    apt-get install -y --no-install-recommends "postgresql-${PG_VER}" postgresql-common python3-psycopg2 ffmpeg \
+      "timescaledb-2-postgresql-${PG_VER}" timescaledb-tools >/dev/null 2>&1 \
+      || err "Controlled external dependency refresh failed"
+  else
+    apt-get install -y --no-install-recommends postgresql postgresql-common python3-psycopg2 >/dev/null 2>&1 \
+      || err "Could not install postgresql / python3-psycopg2"
+  fi
+else
+  info "Preserving installed external dependency versions (normal VoxyWatch update)"
+  command -v pg_lsclusters >/dev/null 2>&1 || err "postgresql-common is missing; run a controlled external dependency refresh"
+  python3 -c 'import psycopg2' >/dev/null 2>&1 || err "python3-psycopg2 is missing; run a controlled external dependency refresh"
+fi
 
 # ffmpeg: REQUERIDO para reconstruir/reproducir audio (reconstruct_audio.py lo usa para
 # convertir el RTP crudo a WAV). Sin él, la reconstrucción escribe el .g722 pero NO genera
 # el WAV → el player da 404. Es una dependencia dura del audio, no opcional.
-command -v ffmpeg &>/dev/null || apt-get install -y ffmpeg >/dev/null 2>&1 || true
+if [ "$UPDATE_MODE" = "0" ]; then
+  command -v ffmpeg &>/dev/null || apt-get install -y --no-install-recommends ffmpeg >/dev/null 2>&1 || true
+fi
 command -v ffmpeg &>/dev/null || warn "ffmpeg NOT available — audio playback will not work until you install it (apt-get install ffmpeg)."
 
 # Detectar la versión mayor instalada y el paquete TimescaleDB correspondiente
-PG_VER="$(ls /usr/lib/postgresql/ 2>/dev/null | sort -n | tail -1)"
+PG_VER="${PG_VER:-$(ls /usr/lib/postgresql/ 2>/dev/null | sort -n | tail -1)}"
 [ -n "$PG_VER" ] || err "No PostgreSQL installation detected in /usr/lib/postgresql"
-apt-get install -y "timescaledb-2-postgresql-${PG_VER}" "timescaledb-tools" >/dev/null 2>&1 \
-  || err "Could not install timescaledb-2-postgresql-${PG_VER}"
+if [ "$UPDATE_MODE" = "0" ]; then
+  apt-get install -y --no-install-recommends "timescaledb-2-postgresql-${PG_VER}" "timescaledb-tools" >/dev/null 2>&1 \
+    || err "Could not install timescaledb-2-postgresql-${PG_VER}"
+fi
 
 # 2) Crear el cluster dedicado si no existe (puerto no-default, auth local peer)
 if ! pg_lsclusters -h 2>/dev/null | awk '{print $1" "$2}' | grep -qx "${PG_VER} ${PG_CLUSTER}"; then
@@ -681,8 +713,10 @@ PG_CONF_DIR="/etc/postgresql/${PG_VER}/${PG_CLUSTER}"
 sed -i "s/^#\?listen_addresses.*/listen_addresses = 'localhost'/" "${PG_CONF_DIR}/postgresql.conf"
 grep -q "shared_preload_libraries.*timescaledb" "${PG_CONF_DIR}/postgresql.conf" \
   || echo "shared_preload_libraries = 'timescaledb'" >> "${PG_CONF_DIR}/postgresql.conf"
-command -v timescaledb-tune &>/dev/null \
-  && timescaledb-tune --quiet --yes --conf-path "${PG_CONF_DIR}/postgresql.conf" >/dev/null 2>&1 || true
+if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
+  command -v timescaledb-tune &>/dev/null \
+    && timescaledb-tune --quiet --yes --conf-path "${PG_CONF_DIR}/postgresql.conf" >/dev/null 2>&1 || true
+fi
 
 systemctl enable --now "postgresql@${PG_VER}-${PG_CLUSTER}" >/dev/null 2>&1 \
   || pg_ctlcluster "${PG_VER}" "${PG_CLUSTER}" start >/dev/null 2>&1 || true
@@ -703,16 +737,12 @@ ${PSQL_SU} -tAc "SELECT 1 FROM pg_database WHERE datname='${DB_NAME}'" 2>/dev/nu
 # crea el rol voxywatch para que sea su dueño y pueda drop_chunks/TRUNCATE.
 ${PSQL_SU} -d "${DB_NAME}" -c "CREATE EXTENSION IF NOT EXISTS timescaledb;" >/dev/null
 
-# Mantener TimescaleDB al día, atado a cada update de VoxyWatch: el apt-get install
-# de arriba ya sube el PAQUETE a la última versión disponible (default_version en
-# disco). Si difiere de la versión cargada en la BD (extversion en el catálogo),
-# se reinicia PG para cargar la librería nueva y se migra el catálogo con
-# ALTER EXTENSION ... UPDATE. Los servicios ya están parados (systemctl stop al
-# inicio del install), así que el restart no interrumpe captura. Solo upgrades de
-# MISMA versión mayor de PostgreSQL; saltos de mayor (17→18) quedan manuales.
+# TimescaleDB software/catalog upgrades are never part of a normal product update.
+# They run only on fresh provisioning or an explicit controlled refresh.
 INSTALLED_TS=$(${PSQL_SU} -tAc "SELECT extversion FROM pg_extension WHERE extname='timescaledb'" -d "${DB_NAME}" 2>/dev/null)
 AVAILABLE_TS=$(${PSQL_SU} -tAc "SELECT default_version FROM pg_available_extensions WHERE name='timescaledb'" -d "${DB_NAME}" 2>/dev/null)
-if [ -n "$INSTALLED_TS" ] && [ -n "$AVAILABLE_TS" ] && [ "$INSTALLED_TS" != "$AVAILABLE_TS" ]; then
+if { [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; } \
+   && [ -n "$INSTALLED_TS" ] && [ -n "$AVAILABLE_TS" ] && [ "$INSTALLED_TS" != "$AVAILABLE_TS" ]; then
   info "Updating TimescaleDB extension ${INSTALLED_TS} → ${AVAILABLE_TS}..."
   systemctl restart "postgresql@${PG_VER}-${PG_CLUSTER}" 2>/dev/null \
     || pg_ctlcluster "${PG_VER}" "${PG_CLUSTER}" restart 2>/dev/null || true
@@ -881,27 +911,33 @@ if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
     SRS_RESTORE_ENABLED=1
   fi
   systemctl stop voxywatch-srs.service >/dev/null 2>&1 || true
-  # venv con pylibsrtp para SRTP (best-effort: sin él, el SRS corre igual pero solo RTP en claro).
-  # Debian mínimo NO trae `python3-venv` (ensurepip) → sin él `python3 -m venv` falla y el SRS
-  # se queda sin SRTP (causa real en Production Customer). Lo instalamos best-effort antes de crear el venv.
-  if command -v apt-get >/dev/null 2>&1 && ! python3 -m ensurepip --version >/dev/null 2>&1; then
-    apt-get install -y python3-venv >/dev/null 2>&1 || true
-  fi
+  # The isolated SRTP environment is preserved on normal product updates.
+  # It is created on first install and refreshed only in an explicit external
+  # dependency maintenance run. The approved pylibsrtp version is exact.
   SRS_PY="/usr/bin/python3"
-  # --clear: si un install previo dejó un venv roto (sin pip), recrearlo limpio.
-  if python3 -m venv --clear "${INSTALL_DIR}/srs-venv" >/dev/null 2>&1; then
+  if [ -x "${INSTALL_DIR}/srs-venv/bin/python" ] \
+     && [ "$REFRESH_EXTERNAL_DEPS" = "0" ]; then
+    SRS_PY="${INSTALL_DIR}/srs-venv/bin/python"
+    ok "SRS: preserving installed pylibsrtp environment"
+  elif [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
+    if command -v apt-get >/dev/null 2>&1 && ! python3 -m ensurepip --version >/dev/null 2>&1; then
+      apt-get install -y --no-install-recommends python3-venv >/dev/null 2>&1 || true
+    fi
+    if python3 -m venv --clear "${INSTALL_DIR}/srs-venv" >/dev/null 2>&1; then
     SRS_VPY="${INSTALL_DIR}/srs-venv/bin/python"
-    # Asegurar pip con ensurepip (algunos venv nacen sin él). `python -m pip` no depende del wrapper.
-    [ -x "${INSTALL_DIR}/srs-venv/bin/pip" ] || "$SRS_VPY" -m ensurepip --upgrade >/dev/null 2>&1 || true
-    if "$SRS_VPY" -m pip install --quiet --disable-pip-version-check pylibsrtp > /var/log/voxywatch-srs-pip.log 2>&1; then
+    [ -x "${INSTALL_DIR}/srs-venv/bin/pip" ] || "$SRS_VPY" -m ensurepip >/dev/null 2>&1 || true
+    if "$SRS_VPY" -m pip install --quiet --disable-pip-version-check 'pylibsrtp==1.0.0' > /var/log/voxywatch-srs-pip.log 2>&1; then
       SRS_PY="$SRS_VPY"
-      ok "SRS: pylibsrtp installed (SRTP available)"
+      ok "SRS: approved pylibsrtp 1.0.0 installed (SRTP available)"
     else
       warn "SRS: pylibsrtp could not be installed → SRTP unavailable (cleartext RTP still works). Details: /var/log/voxywatch-srs-pip.log"
     fi
     chown -R "${SERVICE_USER}:${SERVICE_USER}" "${INSTALL_DIR}/srs-venv" 2>/dev/null || true
+    else
+      warn "SRS: could not create venv (install python3-venv) → SRS will run with the system python, without SRTP."
+    fi
   else
-    warn "SRS: could not create venv (install python3-venv) → SRS will run with the system python, without SRTP."
+    warn "SRS dependency environment is missing; normal updates do not install external software. Run a controlled refresh to enable SRTP."
   fi
   cat > /etc/systemd/system/voxywatch-srs.service << EOF
 [Unit]
@@ -986,15 +1022,19 @@ WantedBy=multi-user.target
 EOF
   fi
   systemctl daemon-reload 2>/dev/null || true
-  if [ "$AGENTIC_WAS_ENABLED" = "1" ] || [ "$AGENTIC_WAS_ACTIVE" = "1" ]; then
+  if [ "$REFRESH_EXTERNAL_DEPS" = "1" ] \
+     && { [ "$AGENTIC_WAS_ENABLED" = "1" ] || [ "$AGENTIC_WAS_ACTIVE" = "1" ] \
+          || [ -x "${INSTALL_DIR}/agentic/.venv/bin/python" ]; }; then
     if [ -x "${INSTALL_DIR}/agentic/install-agentic-deps.sh" ]; then
-      info "Updating Agentic Python dependencies (runtime already opted in)..."
+      info "Installing controlled Agentic Python dependency lock (explicit refresh)..."
       if "${INSTALL_DIR}/agentic/install-agentic-deps.sh" >/var/log/voxywatch-agentic-deps.log 2>&1; then
         ok "Agentic dependencies updated"
       else
         warn "Agentic dependencies could not be updated; sidecar will keep deterministic fallback. Details: /var/log/voxywatch-agentic-deps.log"
       fi
     fi
+  elif [ "$AGENTIC_WAS_ENABLED" = "1" ] || [ "$AGENTIC_WAS_ACTIVE" = "1" ]; then
+    info "Preserving installed Agentic Python dependencies (normal VoxyWatch update)"
   fi
   if [ "$AGENTIC_WAS_ENABLED" = "1" ]; then
     systemctl enable voxywatch-agentic.service >/dev/null 2>&1 || true

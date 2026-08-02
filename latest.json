@@ -1,26 +1,25 @@
 {
-  "version": "3.20.5",
+  "version": "3.20.6",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.5/voxywatch-v3.20.5-linux-x64.tar.gz",
-    "sha256": "21b72863b3d3c4537c615775c7a32f82d469a414f35d1bc2117684946fe3566e",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.5/voxywatch-v3.20.5-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.6/voxywatch-v3.20.6-linux-x64.tar.gz",
+    "sha256": "2ab74ee57df7b10c9ded9bb8c303a6333f472bc5ddad015ac49783ee3f213d5d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.6/voxywatch-v3.20.6-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "safer internal modularity",
-    "Separated pure SIP/RTP call presentation from the portal server without changing capture, correlation, storage or public APIs.",
-    "Separated early browser authentication and disclosure controls into a small ordered shell, reducing the main frontend bundle's responsibilities.",
-    "Added parity, packaging and first-update guards so the new asset works both on clean installs and signed upgrades from older installers."
+    "controlled external dependencies",
+    "Normal signed updates now preserve installed OS, PostgreSQL, TimescaleDB and isolated Python dependency versions while continuing versioned VoxyWatch schema mig",
+    "Added an explicit maintenance-only dependency refresh constrained to the installed PostgreSQL major, plus exact Google ADK 2.1.0 and pylibsrtp 1.0.0 locks.",
+    "Added a signed dependency manifest and removed automatic Python telemetry installation from native package updates."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "safer server and frontend separation",
-    "Extracted pure SIP/RTP call-presentation logic from `server.js` into `lib/call-presentation.js`, with deterministic parity coverage for dialog states, response",
-    "Extracted the early authenticated-fetch guard and reusable disclosure controller from `app.js` into the ordered `frontend-shell.js` boundary.",
-    "Registered the new browser asset across pkg, build, installer, static serving, cache versioning and the signed-release manifest, including the embedded first-up"
+    "Normal signed updates now preserve external OS, PostgreSQL, TimescaleDB and isolated Python dependency versions; versioned VoxyWatch schema migrations continue",
+    "Added an explicit controlled external-dependency refresh path pinned to the installed PostgreSQL major and exact Python locks for Google ADK 2.1.0 and pylibsrtp",
+    "Added a versioned external dependency manifest, a read-only host inventory command and internal governance documentation."
   ]
 }

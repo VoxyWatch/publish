@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.20.6] — 2026-08-02
+
+### Changed — controlled external dependencies
+- Normal signed updates now preserve installed OS, PostgreSQL, TimescaleDB and isolated Python dependency versions while continuing versioned VoxyWatch schema migrations.
+- Added an explicit maintenance-only dependency refresh constrained to the installed PostgreSQL major, plus exact Google ADK 2.1.0 and pylibsrtp 1.0.0 locks.
+- Added a signed dependency manifest and removed automatic Python telemetry installation from native package updates.
+
 ## [3.20.5] — 2026-08-02
 
 ### Improved — safer internal modularity

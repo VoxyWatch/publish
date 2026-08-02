@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.27.0] — 2026-08-02
+
+### Changed — system-owned portal configuration
+- The browser identity is now consistently `VoxyWatch Agentic NOC`; per-installation tab-title editing was removed.
+- General Settings shows the effective HTTP port used by the running portal, including a custom `PORT` value.
+- Host timezone, NTP and DNS moved to Diagnostics as live read-only troubleshooting data. VoxyWatch no longer stores or changes these operating-system settings.
+- Call timestamps and time-based analytics now follow the host timezone instead of a fixed fallback timezone.
+
 ## [3.26.1] — 2026-08-02
 
 ### Fixed — consistent form fields in light and dark themes

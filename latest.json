@@ -1,26 +1,26 @@
 {
-  "version": "3.25.0",
+  "version": "3.26.0",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.25.0/voxywatch-v3.25.0-linux-x64.tar.gz",
-    "sha256": "3048484c0ad82687fb3bff62b872e96834a5b203335909e39b5168c2157dc3cd",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.25.0/voxywatch-v3.25.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.26.0/voxywatch-v3.26.0-linux-x64.tar.gz",
+    "sha256": "0c23eecbd539326ce4e0b1be286ba8a4c580264fca653b990c2f9a2d7b664085",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.26.0/voxywatch-v3.26.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "clearer LLM setup",
-    "Simplified Custom server for customer-owned Ollama, vLLM and LM Studio endpoints and removed unreliable model-catalog controls.",
-    "Added Groq as a first-class provider with secure credentials, live discovery, chat and agent tools.",
-    "Settings now identifies exact environment variables and protected Linux credential files, with safe setup instructions."
+    "grounded, organization-aware AI context",
+    "Privacy and reliability",
+    "VoxyWatch now gives its AI copilots consistent product, role and optional organization context while preserving bounded server-side chat history.",
+    "General Settings adds only a compact optional organization name and type selector; detailed AI preferences remain in each user's existing profile."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "clearer LLM setup",
-    "Simplified Custom server for customer-owned Ollama, vLLM and LM Studio endpoints: removed compatibility marketing language and hid model-catalog controls that s",
-    "Added Groq as a first-class provider with its own secure credential, live model discovery, chat and agent-tool path.",
-    "Settings now shows the exact environment variable, `_FILE` variable, protected credential filename/path and safe CLI setup method for the selected provider."
+    "contexto de IA fundamentado y consciente de la organización",
+    "Seguridad y calidad",
+    "Se agregó un Context Engine independiente del proveedor que identifica VoxyWatch, conserva el historial acotado del chat en el servidor, adjunta evidencia dete",
+    "General Settings ahora incluye una tarjeta compacta con nombre opcional y selector corto de tipo de organización; las preferencias detalladas permanecen en el"
   ]
 }

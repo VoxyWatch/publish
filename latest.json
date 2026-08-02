@@ -1,26 +1,26 @@
 {
-  "version": "3.17.4",
+  "version": "3.17.5",
   "release_date": "2026-08-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.4/voxywatch-v3.17.4-linux-x64.tar.gz",
-    "sha256": "5b6773801878c76208ee012df8caf68dbd1300801a4fddc7f8b24633fc4523d4",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.4/voxywatch-v3.17.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.5/voxywatch-v3.17.5-linux-x64.tar.gz",
+    "sha256": "38a627be5016bc36dadff53d97e65c03bc5aa8a1648e14548068e97f4223b7cf",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.5/voxywatch-v3.17.5-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "minimal-host installation without preinstalled GnuPG",
-    "The installer detects a missing `gpg` before fetching release metadata or downloading the package,",
-    "Unsupported package managers, repository failures or a still-missing executable abort fail-closed;",
-    "An executable regression covers apt/dnf/yum success and failure paths plus pre-download ordering."
+    "a distinctive installer welcome",
+    "Interactive installs now open with a VoxyWatch ASCII splash, radio-signal mark and product tagline,",
+    "Timers, CI and non-TTY updates retain a compact heading to keep captured logs readable.",
+    "An executable regression covers both modes, safe artwork width and preflight placement while the"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "instalación en sistemas mínimos sin GnuPG",
-    "El instalador detecta la ausencia de `gpg` antes de consultar o descargar el release y provisiona",
-    "Si no hay gestor compatible, el repositorio del sistema falla o `gpg` sigue ausente, la instalación",
-    "Una regresión ejecutable simula éxito y fallo para apt/dnf/yum y verifica el orden previo a la descarga."
+    "una bienvenida propia para el instalador",
+    "Las instalaciones interactivas abren con un splash ASCII de VoxyWatch, emblema de señal y lema,",
+    "Los timers, CI y actualizaciones sin TTY conservan una cabecera compacta para no contaminar logs.",
+    "Una regresión ejecutable valida ambos modos, el ancho seguro del arte y que siga apareciendo antes"
   ]
 }

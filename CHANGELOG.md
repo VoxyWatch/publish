@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.17.5] — 2026-08-01
+
+### Improved — a distinctive installer welcome
+- Interactive installs now open with a VoxyWatch ASCII splash, radio-signal mark and product tagline,
+  without requiring figlet, tput or any additional package.
+- Timers, CI and non-TTY updates retain a compact heading to keep captured logs readable.
+- An executable regression covers both modes, safe artwork width and preflight placement while the
+  signed trust chain remains unchanged.
+
 ## [3.17.4] — 2026-08-01
 
 ### Fixed — minimal-host installation without preinstalled GnuPG

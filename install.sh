@@ -55,6 +55,39 @@ info() { echo -e "${CYAN}  →${NC} $1"; }
 # ssh sin tty, curl|bash sin terminal) — evita el ruido "/dev/tty: No such device".
 tty_ok() { { true </dev/tty; } 2>/dev/null; }
 
+# Keep the first impression polished for people, but concise for timers,
+# systemd and captured CI logs. The splash is deliberately dependency-free:
+# a fresh/minimal server must not need figlet, tput or a working network to
+# identify the installer it is about to run.
+_vw_banner_full() {
+  printf '\n%b' "${CYAN}${BOLD}"
+  cat <<'VWBANNER'
+                 )))      .---------.      (((
+                         /    V W    \
+                        |   .-----.   |
+                         \  '-----'  /
+                          '---------'
+
+ __     __                 __        __    _       _
+ \ \   / /__  __  ___   _ \ \      / /_ _| |_ ___| |__
+  \ \ / / _ \ \ \/ / | | | \ \ /\ / / _` | __/ __| '_ \
+   \ V / (_) | >  <| |_| |  \ V  V / (_| | || (__| | | |
+    \_/ \___/ /_/\_\\__, |   \_/\_/ \__,_|\__\___|_| |_|
+                    |___/
+VWBANNER
+  printf '%b\n' "$NC"
+  printf '             %bVOICE INTELLIGENCE. CLEAR EVIDENCE.%b\n' "$BOLD" "$NC"
+  printf '                    Secure signed installer\n\n'
+}
+
+print_banner() {
+  if [ -t 1 ]; then
+    _vw_banner_full
+  else
+    printf '\n=== VoxyWatch | Secure signed installer ===\n\n'
+  fi
+}
+
 # GPG is a mandatory trust dependency, not an optional media/UI helper. Install it
 # before fetching the release metadata or the 42 MB artifact so a minimal host does
 # not waste bandwidth and then fail. Package-manager trust remains the OS boundary;
@@ -153,11 +186,7 @@ hjRBqQi7zxDox8s=
 VWPUBKEY
 }
 
-echo ""
-echo "══════════════════════════════════════════════"
-echo "   VoxyWatch — Installer"
-echo "══════════════════════════════════════════════"
-echo ""
+print_banner
 
 # ── Pre-flight checks ─────────────────────────────────────────────────────────
 [ "$EUID" -ne 0 ] && err "Must run as root:  curl -fsSL https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main/install.sh | sudo bash"

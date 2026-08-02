@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.19.6] — 2026-08-02
+
+### Changed — progressive disclosure in Investigate
+- Audio/RTP Expert, SIP Expert and the detailed SIP message table are collapsed by default, keeping the essential call data and SIP arrow ladder immediately visible.
+- Advanced sections remain one click away; the SIP Expert action opens its analysis explicitly.
+- The full header Call-ID now wraps across lines instead of being shortened with an ellipsis.
+
 ## [3.19.5] — 2026-08-02
 
 ### Fixed — license activation no longer returns to a stale duplicate blocker

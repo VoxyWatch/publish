@@ -1,26 +1,26 @@
 {
-  "version": "3.19.5",
+  "version": "3.19.6",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.5/voxywatch-v3.19.5-linux-x64.tar.gz",
-    "sha256": "6e76aba15674a1f3bea251e7137990a1044cdced587cef11c279e0f2634cc7e9",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.5/voxywatch-v3.19.5-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.6/voxywatch-v3.19.6-linux-x64.tar.gz",
+    "sha256": "eedccb3baa38d73d08883290299bf405bf55df99cfd546716a58f395f0d08f17",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.6/voxywatch-v3.19.6-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "license activation no longer returns to a stale duplicate blocker",
-    "Successful web activation now reconciles capacity before responding, so the previous Free Tier block cannot survive for another three minutes.",
-    "Capacity limits keep the canonical portal shell available and use its single Free Tier/License flow; the blue recovery page is reserved for expired, invalid or",
-    "Old `/blocked.html` tabs redirect to the portal once the hard failure is gone, preventing the frozen `Checking license status…` / empty-HWID state caused by t"
+    "progressive disclosure in Investigate",
+    "Audio/RTP Expert, SIP Expert and the detailed SIP message table are collapsed by default, keeping the essential call data and SIP arrow ladder immediately visib",
+    "Advanced sections remain one click away; the SIP Expert action opens its analysis explicitly.",
+    "The full header Call-ID now wraps across lines instead of being shortened with an ellipsis."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "license activation no longer returns to a stale duplicate blocker",
-    "Successful web activation now reconciles capacity before responding, so the previous Free Tier block cannot survive for another three minutes.",
-    "Capacity limits keep the canonical portal shell available and use its single Free Tier/License flow; the blue recovery page is reserved for expired, invalid or",
-    "Old `/blocked.html` tabs redirect to the portal once the hard failure is gone, preventing the frozen `Checking license status…` / empty-HWID state caused by t"
+    "progressive disclosure in Investigate",
+    "Audio/RTP Expert, SIP Expert and the detailed SIP message table are collapsed by default, keeping the essential call data and SIP arrow ladder immediately visib",
+    "Advanced sections remain one click away; the SIP Expert action opens its analysis explicitly.",
+    "The full header Call-ID now wraps across lines instead of being shortened with an ellipsis."
   ]
 }

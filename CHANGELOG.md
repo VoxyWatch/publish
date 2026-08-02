@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.20.1] — 2026-08-02
+
+### Fixed — complete mobile Investigate and cleaner viewer sessions
+- Investigate now stacks captured sessions and call analysis on phones, keeping the full workflow within the viewport.
+- The closed SIP drawer, header telemetry and navigation no longer widen the mobile page.
+- Demo/viewer sessions avoid admin-only status requests; administrator telemetry remains available after authentication.
+- Release publishing now targets the source branch explicitly and reports safe failure categories.
+
+### Added — repeatable full functional audit
+- Added a release-candidate audit matrix for roles, telecom workflows, AI, desktop/mobile UI, security, dependencies and signed deployment.
+
 ## [3.20.0] — 2026-08-02
 
 ### Added — reusable progressive-disclosure controls

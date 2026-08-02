@@ -1,26 +1,26 @@
 {
-  "version": "3.20.0",
+  "version": "3.20.1",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.0/voxywatch-v3.20.0-linux-x64.tar.gz",
-    "sha256": "c0e34d22abeb6bd9bd5266537e093897e52c70af6f529b2a0d4b55c38e247601",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.0/voxywatch-v3.20.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.1/voxywatch-v3.20.1-linux-x64.tar.gz",
+    "sha256": "c3727015f9f57158d5b0289c06e9508fa441ab0e7d081f46530f30a6d0ddbf43",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.1/voxywatch-v3.20.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "reusable progressive-disclosure controls",
-    "Investigate can collapse its session list into a 44 px rail with an always-visible restore control, giving the selected call more room.",
-    "Audio/RTP Expert, SIP Expert, SIP message details and equivalent advanced sections share one accessible expand/collapse style.",
-    "Settings Advanced now expands and collapses from the same control, while Flash Call, trunk alerts, health thresholds, per-trunk overrides and the glossary reuse"
+    "complete mobile Investigate and cleaner viewer sessions",
+    "repeatable full functional audit",
+    "Investigate now stacks captured sessions and call analysis on phones, keeping the full workflow within the viewport.",
+    "The closed SIP drawer, header telemetry and navigation no longer widen the mobile page."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "reusable progressive-disclosure controls",
-    "Investigate can collapse its session list into a 44 px rail with an always-visible restore control, giving the selected call more room.",
-    "Audio/RTP Expert, SIP Expert, SIP message details and equivalent advanced sections share one accessible expand/collapse style.",
-    "Settings Advanced now expands and collapses from the same control, while Flash Call, trunk alerts, health thresholds, per-trunk overrides and the glossary reuse"
+    "complete mobile Investigate and quieter role-aware polling",
+    "repeatable full functional audit",
+    "Investigate now stacks the session list and selected-call analysis on narrow screens instead of pushing the detail hundreds of pixels off-screen.",
+    "The closed SIP message drawer no longer widens the mobile document; navigation and header telemetry scroll inside their own bounded regions."
   ]
 }

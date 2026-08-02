@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.26.0] — 2026-08-02
+
+### Added — grounded, organization-aware AI context
+- VoxyWatch now gives its AI copilots consistent product, role and optional organization context while preserving bounded server-side chat history.
+- General Settings adds only a compact optional organization name and type selector; detailed AI preferences remain in each user's existing profile.
+- Relevant VoxyWatch documentation and VoIP RFC references are selected automatically for each task.
+- A private local finding ledger remembers recurring incident hypotheses, supporting evidence and administrator review without storing raw SIP, audio or credentials.
+
+### Privacy and reliability
+- Personal names and email addresses are not sent as AI context, and VoxyWatch never infers an employer from an email domain.
+- Fresh deterministic evidence remains authoritative over model memory and historical findings, across chat, alarms, trunk and overview copilots, offline reviews and incident investigations.
+
 ## [3.25.0] — 2026-08-02
 
 ### Changed — clearer LLM setup

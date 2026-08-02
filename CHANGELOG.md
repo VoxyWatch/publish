@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.22.0] — 2026-08-02
+
+### Added — model selection before credentials
+- Administrators can choose conservative provider presets before adding a key; presets are explicitly unverified and never claim account access.
+- After credentials are configured, VoxyWatch loads the provider-authorized catalog. OpenRouter retains public discovery and keyless Custom endpoints remain supported.
+
+### Fixed
+- Missing or rejected credentials now produce English/Spanish UI guidance instead of a Spanish-only backend message.
+- The first visible choice now populates the saved model field, credential testing is distinct from catalog browsing, and robotics-specialized models are excluded from the NOC list.
+
 ## [3.21.1] — 2026-08-02
 
 ### Fixed — reliable first upgrade for the ADK workflow

@@ -1,26 +1,22 @@
 {
-  "version": "3.27.0",
+  "version": "3.27.1",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.27.0/voxywatch-v3.27.0-linux-x64.tar.gz",
-    "sha256": "f69d3ac23c7a80ad67ae1dd989b75cee2537fd29f6bec91cecbdc7b9c230e01c",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.27.0/voxywatch-v3.27.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.27.1/voxywatch-v3.27.1-linux-x64.tar.gz",
+    "sha256": "76536734915b3407965616fcd62b191fc1a1c46b6008aafd0104b97f330514b1",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.27.1/voxywatch-v3.27.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "system-owned portal configuration",
-    "The browser identity is now consistently `VoxyWatch Agentic NOC`; per-installation tab-title editing was removed.",
-    "General Settings shows the effective HTTP port used by the running portal, including a custom `PORT` value.",
-    "Host timezone, NTP and DNS moved to Diagnostics as live read-only troubleshooting data. VoxyWatch no longer stores or changes these operating-system settings."
+    "system diagnostics visible to read-only roles",
+    "Moved the port, timezone, NTP and DNS card outside the admin-only diagnostics container so viewers and demo mode can see it without gaining access to sensitive"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "configuración general basada en el sistema",
-    "El portal usa la identidad fija `VoxyWatch Agentic NOC`; se retiró el título editable por instalación.",
-    "General muestra el puerto HTTP efectivo del proceso, incluido cualquier valor configurado mediante `PORT`, sin usar un valor hardcodeado.",
-    "Timezone, NTP y DNS se movieron a Diagnostics como datos reales y de sólo lectura para troubleshooting. VoxyWatch ya no persiste ni aplica cambios sobre esos p"
+    "diagnóstico del sistema visible para roles de sólo lectura",
+    "La tarjeta de puerto, timezone, NTP y DNS quedó fuera del contenedor de diagnóstico administrativo, de modo que usuarios viewer y el modo demo pueden verla si"
   ]
 }

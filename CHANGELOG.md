@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.27.1] — 2026-08-02
+
+### Fixed — system diagnostics visible to read-only roles
+- Moved the port, timezone, NTP and DNS card outside the admin-only diagnostics container so viewers and demo mode can see it without gaining access to sensitive settings or operational diagnostics.
+
 ## [3.27.0] — 2026-08-02
 
 ### Changed — system-owned portal configuration

@@ -1,24 +1,24 @@
 {
-  "version": "3.19.1",
+  "version": "3.19.2",
   "release_date": "2026-08-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.1/voxywatch-v3.19.1-linux-x64.tar.gz",
-    "sha256": "ba786c87153d34f400ff560c3b9bbfaea923967f10f9ed2260b6f303fd53fab6",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.1/voxywatch-v3.19.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.2/voxywatch-v3.19.2-linux-x64.tar.gz",
+    "sha256": "321a434066cb86c37df7d4eeda529deb9d6fb57bbf6212b31cf9cc589c912593",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.2/voxywatch-v3.19.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "free-plan notices follow the user's language",
-    "The usage banner and concurrent-limit dialog now start in English and switch completely to Spanish when",
-    "A regression test prevents Spanish literals from returning to the English-first free-plan components."
+    "capacity warning follows the user's language",
+    "The live free-tier capacity warning now starts in English and switches immediately to Spanish only when selected by that user.",
+    "Server-provided capacity values are safely escaped, and a regression test prevents fixed Spanish text from returning."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "free-plan notices respect the selected language",
-    "The free-plan usage banner and concurrent-limit dialog now render in English by default and switch fully",
-    "Removed Spanish literals from the initial HTML and runtime limit message. A dedicated regression checks both"
+    "capacity warning respects the selected language",
+    "The live free-tier capacity warning now starts in English and switches immediately to Spanish only for users who select it.",
+    "Server-provided capacity values are escaped before rendering, and a regression test prevents fixed Spanish text from returning."
   ]
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.19.2] — 2026-08-01
+
+### Fixed — capacity warning follows the user's language
+- The live free-tier capacity warning now starts in English and switches immediately to Spanish only when selected by that user.
+- Server-provided capacity values are safely escaped, and a regression test prevents fixed Spanish text from returning.
+
 ## [3.19.1] — 2026-08-01
 
 ### Fixed — free-plan notices follow the user's language

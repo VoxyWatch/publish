@@ -1,26 +1,26 @@
 {
-  "version": "3.19.7",
+  "version": "3.20.0",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.7/voxywatch-v3.19.7-linux-x64.tar.gz",
-    "sha256": "76b5684f83e97509d100fe5e889c30f9cd9552ed483e27bab85945a5dd259d80",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.7/voxywatch-v3.19.7-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.0/voxywatch-v3.20.0-linux-x64.tar.gz",
+    "sha256": "c0e34d22abeb6bd9bd5266537e093897e52c70af6f529b2a0d4b55c38e247601",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.0/voxywatch-v3.20.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "accurate and understandable SIP retransmissions",
-    "Normal SIP responses no longer inflate the retransmission counter merely because they share the request CSeq.",
-    "Transaction identity now includes request method, CSeq and network direction, preventing B2BUA legs from being merged.",
-    "Severity is proportional: 1–2 informational, 3–5 warning and 6+ critical; Investigate explains the metric in English or Spanish."
+    "reusable progressive-disclosure controls",
+    "Investigate can collapse its session list into a 44 px rail with an always-visible restore control, giving the selected call more room.",
+    "Audio/RTP Expert, SIP Expert, SIP message details and equivalent advanced sections share one accessible expand/collapse style.",
+    "Settings Advanced now expands and collapses from the same control, while Flash Call, trunk alerts, health thresholds, per-trunk overrides and the glossary reuse"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "accurate and understandable SIP retransmissions",
-    "Normal SIP responses no longer inflate the retransmission counter merely because they share the request CSeq.",
-    "Transaction identity now includes request method, CSeq and network direction, preventing B2BUA legs from being merged.",
-    "Severity is proportional: 1–2 informational, 3–5 warning and 6+ critical; Investigate explains the metric in English or Spanish."
+    "reusable progressive-disclosure controls",
+    "Investigate can collapse its session list into a 44 px rail with an always-visible restore control, giving the selected call more room.",
+    "Audio/RTP Expert, SIP Expert, SIP message details and equivalent advanced sections share one accessible expand/collapse style.",
+    "Settings Advanced now expands and collapses from the same control, while Flash Call, trunk alerts, health thresholds, per-trunk overrides and the glossary reuse"
   ]
 }

@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.20.0] — 2026-08-02
+
+### Added — reusable progressive-disclosure controls
+- Investigate can collapse its session list into a 44 px rail with an always-visible restore control, giving the selected call more room.
+- Audio/RTP Expert, SIP Expert, SIP message details and equivalent advanced sections share one accessible expand/collapse style.
+- Settings Advanced now expands and collapses from the same control, while Flash Call, trunk alerts, health thresholds, per-trunk overrides and the glossary reuse the canonical pattern.
+- Controls remain English-first, switch to Spanish with the user language and expose accurate accessible names and states.
+
 ## [3.19.7] — 2026-08-02
 
 ### Fixed — accurate and understandable SIP retransmissions

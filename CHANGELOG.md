@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.21.1] — 2026-08-02
+
+### Fixed — reliable first upgrade for the ADK workflow
+- The established agentic runtime now contains an embedded native ADK workflow fallback, so an older installer that does not yet recognize the new module filename cannot disable native ADK during the first signed upgrade.
+- Clean installs and subsequent updates still receive the separate workflow module; capture, portal availability and deterministic fallback are unchanged.
+- Added a release regression test for the exact old-installer transition observed on the public demo.
+
 ## [3.21.0] — 2026-08-02
 
 ### Added — official MCP, native ADK workflow and local API documentation

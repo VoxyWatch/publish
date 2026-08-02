@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.23.0] — 2026-08-02
+
+### Added — OpenRouter Free and native DeepSeek
+- Added **OpenRouter Free** as a dedicated provider option. It reuses the normal OpenRouter credential and fixes the model to `openrouter/free`, so routing cannot silently select a paid model.
+- Added native DeepSeek configuration, secure credential sources, authenticated model discovery, chat and agent tool support, with current V4 Flash and V4 Pro presets.
+- Added English-first and Spanish UI guidance plus regression coverage for provider switching and shared-credential handling.
+
 ## [3.22.0] — 2026-08-02
 
 ### Added — model selection before credentials

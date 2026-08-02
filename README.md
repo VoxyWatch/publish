@@ -247,7 +247,7 @@ PII, audio and raw SIP before the JSON can be attached to a ticket.
 - **NOC summary copilot**: prioritizes and groups all alarming trunks and suggests the action per group.
 - **Per-user chat memory**: each operator keeps private chat sessions, can reopen or delete prior conversations, and can define a profile prompt plus AI language.
 - **Cost and freshness controls**: operators choose manual, 30-second, 1-, 5-, 15- or 30-minute AI refresh while local KPIs stay live; admins set the floor and can configure prompt caching, token/context budgets, fast/standard/deep routing and offline Batch.
-- **You bring the key** (OpenAI, Anthropic, Google Gemini, or OpenRouter) — your tokens, your cost, your data path. Off until you enable it.
+- **You bring the key** (OpenAI, Anthropic, Google Gemini, OpenRouter/OpenRouter Free, DeepSeek, or Perplexity) — your tokens, your cost, your data path. Off until you enable it.
 - **Guardrailed**: the copilot only explains and recommends; it never touches the SBC. Responses are cached to control spend, and it's bilingual.
 
 ### 🔔 Alerting that reaches you everywhere

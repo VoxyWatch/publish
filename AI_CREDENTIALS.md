@@ -31,6 +31,8 @@ Customers that manage service configuration externally can select `Environment v
 | Anthropic | `ANTHROPIC_API_KEY` | `ANTHROPIC_API_KEY_FILE` |
 | Google | `GOOGLE_API_KEY` | `GOOGLE_API_KEY_FILE` |
 | OpenRouter | `OPENROUTER_API_KEY` | `OPENROUTER_API_KEY_FILE` |
+| OpenRouter Free | `OPENROUTER_API_KEY` | `OPENROUTER_API_KEY_FILE` |
+| DeepSeek | `DEEPSEEK_API_KEY` | `DEEPSEEK_API_KEY_FILE` |
 | Perplexity | `PERPLEXITY_API_KEY` | `PERPLEXITY_API_KEY_FILE` |
 | Custom | `VOXYWATCH_CUSTOM_LLM_API_KEY` | `VOXYWATCH_CUSTOM_LLM_API_KEY_FILE` |
 
@@ -38,7 +40,7 @@ The `_FILE` form is preferred because the process environment contains only a pa
 
 ## Security boundary
 
-The portal process must use the credential in memory when authenticating an HTTPS request to the chosen provider. VoxyWatch does not send the credential to its browser, telemetry, Sentry, support bundles or its own services. Linux `root` can still inspect or replace system-level credentials. Google credentials are sent in the `x-goog-api-key` header rather than a URL query parameter.
+The portal process must use the credential in memory when authenticating an HTTPS request to the chosen provider. VoxyWatch does not send the credential to its browser, telemetry, Sentry, support bundles or its own services. Linux `root` can still inspect or replace system-level credentials. Google credentials are sent in the `x-goog-api-key` header rather than a URL query parameter. **OpenRouter Free** shares the normal OpenRouter credential and fixes the model to `openrouter/free`; it is free routing, not credential-free access.
 
 Old plaintext `ai_api_key` settings are migrated once into the encrypted store and removed atomically from normal settings.
 

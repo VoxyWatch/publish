@@ -46,6 +46,6 @@ Old plaintext `ai_api_key` settings are migrated once into the encrypted store a
 
 ## Model discovery before and after credentials
 
-Settings can show a small, release-pinned recommended catalog before a credential exists. These entries are configuration presets, not a claim that the customer's account can use them. After the selected provider credential is available, **Load available models** asks that provider for the models authorized for the account and marks the result as provider-verified. OpenRouter's public catalog and keyless Custom/Ollama-style endpoints remain discoverable without a credential.
+Settings can show a small, release-pinned recommended catalog before a credential exists. These entries are configuration presets, not a claim that the customer's account can use them. **Show recommended models** replaces any previous list and selected model; it never carries a stale identifier into the new recommendations. After the selected provider credential is available, **Load available models** asks that provider for the models authorized for the account and marks the result as provider-verified. OpenRouter's public catalog and keyless Custom/Ollama-style endpoints remain discoverable without a credential.
 
 **Test connection** never treats a recommended or public catalog as proof that a credential works. A missing or rejected credential is reported in the active UI language. Administrators can always type a model identifier manually; image, audio, embedding, realtime and robotics-specialized models are excluded from the assisted NOC list.

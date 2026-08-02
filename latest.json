@@ -1,26 +1,26 @@
 {
-  "version": "3.23.0",
+  "version": "3.23.1",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.23.0/voxywatch-v3.23.0-linux-x64.tar.gz",
-    "sha256": "f1a56f15ac78d820766f771c37687f9f0927428bcfbac1557bc9018fa04b1321",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.23.0/voxywatch-v3.23.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.23.1/voxywatch-v3.23.1-linux-x64.tar.gz",
+    "sha256": "d263dfabcf8284476b1e139f7241354cf23e12e55d894bceac9c593bd498d821",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.23.1/voxywatch-v3.23.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "OpenRouter Free and native DeepSeek",
-    "Added OpenRouter Free as a dedicated provider option. It reuses the normal OpenRouter credential and fixes the model to `openrouter/free`, so routing cannot sil",
-    "Added native DeepSeek configuration, secure credential sources, authenticated model discovery, chat and agent tool support, with current V4 Flash and V4 Pro pre",
-    "Added English-first and Spanish UI guidance plus regression coverage for provider switching and shared-credential handling."
+    "current recommended model catalogs",
+    "Show recommended models now replaces the previous list and selection completely, instead of silently retaining a stale model.",
+    "OpenAI presets now expose the current GPT-5.6 family: Luna, Terra and Sol.",
+    "Anthropic presets now expose Haiku 4.5, Sonnet 5, Opus 5 and Fable 5."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "OpenRouter Free and native DeepSeek",
-    "Added OpenRouter Free as a dedicated provider option that safely reuses the configured OpenRouter credential and always selects `openrouter/free`, including age",
-    "Added native DeepSeek credentials, authenticated model discovery, chat and agent tool support through the official DeepSeek API, with current V4 Flash and V4 Pr",
-    "Added English-first and Spanish UI labels, secure environment/system credential documentation, provider capability reporting and regression coverage."
+    "recommended model replacement and current catalogs",
+    "Show recommended models now replaces the previous list and selected model completely instead of reinserting an obsolete manual value.",
+    "Updated OpenAI recommendations to GPT-5.6 Luna, Terra and Sol, with Luna as the cost-conscious default for blank configurations.",
+    "Updated Anthropic recommendations to Haiku 4.5, Sonnet 5, Opus 5 and Fable 5 using current first-party API model IDs."
   ]
 }

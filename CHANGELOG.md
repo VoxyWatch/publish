@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.23.1] — 2026-08-02
+
+### Fixed — current recommended model catalogs
+- **Show recommended models** now replaces the previous list and selection completely, instead of silently retaining a stale model.
+- OpenAI presets now expose the current GPT-5.6 family: Luna, Terra and Sol.
+- Anthropic presets now expose Haiku 4.5, Sonnet 5, Opus 5 and Fable 5.
+
 ## [3.23.0] — 2026-08-02
 
 ### Added — OpenRouter Free and native DeepSeek

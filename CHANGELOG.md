@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.20.3] — 2026-08-02
+
+### Improved — reproducible functional and protocol validation
+- Added a real-browser public-demo audit for primary views, roles, Settings, Investigate, mobile layout, SIP details, network/console health and optional live AI replies.
+- Added wire-level validators for standard/private SNMP OIDs and the Google ADK sidecar.
+- The local MCP bridge now proves authenticated stdio-to-HTTP forwarding and bounded timeout recovery.
+- PostgreSQL integration now requires the incident engine instead of allowing an unavailable database to look successful.
+- Updated compatible Sentry, PostgreSQL client and JavaScript parser dependencies; the production dependency audit remains clear.
+
 ## [3.20.2] — 2026-08-02
 
 ### Fixed — role-clean update checks

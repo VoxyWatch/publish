@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.19.1] — 2026-08-01
+
+### Fixed — free-plan notices follow the user's language
+- The usage banner and concurrent-limit dialog now start in English and switch completely to Spanish when
+  selected, including actions, accessible labels and the dynamic reason containing the plan limit.
+- A regression test prevents Spanish literals from returning to the English-first free-plan components.
+
 ## [3.19.0] — 2026-08-01
 
 ### Added — secure, customer-controlled LLM credentials

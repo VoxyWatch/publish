@@ -303,6 +303,7 @@ PCI-DSS compliant (Req. 3.2: the CVV must never be retained).
 | PostgreSQL + TimescaleDB | Dedicated, isolated capture database |
 | `voxywatch-mcp.js` | Local stdio bridge to the scoped VoxyWatch MCP gateway (read-only) |
 | `get-hwid.js` | Hardware ID tool for license activation |
+| `voxywatch-license` | Root CLI to validate and atomically replace the product license without the portal |
 
 ---
 
@@ -334,10 +335,14 @@ Licenses are hardware-bound (MAC + hostname), offline-validated (RSA), and avail
 **Activate:**
 
 ```bash
-cp voxywatch.key /etc/voxywatch/license.key
-chown root:voxywatch /etc/voxywatch/license.key
-chmod 640 /etc/voxywatch/license.key
+sudo voxywatch-license install /path/to/license.key
+# or without retaining another server-side copy:
+sudo voxywatch-license install --stdin < license.key
 ```
+
+The command verifies signature, HWID and expiration before an atomic replacement, restarts only the
+portal when active and restores the previous license if activation fails. See the
+**[License CLI guide](LICENSE_CLI.md)**.
 
 No restart required — the portal picks it up within seconds. Get your **Hardware ID** from **Settings → License** or:
 

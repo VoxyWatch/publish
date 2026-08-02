@@ -1,26 +1,26 @@
 {
-  "version": "3.17.8",
+  "version": "3.18.0",
   "release_date": "2026-08-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.8/voxywatch-v3.17.8-linux-x64.tar.gz",
-    "sha256": "efa5ec468e035fbefae3be6cdfafd853c47a97c72a384be922919da95e84ec98",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.8/voxywatch-v3.17.8-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.18.0/voxywatch-v3.18.0-linux-x64.tar.gz",
+    "sha256": "79120657302feecb203365d8b1bb5b36f7fcd8deafa1dd692088bf04edd2198d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.18.0/voxywatch-v3.18.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "VoxyWatch heartbeat identity",
-    "The interactive splash now opens with a cardiac-monitor mark: an ECG trace and VoxyWatch name",
-    "The design remains readable within 78 columns, adds no dependencies and leaves the compact",
-    "Its visual regression requires both rounded edges, the heartbeat trace, branding, width and preflight order."
+    "secure command-line product license activation",
+    "New `sudo voxywatch-license install /path/license.key` and `--stdin` mode activate a license without",
+    "The root-only CLI bounds input, reuses RSA/HWID/expiry validation, atomically writes mode `0640`",
+    "A failed restart restores the previous license, invalid input never changes disk, and GUI uploads now"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "identidad visual de pulso VoxyWatch",
-    "El splash interactivo estrena un emblema de monitor cardiaco: trazo ECG y nombre VoxyWatch dentro",
-    "El diseño conserva legibilidad dentro de 78 columnas, no añade dependencias y mantiene intacta la",
-    "La regresión visual exige marco superior/inferior, electro, marca, ancho y orden previo al preflight."
+    "activación segura de licencia por línea de comando",
+    "Nuevo `sudo voxywatch-license install /ruta/license.key` y modo `--stdin`, sin necesidad de entrar",
+    "El CLI exige root, limita entrada, reutiliza la validación RSA/HWID/vencimiento, escribe atómicamente",
+    "Si el reinicio falla restaura la licencia anterior. Una licencia inválida no toca disco; la GUI también"
   ]
 }

@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.18.0] — 2026-08-01
+
+### Added — secure command-line product license activation
+- New `sudo voxywatch-license install /path/license.key` and `--stdin` mode activate a license without
+  portal access or accepting license material as a process-visible argument.
+- The root-only CLI bounds input, reuses RSA/HWID/expiry validation, atomically writes mode `0640`
+  `root:voxywatch` and restarts only the portal; the sniffer remains uninterrupted.
+- A failed restart restores the previous license, invalid input never changes disk, and GUI uploads now
+  validate before writing. The package includes the command, upgrade compatibility and a complete guide.
+
 ## [3.17.8] — 2026-08-01
 
 ### Improved — VoxyWatch heartbeat identity

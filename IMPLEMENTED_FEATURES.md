@@ -157,8 +157,8 @@ tool.
 - GPG-signed packages, SHA-256 manifest verification, rollback snapshot and
   health-gated signed updater. Minimal hosts provision the mandatory GnuPG
   verifier before release download and still fail closed if it remains unavailable.
-- Hardware-bound license/free-tier enforcement without exposing license
-  secrets.
+- Hardware-bound license/free-tier enforcement plus a root-only CLI that validates signature, HWID
+  and expiry before atomic activation without exposing license secrets.
 - Optional Sentry error reporting plus anonymous adoption telemetry; no SIP,
   RTP, CDR, Call-ID, trunk, customer IP, settings or credentials are sent.
 

@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.23.1** (2026-08-02).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.24.0** (2026-08-02).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -28,7 +28,7 @@
 1. Autonomous incident investigation with evidence-cited AI diagnosis.
 2. Per-trunk statistical baselines + anti-false-positive engine (−92% critical noise, validated on production data) — now with **per-trunk auto-calibration**: each trunk is judged against *its own* learned normal, not a global threshold.
 3. Actionable Telegram notifications with human-approved remediation.
-4. Official-SDK MCP gateway: local or remote AI clients can inspect live traffic through read-only, scoped,
+4. Official-SDK MCP gateway: local or remote AI clients can inspect live traffic and optionally perform gated initial setup through scoped,
    redacted and audited tools, with refresh intervals from 5 seconds to 30 minutes.
 5. Carrier/country attribution built-in (E.164 engine, 197 country codes).
 6. 100% self-hosted, single binary, the AI never touches the SBC.
@@ -79,7 +79,7 @@
 | **Fraud early-warning** | The "suddenly calling Cuba" detector: alerts the first day a trunk calls a country absent from its last 4 weeks — critical if it's on the (editable) IRSF high-risk list. Plus short-call storms to one destination (premium-number sweeps, hacked PBX — active from day one), abnormal growth to high-risk destinations, and international-mix spikes vs the trunk's own history. Factory runbook included: who originates, time-of-day tells, block at *your* SBC, dispute with the carrier. A **fraud-risk score (0–100)** fuses the signals via a model trained offline on labelled history (privacy-safe: training off-box, inference on-box, no data leaves your server) and gates which alerts escalate to critical. |
 | **Predictive forecast** | A deterministic seasonal forecast uses the robust 168-bucket day/hour baseline plus the recent level to project each trunk's volume/ASR with a bounded confidence band, and turns audio-retention burn-rate into capacity incidents *before* you run out of disk. |
 | **Flash Call Intelligence** | Passive, deterministic detection of probable missed-call authentication traffic from originator `CANCEL` timing, `487`, no-answer/no-media evidence and destination fan-out. Starts in Shadow, can create sustained recoverable incidents in Alerting, and never blocks or controls the SBC. [Operational guide](FLASH_CALL_DETECTION.md). |
-| **MCP gateway** | ChatGPT, Claude, Codex and other MCP clients can query live traffic, health, KPIs, trunks, CDRs, incidents, baselines, forecasts and Flash Call evidence through 12 local/remote read-only tools. Official MCP SDK transport, API-key/OAuth scopes, schema validation, redaction, rate limits, bounded results and local audit. [Configuration guide](MCP_SERVER.md). |
+| **MCP gateway** | ChatGPT, Claude, Codex and other MCP clients get 13 read-only evidence/setup-status tools plus one separately gated initial-setup tool. OAuth/API-key scopes, dry-run, confirmation, secret rejection, redaction, bounds and content-free audit keep access explicit. [MCP guide](MCP_SERVER.md) · [setup channels](INITIAL_SETUP_CHANNELS.md). |
 | **License CLI** | Root administrators can validate and atomically replace a product license without portal access; the command protects process/log output, restarts only the portal and rolls back on activation failure. [Command guide](LICENSE_CLI.md). |
 | **Secure LLM credentials** | Per-provider credentials can use encrypted web storage, protected Linux/systemd files, or environment/`_FILE` injection. The browser receives only status and the final four characters for web-managed keys. [Credential guide](AI_CREDENTIALS.md). |
 | **Credential-aware model discovery** | Prepare a provider with conservative unverified presets before adding a key, then replace them with the live account-authorized catalog after configuration. Public OpenRouter and keyless Custom discovery remain available. |
@@ -151,7 +151,7 @@ Use this section as the high-level index for YouTube walkthroughs, training vide
 | Fraud | New destination, high-risk countries, profiles and simulator | Show a safe demo fraud event or simulation. |
 | Incidents | Lifecycle, evidence, AI diagnosis, ack/resolve and timeline | Open a demo incident and walk through evidence. |
 | Operational Health | Capture, portal, database, rollups, incidents and update status inside Settings → Diagnostics, with copyable support evidence | Refresh Diagnostics health after a restart/update and copy the evidence block. |
-| Getting Started | Configuration checklist and public AI assistant guide | Walk from pending items to a useful first configuration. |
+| Getting Started | One state-driven checklist shared by Settings, `voxywatch-setup` CLI and MCP | Walk from pending items to a useful first configuration without sharing credentials. |
 | Settings | Grouped Start, Operation, Security/Integrations and Support sections: General, Data, Capture, SIPREC, Security, Alerts, Users, IP Labels, License, API, SNMP, AI, Diagnostics with Health, and Update | Show each group with one practical safe test. |
 | Troubleshooting | No calls, no audio, no MOS, wrong trunk, noisy alerts, update pending | Use one symptom per video and separate source/config/product causes. |
 
@@ -174,4 +174,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.23.1.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.24.0.

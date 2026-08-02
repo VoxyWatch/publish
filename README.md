@@ -19,7 +19,7 @@ off by default; the portal is the sole routing and policy authority.
 As of v3.14.4, Overview makes hidden widgets explicit and provides one-click **Show all** and
 **Restore defaults** recovery, including safe handling of older browser preferences.
 
-As of v3.15.0, the optional MCP gateway lets local or remote AI clients inspect live, read-only
+The optional MCP gateway lets local or remote AI clients inspect live evidence and, when separately authorized, perform bounded initial setup
 traffic through the existing portal HTTPS endpoint. It is off by default, scope-gated, redacted,
 rate-limited and audited; remote use requires an explicit administrator configuration.
 
@@ -59,7 +59,7 @@ Then open **`http://YOUR-IP:3080`**.
 
 ### Connect an AI client through MCP
 
-VoxyWatch 3.15.0 includes an optional read-only MCP gateway for ChatGPT, Claude, Codex and other
+VoxyWatch includes an optional MCP gateway for ChatGPT, Claude, Codex and other
 compatible clients. It uses the portal listener; **do not open a separate MCP port**.
 
 - Local endpoint: `http://127.0.0.1:3080/mcp`
@@ -68,8 +68,8 @@ compatible clients. It uses the portal listener; **do not open a separate MCP po
 - Authentication: scoped VoxyWatch API key, or OAuth access token validated with issuer, audience and JWKS
 - Scopes: `mcp:read`, `mcp:traffic`, `mcp:incidents`; `mcp:sensitive` is an additional explicit opt-in
 
-In **Settings → Integration API**, enable the Integration API and MCP, create a key with only the
-needed scopes, and run the built-in MCP test. For remote access, also enable Remote MCP, configure
+In **Settings → AI connections**, enable MCP, create a key with only the needed scopes, and run the
+built-in MCP test. For remote access, also enable Remote MCP, configure
 HTTPS, list browser Origins when applicable, and preferably configure an OAuth identity provider.
 Keep Sensitive data disabled unless the use case truly requires raw identifiers. The live-traffic
 tool supports client-selected refresh intervals from 5 seconds to 30 minutes.
@@ -81,6 +81,10 @@ behind the reverse proxy.
 Full configuration, the current 12-tool catalog, client examples, security
 controls and troubleshooting are in the
 **[MCP Server guide](MCP_SERVER.md)**.
+
+Initial setup can also be inspected and applied through Settings, the root-only `voxywatch-setup`
+CLI or the gated MCP setup tool. Portal passwords and LLM keys never belong in MCP calls.
+**[Initial setup channels](INITIAL_SETUP_CHANNELS.md)**.
 
 ### Detect Flash Call authentication patterns
 
@@ -187,7 +191,7 @@ Declaring CRITICAL requires earning it: a **minimum sample** of calls, **Wilson 
 Audio retention is **measured, not guessed** (hours of recoverable audio + write rate, exposed in the API) and can open a capacity incident before you run out. A **daily/weekly digest** (incidents, trunk health, volume vs previous period, capacity) lands in Telegram or your webhook on schedule — or on demand via API.
 
 ### 🔗 MCP gateway — your voice network, exposed to *your* agents
-VoxyWatch ships a **Model Context Protocol gateway**: connect ChatGPT, Claude, Codex or another compatible client locally or remotely and query live traffic, health, KPIs, trunk status, CDRs, incidents, baselines, forecasts and Flash Call evidence through 12 read-only scoped tools. API-key or OAuth authentication, redaction, bounded results and local audit keep access explicit. [Read the MCP Server guide](MCP_SERVER.md).
+VoxyWatch ships a **Model Context Protocol gateway**: connect ChatGPT, Claude, Codex or another compatible client locally or remotely and use 13 read-only tools plus one opt-in initial-setup tool. API-key/OAuth scopes, dry-run, confirmation, redaction, bounded results and content-free audit keep access explicit. [MCP guide](MCP_SERVER.md) · [setup channels](INITIAL_SETUP_CHANNELS.md).
 
 VoxyWatch v3 also ships a native **agentic runtime** foundation: `voxywatch-agentic.service`, a loopback-only Google ADK workflow with a Task Orchestrator and specialists for SIP, fraud, Flash Calls, traffic analytics, platform health and release status. The portal selects typed handoffs and supplies bounded evidence; ADK runs them without LLM tokens and never receives database credentials, media or SBC control. It is disabled by default and visible/controllable from Settings -> Diagnostics for admins.
 
@@ -303,7 +307,7 @@ PCI-DSS compliant (Req. 3.2: the CVV must never be retained).
 | `reconstruct_audio.py` | SIPREC stereo audio reconstruction (multi-codec) |
 | `generate_pcap.py` | Per-call PCAP export |
 | PostgreSQL + TimescaleDB | Dedicated, isolated capture database |
-| `voxywatch-mcp.js` | Local stdio bridge to the scoped VoxyWatch MCP gateway (read-only) |
+| `voxywatch-mcp.js` | Local stdio bridge to the scoped VoxyWatch MCP gateway |
 | `get-hwid.js` | Hardware ID tool for license activation |
 | `voxywatch-license` | Root CLI to validate and atomically replace the product license without the portal |
 

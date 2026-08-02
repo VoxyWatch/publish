@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.24.0] — 2026-08-02
+
+### Added — unified initial setup for Settings, CLI and MCP
+- Added a dedicated **AI connections** Settings page and state-driven Getting Started integration.
+- Added `voxywatch-setup` status, validate and root-only apply commands using stdin.
+- Added MCP setup status plus opt-in, merge-only LLM/trunk/IP-label configuration with `mcp:configure`, dry-run and confirmation.
+
+### Security
+- MCP never accepts portal passwords or LLM credentials, remains off for configuration by default, never deletes catalogs or touches capture/SBC behavior, and audits without arguments or content.
+
 ## [3.23.1] — 2026-08-02
 
 ### Fixed — current recommended model catalogs

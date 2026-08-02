@@ -1,26 +1,26 @@
 {
-  "version": "3.23.1",
+  "version": "3.24.0",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.23.1/voxywatch-v3.23.1-linux-x64.tar.gz",
-    "sha256": "d263dfabcf8284476b1e139f7241354cf23e12e55d894bceac9c593bd498d821",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.23.1/voxywatch-v3.23.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.24.0/voxywatch-v3.24.0-linux-x64.tar.gz",
+    "sha256": "5fd3a15fdcc6b9907eccd0c33f0dfa5351e7b103065cf0ece39d7642f3afe3d0",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.24.0/voxywatch-v3.24.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "current recommended model catalogs",
-    "Show recommended models now replaces the previous list and selection completely, instead of silently retaining a stale model.",
-    "OpenAI presets now expose the current GPT-5.6 family: Luna, Terra and Sol.",
-    "Anthropic presets now expose Haiku 4.5, Sonnet 5, Opus 5 and Fable 5."
+    "unified initial setup for Settings, CLI and MCP",
+    "Added a dedicated AI connections Settings page and state-driven Getting Started integration.",
+    "Added `voxywatch-setup` status, validate and root-only apply commands using stdin.",
+    "Added MCP setup status plus opt-in, merge-only LLM/trunk/IP-label configuration with `mcp:configure`, dry-run and confirmation."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "recommended model replacement and current catalogs",
-    "Show recommended models now replaces the previous list and selected model completely instead of reinserting an obsolete manual value.",
-    "Updated OpenAI recommendations to GPT-5.6 Luna, Terra and Sol, with Luna as the cost-conscious default for blank configurations.",
-    "Updated Anthropic recommendations to Haiku 4.5, Sonnet 5, Opus 5 and Fable 5 using current first-party API model IDs."
+    "unified initial setup for Settings, CLI and MCP",
+    "Security and usability",
+    "Added a dedicated AI connections Settings page for MCP, OAuth, scopes and the optional setup-editing gate.",
+    "Added `voxywatch-setup` status, validate and root-only apply commands; configuration is read from stdin and the LLM credential remains in its existing secure ch"
   ]
 }

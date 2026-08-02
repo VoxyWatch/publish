@@ -1,8 +1,8 @@
 # VoxyWatch MCP Gateway
 
-VoxyWatch exposes its live, read-only NOC evidence to ChatGPT, Claude, Codex and
-other MCP clients. The gateway never controls the SBC and never exposes audio,
-RTP payloads, PCAP or DTMF.
+VoxyWatch exposes live NOC evidence to ChatGPT, Claude, Codex and other MCP
+clients. It also offers an optional, separately gated initial-setup tool. The
+gateway never controls the SBC and never exposes audio, RTP payloads, PCAP or DTMF.
 
 ## Architecture
 
@@ -44,17 +44,17 @@ Caddy / secure tunnel
        |
        | loopback HTTP
        v
-127.0.0.1:3080/mcp -> live VoxyWatch read-only tools
+127.0.0.1:3080/mcp -> live evidence + gated setup tools
 ```
 
 ## Enable and configure
 
-In **Settings → Integration API → AI / MCP Gateway**:
+In **Settings → AI connections**:
 
-1. Enable Integration API.
-2. Enable MCP.
-3. Keep Remote MCP off for local-only usage, or enable it after HTTPS is ready.
-4. Keep sensitive traffic off initially.
+1. Enable MCP.
+2. Keep Remote MCP off for local-only usage, or enable it after HTTPS is ready.
+3. Keep sensitive traffic off initially.
+4. Keep **Allow initial setup changes** off unless an assistant must configure the installation.
 5. Configure the maximum result size; 120000 bytes is the default.
 6. Add browser origins only when a browser-based client sends `Origin`.
 7. For end-user remote access, configure an OAuth issuer, audience/resource and
@@ -74,6 +74,7 @@ use OAuth 2.1 access tokens issued specifically for the MCP audience.
 | `mcp:traffic` | Live/recent CDR metadata and SIP ladder evidence |
 | `mcp:incidents` | Incidents and their deterministic evidence |
 | `mcp:sensitive` | Full numbers, IPs and Call-IDs, only when the global sensitive switch is also on |
+| `mcp:configure` | Initial LLM selection, trunk upserts and IP-label upserts, only when the configuration switch is also on |
 
 `mcp:sensitive` alone is insufficient. The administrator must also enable
 **Allow sensitive traffic data**. Without both conditions, numbers retain only
@@ -95,8 +96,8 @@ consent, client registration and token issuance.
 
 ## Tool catalog
 
-VoxyWatch currently exposes 12 read-only tools. Availability is limited by the
-caller's scopes and by the global sensitive-data switch.
+VoxyWatch exposes 13 read-only tools and one separately gated setup tool.
+Availability is limited by caller scopes and global administrative switches.
 
 | Tool | Scope | Purpose |
 |---|---|---|
@@ -112,14 +113,19 @@ caller's scopes and by the global sensitive-data switch.
 | `compare_baseline` | `mcp:read` | Current trunk metrics compared with learned history |
 | `suggest_thresholds` | `mcp:read` | Read-only threshold recommendations; never applies them |
 | `forecast_trunk` | `mcp:read` | Bounded volume or ASR forecast for a trunk |
+| `get_setup_status` | `mcp:read` | Redacted Getting Started, LLM, trunk/IP-label and MCP readiness |
+| `configure_initial_setup` | `mcp:configure` | Dry-run then confirmed merge/upsert of non-secret initial setup fields |
 
-There is no generic SQL, shell, network, configuration or remediation tool.
+There is no generic SQL, shell, network or remediation tool. The single setup
+tool has a fixed schema, rejects secrets, never deletes catalogs, starts in
+dry-run mode and requires both an administrative switch and `APPLY_SETUP`.
 Tool responses are bounded by both per-tool limits and the configured maximum
 result size.
 
 ## Local client configuration
 
 Create an API key with `mcp:read`, plus `mcp:traffic` and/or `mcp:incidents`.
+Add `mcp:configure` only for a temporary or explicitly approved setup editor.
 Then configure the client:
 
 ```json
@@ -212,6 +218,8 @@ Useful portal endpoints:
 
 Tool arguments are validated against their JSON Schemas before execution.
 Validation errors contain paths and rule names but never echo submitted values.
+Configuration audit records identify actor, tool, result, duration and size but
+never preserve submitted trunks, IP labels, tokens or returned content.
 
 ## Recommended rollout
 
@@ -225,6 +233,8 @@ Validation errors contain paths and rule names but never echo submitted values.
 8. Keep `mcp:sensitive` and the global sensitive switch off unless raw
    identifiers are operationally required and approved.
 9. Review rate-limit, maximum result size and `voxywatch_mcp_audit.json`.
+10. If setup editing is needed, enable it temporarily, dry-run every change,
+    confirm only after human review, then revoke the scope or disable the switch.
 
 ## Troubleshooting
 
@@ -240,13 +250,15 @@ Validation errors contain paths and rule names but never echo submitted values.
 | Result reports truncation | Narrow the time window/limit or raise the configured byte cap cautiously |
 | Repeated token/cost use | Increase the client's `refresh_sec`; VoxyWatch does not create a background LLM polling job |
 | Audit unhealthy | Check file ownership/permissions and disk health; never replace mode `0600` with a public file |
+| Setup tool missing | Enable initial setup changes and include both `mcp:read` and `mcp:configure`; refresh the client's tool catalog |
+| Setup asks for a credential | Do not send it. Use Settings, a Linux credential/environment or `voxywatch-ai-key --stdin` |
 
 For Flash Call tool semantics and detector limitations, see
 [Flash Call Detection](FLASH_CALL_DETECTION.md).
 
 ## Deliberate exclusions
 
-- No write tools.
+- No generic write tools; only the fixed, opt-in, merge-only initial setup tool.
 - No SBC control.
 - No arbitrary SQL or arbitrary URL fetching.
 - No raw SIP bodies, RTP/audio, PCAP or DTMF.

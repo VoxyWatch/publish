@@ -135,8 +135,9 @@ tool.
   OpenAPI and RFC 9457 problem responses.
 - Local admin-only Swagger UI at `/api/docs`; all assets are bundled, external
   validation is disabled and request execution is intentionally unavailable.
-- MCP gateway with 12 local/remote read-only tools, API-key or OAuth/JWKS
-  authentication, official MCP SDK transport, JSON-Schema validation,
+- MCP gateway with 13 read-only evidence/setup-status tools plus one opt-in,
+  merge-only initial-setup tool; API-key or OAuth/JWKS authentication, separate
+  `mcp:configure`, dry-run/confirmation, official MCP SDK transport and JSON-Schema validation,
   redaction, bounds and local audit. See
   [MCP Server](MCP_SERVER.md).
 - SNMP v2c/v3 with standard host-resource OIDs for CPU, RAM and disk plus the
@@ -169,7 +170,7 @@ tool.
 
 ## Administration and readiness
 
-- Getting Started checklist and public AI configuration assistant.
+- Getting Started checklist shared by Settings, `voxywatch-setup` CLI and MCP, plus the public AI configuration assistant.
 - Basic and Advanced Settings views; advanced infrastructure controls remain
   available without overwhelming first-time operators.
 - Platform Readiness, Operational Health, deployment status, dependency checks,

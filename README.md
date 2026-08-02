@@ -32,6 +32,8 @@ For a status-labelled map of everything implemented in the signed release, see
 the **[Implemented Feature Reference](IMPLEMENTED_FEATURES.md)**.
 LLM credentials can be supplied without storing plaintext in normal settings; see the
 **[LLM credential management guide](AI_CREDENTIALS.md)**.
+For the exact context order, privacy boundary, RFC selection and local finding memory, see the
+**[AI Context Engine guide](docs/ai/CONTEXT_ENGINE.md)**.
 
 </div>
 

@@ -110,6 +110,14 @@ can be added as JSON.
   vLLM or LM Studio servers.
 - Per-user private chat history, response language, profile prompt and
   sanitized UI context.
+- Shared deterministic-first Context Engine for chat, copilots, alarm summaries
+  and incident investigation. It adds only an optional administrator-confirmed
+  organization name/type, selects relevant product/RFC references just in time,
+  and never infers an employer from email. See the
+  [Context Engine guide](https://github.com/VoxyWatch/publish/blob/main/docs/ai/CONTEXT_ENGINE.md).
+- Private local finding ledger with evidence hashes, recurrence and administrator
+  feedback. Historical hypotheses remain advisory; fresh deterministic evidence
+  always wins and no finding automatically becomes an alarm or action.
 - Deterministic model routing, context/output budgets, usage/latency telemetry,
   prompt-caching support and a concurrency limiter.
 - Offline-only OpenAI Batch workflow for non-interactive workloads; it is not

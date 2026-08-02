@@ -1,26 +1,26 @@
 {
-  "version": "3.19.4",
-  "release_date": "2026-08-01",
+  "version": "3.19.5",
+  "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.4/voxywatch-v3.19.4-linux-x64.tar.gz",
-    "sha256": "1617c12b22ec84eb5e454329d14874624da0f1117696998616c8a9bfa47709f7",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.4/voxywatch-v3.19.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.19.5/voxywatch-v3.19.5-linux-x64.tar.gz",
+    "sha256": "6e76aba15674a1f3bea251e7137990a1044cdced587cef11c279e0f2634cc7e9",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.19.5/voxywatch-v3.19.5-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "trial-license path in the free-tier limit dialog",
-    "The free-tier limit dialog now displays the server Hardware ID with a copy button, using the existing license-status response without widening data exposure.",
-    "A bilingual callout invites evaluators to request a full trial license at `support@voxywatch.com`.",
-    "HWID copy works through the secure Clipboard API and includes a fallback for direct HTTP installations."
+    "license activation no longer returns to a stale duplicate blocker",
+    "Successful web activation now reconciles capacity before responding, so the previous Free Tier block cannot survive for another three minutes.",
+    "Capacity limits keep the canonical portal shell available and use its single Free Tier/License flow; the blue recovery page is reserved for expired, invalid or",
+    "Old `/blocked.html` tabs redirect to the portal once the hard failure is gone, preventing the frozen `Checking license status…` / empty-HWID state caused by t"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "trial-license path in the free-tier limit dialog",
-    "The free-tier limit dialog now displays the server Hardware ID with a copy button, using the existing license-status response without widening data exposure.",
-    "A bilingual callout invites evaluators to request a full trial license at `support@voxywatch.com`.",
-    "HWID copy works through the secure Clipboard API and includes a fallback for direct HTTP installations."
+    "license activation no longer returns to a stale duplicate blocker",
+    "Successful web activation now reconciles capacity before responding, so the previous Free Tier block cannot survive for another three minutes.",
+    "Capacity limits keep the canonical portal shell available and use its single Free Tier/License flow; the blue recovery page is reserved for expired, invalid or",
+    "Old `/blocked.html` tabs redirect to the portal once the hard failure is gone, preventing the frozen `Checking license status…` / empty-HWID state caused by t"
   ]
 }

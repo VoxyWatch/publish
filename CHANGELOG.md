@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.19.5] — 2026-08-02
+
+### Fixed — license activation no longer returns to a stale duplicate blocker
+- Successful web activation now reconciles capacity before responding, so the previous Free Tier block cannot survive for another three minutes.
+- Capacity limits keep the canonical portal shell available and use its single Free Tier/License flow; the blue recovery page is reserved for expired, invalid or wrong-HWID licenses.
+- Old `/blocked.html` tabs redirect to the portal once the hard failure is gone, preventing the frozen `Checking license status…` / empty-HWID state caused by the normal portal CSP.
+
 ## [3.19.4] — 2026-08-01
 
 ### Added — trial-license path in the free-tier limit dialog

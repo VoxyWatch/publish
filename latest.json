@@ -1,26 +1,26 @@
 {
-  "version": "3.20.4",
+  "version": "3.20.5",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.4/voxywatch-v3.20.4-linux-x64.tar.gz",
-    "sha256": "0fc474e33a234273dc6b591716dc831b7a17677f2c8b3ebb0d3c0ed081e39cf7",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.4/voxywatch-v3.20.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.5/voxywatch-v3.20.5-linux-x64.tar.gz",
+    "sha256": "21b72863b3d3c4537c615775c7a32f82d469a414f35d1bc2117684946fe3566e",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.5/voxywatch-v3.20.5-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "careful Express 5 migration",
-    "Upgraded the portal HTTP framework from Express 4.22 to Express 5.2.1 without changing public routes or the capture path.",
-    "Preserved controlled empty-body handling, pinned scalar query parsing and adapted startup bind-error handling.",
-    "Added migration guards for every portal route, removed APIs, rejected async handlers and occupied-port startup failures."
+    "safer internal modularity",
+    "Separated pure SIP/RTP call presentation from the portal server without changing capture, correlation, storage or public APIs.",
+    "Separated early browser authentication and disclosure controls into a small ordered shell, reducing the main frontend bundle's responsibilities.",
+    "Added parity, packaging and first-update guards so the new asset works both on clean installs and signed upgrades from older installers."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "careful Express 5 migration",
-    "Upgraded the portal HTTP framework from Express 4.22 to Express 5.2.1 without changing public API routes or the capture path.",
-    "Preserved the established empty-JSON-body contract so validation errors remain controlled 4xx responses instead of destructuring failures.",
-    "Pinned scalar query parsing and adapted HTTP startup to Express 5's callback-based listen errors."
+    "safer server and frontend separation",
+    "Extracted pure SIP/RTP call-presentation logic from `server.js` into `lib/call-presentation.js`, with deterministic parity coverage for dialog states, response",
+    "Extracted the early authenticated-fetch guard and reusable disclosure controller from `app.js` into the ordered `frontend-shell.js` boundary.",
+    "Registered the new browser asset across pkg, build, installer, static serving, cache versioning and the signed-release manifest, including the embedded first-up"
   ]
 }

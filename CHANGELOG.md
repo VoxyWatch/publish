@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.20.5] — 2026-08-02
+
+### Improved — safer internal modularity
+- Separated pure SIP/RTP call presentation from the portal server without changing capture, correlation, storage or public APIs.
+- Separated early browser authentication and disclosure controls into a small ordered shell, reducing the main frontend bundle's responsibilities.
+- Added parity, packaging and first-update guards so the new asset works both on clean installs and signed upgrades from older installers.
+
 ## [3.20.4] — 2026-08-02
 
 ### Changed — careful Express 5 migration

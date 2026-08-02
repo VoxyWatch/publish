@@ -1,26 +1,26 @@
 {
-  "version": "3.26.0",
+  "version": "3.26.1",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.26.0/voxywatch-v3.26.0-linux-x64.tar.gz",
-    "sha256": "0c23eecbd539326ce4e0b1be286ba8a4c580264fca653b990c2f9a2d7b664085",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.26.0/voxywatch-v3.26.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.26.1/voxywatch-v3.26.1-linux-x64.tar.gz",
+    "sha256": "dad18b0d64a4ede8e4948f42945b86086135760baca88aeae77873ab53dc3753",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.26.1/voxywatch-v3.26.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "grounded, organization-aware AI context",
-    "Privacy and reliability",
-    "VoxyWatch now gives its AI copilots consistent product, role and optional organization context while preserving bounded server-side chat history.",
-    "General Settings adds only a compact optional organization name and type selector; detailed AI preferences remain in each user's existing profile."
+    "consistent form fields in light and dark themes",
+    "Normalized all Settings inputs, selects and text areas to the same theme-aware background, text and border treatment, including previously browser-default SNMP",
+    "Profile fields no longer use hard-coded dark colors and now follow each user's light or dark theme for normal, focused, placeholder and disabled states.",
+    "Updated the stylesheet cache identifier so existing browsers receive the correction immediately after upgrading."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "contexto de IA fundamentado y consciente de la organización",
-    "Seguridad y calidad",
-    "Se agregó un Context Engine independiente del proveedor que identifica VoxyWatch, conserva el historial acotado del chat en el servidor, adjunta evidencia dete",
-    "General Settings ahora incluye una tarjeta compacta con nombre opcional y selector corto de tipo de organización; las preferencias detalladas permanecen en el"
+    "campos consistentes en temas claro y oscuro",
+    "Se normalizaron los 136 campos de Settings para que inputs, selects y textareas usen el mismo fondo, texto y borde del tema; se corrigieron especialmente 9 umbr",
+    "Los campos de Perfil dejaron de usar colores oscuros hardcodeados y ahora siguen las variables del tema por usuario, incluidos inputs, selectores, textarea, pla",
+    "Se incrementó el identificador de caché del CSS para que los navegadores reciban el arreglo inmediatamente después de actualizar."
   ]
 }

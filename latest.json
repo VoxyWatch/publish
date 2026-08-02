@@ -1,26 +1,26 @@
 {
-  "version": "3.17.7",
+  "version": "3.17.8",
   "release_date": "2026-08-01",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.7/voxywatch-v3.17.7-linux-x64.tar.gz",
-    "sha256": "5db4ca41b385bcb94f04f976148efc3cb7abe1924da7451f943e2c71c99179d5",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.7/voxywatch-v3.17.7-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.17.8/voxywatch-v3.17.8-linux-x64.tar.gz",
+    "sha256": "efa5ec468e035fbefae3be6cdfafd853c47a97c72a384be922919da95e84ec98",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.17.8/voxywatch-v3.17.8-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "every install offers Service Control as Yes again",
-    "Reinstalls and updates no longer inherit a previous decline: every run selects Service Control",
-    "`n` and `--service-control no` still disable it for the current run; the next reinstall/update",
-    "The installer notice now explains that scope and a regression prevents persisted `disabled` state returning."
+    "VoxyWatch heartbeat identity",
+    "The interactive splash now opens with a cardiac-monitor mark: an ECG trace and VoxyWatch name",
+    "The design remains readable within 78 columns, adds no dependencies and leaves the compact",
+    "Its visual regression requires both rounded edges, the heartbeat trace, branding, width and preflight order."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "cada instalación vuelve a ofrecer Service Control en Yes",
-    "Reinstalaciones y actualizaciones ya no heredan una negativa anterior: cada ejecución vuelve a",
-    "`n` y `--service-control no` siguen deshabilitándolo para la ejecución actual; la siguiente",
-    "El aviso explica esta temporalidad y la regresión bloquea que reaparezca la persistencia de `disabled`."
+    "identidad visual de pulso VoxyWatch",
+    "El splash interactivo estrena un emblema de monitor cardiaco: trazo ECG y nombre VoxyWatch dentro",
+    "El diseño conserva legibilidad dentro de 78 columnas, no añade dependencias y mantiene intacta la",
+    "La regresión visual exige marco superior/inferior, electro, marca, ancho y orden previo al preflight."
   ]
 }

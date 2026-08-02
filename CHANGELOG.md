@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.17.8] — 2026-08-01
+
+### Improved — VoxyWatch heartbeat identity
+- The interactive splash now opens with a cardiac-monitor mark: an ECG trace and VoxyWatch name
+  enclosed in a terminal frame with rounded corners, followed by the full wordmark.
+- The design remains readable within 78 columns, adds no dependencies and leaves the compact
+  systemd, CI and non-TTY updater heading unchanged.
+- Its visual regression requires both rounded edges, the heartbeat trace, branding, width and preflight order.
+
 ## [3.17.7] — 2026-08-01
 
 ### Changed — every install offers Service Control as Yes again

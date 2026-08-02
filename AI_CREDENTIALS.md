@@ -41,3 +41,9 @@ The `_FILE` form is preferred because the process environment contains only a pa
 The portal process must use the credential in memory when authenticating an HTTPS request to the chosen provider. VoxyWatch does not send the credential to its browser, telemetry, Sentry, support bundles or its own services. Linux `root` can still inspect or replace system-level credentials. Google credentials are sent in the `x-goog-api-key` header rather than a URL query parameter.
 
 Old plaintext `ai_api_key` settings are migrated once into the encrypted store and removed atomically from normal settings.
+
+## Model discovery before and after credentials
+
+Settings can show a small, release-pinned recommended catalog before a credential exists. These entries are configuration presets, not a claim that the customer's account can use them. After the selected provider credential is available, **Load available models** asks that provider for the models authorized for the account and marks the result as provider-verified. OpenRouter's public catalog and keyless Custom/Ollama-style endpoints remain discoverable without a credential.
+
+**Test connection** never treats a recommended or public catalog as proof that a credential works. A missing or rejected credential is reported in the active UI language. Administrators can always type a model identifier manually; image, audio, embedding, realtime and robotics-specialized models are excluded from the assisted NOC list.

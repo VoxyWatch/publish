@@ -1,26 +1,26 @@
 {
-  "version": "3.21.1",
+  "version": "3.22.0",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.21.1/voxywatch-v3.21.1-linux-x64.tar.gz",
-    "sha256": "07bb77c633a1cb98c2148fab8d7b36b7ca8806a96b0231423b409a393ba0f383",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.21.1/voxywatch-v3.21.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.22.0/voxywatch-v3.22.0-linux-x64.tar.gz",
+    "sha256": "1d7b1b474a2e0f1173e3ad357bfabbc3c74109c0c7fdc880e5811c9113a7437b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.22.0/voxywatch-v3.22.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "reliable first upgrade for the ADK workflow",
-    "The established agentic runtime now contains an embedded native ADK workflow fallback, so an older installer that does not yet recognize the new module filename",
-    "Clean installs and subsequent updates still receive the separate workflow module; capture, portal availability and deterministic fallback are unchanged.",
-    "Added a release regression test for the exact old-installer transition observed on the public demo."
+    "model selection before credentials",
+    "Administrators can choose conservative provider presets before adding a key; presets are explicitly unverified and never claim account access.",
+    "After credentials are configured, VoxyWatch loads the provider-authorized catalog. OpenRouter retains public discovery and keyless Custom endpoints remain suppo",
+    "Missing or rejected credentials now produce English/Spanish UI guidance instead of a Spanish-only backend message."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "ADK survives the first signed upgrade",
-    "Embedded a native ADK workflow fallback in the already-established agentic runtime file so an older explicit-file installer cannot omit the new module during th",
-    "Added a release regression test that forces the separate workflow module to be unavailable and still requires native ADK execution.",
-    "Kept the separate module for clean installs and later updates; the portal, capture and deterministic fallback remain unchanged."
+    "credential-aware LLM model discovery",
+    "Added conservative per-provider model recommendations so administrators can prepare an OpenAI, Anthropic, Google or Perplexity configuration before adding crede",
+    "Kept live account discovery authoritative once a provider credential exists; OpenRouter retains its public live catalog and Custom endpoints can discover models",
+    "Localized missing/rejected credential guidance instead of returning a Spanish-only backend message in an English interface."
   ]
 }

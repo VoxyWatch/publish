@@ -1,25 +1,26 @@
 {
-  "version": "3.20.6",
+  "version": "3.21.0",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.20.6/voxywatch-v3.20.6-linux-x64.tar.gz",
-    "sha256": "2ab74ee57df7b10c9ded9bb8c303a6333f472bc5ddad015ac49783ee3f213d5d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.20.6/voxywatch-v3.20.6-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.21.0/voxywatch-v3.21.0-linux-x64.tar.gz",
+    "sha256": "005454cbebce58f6e5e160deb8558141593854e575e70bf247209ee52f7f93e5",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.21.0/voxywatch-v3.21.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "controlled external dependencies",
-    "Normal signed updates now preserve installed OS, PostgreSQL, TimescaleDB and isolated Python dependency versions while continuing versioned VoxyWatch schema mig",
-    "Added an explicit maintenance-only dependency refresh constrained to the installed PostgreSQL major, plus exact Google ADK 2.1.0 and pylibsrtp 1.0.0 locks.",
-    "Added a signed dependency manifest and removed automatic Python telemetry installation from native package updates."
+    "official MCP, native ADK workflow and local API documentation",
+    "The remote MCP endpoint now uses the official Model Context Protocol TypeScript SDK while retaining VoxyWatch scopes, redaction, bounded results, opaque call re",
+    "The optional loopback sidecar now runs portal-selected specialist handoffs as a native, token-free Google ADK workflow with verifiable evidence citations and no",
+    "MCP tool arguments and agentic analysis requests now use compile-once JSON Schema validation with errors that never echo submitted values."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Normal signed updates now preserve external OS, PostgreSQL, TimescaleDB and isolated Python dependency versions; versioned VoxyWatch schema migrations continue",
-    "Added an explicit controlled external-dependency refresh path pinned to the installed PostgreSQL major and exact Python locks for Google ADK 2.1.0 and pylibsrtp",
-    "Added a versioned external dependency manifest, a read-only host inventory command and internal governance documentation."
+    "standards-based AI integrations and API contracts",
+    "Planned",
+    "Replaced the hand-written remote MCP protocol transport with the official TypeScript SDK while preserving VoxyWatch scopes, redaction, opaque call references, r",
+    "Added a token-free native Google ADK workflow that executes only portal-authorized specialist handoffs and returns grounded `voxywatch-agent-finding/v1` finding"
   ]
 }

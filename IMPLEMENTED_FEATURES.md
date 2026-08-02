@@ -118,8 +118,9 @@ can be added as JSON.
 - Seven agent definitions: Task Orchestrator, SIP Signaling Analyzer, Fraud
   Detection Analyst, Flash Call Analyst, Traffic Statistics Analyst, Platform
   Health Monitor and Release Update Monitor.
-- Optional ADK-ready loopback sidecar, installed with the product and disabled
-  by default.
+- Optional native Google ADK workflow sidecar, installed with the product and
+  disabled by default. It executes portal-selected specialist handoffs without
+  LLM tokens and returns structured findings grounded in `ev_*` evidence.
 - Read-only agent context/tools, redacted traces, prompt-injection canaries and
   deterministic release evaluations.
 - Policy-gated decision proposals and operator feedback. High-risk actions
@@ -132,8 +133,11 @@ tool.
 
 - Read-only REST API v1 with hashed scoped keys, IP allowlists, rate limits,
   OpenAPI and RFC 9457 problem responses.
+- Local admin-only Swagger UI at `/api/docs`; all assets are bundled, external
+  validation is disabled and request execution is intentionally unavailable.
 - MCP gateway with 12 local/remote read-only tools, API-key or OAuth/JWKS
-  authentication, redaction, bounds and local audit. See
+  authentication, official MCP SDK transport, JSON-Schema validation,
+  redaction, bounds and local audit. See
   [MCP Server](MCP_SERVER.md).
 - SNMP v2c/v3 with standard host-resource OIDs for CPU, RAM and disk plus the
   VoxyWatch enterprise MIB for capture and voice-service metrics; downloadable

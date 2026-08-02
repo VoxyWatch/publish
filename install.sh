@@ -581,6 +581,7 @@ if [ -d "${EXTRACTED}/agentic" ]; then
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/requirements.txt" "${INSTALL_DIR}/agentic/requirements.txt" 2>/dev/null || true
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/requirements.lock.txt" "${INSTALL_DIR}/agentic/requirements.lock.txt" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/voxywatch_agentic.py" "${INSTALL_DIR}/agentic/voxywatch_agentic.py" 2>/dev/null || true
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/adk_workflow.py" "${INSTALL_DIR}/agentic/adk_workflow.py" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/install-agentic-deps.sh" "${INSTALL_DIR}/agentic/install-agentic-deps.sh" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/run-agentic.sh" "${INSTALL_DIR}/agentic/run-agentic.sh" 2>/dev/null || true
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/voxywatch-agentic.service" "${INSTALL_DIR}/agentic/voxywatch-agentic.service" 2>/dev/null || true

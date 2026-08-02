@@ -14,9 +14,11 @@ rate limits, result bounds and local audit:
 - **Remote MCP (Streamable HTTP):** the client calls
   `https://<portal-domain>/mcp`.
 
-The HTTP implementation is stateless JSON-response Streamable HTTP using MCP
-protocol `2025-11-25`. It reuses the portal listener; it does not open a new
-port or run another service.
+The HTTP implementation uses the official `@modelcontextprotocol/sdk` server
+and stateless JSON-response Streamable HTTP with MCP protocol `2025-11-25`.
+VoxyWatch continues to own authorization, scopes, redaction, result bounds and
+content-free audit. It reuses the portal listener; it does not open a new port
+or run another service.
 
 ## Network and ports
 
@@ -207,6 +209,9 @@ Useful portal endpoints:
 - `GET /api/mcp/status` — configuration, transport, tool catalog and audit health.
 - `GET /api/mcp/audit` — admin-only bounded audit.
 - `POST /api/mcp/test` — admin-only live deterministic tool test.
+
+Tool arguments are validated against their JSON Schemas before execution.
+Validation errors contain paths and rule names but never echo submitted values.
 
 ## Recommended rollout
 

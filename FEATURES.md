@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.20.6** (2026-07-28).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.21.0** (2026-08-02).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -28,14 +28,14 @@
 1. Autonomous incident investigation with evidence-cited AI diagnosis.
 2. Per-trunk statistical baselines + anti-false-positive engine (−92% critical noise, validated on production data) — now with **per-trunk auto-calibration**: each trunk is judged against *its own* learned normal, not a global threshold.
 3. Actionable Telegram notifications with human-approved remediation.
-4. MCP gateway: local or remote AI clients can inspect live traffic through read-only, scoped,
+4. Official-SDK MCP gateway: local or remote AI clients can inspect live traffic through read-only, scoped,
    redacted and audited tools, with refresh intervals from 5 seconds to 30 minutes.
 5. Carrier/country attribution built-in (E.164 engine, 197 country codes).
 6. 100% self-hosted, single binary, the AI never touches the SBC.
 7. Per-installation deployment status separates published, installed, validated and upgrade-compatible versions without centralizing customer data or secrets.
 8. Public AI-assisted configuration guide: customers can load `AI_VOXYWATCH_CONFIGURATION_ASSISTANT.md` into their own AI assistant to collect IPs, trunks, capture sources, thresholds, retention, alerts and users correctly.
 9. Anonymous adoption telemetry, tied to the existing Sentry toggle, reports active version/platform/tier by installation without sending customer IPs, trunks, SIP/RTP, CDRs, settings or credentials.
-10. Native agentic runtime: v3 ships an ADK-ready sidecar with specialist agents, Diagnostics status/control and a read-only tool contract.
+10. Native agentic runtime: v3 ships a token-free Google ADK workflow sidecar with portal-selected specialist handoffs, grounded findings, Diagnostics status/control and a read-only tool contract.
 11. Tutorial-ready product map: every main module and Settings section can be explained with a practical NOC scenario, a screen walkthrough and a safe validation test.
 12. Verifiable agentic behavior: structured evidence citations, deterministic release evals, confidence gates, shadow mode, short-lived redacted traces and prompt-injection canaries.
 13. Verifiable implementation catalog: [Implemented Feature Reference](IMPLEMENTED_FEATURES.md) labels what is active, configurable, opt-in or signal-dependent and lists deliberate exclusions.
@@ -79,7 +79,7 @@
 | **Fraud early-warning** | The "suddenly calling Cuba" detector: alerts the first day a trunk calls a country absent from its last 4 weeks — critical if it's on the (editable) IRSF high-risk list. Plus short-call storms to one destination (premium-number sweeps, hacked PBX — active from day one), abnormal growth to high-risk destinations, and international-mix spikes vs the trunk's own history. Factory runbook included: who originates, time-of-day tells, block at *your* SBC, dispute with the carrier. A **fraud-risk score (0–100)** fuses the signals via a model trained offline on labelled history (privacy-safe: training off-box, inference on-box, no data leaves your server) and gates which alerts escalate to critical. |
 | **Predictive forecast** | A deterministic seasonal forecast uses the robust 168-bucket day/hour baseline plus the recent level to project each trunk's volume/ASR with a bounded confidence band, and turns audio-retention burn-rate into capacity incidents *before* you run out of disk. |
 | **Flash Call Intelligence** | Passive, deterministic detection of probable missed-call authentication traffic from originator `CANCEL` timing, `487`, no-answer/no-media evidence and destination fan-out. Starts in Shadow, can create sustained recoverable incidents in Alerting, and never blocks or controls the SBC. [Operational guide](FLASH_CALL_DETECTION.md). |
-| **MCP gateway** | ChatGPT, Claude, Codex and other MCP clients can query live traffic, health, KPIs, trunks, CDRs, incidents, baselines, forecasts and Flash Call evidence through 12 local/remote read-only tools. API-key/OAuth scopes, redaction, rate limits, bounded results and local audit. [Configuration guide](MCP_SERVER.md). |
+| **MCP gateway** | ChatGPT, Claude, Codex and other MCP clients can query live traffic, health, KPIs, trunks, CDRs, incidents, baselines, forecasts and Flash Call evidence through 12 local/remote read-only tools. Official MCP SDK transport, API-key/OAuth scopes, schema validation, redaction, rate limits, bounded results and local audit. [Configuration guide](MCP_SERVER.md). |
 | **License CLI** | Root administrators can validate and atomically replace a product license without portal access; the command protects process/log output, restarts only the portal and rolls back on activation failure. [Command guide](LICENSE_CLI.md). |
 | **Secure LLM credentials** | Per-provider credentials can use encrypted web storage, protected Linux/systemd files, or environment/`_FILE` injection. The browser receives only status and the final four characters for web-managed keys. [Credential guide](AI_CREDENTIALS.md). |
 | **Per-user contextual LLM** | Built-in LLM keeps private conversation sessions per user, lets operators reopen/delete history, applies each user's profile prompt, infers reply language from the latest operator message, receives a sanitized hint of the current UI view/call/incident, and supports OpenAI, Anthropic, Google Gemini, OpenRouter, Perplexity Sonar and custom OpenAI-compatible endpoints. |
@@ -121,7 +121,7 @@
 
 | Feature | Copy |
 |---|---|
-| REST API v1 | Read-only versioned API: CDRs, Call Insight Audio/RTP Expert, traces, audio, health, stats, trunk health, **incidents**. Scoped hashed API keys, IP allowlists, rate limits, problem+json, OpenAPI spec. |
+| REST API v1 | Read-only versioned API: CDRs, Call Insight Audio/RTP Expert, traces, audio, health, stats, trunk health, **incidents**. Scoped hashed API keys, IP allowlists, rate limits, problem+json, OpenAPI spec and bundled admin-only Swagger UI. |
 | Platform readiness | Settings -> Diagnostics summarizes production health, configuration gaps, update safety, heavy jobs, AI troubleshooting context and hardware fit in one operator view, then turns that state into guided actions with priority, likely fault domain, confidence and next step. |
 | Agentic runtime control | Settings -> Diagnostics shows `voxywatch-agentic.service` status, specialist agents and health; admins can enable/start or stop/disable the local sidecar without touching the SBC. |
 | Sanitized support bundle | Authenticated, read-only ticket evidence with versions, fault domain, component status, metrics and dependency checks; strict allowlist excludes secrets, PII, audio and raw SIP. |
@@ -173,4 +173,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.20.6.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.21.0.

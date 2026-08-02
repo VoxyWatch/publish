@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.21.0] — 2026-08-02
+
+### Added — official MCP, native ADK workflow and local API documentation
+- The remote MCP endpoint now uses the official Model Context Protocol TypeScript SDK while retaining VoxyWatch scopes, redaction, bounded results, opaque call references and content-free audit.
+- The optional loopback sidecar now runs portal-selected specialist handoffs as a native, token-free Google ADK workflow with verifiable evidence citations and no action executor.
+- MCP tool arguments and agentic analysis requests now use compile-once JSON Schema validation with errors that never echo submitted values.
+- Administrators can browse the bundled OpenAPI contract at `/api/docs`; Swagger UI uses local assets, disables its online validator and cannot execute requests.
+- Heplify remote probes remain an evaluated future option and are not installed or required by this release.
+
 ## [3.20.6] — 2026-08-02
 
 ### Changed — controlled external dependencies

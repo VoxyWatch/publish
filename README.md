@@ -64,7 +64,7 @@ compatible clients. It uses the portal listener; **do not open a separate MCP po
 
 - Local endpoint: `http://127.0.0.1:3080/mcp`
 - Remote endpoint: `https://YOUR-VOXYWATCH-HOST/mcp` through the existing reverse proxy on TCP 443
-- Protocol/transport: MCP `2025-11-25`, stateless Streamable HTTP JSON responses
+- Protocol/transport: official MCP TypeScript SDK, protocol `2025-11-25`, stateless Streamable HTTP JSON responses
 - Authentication: scoped VoxyWatch API key, or OAuth access token validated with issuer, audience and JWKS
 - Scopes: `mcp:read`, `mcp:traffic`, `mcp:incidents`; `mcp:sensitive` is an additional explicit opt-in
 
@@ -189,7 +189,7 @@ Audio retention is **measured, not guessed** (hours of recoverable audio + write
 ### 🔗 MCP gateway — your voice network, exposed to *your* agents
 VoxyWatch ships a **Model Context Protocol gateway**: connect ChatGPT, Claude, Codex or another compatible client locally or remotely and query live traffic, health, KPIs, trunk status, CDRs, incidents, baselines, forecasts and Flash Call evidence through 12 read-only scoped tools. API-key or OAuth authentication, redaction, bounded results and local audit keep access explicit. [Read the MCP Server guide](MCP_SERVER.md).
 
-VoxyWatch v3 also ships a native **agentic runtime** foundation: `voxywatch-agentic.service`, an ADK-ready loopback sidecar with a Task Orchestrator and specialists for SIP, fraud, Flash Calls, traffic analytics, platform health and release status. It is installed and updated with every signed release, disabled by default on fresh installs, visible/controllable from Settings -> Diagnostics for admins, and uses the authenticated read-only Agent tools API instead of database internals or SBC control.
+VoxyWatch v3 also ships a native **agentic runtime** foundation: `voxywatch-agentic.service`, a loopback-only Google ADK workflow with a Task Orchestrator and specialists for SIP, fraud, Flash Calls, traffic analytics, platform health and release status. The portal selects typed handoffs and supplies bounded evidence; ADK runs them without LLM tokens and never receives database credentials, media or SBC control. It is disabled by default and visible/controllable from Settings -> Diagnostics for admins.
 
 Support can export an authenticated, read-only **sanitized ticket bundle** with version, fault domain, component
 status, metrics, dependencies and input/process/output signals. It uses a strict allowlist and excludes secrets,
@@ -257,7 +257,7 @@ PII, audio and raw SIP before the JSON can be attached to a ticket.
 
 ### 🔌 Integration API
 - A read-only, versioned REST API (**`/api/v1`**) for billing and monitoring systems: CDR search, single CDR, Call Insight Audio/RTP Expert, SIP-trace JSON, PCAP and audio.
-- **API keys** (hashed, scoped: `cdr:read` / `trace:read` / `audio:read`), per-key **IP allowlists** and **rate limits**, a stable public CDR schema decoupled from internals, RFC 9457 `problem+json` errors and a published OpenAPI spec.
+- **API keys** (hashed, scoped: `cdr:read` / `trace:read` / `audio:read`), per-key **IP allowlists** and **rate limits**, a stable public CDR schema decoupled from internals, RFC 9457 `problem+json` errors, a published OpenAPI spec and bundled admin-only Swagger UI at `/api/docs`.
 - **Platform readiness** in Settings -> Diagnostics combines health, configuration, update safety, heavy jobs, AI troubleshooting context and hardware fit, then shows guided actions with priority, likely fault domain, confidence and next step. Each CDR carries a deterministic quality score for faster triage.
 
 ### 🔐 Security & access control

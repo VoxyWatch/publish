@@ -1,24 +1,26 @@
 {
-  "version": "3.29.1",
+  "version": "3.30.0",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.29.1/voxywatch-v3.29.1-linux-x64.tar.gz",
-    "sha256": "78de85b2327f6658abb9e80606740dc468a5bdb7829b7f675e2e3a19fcb69613",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.29.1/voxywatch-v3.29.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.30.0/voxywatch-v3.30.0-linux-x64.tar.gz",
+    "sha256": "be50c0fc5a3b5092df24ae0422e63c0484dae17ee80558b978479921ca6eb239",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.30.0/voxywatch-v3.30.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "current validated Caddy release",
-    "Updated the controlled fresh-install Caddy pin from 2.11.3 to 2.11.4 after the live demo inventory and Caddy's official release page confirmed the newer securit",
-    "Normal VoxyWatch updates still preserve the customer's installed Caddy version and do not apply this external dependency change automatically."
+    "native agent outcomes and durable sessions",
+    "Privacy and compatibility",
+    "Agentic investigations now use provider-neutral outcome contracts and an independent, token-free grader for grounding, specialist coverage, safe non-execution a",
+    "Each run records a local redacted lifecycle and a reproducible fingerprint of the VoxyWatch, agent, prompt, tool-catalog and outcome-catalog versions."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "current validated Caddy release",
-    "Updated the controlled fresh-install Caddy pin from 2.11.3 to 2.11.4 after live inventory and the official release page confirmed the newer security-patch relea",
-    "Normal VoxyWatch updates still preserve the customer's installed Caddy version and never trigger this external dependency change automatically."
+    "native agent outcomes and durable sessions",
+    "Safety and compatibility",
+    "Added provider-neutral outcome contracts for SIP, fraud, flash calls, traffic, platform, release and combined investigations, plus a separate rubric for determi",
+    "Added an independent token-free grader for evidence grounding, specialist coverage, safe non-execution and bounded results."
   ]
 }

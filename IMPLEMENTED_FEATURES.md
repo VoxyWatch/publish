@@ -132,6 +132,8 @@ can be added as JSON.
   LLM tokens and returns structured findings grounded in `ev_*` evidence.
 - Read-only agent context/tools, redacted traces, prompt-injection canaries and
   deterministic release evaluations.
+- Provider-neutral outcome rubrics, independent deterministic grading, durable redacted session events and
+  reproducible execution fingerprints, implemented locally without an external managed-agent service.
 - Policy-gated decision proposals and operator feedback. High-risk actions
   require admin approval; graduation is never automatic.
 

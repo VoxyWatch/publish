@@ -765,7 +765,7 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
   fi
   apt-get update >/dev/null 2>&1 || err "Could not refresh package metadata for the controlled dependency operation"
   if [ "$HTTPS_MODE" != "legacy" ]; then
-    CADDY_VERSION="2.11.3"
+    CADDY_VERSION="2.11.4"
     if [ ! -f /usr/share/keyrings/caddy-stable-archive-keyring.gpg ]; then
       curl -1fsSL 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' \
         | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg \

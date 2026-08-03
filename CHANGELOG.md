@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.29.1] — 2026-08-02
+
+### Security — current validated Caddy release
+- Updated the controlled fresh-install Caddy pin from 2.11.3 to 2.11.4 after the live demo inventory and Caddy's official release page confirmed the newer security-patch release.
+- Normal VoxyWatch updates still preserve the customer's installed Caddy version and do not apply this external dependency change automatically.
+
 ## [3.29.0] — 2026-08-02
 
 ### Added — HTTPS-only deployments

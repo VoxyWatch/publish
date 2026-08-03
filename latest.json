@@ -1,26 +1,24 @@
 {
-  "version": "3.29.0",
+  "version": "3.29.1",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.29.0/voxywatch-v3.29.0-linux-x64.tar.gz",
-    "sha256": "2585038903bf1455465f9e3def6f231d75b74881914d064623f86bda2b68a6f7",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.29.0/voxywatch-v3.29.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.29.1/voxywatch-v3.29.1-linux-x64.tar.gz",
+    "sha256": "78de85b2327f6658abb9e80606740dc468a5bdb7829b7f675e2e3a19fcb69613",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.29.1/voxywatch-v3.29.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "HTTPS-only deployments",
-    "Upgrade safety",
-    "Fresh installations now offer automatic public HTTPS for a DNS domain or private HTTPS backed by Caddy's internal CA, both on TCP 443.",
-    "Managed installations keep the VoxyWatch backend on loopback and use Caddy for certificates, renewal, compression and HTTP-to-HTTPS redirects."
+    "current validated Caddy release",
+    "Updated the controlled fresh-install Caddy pin from 2.11.3 to 2.11.4 after the live demo inventory and Caddy's official release page confirmed the newer securit",
+    "Normal VoxyWatch updates still preserve the customer's installed Caddy version and do not apply this external dependency change automatically."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "HTTPS-only deployments",
-    "Security and upgrade safety",
-    "Fresh installations now offer two managed Caddy modes on TCP 443: automatic public certificates for a DNS domain, or a private certificate issued by Caddy's int",
-    "The managed Node.js backend binds to loopback, while Caddy provides TLS termination, certificate renewal, compression and HTTP-to-HTTPS redirection."
+    "current validated Caddy release",
+    "Updated the controlled fresh-install Caddy pin from 2.11.3 to 2.11.4 after live inventory and the official release page confirmed the newer security-patch relea",
+    "Normal VoxyWatch updates still preserve the customer's installed Caddy version and never trigger this external dependency change automatically."
   ]
 }

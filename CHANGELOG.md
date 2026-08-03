@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.30.0] — 2026-08-02
+
+### Added — native agent outcomes and durable sessions
+- Agentic investigations now use provider-neutral outcome contracts and an independent, token-free grader for grounding, specialist coverage, safe non-execution and bounded results.
+- Each run records a local redacted lifecycle and a reproducible fingerprint of the VoxyWatch, agent, prompt, tool-catalog and outcome-catalog versions.
+- Administrators can inspect bounded session history and the outcome pass rate from the API and Diagnostics.
+
+### Privacy and compatibility
+- The feature adds no managed-agent service, external port, credential, dependency, scheduler or common permission layer.
+- The local 0600 store keeps only bounded metadata; it excludes tasks, prompts, raw findings, SIP/RTP, phone numbers, IP addresses, Call-IDs and credentials. A storage failure cannot stop an investigation.
+
 ## [3.29.1] — 2026-08-02
 
 ### Security — current validated Caddy release

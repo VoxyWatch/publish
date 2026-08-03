@@ -1,24 +1,26 @@
 {
-  "version": "3.28.0",
+  "version": "3.29.0",
   "release_date": "2026-08-02",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.28.0/voxywatch-v3.28.0-linux-x64.tar.gz",
-    "sha256": "b0a23b9880d953ef099d6ead2492fa1b805b9e53aee954dae3b842c6de575e4f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.28.0/voxywatch-v3.28.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.29.0/voxywatch-v3.29.0-linux-x64.tar.gz",
+    "sha256": "2585038903bf1455465f9e3def6f231d75b74881914d064623f86bda2b68a6f7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.29.0/voxywatch-v3.29.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "telemetry belongs in Diagnostics",
-    "Moved the complete Diagnostics & Telemetry card from General to Diagnostics, including Sentry/adoption consent, privacy details, network destinations and the di",
-    "Diagnostics now provides its own save action for this setting while preserving the existing value, permissions and immediate runtime behavior."
+    "HTTPS-only deployments",
+    "Upgrade safety",
+    "Fresh installations now offer automatic public HTTPS for a DNS domain or private HTTPS backed by Caddy's internal CA, both on TCP 443.",
+    "Managed installations keep the VoxyWatch backend on loopback and use Caddy for certificates, renewal, compression and HTTP-to-HTTPS redirects."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "telemetría dentro de Diagnostics",
-    "Se movió completa la tarjeta Diagnostics & Telemetry desde General hacia Diagnostics, incluido el consentimiento de Sentry/telemetría anónima, el detalle de",
-    "Diagnostics ahora incluye su propio botón para guardar este ajuste; el valor, permisos y aplicación inmediata permanecen sin cambios."
+    "HTTPS-only deployments",
+    "Security and upgrade safety",
+    "Fresh installations now offer two managed Caddy modes on TCP 443: automatic public certificates for a DNS domain, or a private certificate issued by Caddy's int",
+    "The managed Node.js backend binds to loopback, while Caddy provides TLS termination, certificate renewal, compression and HTTP-to-HTTPS redirection."
   ]
 }

@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.29.0] — 2026-08-02
+
+### Added — HTTPS-only deployments
+- Fresh installations now offer automatic public HTTPS for a DNS domain or private HTTPS backed by Caddy's internal CA, both on TCP 443.
+- Managed installations keep the VoxyWatch backend on loopback and use Caddy for certificates, renewal, compression and HTTP-to-HTTPS redirects.
+- General, Security and Diagnostics now report the effective secure entry point without exposing an HTTPS disable switch or internal listener setting.
+
+### Upgrade safety
+- Normal signed updates preserve the installed Caddy package and configuration. Adopting or changing managed HTTPS on an older installation requires the explicit controlled dependency refresh path.
+- The installer pins validated Caddy 2.11.3, refuses to overwrite unrelated Caddy configuration and restores the previous proxy configuration if an update fails.
+
 ## [3.28.0] — 2026-08-02
 
 ### Changed — telemetry belongs in Diagnostics

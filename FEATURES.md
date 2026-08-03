@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.28.0** (2026-08-02).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.29.0** (2026-08-02).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -82,6 +82,7 @@
 | **MCP gateway** | ChatGPT, Claude, Codex and other MCP clients get 13 read-only evidence/setup-status tools plus one separately gated initial-setup tool. OAuth/API-key scopes, dry-run, confirmation, secret rejection, redaction, bounds and content-free audit keep access explicit. [MCP guide](MCP_SERVER.md) · [setup channels](INITIAL_SETUP_CHANNELS.md). |
 | **License CLI** | Root administrators can validate and atomically replace a product license without portal access; the command protects process/log output, restarts only the portal and rolls back on activation failure. [Command guide](LICENSE_CLI.md). |
 | **Secure LLM credentials** | Per-provider credentials can use encrypted web storage, protected Linux/systemd files, or environment/`_FILE` injection. The browser receives only status and the final four characters for web-managed keys. [Credential guide](AI_CREDENTIALS.md). |
+| **Managed HTTPS** | Fresh installs use TCP 443 through Caddy with either automatic public certificates or a private internal CA; the Node backend remains loopback-only. [Deployment guide](HTTPS_CONFIGURATION.md). |
 | **Credential-aware model discovery** | Prepare a managed provider with conservative unverified presets before adding a key, then replace them with the live account-authorized catalog after configuration. Custom Ollama-style servers use the exact model name configured by their administrator. |
 | **Per-user contextual LLM** | Built-in LLM keeps private conversation sessions per user, lets operators reopen/delete history, applies each user's profile prompt, infers reply language from the latest operator message, receives a sanitized hint of the current UI view/call/incident, and supports OpenAI, Anthropic, Google Gemini, OpenRouter, OpenRouter Free, DeepSeek, Groq, Perplexity Sonar and customer-owned Ollama, vLLM or LM Studio servers. |
 | **Grounded AI context and finding memory** | A deterministic-first Context Engine combines bounded chat history, current redacted evidence, optional administrator-confirmed organization name/type and just-in-time VoxyWatch/RFC references. A private local ledger remembers recurring hypotheses and human outcomes without raw SIP, audio, credentials or personal identity; fresh evidence always wins. [Context Engine guide](docs/ai/CONTEXT_ENGINE.md). |
@@ -175,4 +176,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.28.0.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.29.0.

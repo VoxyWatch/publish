@@ -213,6 +213,8 @@ fi
 # ── Parse arguments ───────────────────────────────────────────────────────────
 VERSION=""
 PORT_ARG=""
+HTTPS_MODE_ARG=""
+HTTPS_HOST_ARG=""
 UPDATE_MODE=0
 REFRESH_EXTERNAL_DEPS=0
 _need_arg() {
@@ -225,6 +227,8 @@ while [ $# -gt 0 ]; do
     --refresh-external-dependencies) REFRESH_EXTERNAL_DEPS=1; shift ;;
     --version) _need_arg "$@"; VERSION="$2"; shift 2 ;;
     --port)    _need_arg "$@"; PORT_ARG="$2"; shift 2 ;;
+    --https-mode) _need_arg "$@"; HTTPS_MODE_ARG="$2"; shift 2 ;;
+    --https-host) _need_arg "$@"; HTTPS_HOST_ARG="$2"; shift 2 ;;
     --service-control) _need_arg "$@"; SERVICE_CONTROL_ARG="$2"; shift 2 ;;
     --replica-dsn) _need_arg "$@"; REPLICA_DSN="$2"; shift 2 ;;
     *) err "Unknown option: $1" ;;
@@ -232,6 +236,11 @@ while [ $# -gt 0 ]; do
 done
 [ "$REFRESH_EXTERNAL_DEPS" = "0" ] || [ "$UPDATE_MODE" = "1" ] \
   || err "--refresh-external-dependencies requires --update and a planned maintenance window"
+[ -z "$HTTPS_MODE_ARG" ] || [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ] \
+  || err "Changing HTTPS mode during an update requires --refresh-external-dependencies"
+[ -z "$HTTPS_HOST_ARG" ] || [ -n "$HTTPS_MODE_ARG" ] \
+  || err "--https-host requires --https-mode public or --https-mode internal"
+[ "$HTTPS_MODE_ARG" != "legacy" ] || err "--https-mode accepts only public or internal"
 
 # P2 (opt-in): réplica de lectura. Si se pasa --replica-dsn o está la env VOXYWATCH_DB_REPLICA_DSN,
 # el portal enruta sus LECTURAS (UI/métricas/CDR) a la réplica; escrituras e ingesta van al primario.
@@ -305,6 +314,61 @@ if ! echo "$PORT" | grep -qE '^[0-9]+$' || [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65
   PORT="3080"
 fi
 ok "Web portal port: ${PORT}"
+echo ""
+
+# Public domains use Caddy Automatic HTTPS. Private hostnames/IPs use Caddy's
+# internal CA. HTTPS is not optional on fresh installs; PORT remains a loopback
+# backend and is never the operator-facing URL.
+_valid_https_host() {
+  [[ "$1" =~ ^([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9.-]*[A-Za-z0-9])$ ]] \
+    && [[ "$1" != *..* ]] && [[ "$1" != http://* ]] && [[ "$1" != https://* ]]
+}
+_detected_private_host() {
+  local candidate
+  candidate="$(hostname -f 2>/dev/null || true)"
+  _valid_https_host "$candidate" && [ "$candidate" != localhost ] && { printf '%s' "$candidate"; return; }
+  hostname -I 2>/dev/null | awk '{print $1}'
+}
+
+HTTPS_MODE=""
+HTTPS_HOST=""
+if [ "$UPDATE_MODE" = "1" ] && [ -f "$CONF_FILE" ] && [ -z "$HTTPS_MODE_ARG" ]; then
+  HTTPS_MODE="$(sed -n 's/^HTTPS_MODE=//p' "$CONF_FILE" | tail -1)"
+  HTTPS_HOST="$(sed -n 's/^HTTPS_HOST=//p' "$CONF_FILE" | tail -1)"
+elif [ -n "$HTTPS_MODE_ARG" ]; then
+  HTTPS_MODE="$HTTPS_MODE_ARG"
+  HTTPS_HOST="$HTTPS_HOST_ARG"
+else
+  HTTPS_MODE="internal"
+  HTTPS_HOST="$HTTPS_HOST_ARG"
+  if tty_ok; then
+    echo -e "  ${BOLD}HTTPS access${NC}"
+    echo "  1) Public domain — automatic publicly trusted certificate"
+    echo "  2) Private host/IP — Caddy internal CA (clients trust its root once)"
+    HTTPS_PICK="$(read_countdown 15 "HTTPS mode [1/2, default 2]")"
+    [ "$HTTPS_PICK" = "1" ] && HTTPS_MODE="public"
+    HTTPS_HOST="$(read_countdown 30 "HTTPS hostname or IP")"
+  fi
+fi
+[ -n "$HTTPS_MODE" ] || HTTPS_MODE="legacy"
+case "$HTTPS_MODE" in public|internal|legacy) ;; *) err "Invalid HTTPS mode '${HTTPS_MODE}': use public or internal" ;; esac
+if [ "$UPDATE_MODE" = "1" ] && [ -n "$PORT_ARG" ] && [ "$HTTPS_MODE" != "legacy" ] \
+   && [ "$REFRESH_EXTERNAL_DEPS" != "1" ]; then
+  err "Changing the internal portal port behind managed HTTPS requires --refresh-external-dependencies"
+fi
+if [ "$HTTPS_MODE" != "legacy" ]; then
+  if [ -z "$HTTPS_HOST" ] && [ "$HTTPS_MODE" = "public" ]; then
+    err "Public HTTPS requires --https-host with a DNS name that points to this server"
+  fi
+  [ -n "$HTTPS_HOST" ] || HTTPS_HOST="$(_detected_private_host)"
+  _valid_https_host "$HTTPS_HOST" || err "Invalid HTTPS hostname/IP '${HTTPS_HOST}'"
+  if [ "$HTTPS_MODE" = "public" ]; then
+    [[ "$HTTPS_HOST" == *.* ]] || err "Public HTTPS requires a fully-qualified domain name"
+  fi
+  ok "HTTPS: ${HTTPS_MODE} on https://${HTTPS_HOST}:443"
+else
+  warn "Legacy installation has no managed HTTPS mode; access is preserved until an explicit controlled HTTPS migration"
+fi
 echo ""
 
 # ── Service control permission (enabled by default per install/update) ────────
@@ -451,6 +515,10 @@ ROLLBACK_ROOT="/var/backups/voxywatch"
 LICENSE_CLI_LINK_WAS_PRESENT=0
 AI_KEY_CLI_LINK_WAS_PRESENT=0
 SETUP_CLI_LINK_WAS_PRESENT=0
+CADDY_CONFIG_WAS_PRESENT=0
+CADDY_WAS_ACTIVE=0
+CADDY_WAS_INSTALLED=0
+command -v caddy >/dev/null 2>&1 && CADDY_WAS_INSTALLED=1 || true
 rollback_update() {
   local reason="${1:-unexpected_error}"
   [ "$ROLLBACK_READY" = "1" ] || return 0
@@ -462,6 +530,12 @@ rollback_update() {
     [ "$LICENSE_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-license
     [ "$AI_KEY_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-ai-key
     [ "$SETUP_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-setup
+    [ "$CADDY_CONFIG_WAS_PRESENT" = "1" ] || rm -f /etc/caddy/Caddyfile
+    if [ "$CADDY_WAS_ACTIVE" = "1" ]; then
+      systemctl reload-or-restart caddy 2>/dev/null || true
+    else
+      systemctl disable --now caddy 2>/dev/null || true
+    fi
     systemctl daemon-reload 2>/dev/null || true
     systemctl start voxywatch-sniffer 2>/dev/null || true
     systemctl start voxywatch 2>/dev/null || true
@@ -482,6 +556,7 @@ rollback_unexpected() {
 }
 
 if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; then
+  systemctl is-active --quiet caddy 2>/dev/null && CADDY_WAS_ACTIVE=1 || true
   if [ -e /usr/local/sbin/voxywatch-license ] || [ -L /usr/local/sbin/voxywatch-license ]; then
     LICENSE_CLI_LINK_WAS_PRESENT=1
   fi
@@ -509,6 +584,10 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
     [ -e "/${_p}" ] && _rollback_paths+=("$_p")
   done
   [ -e /usr/local/sbin/voxywatch-setup ] && _rollback_paths+=("usr/local/sbin/voxywatch-setup")
+  if [ -e /etc/caddy/Caddyfile ]; then
+    CADDY_CONFIG_WAS_PRESENT=1
+    _rollback_paths+=("etc/caddy/Caddyfile")
+  fi
   tar --exclude='opt/voxywatch/agentic/.venv' --exclude='opt/voxywatch/srs-venv' \
     -C / -czf "$ROLLBACK_ARCHIVE" "${_rollback_paths[@]}" \
     || err "Could not create the pre-update rollback snapshot"
@@ -604,7 +683,7 @@ if [ -d "${EXTRACTED}/docs/ai" ]; then
     install -o root -g voxywatch -m 640 "$f" "${INSTALL_DIR}/docs/ai/${rel}"
   done
 fi
-for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md INITIAL_SETUP_CHANNELS.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md AI_CREDENTIALS.md; do
+for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md INITIAL_SETUP_CHANNELS.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md AI_CREDENTIALS.md HTTPS_CONFIGURATION.md; do
   [ -f "${EXTRACTED}/docs/${operational_doc}" ] || continue
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/docs/${operational_doc}" \
@@ -653,6 +732,8 @@ cat > "$CONF_FILE" << EOF
 # VoxyWatch configuration
 # Generated by installer on $(date -u '+%Y-%m-%d %H:%M UTC')
 PORT=${PORT}
+HTTPS_MODE=${HTTPS_MODE}
+HTTPS_HOST=${HTTPS_HOST}
 VERSION=${VERSION}
 EOF
 chown root:voxywatch "$CONF_FILE"
@@ -683,6 +764,24 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
       | gpg --dearmor -o /etc/apt/trusted.gpg.d/timescaledb.gpg 2>/dev/null || true
   fi
   apt-get update >/dev/null 2>&1 || err "Could not refresh package metadata for the controlled dependency operation"
+  if [ "$HTTPS_MODE" != "legacy" ]; then
+    CADDY_VERSION="2.11.3"
+    if [ ! -f /usr/share/keyrings/caddy-stable-archive-keyring.gpg ]; then
+      curl -1fsSL 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' \
+        | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg \
+        || err "Could not install the official Caddy repository key"
+      curl -1fsSL 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' \
+        -o /etc/apt/sources.list.d/caddy-stable.list \
+        || err "Could not install the official Caddy repository definition"
+      chmod 644 /usr/share/keyrings/caddy-stable-archive-keyring.gpg /etc/apt/sources.list.d/caddy-stable.list
+      apt-get update >/dev/null 2>&1 || err "Could not refresh metadata after adding the official Caddy repository"
+    fi
+    CADDY_PACKAGE_VERSION="$(apt-cache madison caddy 2>/dev/null | awk -v v="$CADDY_VERSION" '$3 ~ ("^" v "([+~-]|$)") {print $3; exit}')"
+    [ -n "$CADDY_PACKAGE_VERSION" ] || err "Validated Caddy ${CADDY_VERSION} is unavailable from the configured repository"
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "caddy=${CADDY_PACKAGE_VERSION}" >/dev/null 2>&1 \
+      || err "Could not install validated Caddy ${CADDY_VERSION}"
+    ok "Caddy ${CADDY_VERSION} installed for managed HTTPS"
+  fi
   if [ "$UPDATE_MODE" = "1" ]; then
     [ -n "$PG_VER" ] || err "Could not identify the existing PostgreSQL major version"
     # Never install the postgresql meta-package during a refresh: that could add
@@ -831,6 +930,8 @@ WorkingDirectory=${DATA_DIR}
 ExecStartPre=/usr/bin/pg_isready -h ${PG_SOCKET_DIR} -p ${PG_PORT} -t 30
 ExecStart=${INSTALL_DIR}/voxywatch-portal
 Environment=PORT=${PORT}
+Environment=VOXYWATCH_BIND_HOST=$([ "$HTTPS_MODE" = "legacy" ] && printf '' || printf '127.0.0.1')
+Environment=VOXYWATCH_HTTPS_MODE=$([ "$HTTPS_MODE" = "legacy" ] && printf '' || printf '%s' "$HTTPS_MODE")
 Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
 Environment=PGHOST=${PG_SOCKET_DIR}
 Environment=PGPORT=${PG_PORT}
@@ -855,6 +956,28 @@ SyslogIdentifier=voxywatch
 [Install]
 WantedBy=multi-user.target
 EOF
+
+# Manage Caddy only for a fresh install or an explicitly requested dependency
+# refresh. Normal signed product updates preserve the installed proxy/version.
+if [ "$HTTPS_MODE" != "legacy" ] && { [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; }; then
+  install -d -o root -g caddy -m 750 /etc/caddy
+  if [ "$CADDY_WAS_INSTALLED" = "1" ] && [ -s /etc/caddy/Caddyfile ] \
+     && ! grep -q '^# Managed by VoxyWatch installer$' /etc/caddy/Caddyfile; then
+    err "An unmanaged Caddy configuration already exists; VoxyWatch will not overwrite it"
+  fi
+  {
+    echo '# Managed by VoxyWatch installer'
+    echo "${HTTPS_HOST} {"
+    [ "$HTTPS_MODE" = "internal" ] && echo '  tls internal'
+    echo "  reverse_proxy 127.0.0.1:${PORT}"
+    echo '  encode zstd gzip'
+    echo '}'
+  } > /etc/caddy/Caddyfile
+  chown root:caddy /etc/caddy/Caddyfile
+  chmod 640 /etc/caddy/Caddyfile
+  caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null \
+    || err "Generated Caddy HTTPS configuration is invalid"
+fi
 
 cat > /etc/systemd/system/voxywatch-sniffer.service << EOF
 [Unit]
@@ -1235,6 +1358,12 @@ ok "Updates: opt-in — the portal notifies you, the admin applies with one clic
 info "Starting services..."
 systemctl start voxywatch-sniffer
 systemctl start voxywatch
+if [ "$HTTPS_MODE" != "legacy" ]; then
+  systemctl enable caddy >/dev/null 2>&1 || err "Caddy could not be enabled"
+  systemctl reload-or-restart caddy >/dev/null 2>&1 || err "Caddy could not load managed HTTPS"
+  systemctl is-active --quiet caddy || err "Caddy HTTPS service is not active"
+  ok "caddy active (${HTTPS_MODE} HTTPS)"
+fi
 
 # v2.0.4: verificar que ambos quedaron activos (un update no debe dejar el sistema
 # abajo). Si alguno no levantó, reintentar una vez y avisar dónde mirar.
@@ -1277,7 +1406,12 @@ echo -e "  ${GREEN}✓ VoxyWatch v${VERSION} installed successfully${NC}"
 echo "══════════════════════════════════════════════"
 echo ""
 echo -e "  ${BOLD}Web portal:${NC}"
-echo -e "  ${CYAN}http://${SERVER_IP}:${PORT}${NC}"
+if [ "$HTTPS_MODE" = "legacy" ]; then
+  echo -e "  ${CYAN}Use the existing HTTPS endpoint${NC}"
+else
+  echo -e "  ${CYAN}https://${HTTPS_HOST}${NC}"
+  [ "$HTTPS_MODE" = "internal" ] && echo "  Private CA: clients must trust Caddy's root certificate once."
+fi
 echo ""
 echo -e "  ${BOLD}Default credentials:${NC}"
 echo "    Username: admin"

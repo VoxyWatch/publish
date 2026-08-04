@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.30.3] — 2026-08-04
+
+### Added — portable SNMP exports for common monitoring systems
+- SNMP Settings now downloads an English SMIv2 MIB suitable for PRTG MIB Importer and standard MIB browsers.
+- Administrators can also export a scalar OID CSV, a Zabbix 7.4 YAML template or a versioned JSON catalog from the same compact selector.
+- Every export follows the configured enterprise base OID and documents the required `.0` scalar instance suffix.
+
+### Improved
+- The SNMP status and download area no longer mixes Spanish text into the default English interface.
+- The MIB now includes module identity, object/notification groups and a compliance statement, validated with an independent SMI parser.
+
 ## [3.30.2] — 2026-08-04
 
 ### Changed — SNMP settings are practical to copy into an NMS

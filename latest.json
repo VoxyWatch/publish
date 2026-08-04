@@ -1,26 +1,26 @@
 {
-  "version": "3.30.2",
+  "version": "3.30.3",
   "release_date": "2026-08-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.30.2/voxywatch-v3.30.2-linux-x64.tar.gz",
-    "sha256": "880edd6a0a5ff81ecc951f083418c1af729ed7e745279801957584d74be83755",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.30.2/voxywatch-v3.30.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.30.3/voxywatch-v3.30.3-linux-x64.tar.gz",
+    "sha256": "22109d89ef9e553c7d68dd086748961a149824cb9ac1ca9f383a02376a89ca3f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.30.3/voxywatch-v3.30.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "SNMP settings are practical to copy into an NMS",
-    "Validation",
-    "Administrators now see the configured v2c/trap communities and SNMPv3 USM keys as plain text in the SNMP editor.",
-    "Read-only viewer/operator sessions continue to receive masked values, and unrelated credentials remain protected."
+    "portable SNMP exports for common monitoring systems",
+    "Improved",
+    "SNMP Settings now downloads an English SMIv2 MIB suitable for PRTG MIB Importer and standard MIB browsers.",
+    "Administrators can also export a scalar OID CSV, a Zabbix 7.4 YAML template or a versioned JSON catalog from the same compact selector."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
+    "portable SNMP exports",
     "Validation",
-    "SNMP communities and SNMPv3 USM keys are visible as plain text in the SNMP editor for administrators, while read-only viewer/operator projections remain masked.",
-    "SNMP Save now round-trips the visible community/key values explicitly and applies version/community changes to the embedded agent immediately.",
-    "Settings security projection tests, SNMP standard tests, invariants and browser save/wire validation."
+    "Settings now offers an English SMIv2 MIB for PRTG and generic MIB browsers, a flat PRTG/generic CSV, an importable Zabbix 7.4 YAML template and a versioned JSON",
+    "All four exports are generated from the same 33-metric runtime catalog, including units, divisors and scalar `.0` instances."
   ]
 }

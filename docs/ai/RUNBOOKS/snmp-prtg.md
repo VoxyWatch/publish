@@ -32,6 +32,23 @@ sniffer, capture, HEP, VoIP, retention and VoxyWatch alarm state.
 Private resource OIDs under the VoxyWatch PEN remain as backward-compatible aliases.
 New NMS configurations should not use them for generic host monitoring.
 
+## Downloads From Settings
+
+Settings → Advanced → SNMP provides four generated exports. They all come from the same
+runtime OID catalog, so names and numeric OIDs cannot drift independently:
+
+- `VOXYWATCH-MIB.mib`: English SMIv2 MIB with module identity, object/notification groups and
+  compliance declarations. In PRTG, convert it with Paessler MIB Importer and add an SNMP
+  Library sensor. PRTG SNMP Custom v2 can also consume supported ASN.1 MIB folders.
+- `voxywatch-snmp-oids.csv`: flat scalar list for PRTG Custom sensors, Nagios-compatible checks,
+  spreadsheets and provisioning scripts. Every scalar already includes its `.0` instance.
+- `voxywatch-zabbix-7.4-snmp.yaml`: importable Zabbix 7.4 template with 33 SNMP agent items.
+  Configure the SNMP interface and credentials on the Zabbix host after importing it.
+- `voxywatch-snmp-catalog.json`: versioned machine-readable catalog for automation and custom NMS adapters.
+
+The MIB intentionally defines VoxyWatch enterprise objects only. Continue using the NMS vendor's
+built-in SNMPv2-MIB and HOST-RESOURCES-MIB support for generic Linux uptime, CPU, RAM and storage.
+
 ## Likely Domains
 
 - `configuration`: bind, allowlist, community, SNMPv3 settings or wrong sensor type.

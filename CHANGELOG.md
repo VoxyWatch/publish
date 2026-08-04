@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.30.2] — 2026-08-04
+
+### Changed — SNMP settings are practical to copy into an NMS
+- Administrators now see the configured v2c/trap communities and SNMPv3 USM keys as plain text in the SNMP editor.
+- Read-only viewer/operator sessions continue to receive masked values, and unrelated credentials remain protected.
+- Save round-trips the visible values, applies community/version changes immediately and allows an administrator to clear obsolete SNMPv3 keys.
+
+### Validation
+- Security projections, SNMP standard OIDs, Settings UI, signed-update invariants and remote SNMP wire behavior were validated.
+
 ## [3.30.1] — 2026-08-03
 
 ### Fixed — Overview no longer appears empty while loading

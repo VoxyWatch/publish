@@ -1,26 +1,26 @@
 {
-  "version": "3.31.0",
+  "version": "3.31.1",
   "release_date": "2026-08-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.31.0/voxywatch-v3.31.0-linux-x64.tar.gz",
-    "sha256": "fddc261502c9d045ec5f1f3e76a735e3f30028c66dda7f26feaeaca6ecd2f2fe",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.31.0/voxywatch-v3.31.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.31.1/voxywatch-v3.31.1-linux-x64.tar.gz",
+    "sha256": "147d722655fadded5a3dc6ff72e6b606561b755c719626b68ec50385b661f9e3",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.31.1/voxywatch-v3.31.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "complete server SNMP telemetry",
+    "SNMP settings now follow the selected security version",
     "Improved",
-    "Added disk read/write throughput, read/write IOPS and cumulative bytes; network RX/TX bandwidth and cumulative bytes; swap usage and exact root-filesystem capac",
-    "The generated MIB, CSV, Zabbix and JSON exports now contain 47 private scalar OIDs with units and scaling metadata."
+    "Common listener settings stay visible while v2c shows Community, v3 shows USM security, and `v2c + v3` shows both authentication cards.",
+    "SNMPv3 progressively shows auth and privacy controls according to `authPriv`, `authNoPriv` or `noAuthNoPriv`, without erasing stored values."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "complete server SNMP telemetry",
-    "Added disk read/write throughput, read/write IOPS, cumulative disk bytes, RX/TX bandwidth, cumulative network bytes, swap usage and exact root-filesystem capaci",
-    "Existing standard SNMPv2-MIB and HOST-RESOURCES-MIB objects remain available; virtual-memory reporting now exposes swap/paged storage instead of duplicating phy",
-    "MIB, CSV, Zabbix and JSON exports are generated from the expanded catalog with units and scaling metadata."
+    "SNMP authentication settings follow the selected version",
+    "Improved",
+    "Common listener fields remain visible while v2c shows only Community, v3 shows only USM security, and `v2c + v3` shows both cards.",
+    "SNMPv3 security level is also progressive: `authPriv` shows auth+privacy, `authNoPriv` hides privacy, and `noAuthNoPriv` hides both key groups without erasing s"
   ]
 }

@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.31.1] — 2026-08-04
+
+### Fixed — SNMP settings now follow the selected security version
+- Common listener settings stay visible while v2c shows Community, v3 shows USM security, and `v2c + v3` shows both authentication cards.
+- SNMPv3 progressively shows auth and privacy controls according to `authPriv`, `authNoPriv` or `noAuthNoPriv`, without erasing stored values.
+- Fixed a CSS priority conflict that kept the SNMPv3 card visible even when v2c was selected.
+
+### Improved
+- Bind address visibly defaults to `0.0.0.0`; concise help explains interface exposure and that an empty NMS allowlist accepts any source.
+
 ## [3.31.0] — 2026-08-04
 
 ### Added — complete server SNMP telemetry

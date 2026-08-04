@@ -24,13 +24,16 @@ VoxyWatch exposes:
   - root filesystem: row 3 of `1.3.6.1.2.1.25.2.3.1`
   - aggregate CPU load: `1.3.6.1.2.1.25.3.3.1.2.1`
 - VoxyWatch service/capture/VoIP metrics under the private PEN `1.3.6.1.4.1.65985`.
+- Portable host I/O extensions under `1.3.6.1.4.1.65985.4`: disk read/write MiB/s,
+  read/write IOPS and counters; network RX/TX Mbit/s and counters; swap and exact root capacity.
 
 PRTG should use standard SNMP System Uptime, Memory, Disk Free and CPU Load sensors for
 the Linux host. Use SNMP Custom/Library sensors with `VOXYWATCH-MIB` only for portal,
 sniffer, capture, HEP, VoIP, retention and VoxyWatch alarm state.
 
-Private resource OIDs under the VoxyWatch PEN remain as backward-compatible aliases.
-New NMS configurations should not use them for generic host monitoring.
+Use standard OIDs for generic uptime, CPU, RAM and filesystem occupancy. Use the VoxyWatch
+resource OIDs for rates/counters that do not have a uniformly portable scalar across common NMS tools.
+Rate OIDs ending in `X100` must be divided by 100; the generated exports carry that divisor.
 
 ## Downloads From Settings
 
@@ -42,12 +45,15 @@ runtime OID catalog, so names and numeric OIDs cannot drift independently:
   Library sensor. PRTG SNMP Custom v2 can also consume supported ASN.1 MIB folders.
 - `voxywatch-snmp-oids.csv`: flat scalar list for PRTG Custom sensors, Nagios-compatible checks,
   spreadsheets and provisioning scripts. Every scalar already includes its `.0` instance.
-- `voxywatch-zabbix-7.4-snmp.yaml`: importable Zabbix 7.4 template with 33 SNMP agent items.
+- `voxywatch-zabbix-7.4-snmp.yaml`: importable Zabbix 7.4 template with 47 SNMP agent items.
   Configure the SNMP interface and credentials on the Zabbix host after importing it.
 - `voxywatch-snmp-catalog.json`: versioned machine-readable catalog for automation and custom NMS adapters.
 
 The MIB intentionally defines VoxyWatch enterprise objects only. Continue using the NMS vendor's
 built-in SNMPv2-MIB and HOST-RESOURCES-MIB support for generic Linux uptime, CPU, RAM and storage.
+
+The Base OID shown in Settings is informational and read-only. New installations use VoxyWatch's
+assigned PEN; an older installation that already used another tree keeps it for sensor compatibility.
 
 ## Likely Domains
 

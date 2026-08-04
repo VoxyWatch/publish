@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.31.0] — 2026-08-04
+
+### Added — complete server SNMP telemetry
+- Added disk read/write throughput, read/write IOPS and cumulative bytes; network RX/TX bandwidth and cumulative bytes; swap usage and exact root-filesystem capacity.
+- The generated MIB, CSV, Zabbix and JSON exports now contain 47 private scalar OIDs with units and scaling metadata.
+- Standard SNMPv2-MIB and HOST-RESOURCES-MIB monitoring remains available for uptime, CPU, RAM and storage.
+
+### Improved
+- Base OID is now a visible, copyable read-only reference. Existing legacy trees are preserved, but attempted portal/API edits are ignored.
+- HOST-RESOURCES-MIB virtual memory now reports swap/paged storage rather than duplicating physical RAM.
+- Counter64 values use correct ASN.1 encoding and are covered by a permanent live UDP test.
+
 ## [3.30.3] — 2026-08-04
 
 ### Added — portable SNMP exports for common monitoring systems

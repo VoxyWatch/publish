@@ -1,26 +1,26 @@
 {
-  "version": "3.30.3",
+  "version": "3.31.0",
   "release_date": "2026-08-03",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.30.3/voxywatch-v3.30.3-linux-x64.tar.gz",
-    "sha256": "22109d89ef9e553c7d68dd086748961a149824cb9ac1ca9f383a02376a89ca3f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.30.3/voxywatch-v3.30.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.31.0/voxywatch-v3.31.0-linux-x64.tar.gz",
+    "sha256": "fddc261502c9d045ec5f1f3e76a735e3f30028c66dda7f26feaeaca6ecd2f2fe",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.31.0/voxywatch-v3.31.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "portable SNMP exports for common monitoring systems",
+    "complete server SNMP telemetry",
     "Improved",
-    "SNMP Settings now downloads an English SMIv2 MIB suitable for PRTG MIB Importer and standard MIB browsers.",
-    "Administrators can also export a scalar OID CSV, a Zabbix 7.4 YAML template or a versioned JSON catalog from the same compact selector."
+    "Added disk read/write throughput, read/write IOPS and cumulative bytes; network RX/TX bandwidth and cumulative bytes; swap usage and exact root-filesystem capac",
+    "The generated MIB, CSV, Zabbix and JSON exports now contain 47 private scalar OIDs with units and scaling metadata."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "portable SNMP exports",
-    "Validation",
-    "Settings now offers an English SMIv2 MIB for PRTG and generic MIB browsers, a flat PRTG/generic CSV, an importable Zabbix 7.4 YAML template and a versioned JSON",
-    "All four exports are generated from the same 33-metric runtime catalog, including units, divisors and scalar `.0` instances."
+    "complete server SNMP telemetry",
+    "Added disk read/write throughput, read/write IOPS, cumulative disk bytes, RX/TX bandwidth, cumulative network bytes, swap usage and exact root-filesystem capaci",
+    "Existing standard SNMPv2-MIB and HOST-RESOURCES-MIB objects remain available; virtual-memory reporting now exposes swap/paged storage instead of duplicating phy",
+    "MIB, CSV, Zabbix and JSON exports are generated from the expanded catalog with units and scaling metadata."
   ]
 }

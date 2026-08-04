@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.30.1] — 2026-08-03
+
+### Fixed — Overview no longer appears empty while loading
+- KPIs and trend charts now paint from small rollup endpoints without waiting for the CDR detail sample.
+- Initial detail loading drops from 20,000 CDRs to 1,000; IP/client searches and the optional detail table expand to a bounded 5,000 only when needed.
+- Failed HTTP responses no longer become false zero dashboards. The portal keeps the last good sample, retries once and shows an accessible loading/error state.
+
 ## [3.30.0] — 2026-08-02
 
 ### Added — native agent outcomes and durable sessions

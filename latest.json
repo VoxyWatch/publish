@@ -1,26 +1,26 @@
 {
-  "version": "3.32.0",
+  "version": "3.32.1",
   "release_date": "2026-08-05",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.32.0/voxywatch-v3.32.0-linux-x64.tar.gz",
-    "sha256": "4548460f2ec3420773374b0aa71f28ab805fa19eb5d3441153e50edb0a41b6ba",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.32.0/voxywatch-v3.32.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.32.1/voxywatch-v3.32.1-linux-x64.tar.gz",
+    "sha256": "025f3e0cf7fad770a01c67f6b32fdfe8b532b525cdcfa0524c90e25193f720d4",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.32.1/voxywatch-v3.32.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "secure readiness and configuration writes",
-    "Compatibility",
-    "Platform readiness reports an HTTP backend exposed beyond loopback as a critical security condition and directs the operator to managed public or internal HTTPS",
-    "SNMP health is included in Operational Health and the privacy-safe Support Bundle with sanitized error codes, timestamps and request/rejection counters; credent"
+    "controlled HTTPS migration recognizes early VoxyWatch proxies",
+    "The installer recognizes the exact early VoxyWatch Caddy configuration consisting only of the requested host and loopback reverse proxy, even when it predates t",
+    "Recognition stays fail-closed: a different host, port or any additional directive is treated as customer-owned and is never overwritten.",
+    "Controlled migrations from legacy ingress to managed public/internal HTTPS can now complete without weakening unrelated Caddy protection."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "secure readiness and configuration writes",
-    "Compatibility",
-    "Platform readiness now reports an HTTP backend exposed beyond loopback as a critical security condition and guides operators toward managed public or internal H",
-    "SNMP health is now visible in Operational Health and the privacy-safe Support Bundle with sanitized error codes, recent failure time, and accepted/rejected requ"
+    "controlled HTTPS migration recognizes early VoxyWatch proxies",
+    "The installer now recognizes the exact legacy VoxyWatch Caddy shape used by early/demo installations (`host` plus loopback reverse proxy) even when it predates",
+    "Recognition is intentionally fail-closed: a different host, port or any additional directive remains unmanaged and is never overwritten.",
+    "This fixes controlled `legacy` to `public/internal` migrations without weakening protection for customer-owned Caddy configurations."
   ]
 }

@@ -959,12 +959,29 @@ SyslogIdentifier=voxywatch
 WantedBy=multi-user.target
 EOF
 
+# A few pre-managed demo/early installs used the exact VoxyWatch reverse-proxy
+# shape before the ownership marker existed. Recognize only that narrow shape;
+# any extra site/directive remains unmanaged and fails closed.
+_caddy_is_legacy_voxywatch() {
+  local file="${1:-/etc/caddy/Caddyfile}" normalized expected
+  [ -f "$file" ] || return 1
+  normalized="$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e '/^$/d' "$file")"
+  for backend in "localhost:${PORT}" "127.0.0.1:${PORT}"; do
+    expected="$(printf '%s {\nreverse_proxy %s\n}' "$HTTPS_HOST" "$backend")"
+    [ "$normalized" = "$expected" ] && return 0
+    expected="$(printf '%s {\nreverse_proxy %s\nencode zstd gzip\n}' "$HTTPS_HOST" "$backend")"
+    [ "$normalized" = "$expected" ] && return 0
+  done
+  return 1
+}
+
 # Manage Caddy only for a fresh install or an explicitly requested dependency
 # refresh. Normal signed product updates preserve the installed proxy/version.
 if [ "$HTTPS_MODE" != "legacy" ] && { [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; }; then
   install -d -o root -g caddy -m 750 /etc/caddy
   if [ "$CADDY_WAS_INSTALLED" = "1" ] && [ -s /etc/caddy/Caddyfile ] \
-     && ! grep -q '^# Managed by VoxyWatch installer$' /etc/caddy/Caddyfile; then
+     && ! grep -q '^# Managed by VoxyWatch installer$' /etc/caddy/Caddyfile \
+     && ! _caddy_is_legacy_voxywatch /etc/caddy/Caddyfile; then
     err "An unmanaged Caddy configuration already exists; VoxyWatch will not overwrite it"
   fi
   {

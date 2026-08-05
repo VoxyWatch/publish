@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.32.1] — 2026-08-05
+
+### Fixed — controlled HTTPS migration recognizes early VoxyWatch proxies
+- The installer recognizes the exact early VoxyWatch Caddy configuration consisting only of the requested host and loopback reverse proxy, even when it predates the ownership marker.
+- Recognition stays fail-closed: a different host, port or any additional directive is treated as customer-owned and is never overwritten.
+- Controlled migrations from legacy ingress to managed public/internal HTTPS can now complete without weakening unrelated Caddy protection.
+
 ## [3.32.0] — 2026-08-05
 
 ### Fixed — secure readiness and configuration writes

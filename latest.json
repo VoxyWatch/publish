@@ -1,26 +1,26 @@
 {
-  "version": "3.31.1",
-  "release_date": "2026-08-03",
+  "version": "3.32.0",
+  "release_date": "2026-08-05",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.31.1/voxywatch-v3.31.1-linux-x64.tar.gz",
-    "sha256": "147d722655fadded5a3dc6ff72e6b606561b755c719626b68ec50385b661f9e3",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.31.1/voxywatch-v3.31.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.32.0/voxywatch-v3.32.0-linux-x64.tar.gz",
+    "sha256": "4548460f2ec3420773374b0aa71f28ab805fa19eb5d3441153e50edb0a41b6ba",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.32.0/voxywatch-v3.32.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "SNMP settings now follow the selected security version",
-    "Improved",
-    "Common listener settings stay visible while v2c shows Community, v3 shows USM security, and `v2c + v3` shows both authentication cards.",
-    "SNMPv3 progressively shows auth and privacy controls according to `authPriv`, `authNoPriv` or `noAuthNoPriv`, without erasing stored values."
+    "secure readiness and configuration writes",
+    "Compatibility",
+    "Platform readiness reports an HTTP backend exposed beyond loopback as a critical security condition and directs the operator to managed public or internal HTTPS",
+    "SNMP health is included in Operational Health and the privacy-safe Support Bundle with sanitized error codes, timestamps and request/rejection counters; credent"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "SNMP authentication settings follow the selected version",
-    "Improved",
-    "Common listener fields remain visible while v2c shows only Community, v3 shows only USM security, and `v2c + v3` shows both cards.",
-    "SNMPv3 security level is also progressive: `authPriv` shows auth+privacy, `authNoPriv` hides privacy, and `noAuthNoPriv` hides both key groups without erasing s"
+    "secure readiness and configuration writes",
+    "Compatibility",
+    "Platform readiness now reports an HTTP backend exposed beyond loopback as a critical security condition and guides operators toward managed public or internal H",
+    "SNMP health is now visible in Operational Health and the privacy-safe Support Bundle with sanitized error codes, recent failure time, and accepted/rejected requ"
   ]
 }

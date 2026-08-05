@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.32.0] — 2026-08-05
+
+### Fixed — secure readiness and configuration writes
+- Platform readiness reports an HTTP backend exposed beyond loopback as a critical security condition and directs the operator to managed public or internal HTTPS.
+- SNMP health is included in Operational Health and the privacy-safe Support Bundle with sanitized error codes, timestamps and request/rejection counters; credentials, usernames and source addresses are never emitted.
+- Trunk and IP-label replacement writes publish stable ETags. Removing existing entries requires explicit replace-all confirmation and the current revision, preventing empty/partial payload loss and stale concurrent overwrites.
+
+### Compatibility
+- Existing trunk and IP-label GET response bodies are unchanged; revisions are additive HTTP headers.
+- Legacy HTTPS installations remain reachable during normal updates, but Diagnostics marks a non-loopback backend critical until a controlled migration.
+- User update/delete routes continue using `username` as the unambiguous public resource key.
+
 ## [3.31.1] — 2026-08-04
 
 ### Fixed — SNMP settings now follow the selected security version

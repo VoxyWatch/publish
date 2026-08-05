@@ -45,6 +45,11 @@ older installation in a planned window by explicitly selecting a mode and
 using the controlled dependency refresh path. The installer refuses to
 overwrite an unrelated Caddy configuration.
 
+Platform readiness classifies a backend listener outside loopback as critical.
+Legacy compatibility remains reachable during an ordinary update so an unknown
+external proxy topology is not broken silently, but it is not considered a
+secure or market-ready state until the installation is migrated deliberately.
+
 ## Security contract
 
 - HTTPS has no enable/disable switch in Settings.
@@ -52,3 +57,5 @@ overwrite an unrelated Caddy configuration.
 - Caddy forwards only to the loopback VoxyWatch listener.
 - Public mode uses Caddy Automatic HTTPS; private mode uses `tls internal`.
 - VoxyWatch does not disable certificate verification or expose private keys.
+- `configuration_readiness.checks[].id=https` is the machine-readable security
+  signal; a non-loopback HTTP backend is always critical.

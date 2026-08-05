@@ -367,7 +367,7 @@ if [ "$HTTPS_MODE" != "legacy" ]; then
   fi
   ok "HTTPS: ${HTTPS_MODE} on https://${HTTPS_HOST}:443"
 else
-  warn "Legacy installation has no managed HTTPS mode; access is preserved until an explicit controlled HTTPS migration"
+  warn "Legacy HTTPS compatibility is preserved for this update. The HTTP backend may remain network-accessible until you migrate to --https-mode public or internal. Diagnostics will report this as critical when the listener is not loopback-only."
 fi
 echo ""
 
@@ -930,6 +930,8 @@ WorkingDirectory=${DATA_DIR}
 ExecStartPre=/usr/bin/pg_isready -h ${PG_SOCKET_DIR} -p ${PG_PORT} -t 30
 ExecStart=${INSTALL_DIR}/voxywatch-portal
 Environment=PORT=${PORT}
+# Legacy updates preserve their historical listener for compatibility. Platform readiness marks
+# a non-loopback backend as critical until the operator performs a controlled managed-HTTPS migration.
 Environment=VOXYWATCH_BIND_HOST=$([ "$HTTPS_MODE" = "legacy" ] && printf '' || printf '127.0.0.1')
 Environment=VOXYWATCH_HTTPS_MODE=$([ "$HTTPS_MODE" = "legacy" ] && printf '' || printf '%s' "$HTTPS_MODE")
 Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}

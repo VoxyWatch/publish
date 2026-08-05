@@ -13,6 +13,13 @@
 - SNMPv2c community or SNMPv3 credentials.
 - Whether the NMS expects HOST-RESOURCES-MIB or VoxyWatch PEN OIDs.
 
+Operational Health and the Support Bundle expose the SNMP component without
+credentials or source addresses. Check `running`, `error_code`,
+`last_error_at`, `requests_total` and `requests_rejected`. An
+`authentication_failed` result means requests reached VoxyWatch but the NMS
+community/USM configuration did not match; align both sides instead of weakening
+the agent. Repeated failures are rate-limited in service logs.
+
 ## OID Surfaces
 
 VoxyWatch exposes:

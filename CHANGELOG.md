@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.32.2] — 2026-08-05
+
+### Fixed — bounded and privacy-safe audio reconstruction
+- Calls without correlated SSRCs no longer trigger an ambiguous full PostgreSQL RTP-window scan that could exhaust the media job memory limit or select another concurrent call's audio. They return the normal no-audio result unless a bounded segment index identifies at most two candidates.
+- If local RTP segments already provide correlated audio and PostgreSQL becomes unavailable, reconstruction keeps only the complete local packets and discards partial SQL rows. Without local media, the database failure remains explicit.
+- Media failures sent to logs and Sentry contain only a sanitized category, exit code and codec. Subprocess arguments, Call-IDs, IP addresses, raw stderr and database messages are excluded.
+
+### Reliability
+- Release invariants now execute deterministic regressions for unknown SSRCs, SQL failure fallback, partial-row rollback and media telemetry redaction.
+
 ## [3.32.1] — 2026-08-05
 
 ### Fixed — controlled HTTPS migration recognizes early VoxyWatch proxies

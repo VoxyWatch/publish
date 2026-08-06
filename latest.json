@@ -1,26 +1,26 @@
 {
-  "version": "3.32.3",
-  "release_date": "2026-08-05",
+  "version": "3.32.4",
+  "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.32.3/voxywatch-v3.32.3-linux-x64.tar.gz",
-    "sha256": "2214a6ea1e3c1b31aad6b3e03d60e2bb3cdc1c78f71b6a80e08959c68e792556",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.32.3/voxywatch-v3.32.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.32.4/voxywatch-v3.32.4-linux-x64.tar.gz",
+    "sha256": "7a3f4a2a981b1eabf7c6087a974439f1ca3ba67f4339aa369eaf35783d60ad48",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.32.4/voxywatch-v3.32.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "reliable DB-backed audio reconstruction",
-    "Compatibility and safety",
-    "Calls whose RTP does not carry a Call-ID can now reconstruct audio from database storage when their captured RTP matches a persisted SDP destination IP and port",
-    "New RTP blobs contain one destination flow and are explicitly marked as safely correlated. Older rows remain untrusted, preventing audio from concurrent calls f"
+    "Overview loads immediately after authentication",
+    "Reliability",
+    "Protected dashboard requests now wait until the portal has validated the session, preventing an empty Overview immediately after sign-in.",
+    "First login with a required password change hydrates the active view without requiring a search or a manual Refresh click."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
     "Validation",
-    "DB-backed audio reconstruction now persists bounded SDP offer/answer endpoints and correlates RTP without Call-ID by exact time, destination IP and destination",
-    "RTP database blobs are segregated by destination flow and explicitly marked as safely keyed. Existing rows remain untrusted by default.",
-    "Investigate enables reconstruction only for a known SSRC or an exact flow-keyed RTP/SDP match, eliminating the false-positive button."
+    "Overview now waits for a valid authenticated session before requesting protected dashboard data, preventing an empty initial view after sign-in.",
+    "First login with a required password change now hydrates the active view without requiring a manual search or Refresh click.",
+    "Session restoration and logout share an idempotent authentication gate so each session performs one initial view load and protected polling stops when authentic"
   ]
 }

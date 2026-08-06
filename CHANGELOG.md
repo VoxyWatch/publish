@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.32.4] — 2026-08-06
+
+### Fixed — Overview loads immediately after authentication
+- Protected dashboard requests now wait until the portal has validated the session, preventing an empty Overview immediately after sign-in.
+- First login with a required password change hydrates the active view without requiring a search or a manual Refresh click.
+- Session restoration is idempotent, and logout closes the protected-data gate before returning to the login screen.
+
+### Reliability
+- Regression contracts cover pre-auth suppression, normal session restore, forced-password-change login, local no-auth mode, single initial hydration and logout cleanup.
+
 ## [3.32.3] — 2026-08-05
 
 ### Fixed — reliable DB-backed audio reconstruction

@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.35.0] — 2026-08-06
+
+### Changed — external-trunk Overview
+- The lower Overview now shows named external trunks instead of treating internal SBC/IP Directory labels as clients or providers.
+- Inbound and outbound views follow the observed carrier leg; explicitly internal/on-net trunks are excluded from commercial rows.
+- Ambiguous and unattributed external traffic remains visible as a catalog issue that administrators can correct.
+
+### Reliability
+- Historical trunk aggregation now preserves SIP ports stored in each CDR, so carriers sharing one IP on different ports remain separated. Legacy CDRs without ports keep the compatible 5060 default.
+
 ## [3.34.1] — 2026-08-06
 
 ### Fixed — isolated Internal IP imports

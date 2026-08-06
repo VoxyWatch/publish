@@ -1,26 +1,22 @@
 {
-  "version": "3.37.0",
+  "version": "3.37.1",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.37.0/voxywatch-v3.37.0-linux-x64.tar.gz",
-    "sha256": "bfd9b4db81f429e601b607a21271e382db54794bebc1754b8a5f786e3c93c600",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.37.0/voxywatch-v3.37.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.37.1/voxywatch-v3.37.1-linux-x64.tar.gz",
+    "sha256": "694d9b28ceff678da9ab41ff6fcf84c1f02e79d31496ad86fc813fb65b1be970",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.37.1/voxywatch-v3.37.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "clearer first installation",
-    "Fresh interactive installs no longer ask for or advertise the internal 3080 backend port. Users always enter through managed HTTPS on port 443; `--port` remains",
-    "HTTPS setup is now one explicit decision without a countdown. Public mode explains DNS and TCP 80/443 requirements and accepts only a fully-qualified domain nam",
-    "Portal service control is enabled by default without an unnecessary prompt; an advanced CLI opt-out remains available."
+    "Process reliability",
+    "Release validation now detects installer changes and explicitly requires two demo updater passes. This verifies behavior from the newly installed root-owned scr"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Validation",
-    "Fresh interactive installs no longer ask for or advertise the internal port 3080. Caddy remains the only operator-facing entry point on HTTPS/443; `--port` is r",
-    "The HTTPS setup is now one explicit, non-expiring decision with requirements shown before selection: public DNS with trusted certificates and TCP 80/443, or IP/",
-    "Public-certificate mode rejects IP literals and clearly requests a fully-qualified DNS name. Private mode detects the server address and shows exactly what clie"
+    "Process",
+    "The canonical release tool now detects changes to `install.sh` and requires two demo updater passes plus validation of the new installer behavior. The first pas"
   ]
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.37.1] — 2026-08-07
+
+### Process reliability
+- Release validation now detects installer changes and explicitly requires two demo updater passes. This verifies behavior from the newly installed root-owned script rather than assuming the first pass used it.
+
 ## [3.37.0] — 2026-08-07
 
 ### Changed — clearer first installation

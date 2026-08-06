@@ -1,25 +1,25 @@
 {
-  "version": "3.35.1",
+  "version": "3.35.2",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.35.1/voxywatch-v3.35.1-linux-x64.tar.gz",
-    "sha256": "95f0ab297326177f09c63506de747108ca758869ff0c49b8d7641973ca91b518",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.35.1/voxywatch-v3.35.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.35.2/voxywatch-v3.35.2-linux-x64.tar.gz",
+    "sha256": "c9d821e8e667c0fa82ed80aaac45b3683f9a95a86f833a863aadda53fb7f850b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.35.2/voxywatch-v3.35.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "external-trunk selector feedback",
-    "Selecting Outbound, All external or Country now moves the active highlight to the chosen view instead of visually leaving Inbound selected.",
-    "A selection made while Overview data is loading is retained and applied as soon as data becomes available."
+    "IP-owned traffic direction",
+    "Overview now treats traffic sourced by an IP registered in IP Directory as outbound and traffic terminating on that IP as inbound, independently of its SIP serv",
+    "IP+port remains exact for labels and carrier identity, so the fix restores direction without merging services or guessing an ambiguous trunk."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
+    "Compatibility",
     "Validation",
-    "The external-trunk selector now gives correct visual feedback: Outbound, All external and Country become active when selected instead of leaving Inbound highlig",
-    "Mode selection responds immediately while Overview data is still loading instead of silently ignoring the click.",
-    "Added a regression against stale legacy toggle selectors and verified the real browser state and computed colors before and after selecting Outbound."
+    "Overview direction now follows IP Directory host ownership: traffic sourced by a registered internal IP is outbound, and traffic terminating on one is inbound.",
+    "A different SIP service port no longer makes a known SBC look external or removes its traffic from the directional views."
   ]
 }

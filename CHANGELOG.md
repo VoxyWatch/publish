@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.35.2] — 2026-08-06
+
+### Fixed — IP-owned traffic direction
+- Overview now treats traffic sourced by an IP registered in IP Directory as outbound and traffic terminating on that IP as inbound, independently of its SIP service port.
+- IP+port remains exact for labels and carrier identity, so the fix restores direction without merging services or guessing an ambiguous trunk.
+
 ## [3.35.1] — 2026-08-06
 
 ### Fixed — external-trunk selector feedback

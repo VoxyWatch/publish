@@ -1,26 +1,25 @@
 {
-  "version": "3.35.0",
+  "version": "3.35.1",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.35.0/voxywatch-v3.35.0-linux-x64.tar.gz",
-    "sha256": "b8a2001cdd555415ad799c851e2975ac10f86ae73cbcff8bbf94532474b765ee",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.35.0/voxywatch-v3.35.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.35.1/voxywatch-v3.35.1-linux-x64.tar.gz",
+    "sha256": "95f0ab297326177f09c63506de747108ca758869ff0c49b8d7641973ca91b518",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.35.1/voxywatch-v3.35.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "external-trunk Overview",
-    "Reliability",
-    "The lower Overview now shows named external trunks instead of treating internal SBC/IP Directory labels as clients or providers.",
-    "Inbound and outbound views follow the observed carrier leg; explicitly internal/on-net trunks are excluded from commercial rows."
+    "external-trunk selector feedback",
+    "Selecting Outbound, All external or Country now moves the active highlight to the chosen view instead of visually leaving Inbound selected.",
+    "A selection made while Overview data is loading is retained and applied as soon as data becomes available."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
     "Validation",
-    "The lower Overview is now external-trunk centric: internal SBC endpoints from IP Directory never appear as commercial rows.",
-    "External traffic is grouped by configured trunk name and its observed inbound or outbound leg; explicitly internal trunks are excluded.",
-    "Ambiguous and unattributed traffic remains visible as a catalog gap instead of being mislabeled as an internal IP or silently hidden."
+    "The external-trunk selector now gives correct visual feedback: Outbound, All external and Country become active when selected instead of leaving Inbound highlig",
+    "Mode selection responds immediately while Overview data is still loading instead of silently ignoring the click.",
+    "Added a regression against stale legacy toggle selectors and verified the real browser state and computed colors before and after selecting Outbound."
   ]
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.35.1] — 2026-08-06
+
+### Fixed — external-trunk selector feedback
+- Selecting Outbound, All external or Country now moves the active highlight to the chosen view instead of visually leaving Inbound selected.
+- A selection made while Overview data is loading is retained and applied as soon as data becomes available.
+
 ## [3.35.0] — 2026-08-06
 
 ### Changed — external-trunk Overview

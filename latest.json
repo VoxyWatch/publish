@@ -1,26 +1,26 @@
 {
-  "version": "3.33.0",
+  "version": "3.34.0",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.33.0/voxywatch-v3.33.0-linux-x64.tar.gz",
-    "sha256": "ff00eb937200231cbfb6cafa084691d78da0bc87eb705f55396ffbdbcad6fcfd",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.33.0/voxywatch-v3.33.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.34.0/voxywatch-v3.34.0-linux-x64.tar.gz",
+    "sha256": "eadff4e89251ac3c02ad2a15d5b3326508db266863a289cbae5fafe52dbe4ef3",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.34.0/voxywatch-v3.34.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "conflict-safe shared-IP trunk catalogs",
+    "SIP endpoint-aware trunks and internal IPs",
     "Reliability",
-    "Trunk attribution now evaluates every shared-IP candidate by observed direction, IP specificity, longest dialed-number prefix and an optional bounded priority.",
-    "CSV, JSON and Asterisk imports show a no-write preflight with shared IPs, ambiguous rules and entries without an IP before an administrator applies the catalog."
+    "Trunks and the internal IP Directory can now distinguish multiple services on the same SBC IP by SIP port, such as `10.0.0.1:5060` and `10.0.0.1:5070`.",
+    "Omitting the port means SIP port 5060, preserving a simple default while preventing that rule from matching a different port."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
+    "Compatibility",
     "Validation",
-    "Shared-IP trunk attribution now evaluates every candidate by observed direction, IP specificity, longest dialed-number prefix and an optional bounded priority.",
-    "CSV, JSON and Asterisk imports now provide a no-write conflict preflight before the administrator applies the catalog.",
-    "Monitoring can switch between trunks active in the current window and all configured trunks."
+    "Trunks and internal IP labels can distinguish multiple SIP services on the same IP by port (`IP:port`, `CIDR:port` or `[IPv6]:port`).",
+    "Calls and CDRs now retain observed caller/callee SIP ports and expose the matched carrier port as additive fields."
   ]
 }

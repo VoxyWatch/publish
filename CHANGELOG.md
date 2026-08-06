@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.34.0] — 2026-08-06
+
+### Added — SIP endpoint-aware trunks and internal IPs
+- Trunks and the internal IP Directory can now distinguish multiple services on the same SBC IP by SIP port, such as `10.0.0.1:5060` and `10.0.0.1:5070`.
+- Omitting the port means SIP port 5060, preserving a simple default while preventing that rule from matching a different port.
+- Port-aware matching works together with direction, CIDR or dotted-IP specificity, dialed-number prefixes and trunk priority.
+
+### Reliability
+- Live calls and CDRs retain caller, callee and attributed carrier ports so labels and trunk assignment use the observed SIP endpoint.
+- Asterisk imports preserve nonstandard ports and normalize explicit 5060 to the compatible default form.
+- Invalid endpoints and ports fail closed instead of being silently ignored or converted to 5060.
+
 ## [3.33.0] — 2026-08-06
 
 ### Added — conflict-safe shared-IP trunk catalogs

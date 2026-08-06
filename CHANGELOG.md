@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.32.3] — 2026-08-05
+
+### Fixed — reliable DB-backed audio reconstruction
+- Calls whose RTP does not carry a Call-ID can now reconstruct audio from database storage when their captured RTP matches a persisted SDP destination IP and port within the call window.
+- New RTP blobs contain one destination flow and are explicitly marked as safely correlated. Older rows remain untrusted, preventing audio from concurrent calls from being selected.
+- Investigate no longer enables reconstruction merely because unrelated RTP exists in the same time window.
+- Existing RTP spools remain upgrade-safe through bounded streaming conversion.
+
+### Compatibility and safety
+- No SBC configuration or traffic handling changes are required. Existing CDRs and RTP remain readable, but historical rows without safe flow evidence continue to fail closed rather than risk cross-call audio.
+
 ## [3.32.2] — 2026-08-05
 
 ### Fixed — bounded and privacy-safe audio reconstruction

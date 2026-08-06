@@ -1,26 +1,26 @@
 {
-  "version": "3.32.2",
+  "version": "3.32.3",
   "release_date": "2026-08-05",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.32.2/voxywatch-v3.32.2-linux-x64.tar.gz",
-    "sha256": "493825eb709efe18311fb621ca6919d1d196f8be7dc636311c782e530d0fe4cd",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.32.2/voxywatch-v3.32.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.32.3/voxywatch-v3.32.3-linux-x64.tar.gz",
+    "sha256": "2214a6ea1e3c1b31aad6b3e03d60e2bb3cdc1c78f71b6a80e08959c68e792556",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.32.3/voxywatch-v3.32.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "bounded and privacy-safe audio reconstruction",
-    "Reliability",
-    "Calls without correlated SSRCs no longer trigger an ambiguous full PostgreSQL RTP-window scan that could exhaust the media job memory limit or select another co",
-    "If local RTP segments already provide correlated audio and PostgreSQL becomes unavailable, reconstruction keeps only the complete local packets and discards par"
+    "reliable DB-backed audio reconstruction",
+    "Compatibility and safety",
+    "Calls whose RTP does not carry a Call-ID can now reconstruct audio from database storage when their captured RTP matches a persisted SDP destination IP and port",
+    "New RTP blobs contain one destination flow and are explicitly marked as safely correlated. Older rows remain untrusted, preventing audio from concurrent calls f"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
     "Validation",
-    "Audio reconstruction no longer scans an entire PostgreSQL RTP time window when both SSRCs are unknown and no bounded segment index can identify at most two cand",
-    "Dual-read reconstruction keeps verified local segment audio when PostgreSQL becomes unavailable, discards any partial SQL rows, and still fails when no local me",
-    "PostgreSQL/media failures now emit sanitized categories and codes. Portal logs and Sentry events no longer include subprocess command arguments, Call-IDs, sourc"
+    "DB-backed audio reconstruction now persists bounded SDP offer/answer endpoints and correlates RTP without Call-ID by exact time, destination IP and destination",
+    "RTP database blobs are segregated by destination flow and explicitly marked as safely keyed. Existing rows remain untrusted by default.",
+    "Investigate enables reconstruction only for a known SSRC or an exact flow-keyed RTP/SDP match, eliminating the false-positive button."
   ]
 }

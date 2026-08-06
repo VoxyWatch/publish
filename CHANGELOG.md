@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.33.0] — 2026-08-06
+
+### Added — conflict-safe shared-IP trunk catalogs
+- Trunk attribution now evaluates every shared-IP candidate by observed direction, IP specificity, longest dialed-number prefix and an optional bounded priority.
+- CSV, JSON and Asterisk imports show a no-write preflight with shared IPs, ambiguous rules and entries without an IP before an administrator applies the catalog.
+- Monitoring can switch between trunks active in the current window and all configured trunks.
+
+### Reliability
+- Import order no longer silently assigns a shared IP to the last trunk. Final ties are reported as `Ambiguous trunk` in CDRs and charts.
+- Commercial direction remains a preference with an explicit B2BUA fallback marker, preserving compatibility when the observed SIP leg is reversed.
+
 ## [3.32.4] — 2026-08-06
 
 ### Fixed — Overview loads immediately after authentication

@@ -1,26 +1,26 @@
 {
-  "version": "3.32.4",
+  "version": "3.33.0",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.32.4/voxywatch-v3.32.4-linux-x64.tar.gz",
-    "sha256": "7a3f4a2a981b1eabf7c6087a974439f1ca3ba67f4339aa369eaf35783d60ad48",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.32.4/voxywatch-v3.32.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.33.0/voxywatch-v3.33.0-linux-x64.tar.gz",
+    "sha256": "ff00eb937200231cbfb6cafa084691d78da0bc87eb705f55396ffbdbcad6fcfd",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.33.0/voxywatch-v3.33.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Overview loads immediately after authentication",
+    "conflict-safe shared-IP trunk catalogs",
     "Reliability",
-    "Protected dashboard requests now wait until the portal has validated the session, preventing an empty Overview immediately after sign-in.",
-    "First login with a required password change hydrates the active view without requiring a search or a manual Refresh click."
+    "Trunk attribution now evaluates every shared-IP candidate by observed direction, IP specificity, longest dialed-number prefix and an optional bounded priority.",
+    "CSV, JSON and Asterisk imports show a no-write preflight with shared IPs, ambiguous rules and entries without an IP before an administrator applies the catalog."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
     "Validation",
-    "Overview now waits for a valid authenticated session before requesting protected dashboard data, preventing an empty initial view after sign-in.",
-    "First login with a required password change now hydrates the active view without requiring a manual search or Refresh click.",
-    "Session restoration and logout share an idempotent authentication gate so each session performs one initial view load and protected polling stops when authentic"
+    "Shared-IP trunk attribution now evaluates every candidate by observed direction, IP specificity, longest dialed-number prefix and an optional bounded priority.",
+    "CSV, JSON and Asterisk imports now provide a no-write conflict preflight before the administrator applies the catalog.",
+    "Monitoring can switch between trunks active in the current window and all configured trunks."
   ]
 }

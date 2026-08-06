@@ -1,25 +1,26 @@
 {
-  "version": "3.35.2",
+  "version": "3.36.0",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.35.2/voxywatch-v3.35.2-linux-x64.tar.gz",
-    "sha256": "c9d821e8e667c0fa82ed80aaac45b3683f9a95a86f833a863aadda53fb7f850b",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.35.2/voxywatch-v3.35.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.36.0/voxywatch-v3.36.0-linux-x64.tar.gz",
+    "sha256": "b4daed7cb3ee114435d3db8661c71c6c9ccbe496af4224a43e8275a800cea532",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.36.0/voxywatch-v3.36.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "IP-owned traffic direction",
-    "Overview now treats traffic sourced by an IP registered in IP Directory as outbound and traffic terminating on that IP as inbound, independently of its SIP serv",
-    "IP+port remains exact for labels and carrier identity, so the fix restores direction without merging services or guessing an ambiguous trunk."
+    "named endpoints throughout call investigation",
+    "Safety",
+    "Call cards, Investigate, the interactive SIP sequence diagram, SIP message table/inspector/export, Overview IP filters and CDRs now show the resolved trunk or i",
+    "Trunks sharing an endpoint are resolved with the complete call context, including longest dial-prefix and priority."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Compatibility",
+    "Safety",
     "Validation",
-    "Overview direction now follows IP Directory host ownership: traffic sourced by a registered internal IP is outbound, and traffic terminating on one is inbound.",
-    "A different SIP service port no longer makes a known SBC look external or removes its traffic from the directional views."
+    "Traffic endpoints now show the resolved trunk or internal service name alongside the technical IP/socket in call cards, Investigate, the interactive SIP sequenc",
+    "SIP trace endpoint names reuse the call-level attribution result, including longest dial-prefix and priority resolution for trunks sharing the same IP and port."
   ]
 }

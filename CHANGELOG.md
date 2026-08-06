@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.36.0] — 2026-08-06
+
+### Added — named endpoints throughout call investigation
+- Call cards, Investigate, the interactive SIP sequence diagram, SIP message table/inspector/export, Overview IP filters and CDRs now show the resolved trunk or internal service name together with the IP:port.
+- Trunks sharing an endpoint are resolved with the complete call context, including longest dial-prefix and priority.
+
+### Safety
+- SIP responses reuse the call-level attribution instead of being misclassified from their reversed packet direction. Ambiguous matches remain unnamed and the technical socket stays visible.
+
 ## [3.35.2] — 2026-08-06
 
 ### Fixed — IP-owned traffic direction

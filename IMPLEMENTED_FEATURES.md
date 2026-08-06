@@ -163,7 +163,7 @@ tool.
 
 - JWT authentication, admin/operator/viewer RBAC and forced password change for
   new users.
-- Optional OIDC SSO, HTTPS and restricted Origins.
+- Mandatory managed HTTPS ingress, optional OIDC SSO and restricted Origins.
 - Per-user language, light/dark theme and notification preferences; light is
   the default when no preference exists.
 - PCI recording pause with API/manual/DTMF triggers and SSRC propagation;

@@ -273,26 +273,10 @@ EXPECTED_SIG_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(js
 [[ "$EXPECTED_SIG_URL" =~ ^https:// ]] || err "Invalid or missing HTTPS signature URL in manifest"
 ok "Version to install: v${VERSION}"
 
-# ── Prompt con cuenta regresiva ────────────────────────────────────────────────
-# read_countdown <segundos> <texto>  → escribe lo tecleado por stdout (vacío si expira).
-# Muestra una cuenta regresiva; al llegar a 0 devuelve vacío para que el llamador use
-# su valor por defecto. Enter (o teclear + Enter) antes de 0 toma la respuesta.
-read_countdown() {
-  local secs="$1" prompt="$2" input="" i
-  for (( i=secs; i>=1; i-- )); do
-    printf "\r\033[K  %s [auto in %2ds]: " "$prompt" "$i" >&2
-    if IFS= read -r -t 1 input </dev/tty 2>/dev/null; then
-      printf "\n" >&2
-      printf '%s' "$input"
-      return 0
-    fi
-  done
-  printf "\r\033[K  %s → (auto)\n" "$prompt" >&2
-  printf ''
-  return 0
-}
-
-# ── Port selection ────────────────────────────────────────────────────────────
+# ── Internal backend port ─────────────────────────────────────────────────────
+# Fresh installs always use the safe loopback default. It is not an operator-facing
+# choice: users enter through Caddy on HTTPS/443. --port remains an advanced option
+# for automation and updates preserve an existing installation.
 if [ -n "$PORT_ARG" ]; then
   PORT="$PORT_ARG"
 elif [ "$UPDATE_MODE" = "1" ] && [ -f "$CONF_FILE" ]; then
@@ -301,20 +285,13 @@ elif [ "$UPDATE_MODE" = "1" ] && [ -f "$CONF_FILE" ]; then
   PORT="$(grep -oE '^PORT=[0-9]+$' "$CONF_FILE" 2>/dev/null | tail -1 | cut -d= -f2 || true)"
   PORT="${PORT:-3080}"
 else
-  echo ""
-  if tty_ok; then
-    PORT_INPUT="$(read_countdown 10 "$(printf '%bWeb portal port%b [3080]' "$BOLD" "$NC")")"
-  else
-    PORT_INPUT=""
-  fi
-  PORT="${PORT_INPUT:-3080}"
+  PORT="3080"
 fi
 if ! echo "$PORT" | grep -qE '^[0-9]+$' || [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65535 ]; then
   warn "Invalid port '${PORT}' — using default 3080"
   PORT="3080"
 fi
-ok "Web portal port: ${PORT}"
-echo ""
+[ -z "$PORT_ARG" ] || ok "Advanced internal backend port: ${PORT} (HTTPS remains on 443)"
 
 # Public domains use Caddy Automatic HTTPS. Private hostnames/IPs use Caddy's
 # internal CA. HTTPS is not optional on fresh installs; PORT remains a loopback
@@ -323,11 +300,23 @@ _valid_https_host() {
   [[ "$1" =~ ^([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9.-]*[A-Za-z0-9])$ ]] \
     && [[ "$1" != *..* ]] && [[ "$1" != http://* ]] && [[ "$1" != https://* ]]
 }
+_valid_public_https_host() {
+  _valid_https_host "$1" \
+    && [[ "$1" == *.* ]] \
+    && [[ ! "$1" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]]
+}
 _detected_private_host() {
   local candidate
+  candidate="$(hostname -I 2>/dev/null | awk '{for(i=1;i<=NF;i++) if ($i ~ /\./ && $i !~ /^127\./) {print $i; exit}}')"
+  _valid_https_host "$candidate" && { printf '%s' "$candidate"; return; }
   candidate="$(hostname -f 2>/dev/null || true)"
   _valid_https_host "$candidate" && [ "$candidate" != localhost ] && { printf '%s' "$candidate"; return; }
-  hostname -I 2>/dev/null | awk '{print $1}'
+}
+_read_tty_line() {
+  local prompt="$1" default_value="${2:-}" input=""
+  printf "  %s" "$prompt" >&2
+  IFS= read -r input </dev/tty 2>/dev/null || return 1
+  printf '%s' "${input:-$default_value}"
 }
 
 HTTPS_MODE=""
@@ -342,12 +331,48 @@ else
   HTTPS_MODE="internal"
   HTTPS_HOST="$HTTPS_HOST_ARG"
   if tty_ok; then
-    echo -e "  ${BOLD}HTTPS access${NC}"
-    echo "  1) Public domain — automatic publicly trusted certificate"
-    echo "  2) Private host/IP — Caddy internal CA (clients trust its root once)"
-    HTTPS_PICK="$(read_countdown 15 "HTTPS mode [1/2, default 2]")"
-    [ "$HTTPS_PICK" = "1" ] && HTTPS_MODE="public"
-    HTTPS_HOST="$(read_countdown 30 "HTTPS hostname or IP")"
+    echo ""
+    echo -e "  ${BOLD}Secure web access${NC}"
+    echo "  How will users open this VoxyWatch portal?"
+    echo ""
+    echo "  1) Public domain (recommended)"
+    echo "     Example: noc.example.com. Requires DNS pointing to this server and"
+    echo "     inbound TCP ports 80 and 443. Browsers trust the certificate automatically."
+    echo ""
+    echo "  2) Server IP or private hostname"
+    echo "     Uses a private Caddy certificate. Only TCP 443 is required, but each"
+    echo "     client must trust the Caddy root certificate once."
+    echo ""
+    while :; do
+      HTTPS_PICK="$(_read_tty_line "Choose 1 or 2 [2]: " "2")" \
+        || err "Could not read the HTTPS access choice from the terminal"
+      case "$HTTPS_PICK" in
+        1)
+          HTTPS_MODE="public"
+          echo ""
+          echo "  Enter only the DNS name — do not include https://, a path or an IP address."
+          while :; do
+            HTTPS_HOST="$(_read_tty_line "Public DNS name (example: noc.example.com): ")" \
+              || err "Could not read the public DNS name from the terminal"
+            _valid_public_https_host "$HTTPS_HOST" && break
+            warn "Enter a fully-qualified DNS name, not an IP address (example: noc.example.com)."
+          done
+          break
+          ;;
+        2)
+          HTTPS_MODE="internal"
+          HTTPS_DETECTED="$(_detected_private_host)"
+          [ -n "$HTTPS_DETECTED" ] \
+            || err "Could not detect a private hostname/IP; rerun with --https-mode internal --https-host <address>"
+          echo ""
+          echo "  Detected address: ${HTTPS_DETECTED}"
+          HTTPS_HOST="$(_read_tty_line "Private hostname or IP [${HTTPS_DETECTED}]: " "$HTTPS_DETECTED")" \
+            || err "Could not read the private HTTPS address from the terminal"
+          break
+          ;;
+        *) warn "Choose 1 for a public domain or 2 for an IP/private hostname." ;;
+      esac
+    done
   fi
 fi
 [ -n "$HTTPS_MODE" ] || HTTPS_MODE="legacy"
@@ -363,9 +388,14 @@ if [ "$HTTPS_MODE" != "legacy" ]; then
   [ -n "$HTTPS_HOST" ] || HTTPS_HOST="$(_detected_private_host)"
   _valid_https_host "$HTTPS_HOST" || err "Invalid HTTPS hostname/IP '${HTTPS_HOST}'"
   if [ "$HTTPS_MODE" = "public" ]; then
-    [[ "$HTTPS_HOST" == *.* ]] || err "Public HTTPS requires a fully-qualified domain name"
+    _valid_public_https_host "$HTTPS_HOST" \
+      || err "Public HTTPS requires a fully-qualified DNS name, not an IP address"
+    ok "Portal URL: https://${HTTPS_HOST} (publicly trusted certificate)"
+    info "Before opening it: point DNS to this server and allow inbound TCP 80 and 443"
+  else
+    ok "Portal URL: https://${HTTPS_HOST} (private Caddy certificate)"
+    info "Before opening it: allow inbound TCP 443 and trust Caddy's root certificate on each client"
   fi
-  ok "HTTPS: ${HTTPS_MODE} on https://${HTTPS_HOST}:443"
 else
   warn "Legacy HTTPS compatibility is preserved for this update. The HTTP backend may remain network-accessible until you migrate to --https-mode public or internal. Diagnostics will report this as critical when the listener is not loopback-only."
 fi
@@ -373,37 +403,23 @@ echo ""
 
 # ── Service control permission (enabled by default per install/update) ────────
 # Lets the unprivileged ${SERVICE_USER} user restart its OWN services and apply
-# timezone/NTP/DNS from the web portal — a scoped, non-root grant (see the
-# generated enable-service-control.sh for exactly what it allows).
+# signed updates from the web portal — a scoped, non-root grant (see the generated
+# enable-service-control.sh for exactly what it allows).
 _service_control_choice() {
-  local explicit="${1:-}" answer="${2:-}"
-  if [ -n "$explicit" ]; then
-    case "$explicit" in yes|enabled|y) printf 'yes' ;; *) printf 'no' ;; esac
-  else
-    # Every install/update defaults to enabled. An interactive N/n declines for
-    # this run; Enter, countdown expiry and non-TTY runs all select Yes.
-    case "$answer" in [Nn]*) printf 'no' ;; *) printf 'yes' ;; esac
-  fi
+  case "${1:-yes}" in
+    yes|enabled|y) printf 'yes' ;;
+    no|disabled|n) printf 'no' ;;
+    *) return 2 ;;
+  esac
 }
 
 SERVICE_CONTROL="yes"
 if [ -n "${SERVICE_CONTROL_ARG:-}" ]; then
-  SERVICE_CONTROL="$(_service_control_choice "$SERVICE_CONTROL_ARG" "")"
-elif tty_ok; then
-  echo -e "  ${BOLD}Service control${NC}"
-  echo "  VoxyWatch can restart its own services (the HEP sniffer) and apply"
-  echo "  timezone / NTP / DNS changes directly from the web portal."
-  echo "  This is a SCOPED permission — limited to VoxyWatch's own services, not"
-  echo "  general root. If you decline, it stays disabled for this installation;"
-  echo "  a future reinstall/update will offer Yes by default again."
-  # Default = SÍ al expirar la cuenta regresiva (instalación desatendida).
-  SC_INPUT="$(read_countdown 10 "$(printf '%bAllow VoxyWatch to manage its own services?%b [Y/n]' "$BOLD" "$NC")")"
-  SERVICE_CONTROL="$(_service_control_choice "" "$SC_INPUT")"
-else
-  SERVICE_CONTROL="$(_service_control_choice "" "")"
+  SERVICE_CONTROL="$(_service_control_choice "$SERVICE_CONTROL_ARG")" \
+    || err "--service-control accepts only yes or no"
 fi
 if [ "$SERVICE_CONTROL" = "yes" ]; then
-  ok "Service control: ENABLED (portal can restart its services)"
+  ok "Portal service control: enabled (scoped restarts and signed updates)"
 
   # systemd delegates unprivileged D-Bus authorization to polkit. Minimal Debian
   # images may have systemd but no polkit daemon at all; merely writing a rule
@@ -423,7 +439,7 @@ if [ "$SERVICE_CONTROL" = "yes" ]; then
     || err "Service control was requested but polkit is not available"
   ok "polkit available for scoped D-Bus authorization"
 else
-  ok "Service control: disabled (manual restarts — enable later if you want)"
+  ok "Portal service control: disabled by advanced option (manual restarts and updates)"
 fi
 echo ""
 
@@ -1210,8 +1226,7 @@ fi
 # Generated ALWAYS so the admin can enable/disable later without reinstalling.
 # Executed now only if the admin opted in above. The grant is scoped via a polkit
 # rule (works with NoNewPrivileges=true — busctl/systemctl only send a D-Bus
-# message; systemd performs the action after polkit authorizes it) plus a tiny
-# drop-in that allows writing ONLY the two OS files NTP/DNS need.
+# message; systemd performs the action after polkit authorizes it).
 cat > "${INSTALL_DIR}/enable-service-control.sh" << 'ENABLE_EOF'
 #!/bin/bash
 # VoxyWatch — grant the portal permission to manage ONLY its own services.
@@ -1227,17 +1242,17 @@ command -v pkaction >/dev/null 2>&1 || {
   exit 1
 }
 
-# 1) polkit rule — scoped to VoxyWatch's own units + time settings only
+# 1) polkit rule — scoped to VoxyWatch's own units only
 mkdir -p /etc/polkit-1/rules.d
 cat > /etc/polkit-1/rules.d/49-voxywatch.rules << RULE
-// VoxyWatch: allow ${SERVICE_USER} to manage ONLY its own services / time settings.
+// VoxyWatch: allow ${SERVICE_USER} to manage ONLY its own services.
 polkit.addRule(function(action, subject) {
     if (subject.user != "${SERVICE_USER}") return;
     if (action.id == "org.freedesktop.systemd1.manage-units") {
         var u = action.lookup("unit");
         if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" ||
             u == "voxywatch-agentic.service" ||
-            u == "voxywatch-apply-update.service" || u == "systemd-timesyncd.service")
+            u == "voxywatch-apply-update.service")
             return polkit.Result.YES;
     }
     // enable/disable persistente SOLO del SRS (la pestaña Settings → SIPREC lo activa en boot).
@@ -1246,19 +1261,13 @@ polkit.addRule(function(action, subject) {
         if (uf == "voxywatch-srs.service" || uf == "voxywatch-agentic.service")
             return polkit.Result.YES;
     }
-    if (action.id == "org.freedesktop.timedate1.set-timezone" ||
-        action.id == "org.freedesktop.timedate1.set-ntp")
-        return polkit.Result.YES;
 });
 RULE
 chmod 644 /etc/polkit-1/rules.d/49-voxywatch.rules
 
-# 2) systemd drop-in — allow writing ONLY the OS files NTP/DNS need
-mkdir -p /etc/systemd/system/voxywatch.service.d
-cat > /etc/systemd/system/voxywatch.service.d/service-control.conf << DROPIN
-[Service]
-ReadWritePaths=/etc/resolv.conf /etc/systemd /etc/systemd/timesyncd.conf
-DROPIN
+# Remove the historical OS-settings write grant. Timezone, NTP and DNS are
+# diagnostic/read-only in current VoxyWatch releases.
+rm -f /etc/systemd/system/voxywatch.service.d/service-control.conf
 
 # 2b) limpiar el sudoers de update de v2.83.0 (inútil bajo NoNewPrivileges=true: sudo no puede
 # escalar desde el portal). El one-click update ahora va por D-Bus+polkit (manage-units del
@@ -1273,7 +1282,7 @@ echo "SERVICE_CONTROL=enabled" >> "$CONF_FILE"
 systemctl reload polkit 2>/dev/null || systemctl restart polkit 2>/dev/null || true
 systemctl daemon-reload
 systemctl restart voxywatch 2>/dev/null || true
-echo "✓ Service control ENABLED — the portal can now restart its services, apply timezone/NTP/DNS, and apply signed updates with one click."
+echo "✓ Service control ENABLED — the portal can restart VoxyWatch services and apply signed updates with one click."
 ENABLE_EOF
 chmod 750 "${INSTALL_DIR}/enable-service-control.sh"
 chown root:voxywatch "${INSTALL_DIR}/enable-service-control.sh" 2>/dev/null || true

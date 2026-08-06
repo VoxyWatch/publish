@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.37.0] — 2026-08-07
+
+### Changed — clearer first installation
+- Fresh interactive installs no longer ask for or advertise the internal 3080 backend port. Users always enter through managed HTTPS on port 443; `--port` remains available for advanced automation.
+- HTTPS setup is now one explicit decision without a countdown. Public mode explains DNS and TCP 80/443 requirements and accepts only a fully-qualified domain name. Private IP/hostname mode explains TCP 443 and the one-time Caddy root trust requirement.
+- Portal service control is enabled by default without an unnecessary prompt; an advanced CLI opt-out remains available.
+
+### Security
+- Removed obsolete portal permissions for timezone, NTP, DNS, `systemd-timesyncd` and resolver files. The scoped grant now covers only VoxyWatch services and signed updates.
+
 ## [3.36.0] — 2026-08-06
 
 ### Added — named endpoints throughout call investigation

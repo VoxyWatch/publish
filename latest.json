@@ -1,26 +1,26 @@
 {
-  "version": "3.36.0",
+  "version": "3.37.0",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.36.0/voxywatch-v3.36.0-linux-x64.tar.gz",
-    "sha256": "b4daed7cb3ee114435d3db8661c71c6c9ccbe496af4224a43e8275a800cea532",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.36.0/voxywatch-v3.36.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.37.0/voxywatch-v3.37.0-linux-x64.tar.gz",
+    "sha256": "bfd9b4db81f429e601b607a21271e382db54794bebc1754b8a5f786e3c93c600",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.37.0/voxywatch-v3.37.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "named endpoints throughout call investigation",
-    "Safety",
-    "Call cards, Investigate, the interactive SIP sequence diagram, SIP message table/inspector/export, Overview IP filters and CDRs now show the resolved trunk or i",
-    "Trunks sharing an endpoint are resolved with the complete call context, including longest dial-prefix and priority."
+    "clearer first installation",
+    "Fresh interactive installs no longer ask for or advertise the internal 3080 backend port. Users always enter through managed HTTPS on port 443; `--port` remains",
+    "HTTPS setup is now one explicit decision without a countdown. Public mode explains DNS and TCP 80/443 requirements and accepts only a fully-qualified domain nam",
+    "Portal service control is enabled by default without an unnecessary prompt; an advanced CLI opt-out remains available."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Safety",
     "Validation",
-    "Traffic endpoints now show the resolved trunk or internal service name alongside the technical IP/socket in call cards, Investigate, the interactive SIP sequenc",
-    "SIP trace endpoint names reuse the call-level attribution result, including longest dial-prefix and priority resolution for trunks sharing the same IP and port."
+    "Fresh interactive installs no longer ask for or advertise the internal port 3080. Caddy remains the only operator-facing entry point on HTTPS/443; `--port` is r",
+    "The HTTPS setup is now one explicit, non-expiring decision with requirements shown before selection: public DNS with trusted certificates and TCP 80/443, or IP/",
+    "Public-certificate mode rejects IP literals and clearly requests a fully-qualified DNS name. Private mode detects the server address and shows exactly what clie"
   ]
 }

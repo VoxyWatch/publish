@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.34.1] — 2026-08-06
+
+### Fixed — isolated Internal IP imports
+- Choosing an Internal IP CSV or JSON file no longer writes immediately. The portal shows the exact filename and a read-only merged-count preview, then requires a separate Apply action.
+- Internal IP and Trunks imports keep independent inputs and state; late reads from an older selection cannot replace the newest file.
+- After a successful import, the visible IP Directory, its ETag and its in-memory labels refresh through one canonical path instead of leaving stale rows on screen.
+
 ## [3.34.0] — 2026-08-06
 
 ### Added — SIP endpoint-aware trunks and internal IPs

@@ -1,26 +1,25 @@
 {
-  "version": "3.34.0",
+  "version": "3.34.1",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.34.0/voxywatch-v3.34.0-linux-x64.tar.gz",
-    "sha256": "eadff4e89251ac3c02ad2a15d5b3326508db266863a289cbae5fafe52dbe4ef3",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.34.0/voxywatch-v3.34.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.34.1/voxywatch-v3.34.1-linux-x64.tar.gz",
+    "sha256": "28c6af3b25a6efa0509f0e3b84c2b1db7aeed226ad614a0a502b1f18eb7fb55b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.34.1/voxywatch-v3.34.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "SIP endpoint-aware trunks and internal IPs",
-    "Reliability",
-    "Trunks and the internal IP Directory can now distinguish multiple services on the same SBC IP by SIP port, such as `10.0.0.1:5060` and `10.0.0.1:5070`.",
-    "Omitting the port means SIP port 5060, preserving a simple default while preventing that rule from matching a different port."
+    "isolated Internal IP imports",
+    "Choosing an Internal IP CSV or JSON file no longer writes immediately. The portal shows the exact filename and a read-only merged-count preview, then requires a",
+    "Internal IP and Trunks imports keep independent inputs and state; late reads from an older selection cannot replace the newest file.",
+    "After a successful import, the visible IP Directory, its ETag and its in-memory labels refresh through one canonical path instead of leaving stale rows on scree"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Compatibility",
-    "Validation",
-    "Trunks and internal IP labels can distinguish multiple SIP services on the same IP by port (`IP:port`, `CIDR:port` or `[IPv6]:port`).",
-    "Calls and CDRs now retain observed caller/callee SIP ports and expose the matched carrier port as additive fields."
+    "Internal IP imports now show the selected filename and a read-only preview before requiring an explicit Apply action, preventing a previously selected Trunks fi",
+    "Late FileReader or preview responses cannot replace a newer file selection, and the visible IP Directory refreshes immediately after a successful import.",
+    "The server supports a no-write Internal IP import preflight and keeps invalid endpoint imports fail-closed."
   ]
 }

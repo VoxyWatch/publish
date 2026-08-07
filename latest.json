@@ -1,26 +1,24 @@
 {
-  "version": "3.48.0",
+  "version": "3.48.1",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.48.0/voxywatch-v3.48.0-linux-x64.tar.gz",
-    "sha256": "6dd9bb4c78d5cd5d6013df0bdd3ed52719dda312f8184e16ddb0440d2eca58de",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.48.0/voxywatch-v3.48.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.48.1/voxywatch-v3.48.1-linux-x64.tar.gz",
+    "sha256": "3c18313acee4bdd605b3ab91391baf51229a2d4e8e5b4cccc8f03062080d0b24",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.48.1/voxywatch-v3.48.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Call-type operational workspaces",
-    "Validation",
-    "Call Type Detection now has separate Fraud and Flash Calls submenus, keeping each operational analysis easy to find.",
-    "The general Fraud panel is available under Call Type Detection → Fraud with engine status, KPIs, recent events, profiles and high-risk countries."
+    "Navigation correction",
+    "Fraud and Flash Calls no longer share Configuration's behavior selector, so switching between them cannot contaminate or activate its four settings tabs.",
+    "Public browser validation now exercises both operational submenus and requires Configuration to retain exactly Trunks, IP Directory, Alerts and Fraud."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Detección por tipo de llamada",
-    "Validación",
-    "Call Type Detection incorpora los submenús Fraude y Flash Calls para separar claramente ambos análisis operativos.",
-    "El panel general de fraude vuelve a estar visible bajo Call Type Detection → Fraude, con estado del motor, KPIs, eventos recientes, perfiles y países de ries"
+    "Corrección de navegación",
+    "Los submenús Fraud y Flash Calls ya no comparten el selector de comportamiento de Configuration; cambiar entre ellos no contamina ni activa sus cuatro pestaña",
+    "La validación pública ahora recorre ambos submenús y exige que Configuration conserve exactamente Trunks, IP Directory, Alerts y Fraud."
   ]
 }

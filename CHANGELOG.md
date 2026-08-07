@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.48.1] — 2026-08-07
+
+### Navigation correction
+- Fraud and Flash Calls no longer share Configuration's behavior selector, so switching between them cannot contaminate or activate its four settings tabs.
+- Public browser validation now exercises both operational submenus and requires Configuration to retain exactly Trunks, IP Directory, Alerts and Fraud.
+
 ## [3.48.0] — 2026-08-07
 
 ### Call-type operational workspaces

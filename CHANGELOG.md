@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.53.0] — 2026-08-07
+
+### ADK multi-agent brain
+- Google ADK is qualified and pinned at 2.6.3. Eleven manifest-driven agents now cover SIP, fraud, flash calls, RTP/media, routing attribution, incident correlation, traffic, platform health, integrations and releases.
+- The deterministic router scopes tools and evidence per specialist; bounded fan-out/fan-in runs up to three specialists and a coordinator.
+- Chat, Calls and Incidents share the orchestration plan, with regression evals for routing, grounding, isolation and safe non-execution.
+
 ## [3.52.0] — 2026-08-07
 
 ### NOC fullscreen Overview

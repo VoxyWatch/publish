@@ -1,25 +1,26 @@
 {
-  "version": "3.52.0",
+  "version": "3.53.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.52.0/voxywatch-v3.52.0-linux-x64.tar.gz",
-    "sha256": "6b4e489c9706610a3cd452230bb7e18ee33da90f01a7f2e6ddc53205f591410c",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.52.0/voxywatch-v3.52.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.53.0/voxywatch-v3.53.0-linux-x64.tar.gz",
+    "sha256": "a2478fe59deb17650c5d1ab06970ff30362a3fd20293677b4f56ded273c47c51",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.53.0/voxywatch-v3.53.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "NOC fullscreen Overview",
-    "A four-arrow control opens Overview using the browser Fullscreen API; `Esc` or the same control restores the regular portal.",
-    "Customize now includes an independent, persistent widget profile for NOC/showroom screens without changing the regular Overview layout."
+    "ADK multi-agent brain",
+    "Google ADK is qualified and pinned at 2.6.3. Eleven manifest-driven agents now cover SIP, fraud, flash calls, RTP/media, routing attribution, incident correlati",
+    "The deterministic router scopes tools and evidence per specialist; bounded fan-out/fan-in runs up to three specialists and a coordinator.",
+    "Chat, Calls and Incidents share the orchestration plan, with regression evals for routing, grounding, isolation and safe non-execution."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Overview para pantallas NOC",
-    "Nuevo botón de cuatro flechas abre el Overview con la API nativa de pantalla completa; `Esc` o el mismo botón restauran la interfaz normal.",
-    "Customize incluye un perfil independiente de cuadros para pantalla completa y la acción Usar Overview actual. La selección persiste sin cambiar el diseño cot",
-    "El modo showroom conserva actualización de datos, adapta las gráficas al nuevo tamaño y dispone de una salida compatible si el navegador rechaza fullscreen n"
+    "Cerebro multiagente ADK",
+    "Google ADK sube de 2.1.0 a 2.6.3 mediante lock controlado y laboratorio aislado de compatibilidad.",
+    "Un registro único define 11 agentes, incluyendo nuevos especialistas RTP/media, atribución multi-leg, correlación de incidentes e integraciones/configuració",
+    "El router determinista selecciona especialistas por intención y entidades; cada handoff recibe sólo sus herramientas y prefijos de evidencia autorizados."
   ]
 }

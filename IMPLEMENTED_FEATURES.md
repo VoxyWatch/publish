@@ -133,12 +133,12 @@ failures across multiple trunks. Customer runbooks can be added as JSON.
   used for chat, incidents or urgent investigations.
 - Evidence collection remains available without an LLM.
 - LLM provider credentials can come from an AES-256-GCM encrypted web store, a protected Linux/systemd credential, or provider-specific environment and `_FILE` variables. The UI never receives the secret and shows only the final four characters for web-managed keys.
-- Seven agent definitions: Task Orchestrator, SIP Signaling Analyzer, Fraud
-  Detection Analyst, Flash Call Analyst, Traffic Statistics Analyst, Platform
-  Health Monitor and Release Update Monitor.
+- Eleven manifest-driven agent definitions: Task Orchestrator plus SIP, fraud, flash-call,
+  RTP/media, multi-leg routing attribution, incident correlation, traffic, platform health,
+  integrations/configuration and release specialists.
 - Optional native Google ADK workflow sidecar, installed with the product and
-  disabled by default. It executes portal-selected specialist handoffs without
-  LLM tokens and returns structured findings grounded in `ev_*` evidence.
+  disabled by default. ADK 2.6.3 executes up to three portal-selected specialists in parallel,
+  scopes tools/evidence per handoff and fans findings into a coordinator without LLM tokens.
 - Read-only agent context/tools, redacted traces, prompt-injection canaries and
   deterministic release evaluations.
 - Provider-neutral outcome rubrics, independent deterministic grading, durable redacted session events and

@@ -27,7 +27,7 @@ never configure or control the customer's SBC.
 | Investigate | Live/recent calls, combined search, call detail, SIP ladder, deterministic SIP/RTP experts, quality findings, audio and exports | Active by default; media signal-dependent |
 | CDR Base | Historical PostgreSQL/TimescaleDB search, filters, sortable/custom columns and CSV export | Active by default |
 | Infrastructure | Trunk status, ASR/NER/ACD/MOS/loss/PDD, reasons, baselines, drill-down and Copilot context | Active by default; quality signal-dependent |
-| Fraud | Profiles, high-risk destinations, short-call/velocity/international-mix signals, simulator and Flash Call Intelligence | Configurable; Flash Calls start in Shadow |
+| Fraud | Findings in Operations; profiles, high-risk destinations, short-call/velocity/international-mix rules, simulator and Flash Call controls in Configuration | Configurable; Flash Calls start in Shadow |
 | Incidents | Open/ack/resolved lifecycle, deduplication, evidence, timeline, diagnosis, notification and auto-recovery | Active by default; detector-specific settings apply |
 
 ## Capture and protocol handling

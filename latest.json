@@ -1,26 +1,26 @@
 {
-  "version": "3.49.2",
+  "version": "3.50.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.49.2/voxywatch-v3.49.2-linux-x64.tar.gz",
-    "sha256": "3e2a12ba708f7f5e1ffd17ecbd88d06ed385a2779cc506ffeb3cf0fdf1b68743",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.49.2/voxywatch-v3.49.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.50.0/voxywatch-v3.50.0-linux-x64.tar.gz",
+    "sha256": "34a544da19f1c32cb9d4766035e65eb8a3a315974fc5e82b06e36c55157a0f37",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.50.0/voxywatch-v3.50.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "CDR and background work under load",
+    "Unified Operations workspace",
     "Validation",
-    "Large CDR pages now use an isolated PostgreSQL pool with a finite 20-second budget, so they neither compete with fast metrics nor inherit their 5-second timeout",
-    "The one-minute rollup now completes its single retry for transient connection failures and never retries a statement timeout."
+    "Fraud and Flash Calls move from a separate top-level view into peer Operations tabs beside Active incidents and Network health.",
+    "Configuration → Fraud remains the only editor for profiles, risk rules, high-risk countries, Shadow/Alerting mode and simulation; operational findings now hav"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "CDR y tareas de fondo bajo carga",
+    "Operations unificado",
     "Validación",
-    "Las páginas CDR grandes usan un pool PostgreSQL aislado con presupuesto finito de 20 s; ya no compiten con las métricas rápidas ni heredan su timeout de 5 s.",
-    "El rollup de un minuto completa el reintento único para cortes de conexión transitorios; nunca reintenta un timeout de sentencia."
+    "Fraud y Flash Calls dejan de ocupar una vista principal separada y pasan a ser submenús pares de Operations junto con Active incidents y Network health.",
+    "Configuration → Fraud conserva exclusivamente perfiles, reglas, países de riesgo, modo Shadow/Alerting y simulación; los hallazgos operativos tienen una sol"
   ]
 }

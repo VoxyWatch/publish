@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.49.2** (2026-08-07).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.50.0** (2026-08-07).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -78,7 +78,7 @@
 | **Three-tier alarms** | (1) Manual thresholds — editable SIP failure-rate rules per class/code, global and per trunk, plus SBC-vs-carrier reject attribution. (2) Learned patterns — a 168-bucket seasonal baseline (day-of-week × hour, robust median/MAD) compares your Monday against *your* Mondays: traffic spikes, anomalous silence, ASR/PDD drift against that hour's normal. (3) Honest learning: without enough history the system stays silent instead of guessing. |
 | **Fraud early-warning** | The "suddenly calling Cuba" detector: alerts the first day a trunk calls a country absent from its last 4 weeks — critical if it's on the (editable) IRSF high-risk list. Plus short-call storms to one destination (premium-number sweeps, hacked PBX — active from day one), abnormal growth to high-risk destinations, and international-mix spikes vs the trunk's own history. Factory runbook included: who originates, time-of-day tells, block at *your* SBC, dispute with the carrier. A **fraud-risk score (0–100)** fuses the signals via a model trained offline on labelled history (privacy-safe: training off-box, inference on-box, no data leaves your server) and gates which alerts escalate to critical. |
 | **Predictive forecast** | A deterministic seasonal forecast uses the robust 168-bucket day/hour baseline plus the recent level to project each trunk's volume/ASR with a bounded confidence band, and turns audio-retention burn-rate into capacity incidents *before* you run out of disk. |
-| **Call Type Detection** | Separate Fraud and Flash Calls submenus present operational status, KPIs and findings without mixing them with settings. Flash Calls use passive deterministic analysis of originator `CANCEL` timing, `487`, no-answer/no-media evidence and destination fan-out. Controls remain in Configuration → Fraud. [Operational guide](FLASH_CALL_DETECTION.md). |
+| **Operations: Fraud and Flash Calls** | Peer Operations submenus present operational status, KPIs and findings beside incidents and network health without mixing them with settings. Flash Calls use passive deterministic analysis of originator `CANCEL` timing, `487`, no-answer/no-media evidence and destination fan-out. Controls remain in Configuration → Fraud. [Operational guide](FLASH_CALL_DETECTION.md). |
 | **MCP gateway** | ChatGPT, Claude, Codex and other MCP clients get 13 read-only evidence/setup-status tools plus one separately gated initial-setup tool. OAuth/API-key scopes, dry-run, confirmation, secret rejection, redaction, bounds and content-free audit keep access explicit. [MCP guide](MCP_SERVER.md) · [setup channels](INITIAL_SETUP_CHANNELS.md). |
 | **License CLI** | Root administrators can validate and atomically replace a product license without portal access; the command protects process/log output, restarts only the portal and rolls back on activation failure. [Command guide](LICENSE_CLI.md). |
 | **Secure LLM credentials** | Per-provider credentials can use encrypted web storage, protected Linux/systemd files, or environment/`_FILE` injection. The browser receives only status and the final four characters for web-managed keys. [Credential guide](AI_CREDENTIALS.md). |
@@ -150,7 +150,7 @@ Use this section as the high-level index for YouTube walkthroughs, training vide
 | CDR Base | Structured filters, column customization, [ingress/egress leg attribution](MULTI_LEG_CALL_ATTRIBUTION.md) and CSV export | Open one transit session, verify both named trunks, then filter either leg. |
 | Trunks | IP/CIDR/prefix/DID attribution with canonical duplicate prevention and guided legacy repair | Attempt a duplicate IP:port+prefix rule and verify the save/import is blocked. |
 | Monitoring | Trunk health, reasons, baselines and Copilot diagnosis | Compare a healthy trunk with a degraded one. |
-| Call Type Detection | Operational Flash Call findings, score, timing, fan-out and estimated impact | Review a sanitized finding without changing detector settings. |
+| Operations → Fraud / Flash Calls | Operational fraud and Flash Call findings, score, timing, fan-out and estimated impact | Review a sanitized finding without changing detector settings. |
 | Configuration → Fraud | New destination, high-risk countries, profiles, Flash controls and simulators | Show a safe simulation and explain Shadow vs Alerting. |
 | Incidents | Lifecycle, evidence, AI diagnosis, ack/resolve and timeline | Open a demo incident and walk through evidence. |
 | Operational Health | Capture, portal, database, rollups, incidents and update status inside Settings → Diagnostics, with copyable support evidence | Refresh Diagnostics health after a restart/update and copy the evidence block. |
@@ -177,4 +177,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.49.2.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.50.0.

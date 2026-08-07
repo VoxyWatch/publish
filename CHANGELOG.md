@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.50.0] — 2026-08-07
+
+### Unified Operations workspace
+- Fraud and Flash Calls move from a separate top-level view into peer Operations tabs beside Active incidents and Network health.
+- Configuration → Fraud remains the only editor for profiles, risk rules, high-risk countries, Shadow/Alerting mode and simulation; operational findings now have one destination.
+- Operations and Configuration share the same submenu component, including active, hover, focus, overflow and responsive behavior.
+
+### Validation
+- Navigation, RBAC, i18n, accessibility, Flash Call and functional-browser contracts cover all five top-level views and all four Operations tabs.
+
 ## [3.49.2] — 2026-08-07
 
 ### CDR and background work under load

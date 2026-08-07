@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.41.2] — 2026-08-07
+
+### Fixed
+- SIP messages carrying a Call-ID without a proven INVITE remain searchable evidence but no longer enter Overview, commercial KPIs, trunk health/discovery/rollups, AI context or voice SNMP metrics.
+- Only a `200 OK` explicitly tied to an INVITE CSeq can mark a call answered, preventing orphan responses from creating false active calls.
+- Overview now projects inbound and outbound external legs independently for transit sessions while global KPIs continue to count the session once.
+- A genuine final trunk tie now identifies the affected IP:port instead of showing an anonymous ambiguity. VoxyWatch still fails closed rather than inventing a carrier.
+
+### Migration
+- Versioned global, minute and trunk rollups converge automatically under the corrected commercial-call boundary. Historical SIP/CDR evidence is preserved.
+
 ## [3.41.1] — 2026-08-07
 
 ### Fixed

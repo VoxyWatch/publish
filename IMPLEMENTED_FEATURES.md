@@ -23,7 +23,7 @@ never configure or control the customer's SBC.
 
 | Area | Implemented capability | Availability |
 |---|---|---|
-| Overview | Five essential KPIs, exact time ranges, attention queue, configurable KPI/charts/table layout, Show all and Restore defaults | Active by default |
+| Overview | Five essential KPIs, exact time ranges, attention queue, configurable KPI/charts/table layout, Show all, Restore defaults and an independent NOC fullscreen profile | Active by default |
 | Investigate | Live/recent calls, combined search, call detail, SIP ladder, deterministic SIP/RTP experts, quality findings, audio and exports | Active by default; media signal-dependent |
 | CDR Base | Historical PostgreSQL/TimescaleDB search, filters, sortable/custom columns and CSV export | Active by default |
 | Infrastructure | Trunk status, ASR/NER/ACD/MOS/loss/PDD, reasons, baselines, drill-down and Copilot context | Active by default; quality signal-dependent |

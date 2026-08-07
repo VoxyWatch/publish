@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.52.0] — 2026-08-07
+
+### NOC fullscreen Overview
+- A four-arrow control opens Overview using the browser Fullscreen API; `Esc` or the same control restores the regular portal.
+- Customize now includes an independent, persistent widget profile for NOC/showroom screens without changing the regular Overview layout.
+
 ## [3.51.1] — 2026-08-07
 
 ### Demo validation

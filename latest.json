@@ -1,22 +1,25 @@
 {
-  "version": "3.51.1",
+  "version": "3.52.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.51.1/voxywatch-v3.51.1-linux-x64.tar.gz",
-    "sha256": "de7f39da93412e5d7ade38514130769593a7e1fdd9f6d313919fa524f720afa0",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.51.1/voxywatch-v3.51.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.52.0/voxywatch-v3.52.0-linux-x64.tar.gz",
+    "sha256": "6b4e489c9706610a3cd452230bb7e18ee33da90f01a7f2e6ddc53205f591410c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.52.0/voxywatch-v3.52.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Demo validation",
-    "Browser validation now distinguishes agent-browser's empty decorative marker from a real page exception; any error carrying a message remains release-blocking."
+    "NOC fullscreen Overview",
+    "A four-arrow control opens Overview using the browser Fullscreen API; `Esc` or the same control restores the regular portal.",
+    "Customize now includes an independent, persistent widget profile for NOC/showroom screens without changing the regular Overview layout."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Validación de demo",
-    "El arnés de navegador distingue el marcador decorativo vacío de `agent-browser` de una excepción real; cualquier error con mensaje continúa bloqueando el re"
+    "Overview para pantallas NOC",
+    "Nuevo botón de cuatro flechas abre el Overview con la API nativa de pantalla completa; `Esc` o el mismo botón restauran la interfaz normal.",
+    "Customize incluye un perfil independiente de cuadros para pantalla completa y la acción Usar Overview actual. La selección persiste sin cambiar el diseño cot",
+    "El modo showroom conserva actualización de datos, adapta las gráficas al nuevo tamaño y dispone de una salida compatible si el navegador rechaza fullscreen n"
   ]
 }

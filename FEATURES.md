@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.51.1** (2026-08-07).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.52.0** (2026-08-07).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -64,7 +64,7 @@
 | Feature | Copy |
 |---|---|
 | **Incident engine** | Every anomaly becomes a persistent incident with lifecycle (open → ack → resolved), deduplication, auditable timeline and stability-based auto-resolve. No alert storms — one live incident per problem. |
-| **Outcome-first Overview** | Five essential KPIs plus a prioritized queue of open incidents and degraded trunks. One click opens the exact incident evidence or affected infrastructure; advanced charts remain customizable. |
+| **Outcome-first Overview** | Five essential KPIs plus a prioritized queue of open incidents and degraded trunks. Advanced charts remain customizable, with an independent fullscreen NOC/showroom profile for wall displays. |
 | **Guided live demo** | The public demo moves from degraded trunk → open incident → failed calls → carrier-ready evidence in four explicit steps, with one-click access and no misleading pre-auth dashboard. |
 | **Autonomous investigator** | The moment an incident opens, VoxyWatch gathers evidence by itself: failing call samples, dominant SIP codes, failing IP paths, affected countries, and the carrier-vs-local tell (did other trunks degrade too?). An AI investigator then writes the root cause **citing that evidence**. |
 | **Structured diagnosis** | Probable cause · confidence · scope (carrier / customer / local / capacity) · recommended action. Budgeted & cached LLM usage. Works without an LLM too — raw evidence is always collected. |
@@ -177,4 +177,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.51.1.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.52.0.

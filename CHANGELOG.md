@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.49.0] — 2026-08-07
+
+### Unified submenu design system
+- Call Type Detection, Configuration, Alerts and Operations now share the same submenu height, spacing, typography, borders, hover, focus and active states.
+- Settings keeps its grouped scrollable rail while adopting the same height, radius and active treatment for consistency without losing density.
+- Presentation-only `vw-subnav` and `vw-subtab` classes remain isolated from each module's behavioral `data-*` selectors.
+
+### Validation
+- A dedicated contract and public E2E compare computed styles across all five contexts, functional navigation, 390 px mobile layout, network and console.
+
 ## [3.48.1] — 2026-08-07
 
 ### Navigation correction

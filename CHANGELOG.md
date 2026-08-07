@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.51.1] — 2026-08-07
+
+### Demo validation
+- Browser validation now distinguishes agent-browser's empty decorative marker from a real page exception; any error carrying a message remains release-blocking.
+
 ## [3.51.0] — 2026-08-07
 
 ### Alerts and delivery without nested navigation

@@ -1,26 +1,26 @@
 {
-  "version": "3.45.0",
+  "version": "3.46.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.45.0/voxywatch-v3.45.0-linux-x64.tar.gz",
-    "sha256": "a851bf44d949e3136bc190324e1b23e86fd166a0e1d09da57d4a69983e9a5d91",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.45.0/voxywatch-v3.45.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.46.0/voxywatch-v3.46.0-linux-x64.tar.gz",
+    "sha256": "9b268b6da35d0527b91186fbc19735e736b212915beb35e27e9846e1b365ffae",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.46.0/voxywatch-v3.46.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Alerts as an operational workspace",
-    "Clear permissions and capture ownership",
+    "Operational Configuration and role boundaries",
     "Validation",
-    "Alerts is now a primary navigation view with compact Delivery, Detection and Email areas instead of being buried in Settings."
+    "A new primary Configuration workspace groups Trunks, IP Directory, Alerts and Fraud into four compact submenus while preserving one authoritative editor for eac",
+    "Viewers can inspect all operational configuration read-only; operators and administrators can edit it. System Settings remains visible to every role and writabl"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Alerts como espacio operativo",
-    "Claridad, permisos y captura",
+    "Configuration y permisos operativos",
     "Validación",
-    "Alerts sale de Settings y queda visible en la navegación principal con tres áreas compactas: Delivery, Detection y Email."
+    "Nueva pestaña principal Configuration con Trunks, IP Directory, Alerts y Fraud como submenús compactos y una sola fuente de datos por editor.",
+    "Viewer puede consultar toda la configuración operativa en modo sólo lectura; operator y admin pueden modificarla. Settings permanece visible para todos y edit"
   ]
 }

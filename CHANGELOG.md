@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.46.0] — 2026-08-07
+
+### Operational Configuration and role boundaries
+- A new primary Configuration workspace groups Trunks, IP Directory, Alerts and Fraud into four compact submenus while preserving one authoritative editor for each feature.
+- Viewers can inspect all operational configuration read-only; operators and administrators can edit it. System Settings remains visible to every role and writable only by administrators.
+- Server-side authorization mirrors the interface: operational reads accept viewers, mutations require operator or administrator, and a strict allowlist prevents operators from changing system settings.
+
+### Validation
+- Dedicated contracts cover navigation, HTTP roles, read-only controls, masked SNMP credentials, light/dark themes and a 390 px mobile layout without overflow.
+- Existing forms are moved into the workspace without cloning IDs, listeners or load requests.
+
 ## [3.45.0] — 2026-08-07
 
 ### Alerts as an operational workspace

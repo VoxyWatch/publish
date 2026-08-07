@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.39.2] — 2026-08-06
+
+### Fixed
+- Multi-leg trunk attribution now follows the direction already established by IP Directory. Outbound legs resolve the external destination and inbound legs resolve the external source, preventing shared local endpoint rules from producing false `Ambiguous trunk` results.
+
+### Accuracy and safety
+- Longest-prefix and priority resolution remain authoritative on the observed external endpoint. Genuine final ties remain visible as ambiguous, and legacy calls without a reliable leg direction retain fail-closed compatibility.
+
 ## [3.39.1] — 2026-08-06
 
 ### Fixed

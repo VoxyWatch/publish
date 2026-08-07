@@ -1,25 +1,25 @@
 {
-  "version": "3.39.1",
+  "version": "3.39.2",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.39.1/voxywatch-v3.39.1-linux-x64.tar.gz",
-    "sha256": "64bdf529de97b03b26f68fcecc5379e62d01736673144c74fdf174a91146a4d7",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.39.1/voxywatch-v3.39.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.39.2/voxywatch-v3.39.2-linux-x64.tar.gz",
+    "sha256": "615f290309dfda655eddd9feacf952d1a5468660b624912b12150d23b677e35a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.39.2/voxywatch-v3.39.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Safety",
-    "Trunk catalogs replaced through CLI, MCP-assisted setup or another atomic writer are now detected by the running portal within one second. Trunk attribution ref",
-    "The check is bounded to one filesystem revision read per second, stays outside packet capture and does not rewrite CDR data or require a database migration."
+    "Accuracy and safety",
+    "Multi-leg trunk attribution now follows the direction already established by IP Directory. Outbound legs resolve the external destination and inbound legs resol",
+    "Longest-prefix and priority resolution remain authoritative on the observed external endpoint. Genuine final ties remain visible as ambiguous, and legacy calls"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Safety",
+    "Accuracy",
     "Validation",
-    "Trunk attribution now detects atomic catalog replacements made outside the portal process and rebuilds its in-memory index within one second. CLI/MCP-assisted c",
-    "Revision checks are rate-limited to one filesystem stat per second and never enter the packet-capture hot path. Database rows are not rewritten; CDR attribution"
+    "Multi-leg trunk attribution now honors the direction already established by IP Directory. An outbound leg resolves its remote destination and an inbound leg res",
+    "Longest dial-prefix and priority still decide between trunks on the observed external endpoint. Genuine final ties remain explicitly ambiguous; legacy calls wit"
   ]
 }

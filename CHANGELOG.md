@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.39.1] — 2026-08-06
+
+### Fixed
+- Trunk catalogs replaced through CLI, MCP-assisted setup or another atomic writer are now detected by the running portal within one second. Trunk attribution refreshes automatically instead of retaining stale `Ambiguous trunk` results until restart.
+
+### Safety
+- The check is bounded to one filesystem revision read per second, stays outside packet capture and does not rewrite CDR data or require a database migration.
+
 ## [3.39.0] — 2026-08-06
 
 ### Added

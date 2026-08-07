@@ -1,26 +1,25 @@
 {
-  "version": "3.39.0",
+  "version": "3.39.1",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.39.0/voxywatch-v3.39.0-linux-x64.tar.gz",
-    "sha256": "d740571cde6be7498b9070720ec7024ef646dcb7dd3bde8c63686b08bdafa668",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.39.0/voxywatch-v3.39.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.39.1/voxywatch-v3.39.1-linux-x64.tar.gz",
+    "sha256": "64bdf529de97b03b26f68fcecc5379e62d01736673144c74fdf174a91146a4d7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.39.1/voxywatch-v3.39.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Accuracy and safety",
-    "Calls crossing a B2BUA remain one investigation session while exposing independent ingress and egress signaling legs, outcomes and trunk attribution.",
-    "CDR Base now shows session direction, ingress trunk and egress trunk. Investigate shows the complete route and labels every SIP message by leg.",
-    "Duplicate trunk rules and duplicate internal SBC endpoints are blocked before saving or importing. Existing conflicts appear as a critical notification with dir"
+    "Safety",
+    "Trunk catalogs replaced through CLI, MCP-assisted setup or another atomic writer are now detected by the running portal within one second. Trunk attribution ref",
+    "The check is bounded to one filesystem revision read per second, stays outside packet capture and does not rewrite CDR data or require a database migration."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
     "Safety",
     "Validation",
-    "B2BUA calls that preserve one Call-ID now remain one investigation session while exposing independent inbound and outbound signaling legs, outcomes and trunk at",
-    "CDR Base shows session direction plus ingress and egress trunks; CSV export and trunk filters include both legs. Investigate adds a compact route and leg labels"
+    "Trunk attribution now detects atomic catalog replacements made outside the portal process and rebuilds its in-memory index within one second. CLI/MCP-assisted c",
+    "Revision checks are rate-limited to one filesystem stat per second and never enter the packet-capture hot path. Database rows are not rewritten; CDR attribution"
   ]
 }

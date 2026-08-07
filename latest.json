@@ -1,26 +1,26 @@
 {
-  "version": "3.53.0",
+  "version": "3.53.1",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.53.0/voxywatch-v3.53.0-linux-x64.tar.gz",
-    "sha256": "a2478fe59deb17650c5d1ab06970ff30362a3fd20293677b4f56ded273c47c51",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.53.0/voxywatch-v3.53.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.53.1/voxywatch-v3.53.1-linux-x64.tar.gz",
+    "sha256": "7f0727cbe94007f8208798dfd2dbbed0c7d4604708f5bf29c42aa58e0a6312ff",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.53.1/voxywatch-v3.53.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "ADK multi-agent brain",
-    "Google ADK is qualified and pinned at 2.6.3. Eleven manifest-driven agents now cover SIP, fraud, flash calls, RTP/media, routing attribution, incident correlati",
-    "The deterministic router scopes tools and evidence per specialist; bounded fan-out/fan-in runs up to three specialists and a coordinator.",
-    "Chat, Calls and Incidents share the orchestration plan, with regression evals for routing, grounding, isolation and safe non-execution."
+    "Endpoint traffic and operational incidents",
+    "Traffic handled by internal endpoint no longer appends a false zero while the current hour is still awaiting rollup; the chart ends at the latest observed bucke",
+    "Operations renames the existing per-trunk view to Trunk incidents and adds IP incidents for correlated IP/IP:port failures.",
+    "Shared SIP endpoint health moves out of Configuration → Trunks into its single operational destination under IP incidents."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Cerebro multiagente ADK",
-    "Google ADK sube de 2.1.0 a 2.6.3 mediante lock controlado y laboratorio aislado de compatibilidad.",
-    "Un registro único define 11 agentes, incluyendo nuevos especialistas RTP/media, atribución multi-leg, correlación de incidentes e integraciones/configuració",
-    "El router determinista selecciona especialistas por intención y entidades; cada handoff recibe sólo sus herramientas y prefijos de evidencia autorizados."
+    "Tráfico por endpoint e incidentes operativos",
+    "La gráfica Traffic handled by internal endpoint deja de añadir un bucket cero artificial mientras la hora actual todavía no ha sido consolidada; termina en e",
+    "Operations renombra la vista existente de salud por troncal a Trunk incidents y añade IP incidents para la correlación de fallas por IP/IP:puerto.",
+    "Shared SIP endpoint health sale de Configuration → Trunks y conserva una única instancia operativa bajo IP incidents."
   ]
 }

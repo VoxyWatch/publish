@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.53.1] — 2026-08-07
+
+### Endpoint traffic and operational incidents
+- **Traffic handled by internal endpoint** no longer appends a false zero while the current hour is still awaiting rollup; the chart ends at the latest observed bucket.
+- Operations renames the existing per-trunk view to **Trunk incidents** and adds **IP incidents** for correlated IP/IP:port failures.
+- **Shared SIP endpoint health** moves out of Configuration → Trunks into its single operational destination under IP incidents.
+
 ## [3.53.0] — 2026-08-07
 
 ### ADK multi-agent brain

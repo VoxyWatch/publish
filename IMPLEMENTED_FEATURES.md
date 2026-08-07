@@ -78,9 +78,9 @@ can exist without MOS, RTP correlation or playable audio.
   sustain/recovery and optional per-trunk auto-calibration.
 - Hierarchical SIP endpoint health correlates logical trunks by observed
   IP:port and then by host IP. It requires multiple affected routes, sufficient
-  sample and material traffic breadth before surfacing a shared fault. The
-  deterministic detector starts in shadow mode; an administrator can enable a
-  single deduplicated parent incident after validating the installation.
+  sample and material traffic breadth before surfacing a shared fault. A
+  qualified failure creates one deduplicated parent IP incident by default;
+  shadow mode remains available as an explicit administrative rollback.
 - Robust seasonal baseline with 168 day-of-week/hour buckets using median and
   MAD.
 - Deterministic volume/ASR forecast derived from that seasonal baseline and the

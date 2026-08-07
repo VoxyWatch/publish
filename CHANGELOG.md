@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.42.1] — 2026-08-07
+
+### IP failures become actionable incidents
+- Shared SIP host failures now create `sip_endpoint_health` incidents by default after the existing sample, breadth and persistence gates pass.
+- Incidents exposes an explicit **IP failures** type filter, and the Trunks health action selects that type plus the exact IP before loading results.
+
+### Honest trunk discovery reasons
+- The discovery panel is now titled **Unattributed observed SIP traffic** instead of claiming every row is absent from the catalog.
+- Each row distinguishes an endpoint missing from Trunks from a known IP:port whose dialed number matched no configured prefix or fallback route.
+- Route mismatches include a bounded list of candidate trunk names, without exposing dialed numbers.
+
 ## [3.42.0] — 2026-08-07
 
 ### Hierarchical SIP endpoint health

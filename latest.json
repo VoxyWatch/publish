@@ -1,26 +1,26 @@
 {
-  "version": "3.42.0",
+  "version": "3.42.1",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.42.0/voxywatch-v3.42.0-linux-x64.tar.gz",
-    "sha256": "2f75a90955558249b2fc995d1206599a4341570ca633eff861c2c7a8472cd4d0",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.42.0/voxywatch-v3.42.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.42.1/voxywatch-v3.42.1-linux-x64.tar.gz",
+    "sha256": "700e94528cf262e3d4702b20697a3793a47982f9399a3a428be280636b64a4b6",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.42.1/voxywatch-v3.42.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Hierarchical SIP endpoint health",
-    "Parent incidents without alert storms",
-    "Operator and AI experience",
-    "VoxyWatch correlates attributed commercial SIP legs at three levels: logical trunk, observed IP:port service and parent host IP."
+    "IP failures become actionable incidents",
+    "Honest trunk discovery reasons",
+    "Shared SIP host failures now create `sip_endpoint_health` incidents by default after the existing sample, breadth and persistence gates pass.",
+    "Incidents exposes an explicit IP failures type filter, and the Trunks health action selects that type plus the exact IP before loading results."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Hierarchical SIP endpoint health",
-    "Parent incidents without alert storms",
-    "Operator and AI experience",
-    "VoxyWatch correlates attributed commercial SIP legs at three levels: logical trunk, observed IP:port service and parent host IP."
+    "IP failures become actionable incidents",
+    "Honest trunk discovery reasons",
+    "Shared SIP host failures now create `sip_endpoint_health` incidents by default after the existing sample, breadth and persistence gates pass.",
+    "Incidents exposes an explicit IP failures type filter, and the Trunks health action selects that type plus the exact IP before loading results."
   ]
 }

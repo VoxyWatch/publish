@@ -1,26 +1,26 @@
 {
-  "version": "3.53.1",
+  "version": "3.53.2",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.53.1/voxywatch-v3.53.1-linux-x64.tar.gz",
-    "sha256": "7f0727cbe94007f8208798dfd2dbbed0c7d4604708f5bf29c42aa58e0a6312ff",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.53.1/voxywatch-v3.53.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.53.2/voxywatch-v3.53.2-linux-x64.tar.gz",
+    "sha256": "eef66075a36e4914f46233204ae2e26e887fde2519e13ad45dd19ec4d2bc8285",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.53.2/voxywatch-v3.53.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Endpoint traffic and operational incidents",
-    "Traffic handled by internal endpoint no longer appends a false zero while the current hour is still awaiting rollup; the chart ends at the latest observed bucke",
-    "Operations renames the existing per-trunk view to Trunk incidents and adds IP incidents for correlated IP/IP:port failures.",
-    "Shared SIP endpoint health moves out of Configuration → Trunks into its single operational destination under IP incidents."
+    "Consistent Operations loading",
+    "Fraud and Flash Calls prefetch one shared snapshot in the background when Operations opens.",
+    "Refreshes keep the last valid content visible while new data arrives, removing the blocking “Loading” label that appeared only on those two tabs.",
+    "Manual Refresh forces a fresh request while duplicate in-flight reads remain deduplicated."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Tráfico por endpoint e incidentes operativos",
-    "La gráfica Traffic handled by internal endpoint deja de añadir un bucket cero artificial mientras la hora actual todavía no ha sido consolidada; termina en e",
-    "Operations renombra la vista existente de salud por troncal a Trunk incidents y añade IP incidents para la correlación de fallas por IP/IP:puerto.",
-    "Shared SIP endpoint health sale de Configuration → Trunks y conserva una única instancia operativa bajo IP incidents."
+    "Carga uniforme en Operations",
+    "Fraud y Flash Calls precargan en segundo plano un único snapshot compartido al entrar a Operations.",
+    "Al actualizar conservan el último contenido válido visible mientras llega la respuesta nueva; ya no muestran un “Loading” global exclusivo de esas dos pes",
+    "El botón Refresh fuerza una lectura nueva, evita solicitudes duplicadas y vuelve a habilitarse al terminar."
   ]
 }

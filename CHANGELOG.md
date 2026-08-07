@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.53.2] — 2026-08-07
+
+### Consistent Operations loading
+- Fraud and Flash Calls prefetch one shared snapshot in the background when Operations opens.
+- Refreshes keep the last valid content visible while new data arrives, removing the blocking “Loading” label that appeared only on those two tabs.
+- Manual Refresh forces a fresh request while duplicate in-flight reads remain deduplicated.
+
 ## [3.53.1] — 2026-08-07
 
 ### Endpoint traffic and operational incidents

@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.40.0] — 2026-08-06
+
+### Added — turn unknown traffic into a configured trunk
+- Trunks now lists recently observed external SIP endpoints missing from the catalog, including IP:port, direction and call volume. One click opens a prefilled trunk form.
+- Overview shows the real unattributed endpoint instead of a generic warning and links directly to Add trunk.
+- Administrators can ignore an exact IP or CIDR range in analytics only, or explicitly prevent matching future packets from being captured.
+
+### Safety
+- Capture exclusions require confirmation, never delete historical evidence and reload without restarting services. VoxyWatch does not guess carrier names or turn full subscriber numbers into trunk prefixes.
+
 ## [3.39.3] — 2026-08-06
 
 ### Fixed

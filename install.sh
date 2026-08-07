@@ -330,50 +330,14 @@ elif [ -n "$HTTPS_MODE_ARG" ]; then
 else
   HTTPS_MODE="internal"
   HTTPS_HOST="$HTTPS_HOST_ARG"
-  if tty_ok; then
-    echo ""
-    echo -e "  ${BOLD}Secure web access${NC}"
-    echo "  How will users open this VoxyWatch portal?"
-    echo ""
-    echo "  1) Public domain (recommended)"
-    echo "     Example: noc.example.com. Requires DNS pointing to this server and"
-    echo "     inbound TCP ports 80 and 443. Browsers trust the certificate automatically."
-    echo ""
-    echo "  2) Server IP or private hostname"
-    echo "     Uses a private Caddy certificate. Only TCP 443 is required, but each"
-    echo "     client must trust the Caddy root certificate once."
-    echo ""
-    while :; do
-      HTTPS_PICK="$(_read_tty_line "Choose 1 or 2 [2]: " "2")" \
-        || err "Could not read the HTTPS access choice from the terminal"
-      case "$HTTPS_PICK" in
-        1)
-          HTTPS_MODE="public"
-          echo ""
-          echo "  Enter only the DNS name — do not include https://, a path or an IP address."
-          while :; do
-            HTTPS_HOST="$(_read_tty_line "Public DNS name (example: noc.example.com): ")" \
-              || err "Could not read the public DNS name from the terminal"
-            _valid_public_https_host "$HTTPS_HOST" && break
-            warn "Enter a fully-qualified DNS name, not an IP address (example: noc.example.com)."
-          done
-          break
-          ;;
-        2)
-          HTTPS_MODE="internal"
-          HTTPS_DETECTED="$(_detected_private_host)"
-          [ -n "$HTTPS_DETECTED" ] \
-            || err "Could not detect a private hostname/IP; rerun with --https-mode internal --https-host <address>"
-          echo ""
-          echo "  Detected address: ${HTTPS_DETECTED}"
-          HTTPS_HOST="$(_read_tty_line "Private hostname or IP [${HTTPS_DETECTED}]: " "$HTTPS_DETECTED")" \
-            || err "Could not read the private HTTPS address from the terminal"
-          break
-          ;;
-        *) warn "Choose 1 for a public domain or 2 for an IP/private hostname." ;;
-      esac
-    done
-  fi
+  # Fresh installs must be immediately reachable without asking the operator to
+  # make a DNS/certificate decision mid-install. Start with the detected private
+  # address and Caddy's internal CA; public-domain access is configured later in
+  # Settings → Web Access. Automation may still opt in explicitly with
+  # --https-mode public --https-host <fqdn>.
+  [ -n "$HTTPS_HOST" ] || HTTPS_HOST="$(_detected_private_host)"
+  [ -n "$HTTPS_HOST" ] \
+    || err "Could not detect a private hostname/IP; rerun with --https-mode internal --https-host <address>"
 fi
 [ -n "$HTTPS_MODE" ] || HTTPS_MODE="legacy"
 case "$HTTPS_MODE" in public|internal|legacy) ;; *) err "Invalid HTTPS mode '${HTTPS_MODE}': use public or internal" ;; esac
@@ -594,6 +558,7 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
     etc/systemd/system/voxywatch-srs.service \
     etc/systemd/system/voxywatch-agentic.service \
     etc/systemd/system/voxywatch-apply-update.service \
+    etc/systemd/system/voxywatch-apply-web-access.service \
     etc/sysctl.d/99-voxywatch.conf \
     usr/local/sbin/voxywatch-license \
     usr/local/sbin/voxywatch-ai-key; do
@@ -660,6 +625,7 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/hep_sniffer.py"     "${INSTALL
 install -o root -g voxywatch -m 640 "${EXTRACTED}/get-hwid.js"        "${INSTALL_DIR}/get-hwid.js"
 [ -f "${EXTRACTED}/voxywatch-mcp.js" ] && install -o root -g voxywatch -m 644 "${EXTRACTED}/voxywatch-mcp.js" "${INSTALL_DIR}/voxywatch-mcp.js"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/migrate_to_db.js"   "${INSTALL_DIR}/migrate_to_db.js" 2>/dev/null || true
+install -o root -g voxywatch -m 750 "${EXTRACTED}/apply-web-access.py" "${INSTALL_DIR}/apply-web-access.py"
 # Helpers que el portal invoca directamente: si falta uno, la instalación está incompleta
 # y debe abortar en lugar de anunciar éxito con Audio/PCAP/DTMF rotos.
 install -o root -g voxywatch -m 640 "${EXTRACTED}/generate_pcap.py"     "${INSTALL_DIR}/generate_pcap.py"
@@ -950,6 +916,7 @@ Environment=PORT=${PORT}
 # a non-loopback backend as critical until the operator performs a controlled managed-HTTPS migration.
 Environment=VOXYWATCH_BIND_HOST=$([ "$HTTPS_MODE" = "legacy" ] && printf '' || printf '127.0.0.1')
 Environment=VOXYWATCH_HTTPS_MODE=$([ "$HTTPS_MODE" = "legacy" ] && printf '' || printf '%s' "$HTTPS_MODE")
+Environment=VOXYWATCH_HTTPS_HOST=$([ "$HTTPS_MODE" = "legacy" ] && printf '' || printf '%s' "$HTTPS_HOST")
 Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
 Environment=PGHOST=${PG_SOCKET_DIR}
 Environment=PGPORT=${PG_PORT}
@@ -1061,6 +1028,26 @@ ExecStart=${INSTALL_DIR}/apply-update.sh
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=voxywatch-apply-update
+EOF
+
+# ── Web access applier (oneshot, root) ───────────────────────────────────────
+# The portal only writes a bounded JSON request. This fixed root-owned helper
+# validates the mode/host, refuses unmanaged Caddyfiles and rolls back Caddy,
+# config and the systemd override if reload or portal restart fails.
+cat > /etc/systemd/system/voxywatch-apply-web-access.service << EOF
+[Unit]
+Description=VoxyWatch — apply managed HTTPS web access (one-shot)
+After=caddy.service
+[Service]
+Type=oneshot
+ExecStart=${INSTALL_DIR}/apply-web-access.py
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=voxywatch-apply-web-access
 EOF
 
 # ── SIPREC SRS (grabación directa desde SBC) — proceso APARTE, OFF por default ──
@@ -1252,7 +1239,8 @@ polkit.addRule(function(action, subject) {
         var u = action.lookup("unit");
         if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" ||
             u == "voxywatch-agentic.service" ||
-            u == "voxywatch-apply-update.service")
+            u == "voxywatch-apply-update.service" ||
+            u == "voxywatch-apply-web-access.service")
             return polkit.Result.YES;
     }
     // enable/disable persistente SOLO del SRS (la pestaña Settings → SIPREC lo activa en boot).

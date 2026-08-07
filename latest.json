@@ -1,22 +1,25 @@
 {
-  "version": "3.37.1",
+  "version": "3.38.0",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.37.1/voxywatch-v3.37.1-linux-x64.tar.gz",
-    "sha256": "694d9b28ceff678da9ab41ff6fcf84c1f02e79d31496ad86fc813fb65b1be970",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.37.1/voxywatch-v3.37.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.38.0/voxywatch-v3.38.0-linux-x64.tar.gz",
+    "sha256": "4f8915c78bf01add51ea8aed5df2f9af75c84e72099caa4ed60923001aadc641",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.38.0/voxywatch-v3.38.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Process reliability",
-    "Release validation now detects installer changes and explicitly requires two demo updater passes. This verifies behavior from the newly installed root-owned scr"
+    "Web Access belongs in Security",
+    "Security and reliability",
+    "Fresh installation no longer asks for a public DNS name or certificate mode. It starts on the detected private IP/hostname with Caddy's internal CA; admins conf",
+    "General no longer shows fixed product/port facts. Web Access now keeps authentication/session, managed HTTPS URL and hostname, certificate state, OIDC SSO and P"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Process",
-    "The canonical release tool now detects changes to `install.sh` and requires two demo updater passes plus validation of the new installer behavior. The first pas"
+    "Fresh installations no longer ask the operator to choose public DNS or private certificate access. They start safely on the detected private IP/hostname with Ca",
+    "Settings → General no longer shows fixed product identity or port facts. The former Security submenu is now Web Access under the Security group and keeps auth",
+    "Public/private hostname changes use a fixed root-owned `voxywatch-apply-web-access.service`. The helper validates a bounded request, requires a VoxyWatch-manage"
   ]
 }

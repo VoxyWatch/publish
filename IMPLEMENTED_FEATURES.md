@@ -163,7 +163,7 @@ tool.
 
 - JWT authentication, admin/operator/viewer RBAC and forced password change for
   new users.
-- Mandatory managed HTTPS ingress, optional OIDC SSO and restricted Origins.
+- Mandatory managed HTTPS ingress; fresh installs use private CA access and admins can safely move the hostname/DNS decision to Settings → Web Access through a scoped rollback-capable helper. Optional OIDC SSO and restricted Origins remain in the same access surface.
 - Per-user language, light/dark theme and notification preferences; light is
   the default when no preference exists.
 - PCI recording pause with API/manual/DTMF triggers and SSRC propagation;

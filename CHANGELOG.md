@@ -1,11 +1,21 @@
 # Changelog
 
-## [3.37.1] — 2026-08-07
+## [3.38.0] — 2026-08-06
+
+### Changed — Web Access belongs in Security
+- Fresh installation no longer asks for a public DNS name or certificate mode. It starts on the detected private IP/hostname with Caddy's internal CA; admins configure public DNS later from Settings → Web Access.
+- General no longer shows fixed product/port facts. Web Access now keeps authentication/session, managed HTTPS URL and hostname, certificate state, OIDC SSO and PCI controls together under Security.
+
+### Security and reliability
+- Hostname changes run through a fixed root-owned, polkit-scoped helper that validates the request, refuses unmanaged Caddy configuration and rolls back on failure.
+- Fixed malformed Settings markup that hid SSO/HTTPS content and could hide HEP controls. Fixed the legacy custom certificate upload request contract.
+
+## [3.37.1] — 2026-08-06
 
 ### Process reliability
 - Release validation now detects installer changes and explicitly requires two demo updater passes. This verifies behavior from the newly installed root-owned script rather than assuming the first pass used it.
 
-## [3.37.0] — 2026-08-07
+## [3.37.0] — 2026-08-06
 
 ### Changed — clearer first installation
 - Fresh interactive installs no longer ask for or advertise the internal 3080 backend port. Users always enter through managed HTTPS on port 443; `--port` remains available for advanced automation.

@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.49.2] — 2026-08-07
+
+### CDR and background work under load
+- Large CDR pages now use an isolated PostgreSQL pool with a finite 20-second budget, so they neither compete with fast metrics nor inherit their 5-second timeout.
+- The one-minute rollup now completes its single retry for transient connection failures and never retries a statement timeout.
+- Multi-leg backfill and optional trends degrade to a warning after their transient retry is exhausted, avoiding repetitive Sentry issues when the next scheduled tick can recover.
+
+### Validation
+- Five-pool contracts, keyset/GIN plans, ephemeral PostgreSQL/TimescaleDB, full suite and invariants.
+
 ## [3.49.1] — 2026-08-07
 
 ### Incident and telemetry reliability

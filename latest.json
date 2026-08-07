@@ -1,26 +1,26 @@
 {
-  "version": "3.49.1",
+  "version": "3.49.2",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.49.1/voxywatch-v3.49.1-linux-x64.tar.gz",
-    "sha256": "c7abe3d645373abc6408d834141368daa73aac878e58e15626a638ebd76b49e6",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.49.1/voxywatch-v3.49.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.49.2/voxywatch-v3.49.2-linux-x64.tar.gz",
+    "sha256": "3e2a12ba708f7f5e1ffd17ecbd88d06ed385a2779cc506ffeb3cf0fdf1b68743",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.49.2/voxywatch-v3.49.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Incident and telemetry reliability",
-    "Compatibility and bounded queries",
+    "CDR and background work under load",
     "Validation",
-    "The incident engine now has a small dedicated PostgreSQL lane and performs one bounded retry for transient connection failures, never for slow statements or inv"
+    "Large CDR pages now use an isolated PostgreSQL pool with a finite 20-second budget, so they neither compete with fast metrics nor inherit their 5-second timeout",
+    "The one-minute rollup now completes its single retry for transient connection failures and never retries a statement timeout."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Confiabilidad de incidentes y telemetría",
-    "Compatibilidad y consultas acotadas",
+    "CDR y tareas de fondo bajo carga",
     "Validación",
-    "El motor de incidentes usa un carril PostgreSQL propio, acotado, y reintenta una sola vez las fallas transitorias de conexión sin reintentar consultas lentas o"
+    "Las páginas CDR grandes usan un pool PostgreSQL aislado con presupuesto finito de 20 s; ya no compiten con las métricas rápidas ni heredan su timeout de 5 s.",
+    "El rollup de un minuto completa el reintento único para cortes de conexión transitorios; nunca reintenta un timeout de sentencia."
   ]
 }

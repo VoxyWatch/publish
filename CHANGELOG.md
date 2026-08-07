@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.41.4] — 2026-08-07
+
+### Fixed
+- A shared SIP endpoint where no dial prefix or valid directional fallback matches is now classified as `No matching trunk route`, not as an ambiguous trunk.
+- Overview shows the affected IP:port and offers an `Add route` action that opens Trunks with the endpoint and direction prefilled. A prefix is suggested only from consistent bounded evidence.
+- Known catalog endpoints with a missing route also appear in Trunks discovery after one commercial call; scanner protections remain unchanged for completely unknown sockets.
+- Investigate and CDR use the same description. `Ambiguous trunk` is now reserved for genuine ties between applicable rules.
+
+### Validation
+- Read-only UCTel evidence for `104.152.200.149:5060` and `10.220.1.162:5060` is correctly identified as missing routes/prefixes without modifying the customer server or adding customer-specific code.
+
 ## [3.41.3] — 2026-08-07
 
 ### Fixed

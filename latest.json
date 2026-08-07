@@ -1,10 +1,10 @@
 {
-  "version": "3.41.3",
+  "version": "3.41.4",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.41.3/voxywatch-v3.41.3-linux-x64.tar.gz",
-    "sha256": "66de14330f4cc91287316640e5b0d5d5eca56cad82df21d7e665afffd612bc4d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.41.3/voxywatch-v3.41.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.41.4/voxywatch-v3.41.4-linux-x64.tar.gz",
+    "sha256": "8b2687dea6265e189eee6e7f0694db1339c71b14f43a60dd4a964049c63d195d",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.41.4/voxywatch-v3.41.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
@@ -12,15 +12,15 @@
   },
   "changelog": [
     "Validation",
-    "A prefixless trunk now acts as the explicit fallback for a shared SIP endpoint, but only when no specific dial prefix matches.",
-    "Multiple equal fallback routes remain ambiguous, preserving fail-closed behavior instead of choosing by import order.",
-    "Legacy CDRs without signaling legs now include the affected IP:port in the ambiguity label."
+    "A shared SIP endpoint where no dial prefix or valid directional fallback matches is now classified as `No matching trunk route`, not as an ambiguous trunk.",
+    "Overview shows the affected IP:port and offers an `Add route` action that opens Trunks with the endpoint and direction prefilled. A prefix is suggested only fro",
+    "Known catalog endpoints with a missing route also appear in Trunks discovery after one commercial call; scanner protections remain unchanged for completely unkn"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Atribución de troncales compartidas",
+    "Rutas de troncal faltantes",
     "Validación",
-    "Una troncal sin prefijos funciona como fallback explícito del endpoint: sólo gana cuando ninguna ruta específica coincide con el número marcado.",
-    "Si existe más de un fallback con la misma prioridad, el resultado permanece ambiguo; VoxyWatch nunca decide por orden de importación."
+    "Un endpoint compartido donde ninguna regla de prefijo ni fallback coincide se clasifica como `No matching trunk route`, no como una troncal ambigua.",
+    "Overview muestra `No matching trunk route · IP:puerto` y ofrece `Add route`, que abre Trunks con endpoint, dirección y un prefijo sugerido sólo cuando existe"
   ]
 }

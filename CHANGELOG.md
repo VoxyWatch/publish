@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.44.0] — 2026-08-07
+
+### Commercial Overview scope
+- A compact selector beside the time range now applies Inbound, Outbound, All external or Country consistently to trunk ASR, Top 25 traffic, endpoint/country series and the external performance table.
+- Global CPS, simultaneous calls and platform-wide KPIs remain unchanged, so commercial segmentation cannot distort overall load.
+- Endpoint rollups now preserve inbound/outbound counters and rebuild historical data gradually after upgrade; IP Directory-only installations are supported.
+- Unanswered SIP Activity now follows the selected time window and shows an explicit empty state when no activity exists.
+
 ## [3.43.1] — 2026-08-07
 
 ### Fixed

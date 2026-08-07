@@ -1,26 +1,23 @@
 {
-  "version": "3.43.0",
+  "version": "3.43.1",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.43.0/voxywatch-v3.43.0-linux-x64.tar.gz",
-    "sha256": "73d3d04bcfee076878e00a87397cb0294324434ba342e393c6a9f308548251ed",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.43.0/voxywatch-v3.43.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.43.1/voxywatch-v3.43.1-linux-x64.tar.gz",
+    "sha256": "7d05ae05d31a984e570f4ab8b023ecfe748af82d7f9c43a8f949c7260b76249b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.43.1/voxywatch-v3.43.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Adaptive Overview and historical traffic",
-    "Multi-leg Calls workflow",
-    "Unified Operations",
-    "Reliability"
+    "The Top 25 trunk chart keeps a useful height even when the selected window has no rows yet and scales its canvas for up to 25 scrollable trunks.",
+    "Public E2E now verifies the real Operations navigation, both internal tabs, removal of More, and useful customizer/chart dimensions instead of accepting hidden"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Overview adaptable y métricas históricas",
-    "Calls con contexto multi-leg",
-    "Operaciones unificadas",
-    "Validación"
+    "Corregido",
+    "La gráfica Top 25 de troncales conserva una altura útil aun cuando la ventana seleccionada todavía no tiene filas y escala su lienzo para mostrar hasta 25 tr",
+    "El E2E público valida ahora la navegación real de Operations, ambas subpestañas, ausencia de More, dimensiones del customizer y de las gráficas nuevas, evit"
   ]
 }

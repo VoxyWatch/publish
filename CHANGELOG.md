@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.43.1] — 2026-08-07
+
+### Fixed
+- The Top 25 trunk chart keeps a useful height even when the selected window has no rows yet and scales its canvas for up to 25 scrollable trunks.
+- Public E2E now verifies the real Operations navigation, both internal tabs, removal of More, and useful customizer/chart dimensions instead of accepting hidden nested panels.
+
 ## [3.43.0] — 2026-08-07
 
 ### Adaptive Overview and historical traffic

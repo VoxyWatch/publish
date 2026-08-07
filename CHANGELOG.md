@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.41.5] — 2026-08-07
+
+### Destination country accuracy
+- A configured routing prefix is removed before E.164 country resolution. When the remaining number is plausible, its calling code is authoritative and a catalog label can no longer misclassify the destination.
+- The catalog country label remains a safe fallback only when the number left after routing-prefix removal cannot be resolved as E.164.
+
+### Exact CDR navigation
+- The CDR action opens the exact Call-ID immediately and then refreshes the Calls list with the same identifier; it can no longer leave a previously selected call visible while the server-side search is pending.
+
+### Validation
+- Regression fixtures cover a `595` operator prefix followed by Mexico `52`, direct Paraguay E.164, catalog fallback, and stale-detail prevention without customer-specific logic.
+
 ## [3.41.4] — 2026-08-07
 
 ### Fixed

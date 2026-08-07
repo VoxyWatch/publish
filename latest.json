@@ -1,26 +1,26 @@
 {
-  "version": "3.41.4",
+  "version": "3.41.5",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.41.4/voxywatch-v3.41.4-linux-x64.tar.gz",
-    "sha256": "8b2687dea6265e189eee6e7f0694db1339c71b14f43a60dd4a964049c63d195d",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.41.4/voxywatch-v3.41.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.41.5/voxywatch-v3.41.5-linux-x64.tar.gz",
+    "sha256": "272ab944603ddeb531a2018ae998c252033bcde0e233e3dbaf7fee3af4733013",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.41.5/voxywatch-v3.41.5-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
+    "Destination country accuracy",
+    "Exact CDR navigation",
     "Validation",
-    "A shared SIP endpoint where no dial prefix or valid directional fallback matches is now classified as `No matching trunk route`, not as an ambiguous trunk.",
-    "Overview shows the affected IP:port and offers an `Add route` action that opens Trunks with the endpoint and direction prefilled. A prefix is suggested only fro",
-    "Known catalog endpoints with a missing route also appear in Trunks discovery after one commercial call; scanner protections remain unchanged for completely unkn"
+    "A configured routing prefix is removed before E.164 country resolution. When the remaining number is plausible, its calling code is authoritative and a catalog"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Rutas de troncal faltantes",
-    "Validación",
-    "Un endpoint compartido donde ninguna regla de prefijo ni fallback coincide se clasifica como `No matching trunk route`, no como una troncal ambigua.",
-    "Overview muestra `No matching trunk route · IP:puerto` y ofrece `Add route`, que abre Trunks con endpoint, dirección y un prefijo sugerido sólo cuando existe"
+    "Destination country accuracy",
+    "Exact CDR navigation",
+    "Validation",
+    "A configured routing prefix is removed before E.164 country resolution. When the remaining number is plausible, its calling code is authoritative and a catalog"
   ]
 }

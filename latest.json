@@ -1,26 +1,26 @@
 {
-  "version": "3.49.0",
+  "version": "3.49.1",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.49.0/voxywatch-v3.49.0-linux-x64.tar.gz",
-    "sha256": "c06055f0be49d8c88c7d891e9278a4973c2a6f84770f4a3a512a66b168c1bac4",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.49.0/voxywatch-v3.49.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.49.1/voxywatch-v3.49.1-linux-x64.tar.gz",
+    "sha256": "c7abe3d645373abc6408d834141368daa73aac878e58e15626a638ebd76b49e6",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.49.1/voxywatch-v3.49.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Unified submenu design system",
+    "Incident and telemetry reliability",
+    "Compatibility and bounded queries",
     "Validation",
-    "Call Type Detection, Configuration, Alerts and Operations now share the same submenu height, spacing, typography, borders, hover, focus and active states.",
-    "Settings keeps its grouped scrollable rail while adopting the same height, radius and active treatment for consistency without losing density."
+    "The incident engine now has a small dedicated PostgreSQL lane and performs one bounded retry for transient connection failures, never for slow statements or inv"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Sistema visual de submenús",
+    "Confiabilidad de incidentes y telemetría",
+    "Compatibilidad y consultas acotadas",
     "Validación",
-    "Call Type Detection, Configuration, Alerts y Operations comparten el mismo componente visual: altura, espaciado, tipografía, bordes, hover, foco y estado activ",
-    "Settings conserva su riel agrupado y desplazable, pero adopta la misma altura, radio y tratamiento activo para mantener consistencia sin perder densidad."
+    "El motor de incidentes usa un carril PostgreSQL propio, acotado, y reintenta una sola vez las fallas transitorias de conexión sin reintentar consultas lentas o"
   ]
 }

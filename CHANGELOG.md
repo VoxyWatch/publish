@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.49.1] — 2026-08-07
+
+### Incident and telemetry reliability
+- The incident engine now has a small dedicated PostgreSQL lane and performs one bounded retry for transient connection failures, never for slow statements or invalid SQL.
+- Detector recovery state remains pending until PostgreSQL confirms the transition, preventing incidents from becoming stuck after pool saturation.
+- Healthy license changes and capacity transitions remain diagnostic context without creating false Sentry bug issues.
+
+### Compatibility and bounded queries
+- Existing installations receive additive inbound/outbound trunk-rollup columns; failed schema compatibility work is now visible instead of leaving the dashboard falsely ready.
+- Per-call trend context is bounded to 1,000 CDRs, while rollup and backfill retries remain connection-only and bounded.
+
+### Validation
+- Full regression suite, ephemeral PostgreSQL/TimescaleDB, keyset/GIN query plans, migrations, incident lifecycle, unknown-audio guards and telemetry contracts verified.
+
 ## [3.49.0] — 2026-08-07
 
 ### Unified submenu design system

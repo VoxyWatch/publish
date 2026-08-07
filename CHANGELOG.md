@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.45.0] — 2026-08-07
+
+### Alerts as an operational workspace
+- Alerts is now a primary navigation view with compact Delivery, Detection and Email areas instead of being buried in Settings.
+- Trunks links to the single authoritative global webhook form, which now includes minimum severity and a harmless test action without saving.
+- Fraud retains its own authoritative editor, preventing two forms from overwriting the same policy.
+
+### Clear permissions and capture ownership
+- Viewer and operator roles can inspect Alerts read-only; only administrators can change its controls.
+- Audio recording scope now lives under Settings → Capture with independent load/save behavior because it controls capture and retention, not alerting.
+- The workspace uses shared light/dark theme tokens, stacks cleanly at 390 px and keeps English as the default language with Spanish available per user.
+
+### Validation
+- Dedicated contracts cover navigation, internal panels, single-source configuration, permissions, webhook testing and recording-scope separation.
+- Full tests, i18n, accessibility and visual checks in light, dark and mobile layouts passed before release.
+
 ## [3.44.0] — 2026-08-07
 
 ### Commercial Overview scope

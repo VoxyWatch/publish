@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.41.1] — 2026-08-07
+
+### Fixed
+- Trunk discovery no longer offers one-off sockets or scanner-tagged traffic as carrier candidates.
+- High fan-out IPs whose source ports are mostly single observations are suppressed as `port_spray`, preventing SIP scanning or attack traffic from becoming an Add trunk suggestion.
+- Legitimate multi-service SIP peers remain eligible once each IP:port has stable repeated evidence. Capture exclusions continue to preserve historical evidence while preventing future matching traffic from being stored.
+
 ## [3.41.0] — 2026-08-06
 
 ### SIP and commercial accuracy

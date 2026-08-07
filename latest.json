@@ -1,26 +1,25 @@
 {
-  "version": "3.41.0",
+  "version": "3.41.1",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.41.0/voxywatch-v3.41.0-linux-x64.tar.gz",
-    "sha256": "4ee44ce30c1b698fb7c3e4f95a77e90fff57ab563cf5ce5baa0fbd01ddcc71cd",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.41.0/voxywatch-v3.41.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.41.1/voxywatch-v3.41.1-linux-x64.tar.gz",
+    "sha256": "6e618b52b641a875176afaa37c105120f1699072080a02c73f6932aca87e0198",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.41.1/voxywatch-v3.41.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "SIP and commercial accuracy",
-    "Visibility",
-    "Final 3xx responses, including `302 Moved Temporarily`, are classified as rejected calls while preserving the SIP code for investigation.",
-    "`Ignored` is now strictly limited to an INVITE, optionally followed by CANCEL, with no SIP response observed."
+    "Trunk discovery no longer offers one-off sockets or scanner-tagged traffic as carrier candidates.",
+    "High fan-out IPs whose source ports are mostly single observations are suppressed as `port_spray`, preventing SIP scanning or attack traffic from becoming an Ad",
+    "Legitimate multi-service SIP peers remain eligible once each IP:port has stable repeated evidence. Capture exclusions continue to preserve historical evidence w"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Exactitud SIP y comercial",
-    "Visibilidad",
+    "Corregido",
     "Validación",
-    "Las respuestas finales 3xx, incluido `302 Moved Temporarily`, se catalogan como llamadas rechazadas y conservan su código SIP para diagnóstico."
+    "El descubrimiento de troncales ya no propone sockets vistos una sola vez ni tráfico marcado como scanner.",
+    "Una IP que aparece por muchos puertos origen y cuyos sockets son principalmente observaciones únicas se suprime como `port_spray`, evitando convertir escaneo o"
   ]
 }

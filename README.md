@@ -29,7 +29,9 @@ so different users sharing one browser keep independent preferences.
 v3.15.2 restores AI chat responses after fixing an internal context-limiter wiring regression.
 
 For a status-labelled map of everything implemented in the signed release, see
-the **[Implemented Feature Reference](IMPLEMENTED_FEATURES.md)**.
+the **[Implemented Feature Reference](IMPLEMENTED_FEATURES.md)**. Calls that cross a B2BUA can
+remain one investigation session while ingress and egress are measured independently; see
+**[Multi-leg call attribution](MULTI_LEG_CALL_ATTRIBUTION.md)**.
 LLM credentials can be supplied without storing plaintext in normal settings; see the
 **[LLM credential management guide](AI_CREDENTIALS.md)**.
 Deployment options for public-domain and private-network TLS are documented in the **[HTTPS configuration guide](HTTPS_CONFIGURATION.md)**.

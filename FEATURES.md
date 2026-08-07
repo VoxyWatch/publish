@@ -147,7 +147,7 @@ Use this section as the high-level index for YouTube walkthroughs, training vide
 | What VoxyWatch is | Capture → correlate → detect → investigate → notify → learn | Show the loop from a call to an incident. |
 | Dashboard | Global KPIs, time ranges, charts, cause/codec/MOS distributions | Change the time range and explain ASR/NER/PDD/MOS. |
 | Calls | Search, filters, SIP ladder, audio, SIP text and PCAP | Open answered and rejected demo calls. |
-| CDR Base | Structured filters, column customization, ingress/egress leg attribution and CSV export | Open one transit session, verify both named trunks, then filter either leg. |
+| CDR Base | Structured filters, column customization, [ingress/egress leg attribution](MULTI_LEG_CALL_ATTRIBUTION.md) and CSV export | Open one transit session, verify both named trunks, then filter either leg. |
 | Trunks | IP/CIDR/prefix/DID attribution with canonical duplicate prevention and guided legacy repair | Attempt a duplicate IP:port+prefix rule and verify the save/import is blocked. |
 | Monitoring | Trunk health, reasons, baselines and Copilot diagnosis | Compare a healthy trunk with a degraded one. |
 | Fraud | New destination, high-risk countries, profiles and simulator | Show a safe demo fraud event or simulation. |

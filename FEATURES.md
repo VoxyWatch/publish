@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.41.1** (2026-08-06).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.41.1** (2026-08-07).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -108,7 +108,7 @@
 | Playable stereo audio | SIPREC reconstruction, caller/callee channels, in-browser player. PCMU/PCMA, G.722, G.729 + AMR/GSM/G.723 via SDP hints. Per-call PCAP export. |
 | Carrier & country attribution | Trunk catalog (IPs/CIDRs/prefixes) → every call attributed to carrier, direction and destination country (ITU-T E.164, longest match). Unknown external endpoints show their real IP:port with one-click prefilled trunk creation; exact IP/CIDR exclusions can hide analytics noise or explicitly skip future capture. |
 | Trunk health + baselines | Rule engine (ok/warn/critical/idle) with plain-language reasons + per-trunk learned baselines (mean ± σ). Catches the 90%→70% drop a fixed threshold misses. |
-| Dashboard & CDR base | **Window-accurate KPIs** — Attempts, Answered, Active-now, ASR, NER, ACD, MOS, PDD, minutes and concurrency aggregated from continuous rollups for the *exact* range picked (hour / today / yesterday / custom / all), not a live snapshot. ~48-point trend charts (attempts, answered, concurrency, CPS, ASR/NER) + distributions (disconnect causes by SIP family, duration, PDD, codecs, MOS). INVITE/optional-CANCEL traffic with no SIP response stays searchable but is separated from commercial KPIs into an unanswered-SIP activity chart; final 3xx responses count as rejected calls. Sortable/filterable/CSV CDR base at millions of rows (keyset + trigram search). Bilingual EN/ES. Honest MOS: shows "no data" when the source lacks RTCP/RTP rather than inventing one. |
+| Dashboard & CDR base | **Window-accurate KPIs** — Attempts, Answered, Active-now, ASR, NER, ACD, MOS, PDD, minutes and concurrency aggregated from continuous rollups for the *exact* range picked (hour / today / yesterday / custom / all), not a live snapshot. ~48-point trend charts (attempts, answered, concurrency, CPS, ASR/NER) + distributions (disconnect causes by SIP family, duration, PDD, codecs, MOS). INVITE/optional-CANCEL traffic with no SIP response stays searchable but is separated from commercial KPIs into an unanswered-SIP activity chart; final 3xx responses count as rejected calls. Missing-trunk discovery requires repeated IP:port evidence and suppresses high-fan-out singleton port spray. Sortable/filterable/CSV CDR base at millions of rows (keyset + trigram search). Bilingual EN/ES. Honest MOS: shows "no data" when the source lacks RTCP/RTP rather than inventing one. |
 
 ### 3 · Compliance & security
 

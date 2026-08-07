@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.43.0] — 2026-08-07
+
+### Adaptive Overview and historical traffic
+- Customize now lets each user reorder cards in place, hide them with ×, restore them with + and keep the chosen layout in the browser.
+- Overview adds Top 25 external trunks and traffic handled by each internal endpoint from authoritative hourly rollups instead of a recent CDR sample.
+- PDD hides empty ranges, MOS reports actual coverage and unanswered SIP activity retains its available history outside commercial KPIs.
+
+### Multi-leg Calls workflow
+- Investigate is now Calls and correlates every available leg and trunk across the summary, SIP sequence and expert analysis.
+- SIP response codes use consistent visual chips, transcoding evidence is shown per leg, and Audio/RTP, trends and SIP Expert use compact independent sections.
+- A new action prepares a contextual question about the selected call in AI Chat without sending it automatically.
+
+### Unified Operations
+- Incidents and Infrastructure now live under Operations with separate Active incidents and Network health tabs while retaining their existing lifecycle and data sources.
+- Fraud, Trunk catalog and CDR Base are always visible; the More menu and duplicate health alarm list are removed.
+
+### Reliability
+- Multi-hour endpoint buckets align to the exact selected-window boundary, preventing the first partial bucket from being dropped or shifted.
+- Dedicated regression contracts cover customization, rollups, navigation, multi-leg Calls, transcoding and AI handoff.
+
 ## [3.42.1] — 2026-08-07
 
 ### IP failures become actionable incidents

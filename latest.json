@@ -1,25 +1,24 @@
 {
-  "version": "3.39.2",
+  "version": "3.39.3",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.39.2/voxywatch-v3.39.2-linux-x64.tar.gz",
-    "sha256": "615f290309dfda655eddd9feacf952d1a5468660b624912b12150d23b677e35a",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.39.2/voxywatch-v3.39.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.39.3/voxywatch-v3.39.3-linux-x64.tar.gz",
+    "sha256": "6a82c98a72c25873363f05f6375bbeb053c59a7fbd963c82a0a0bca000fe3311",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.39.3/voxywatch-v3.39.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Accuracy and safety",
-    "Multi-leg trunk attribution now follows the direction already established by IP Directory. Outbound legs resolve the external destination and inbound legs resol",
-    "Longest-prefix and priority resolution remain authoritative on the observed external endpoint. Genuine final ties remain visible as ambiguous, and legacy calls"
+    "Reliability",
+    "Completed the observed-direction integration for multi-leg trunk attribution. The call projection now forwards each leg's inbound/outbound direction all the way",
+    "Added a regression covering both internal handoffs so the live CDR path cannot diverge from isolated resolver tests again."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Accuracy",
-    "Validation",
-    "Multi-leg trunk attribution now honors the direction already established by IP Directory. An outbound leg resolves its remote destination and an inbound leg res",
-    "Longest dial-prefix and priority still decide between trunks on the observed external endpoint. Genuine final ties remain explicitly ambiguous; legacy calls wit"
+    "Process",
+    "Completed the multi-leg direction wiring: `attributeCall()` now forwards the observed inbound/outbound leg direction to the trunk resolver. Version 3.39.2 conta",
+    "Added an executable two-hop contract covering `attributeCallLegs → attributeCall → matchCall`, preventing isolated resolver tests from passing while the liv"
   ]
 }

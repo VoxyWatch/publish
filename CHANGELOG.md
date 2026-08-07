@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.39.3] — 2026-08-06
+
+### Fixed
+- Completed the observed-direction integration for multi-leg trunk attribution. The call projection now forwards each leg's inbound/outbound direction all the way into the resolver; 3.39.2 contained the resolver behavior but omitted this field at the final integration boundary.
+
+### Reliability
+- Added a regression covering both internal handoffs so the live CDR path cannot diverge from isolated resolver tests again.
+
 ## [3.39.2] — 2026-08-06
 
 ### Fixed

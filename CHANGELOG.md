@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.41.0] — 2026-08-06
+
+### SIP and commercial accuracy
+- Final 3xx responses, including `302 Moved Temporarily`, are classified as rejected calls while preserving the SIP code for investigation.
+- `Ignored` is now strictly limited to an INVITE, optionally followed by CANCEL, with no SIP response observed.
+- Ignored attempts remain searchable in CDR and Investigate but no longer affect volume, ASR/NER, concurrency, trunk health/discovery/rollups, AI operational context or voice SNMP KPIs.
+
+### Visibility
+- Overview adds an optional hourly unanswered-SIP activity chart. It is an investigation signal, not an automatic attack verdict, because asymmetric capture or an ACL can produce the same evidence.
+- Global, minute and trunk rollups automatically migrate to the corrected semantics.
+
 ## [3.40.0] — 2026-08-06
 
 ### Added — turn unknown traffic into a configured trunk

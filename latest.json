@@ -1,26 +1,26 @@
 {
-  "version": "3.40.0",
-  "release_date": "2026-08-06",
+  "version": "3.41.0",
+  "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.40.0/voxywatch-v3.40.0-linux-x64.tar.gz",
-    "sha256": "ba07c4ddcd07d6bd6ddbb65804b4f5fcec941d610beffce014b2c43f7a5d7ee4",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.40.0/voxywatch-v3.40.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.41.0/voxywatch-v3.41.0-linux-x64.tar.gz",
+    "sha256": "4ee44ce30c1b698fb7c3e4f95a77e90fff57ab563cf5ce5baa0fbd01ddcc71cd",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.41.0/voxywatch-v3.41.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "turn unknown traffic into a configured trunk",
-    "Safety",
-    "Trunks now lists recently observed external SIP endpoints missing from the catalog, including IP:port, direction and call volume. One click opens a prefilled tr",
-    "Overview shows the real unattributed endpoint instead of a generic warning and links directly to Add trunk."
+    "SIP and commercial accuracy",
+    "Visibility",
+    "Final 3xx responses, including `302 Moved Temporarily`, are classified as rejected calls while preserving the SIP code for investigation.",
+    "`Ignored` is now strictly limited to an INVITE, optionally followed by CANCEL, with no SIP response observed."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Agregado",
-    "Seguridad y exactitud",
+    "Exactitud SIP y comercial",
+    "Visibilidad",
     "Validación",
-    "Trunks muestra los endpoints SIP externos observados que aún no existen en el catálogo, con IP:puerto, dirección, volumen reciente y alta rápida prellenada."
+    "Las respuestas finales 3xx, incluido `302 Moved Temporarily`, se catalogan como llamadas rechazadas y conservan su código SIP para diagnóstico."
   ]
 }

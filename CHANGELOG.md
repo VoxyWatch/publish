@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.41.3] — 2026-08-07
+
+### Fixed
+- A prefixless trunk now acts as the explicit fallback for a shared SIP endpoint, but only when no specific dial prefix matches.
+- Multiple equal fallback routes remain ambiguous, preserving fail-closed behavior instead of choosing by import order.
+- Legacy CDRs without signaling legs now include the affected IP:port in the ambiguity label.
+
+### Validation
+- Against the read-only UCTel catalog, traffic on `10.206.4.66:5060` with the unmatched `159302…` route resolves from 84 endpoint candidates to its single configured `OTHER` fallback without customer-specific code.
+
 ## [3.41.2] — 2026-08-07
 
 ### Fixed

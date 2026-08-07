@@ -1,26 +1,26 @@
 {
-  "version": "3.44.0",
+  "version": "3.45.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.44.0/voxywatch-v3.44.0-linux-x64.tar.gz",
-    "sha256": "18a7f4675717a2f68b63e7c8a5e734e1c8b6c0d042d6426912ca8ecfe7f9fee0",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.44.0/voxywatch-v3.44.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.45.0/voxywatch-v3.45.0-linux-x64.tar.gz",
+    "sha256": "a851bf44d949e3136bc190324e1b23e86fd166a0e1d09da57d4a69983e9a5d91",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.45.0/voxywatch-v3.45.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Commercial Overview scope",
-    "A compact selector beside the time range now applies Inbound, Outbound, All external or Country consistently to trunk ASR, Top 25 traffic, endpoint/country seri",
-    "Global CPS, simultaneous calls and platform-wide KPIs remain unchanged, so commercial segmentation cannot distort overall load.",
-    "Endpoint rollups now preserve inbound/outbound counters and rebuild historical data gradually after upgrade; IP Directory-only installations are supported."
+    "Alerts as an operational workspace",
+    "Clear permissions and capture ownership",
+    "Validation",
+    "Alerts is now a primary navigation view with compact Delivery, Detection and Email areas instead of being buried in Settings."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Overview comercial coherente",
+    "Alerts como espacio operativo",
+    "Claridad, permisos y captura",
     "Validación",
-    "Un selector compacto junto al rango de tiempo controla Inbound, Outbound, All external o Country en ASR, Top 25, tráfico por endpoint/país y la tabla de tronc",
-    "El rollup por endpoint conserva contadores inbound/outbound y reconstruye el histórico gentilmente, incluso en instalaciones con Directorio IP pero sin catálo"
+    "Alerts sale de Settings y queda visible en la navegación principal con tres áreas compactas: Delivery, Detection y Email."
   ]
 }

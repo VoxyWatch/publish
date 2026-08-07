@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.38.0** (2026-08-06).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.39.0** (2026-08-06).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -147,8 +147,8 @@ Use this section as the high-level index for YouTube walkthroughs, training vide
 | What VoxyWatch is | Capture → correlate → detect → investigate → notify → learn | Show the loop from a call to an incident. |
 | Dashboard | Global KPIs, time ranges, charts, cause/codec/MOS distributions | Change the time range and explain ASR/NER/PDD/MOS. |
 | Calls | Search, filters, SIP ladder, audio, SIP text and PCAP | Open answered and rejected demo calls. |
-| CDR Base | Structured filters, column customization and CSV export | Filter by trunk/country/result and export CSV. |
-| Trunks | IP/CIDR/prefix/DID attribution to carriers/routes | Add a demo trunk and show labels in CDR/Monitoring. |
+| CDR Base | Structured filters, column customization, ingress/egress leg attribution and CSV export | Open one transit session, verify both named trunks, then filter either leg. |
+| Trunks | IP/CIDR/prefix/DID attribution with canonical duplicate prevention and guided legacy repair | Attempt a duplicate IP:port+prefix rule and verify the save/import is blocked. |
 | Monitoring | Trunk health, reasons, baselines and Copilot diagnosis | Compare a healthy trunk with a degraded one. |
 | Fraud | New destination, high-risk countries, profiles and simulator | Show a safe demo fraud event or simulation. |
 | Incidents | Lifecycle, evidence, AI diagnosis, ack/resolve and timeline | Open a demo incident and walk through evidence. |
@@ -176,4 +176,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.38.0.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.39.0.

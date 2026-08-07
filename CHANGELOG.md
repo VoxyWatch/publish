@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.39.0] — 2026-08-06
+
+### Added
+- Calls crossing a B2BUA remain one investigation session while exposing independent ingress and egress signaling legs, outcomes and trunk attribution.
+- CDR Base now shows session direction, ingress trunk and egress trunk. Investigate shows the complete route and labels every SIP message by leg.
+- Duplicate trunk rules and duplicate internal SBC endpoints are blocked before saving or importing. Existing conflicts appear as a critical notification with direct repair guidance.
+
+### Accuracy and safety
+- Global totals count each logical call once, while per-trunk health and hourly metrics count the leg actually observed on that trunk.
+- VoxyWatch never chooses arbitrarily between trunks with the same canonical IP:port and dial prefix. An omitted SIP port means 5060 in both Trunks and IP Directory.
+- A bounded background enrichment updates retained calls without delaying capture.
+
 ## [3.38.0] — 2026-08-06
 
 ### Changed — Web Access belongs in Security

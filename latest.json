@@ -1,25 +1,26 @@
 {
-  "version": "3.38.0",
+  "version": "3.39.0",
   "release_date": "2026-08-06",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.38.0/voxywatch-v3.38.0-linux-x64.tar.gz",
-    "sha256": "4f8915c78bf01add51ea8aed5df2f9af75c84e72099caa4ed60923001aadc641",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.38.0/voxywatch-v3.38.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.39.0/voxywatch-v3.39.0-linux-x64.tar.gz",
+    "sha256": "d740571cde6be7498b9070720ec7024ef646dcb7dd3bde8c63686b08bdafa668",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.39.0/voxywatch-v3.39.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Web Access belongs in Security",
-    "Security and reliability",
-    "Fresh installation no longer asks for a public DNS name or certificate mode. It starts on the detected private IP/hostname with Caddy's internal CA; admins conf",
-    "General no longer shows fixed product/port facts. Web Access now keeps authentication/session, managed HTTPS URL and hostname, certificate state, OIDC SSO and P"
+    "Accuracy and safety",
+    "Calls crossing a B2BUA remain one investigation session while exposing independent ingress and egress signaling legs, outcomes and trunk attribution.",
+    "CDR Base now shows session direction, ingress trunk and egress trunk. Investigate shows the complete route and labels every SIP message by leg.",
+    "Duplicate trunk rules and duplicate internal SBC endpoints are blocked before saving or importing. Existing conflicts appear as a critical notification with dir"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Fresh installations no longer ask the operator to choose public DNS or private certificate access. They start safely on the detected private IP/hostname with Ca",
-    "Settings → General no longer shows fixed product identity or port facts. The former Security submenu is now Web Access under the Security group and keeps auth",
-    "Public/private hostname changes use a fixed root-owned `voxywatch-apply-web-access.service`. The helper validates a bounded request, requires a VoxyWatch-manage"
+    "Safety",
+    "Validation",
+    "B2BUA calls that preserve one Call-ID now remain one investigation session while exposing independent inbound and outbound signaling legs, outcomes and trunk at",
+    "CDR Base shows session direction plus ingress and egress trunks; CSV export and trunk filters include both legs. Investigate adds a compact route and leg labels"
   ]
 }

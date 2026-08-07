@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.47.0] — 2026-08-07
+
+### Operational detection and navigation
+- A new primary Call Type Detection module presents rule-based operational findings; Flash Call Detection is its first detector and remains passive, never blocking or modifying calls.
+- Configuration → Fraud now contains configuration controls only. Flash Call findings no longer compete with the settings needed to tune the detector.
+- Configuration is now the final primary navigation module.
+
+### Focused urgent Operations
+- The former Needs attention queue has moved from Overview into Operations.
+- To avoid duplicating the incident list, it appears only for critical incidents or trunks, shows at most three immediate priorities and stays hidden when nothing is critical.
+
+### Validation
+- Dedicated contracts and real-browser checks cover view separation, permissions, navigation order, themes and a 390 px mobile layout without overflow.
+
 ## [3.46.0] — 2026-08-07
 
 ### Operational Configuration and role boundaries

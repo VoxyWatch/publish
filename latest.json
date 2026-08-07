@@ -1,26 +1,26 @@
 {
-  "version": "3.46.0",
+  "version": "3.47.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.46.0/voxywatch-v3.46.0-linux-x64.tar.gz",
-    "sha256": "9b268b6da35d0527b91186fbc19735e736b212915beb35e27e9846e1b365ffae",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.46.0/voxywatch-v3.46.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.47.0/voxywatch-v3.47.0-linux-x64.tar.gz",
+    "sha256": "43324b95fed63575d5c487605f8b8c6e3df4f796c0fa06d1a58afb32b26b2aae",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.47.0/voxywatch-v3.47.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Operational Configuration and role boundaries",
+    "Operational detection and navigation",
+    "Focused urgent Operations",
     "Validation",
-    "A new primary Configuration workspace groups Trunks, IP Directory, Alerts and Fraud into four compact submenus while preserving one authoritative editor for eac",
-    "Viewers can inspect all operational configuration read-only; operators and administrators can edit it. System Settings remains visible to every role and writabl"
+    "A new primary Call Type Detection module presents rule-based operational findings; Flash Call Detection is its first detector and remains passive, never blockin"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Configuration y permisos operativos",
+    "Detección operativa y navegación",
+    "Operations urgente",
     "Validación",
-    "Nueva pestaña principal Configuration con Trunks, IP Directory, Alerts y Fraud como submenús compactos y una sola fuente de datos por editor.",
-    "Viewer puede consultar toda la configuración operativa en modo sólo lectura; operator y admin pueden modificarla. Settings permanece visible para todos y edit"
+    "Nuevo módulo principal Call Type Detection para hallazgos operativos basados en reglas; Flash Call Detection es su primer detector y conserva su análisis pasi"
   ]
 }

@@ -1,26 +1,26 @@
 {
-  "version": "3.50.0",
+  "version": "3.51.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.50.0/voxywatch-v3.50.0-linux-x64.tar.gz",
-    "sha256": "34a544da19f1c32cb9d4766035e65eb8a3a315974fc5e82b06e36c55157a0f37",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.50.0/voxywatch-v3.50.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.51.0/voxywatch-v3.51.0-linux-x64.tar.gz",
+    "sha256": "9ca20ee770563b844698574fafd437ec904ab67c9107f0554e3bd96481ea2543",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.51.0/voxywatch-v3.51.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Unified Operations workspace",
+    "Alerts and delivery without nested navigation",
     "Validation",
-    "Fraud and Flash Calls move from a separate top-level view into peer Operations tabs beside Active incidents and Network health.",
-    "Configuration → Fraud remains the only editor for profiles, risk rules, high-risk countries, Shadow/Alerting mode and simulation; operational findings now hav"
+    "Configuration → Alerts now opens the SIP and learned-pattern Detection editor directly; the nested Delivery/Detection/Email tabs are removed.",
+    "Settings → Notifications groups webhook, Telegram, incident investigation, digest and outgoing SMTP in one destination."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Operations unificado",
+    "Alertas y entrega sin navegación duplicada",
     "Validación",
-    "Fraud y Flash Calls dejan de ocupar una vista principal separada y pasan a ser submenús pares de Operations junto con Active incidents y Network health.",
-    "Configuration → Fraud conserva exclusivamente perfiles, reglas, países de riesgo, modo Shadow/Alerting y simulación; los hallazgos operativos tienen una sol"
+    "Configuration → Alerts abre directamente el editor de detección SIP y patrones aprendidos; desaparece su segundo nivel Delivery/Detection/Email.",
+    "Settings → Notifications agrupa en una sola pantalla webhook, Telegram, investigación de incidentes, digest y correo SMTP."
   ]
 }

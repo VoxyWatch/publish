@@ -1,6 +1,6 @@
 # VoxyWatch — Feature Catalog (website, sales and tutorial source material)
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.50.0** (2026-08-07).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.51.0** (2026-08-07).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -155,7 +155,7 @@ Use this section as the high-level index for YouTube walkthroughs, training vide
 | Incidents | Lifecycle, evidence, AI diagnosis, ack/resolve and timeline | Open a demo incident and walk through evidence. |
 | Operational Health | Capture, portal, database, rollups, incidents and update status inside Settings → Diagnostics, with copyable support evidence | Refresh Diagnostics health after a restart/update and copy the evidence block. |
 | Getting Started | One state-driven checklist shared by Settings, `voxywatch-setup` CLI and MCP | Walk from pending items to a useful first configuration without sharing credentials. |
-| Settings | Grouped Start, Operation, Security/Integrations and Support sections: General, Data, Capture, SIPREC, Security, Alerts, Users, IP Labels, License, API, SNMP, AI, Diagnostics with Health, and Update | Show each group with one practical safe test. |
+| Settings | Grouped Start, Operation, Security/Integrations and Support sections: General, Data, Capture, SIPREC, Users, Notifications, Web Access, License, AI connections, API, SNMP, LLM, Diagnostics and Update | Show direct detection under Configuration → Alerts, then delivery and SMTP together under Settings → Notifications. |
 | Troubleshooting | No calls, no audio, no MOS, wrong trunk, noisy alerts, update pending | Use one symptom per video and separate source/config/product causes. |
 
 Suggested tutorial rule: each video should explain the business value in the first minute, show the actual UI, run one safe validation, and end with the next action for the viewer.
@@ -177,4 +177,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.50.0.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.51.0.

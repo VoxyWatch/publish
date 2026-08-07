@@ -92,6 +92,10 @@ can exist without MOS, RTP correlation or playable audio.
 
 ## Detection and incident families
 
+SIP and learned-pattern rules are edited directly under Configuration → Alerts.
+Webhook, Telegram, digest and SMTP delivery are grouped under Settings → Notifications
+and remain admin-write.
+
 | Family | Implemented evidence | Default posture |
 |---|---|---|
 | SIP alarms | Configurable failure classes/codes, global and per trunk | Configurable |

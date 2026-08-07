@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.51.0] — 2026-08-07
+
+### Alerts and delivery without nested navigation
+- Configuration → Alerts now opens the SIP and learned-pattern Detection editor directly; the nested Delivery/Detection/Email tabs are removed.
+- Settings → Notifications groups webhook, Telegram, incident investigation, digest and outgoing SMTP in one destination.
+- RBAC follows the information architecture: viewer reads, operator manages detection, and only admin changes or tests delivery channels.
+
+### Validation
+- Navigation, single-source editors, backend permissions, i18n, accessibility, responsive layout and functional-browser contracts cover Alerts and Notifications.
+
 ## [3.50.0] — 2026-08-07
 
 ### Unified Operations workspace

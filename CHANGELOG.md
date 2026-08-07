@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.48.0] — 2026-08-07
+
+### Call-type operational workspaces
+- Call Type Detection now has separate Fraud and Flash Calls submenus, keeping each operational analysis easy to find.
+- The general Fraud panel is available under Call Type Detection → Fraud with engine status, KPIs, recent events, profiles and high-risk countries.
+- Configuration → Fraud remains the single authoritative settings surface and contains no duplicate operational findings.
+
+### Validation
+- Full regression tests, navigation contracts and real-browser checks cover submenu switching, configuration separation, accessibility, localization and responsive layout.
+
 ## [3.47.0] — 2026-08-07
 
 ### Operational detection and navigation

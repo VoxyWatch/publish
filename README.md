@@ -97,8 +97,9 @@ Flash Call Intelligence passively identifies repeated originator-side SIP
 `CANCEL` patterns, timing concentration, destination fan-out, unanswered calls
 and absence of media. Detection is deterministic, local and token-free.
 
-It starts in **Shadow** mode. Operators review findings in **Call Type Detection**
-and tune or enable sustained **Alerting** from **Configuration → Fraud**.
+It starts in **Shadow** mode. Operators review Flash findings in **Call Type Detection → Flash Calls**,
+while general fraud signals live beside them under **Call Type Detection → Fraud**. They tune or
+enable sustained **Alerting** from **Configuration → Fraud**.
 VoxyWatch never blocks or reroutes these calls and never controls the SBC.
 
 See **[Flash Call Detection](FLASH_CALL_DETECTION.md)** for prerequisites,

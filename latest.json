@@ -1,26 +1,26 @@
 {
-  "version": "3.47.0",
+  "version": "3.48.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.47.0/voxywatch-v3.47.0-linux-x64.tar.gz",
-    "sha256": "43324b95fed63575d5c487605f8b8c6e3df4f796c0fa06d1a58afb32b26b2aae",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.47.0/voxywatch-v3.47.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.48.0/voxywatch-v3.48.0-linux-x64.tar.gz",
+    "sha256": "6dd9bb4c78d5cd5d6013df0bdd3ed52719dda312f8184e16ddb0440d2eca58de",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.48.0/voxywatch-v3.48.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Operational detection and navigation",
-    "Focused urgent Operations",
+    "Call-type operational workspaces",
     "Validation",
-    "A new primary Call Type Detection module presents rule-based operational findings; Flash Call Detection is its first detector and remains passive, never blockin"
+    "Call Type Detection now has separate Fraud and Flash Calls submenus, keeping each operational analysis easy to find.",
+    "The general Fraud panel is available under Call Type Detection → Fraud with engine status, KPIs, recent events, profiles and high-risk countries."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Detección operativa y navegación",
-    "Operations urgente",
+    "Detección por tipo de llamada",
     "Validación",
-    "Nuevo módulo principal Call Type Detection para hallazgos operativos basados en reglas; Flash Call Detection es su primer detector y conserva su análisis pasi"
+    "Call Type Detection incorpora los submenús Fraude y Flash Calls para separar claramente ambos análisis operativos.",
+    "El panel general de fraude vuelve a estar visible bajo Call Type Detection → Fraude, con estado del motor, KPIs, eventos recientes, perfiles y países de ries"
   ]
 }

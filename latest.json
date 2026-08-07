@@ -1,26 +1,26 @@
 {
-  "version": "3.41.5",
+  "version": "3.42.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.41.5/voxywatch-v3.41.5-linux-x64.tar.gz",
-    "sha256": "272ab944603ddeb531a2018ae998c252033bcde0e233e3dbaf7fee3af4733013",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.41.5/voxywatch-v3.41.5-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.42.0/voxywatch-v3.42.0-linux-x64.tar.gz",
+    "sha256": "2f75a90955558249b2fc995d1206599a4341570ca633eff861c2c7a8472cd4d0",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.42.0/voxywatch-v3.42.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Destination country accuracy",
-    "Exact CDR navigation",
-    "Validation",
-    "A configured routing prefix is removed before E.164 country resolution. When the remaining number is plausible, its calling code is authoritative and a catalog"
+    "Hierarchical SIP endpoint health",
+    "Parent incidents without alert storms",
+    "Operator and AI experience",
+    "VoxyWatch correlates attributed commercial SIP legs at three levels: logical trunk, observed IP:port service and parent host IP."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Destination country accuracy",
-    "Exact CDR navigation",
-    "Validation",
-    "A configured routing prefix is removed before E.164 country resolution. When the remaining number is plausible, its calling code is authoritative and a catalog"
+    "Hierarchical SIP endpoint health",
+    "Parent incidents without alert storms",
+    "Operator and AI experience",
+    "VoxyWatch correlates attributed commercial SIP legs at three levels: logical trunk, observed IP:port service and parent host IP."
   ]
 }

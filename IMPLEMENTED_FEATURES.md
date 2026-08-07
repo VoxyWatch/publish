@@ -76,6 +76,11 @@ can exist without MOS, RTP correlation or playable audio.
   E.164/prefix and DID catalogs.
 - Per-trunk health with fixed thresholds, minimum samples, coverage gates,
   sustain/recovery and optional per-trunk auto-calibration.
+- Hierarchical SIP endpoint health correlates logical trunks by observed
+  IP:port and then by host IP. It requires multiple affected routes, sufficient
+  sample and material traffic breadth before surfacing a shared fault. The
+  deterministic detector starts in shadow mode; an administrator can enable a
+  single deduplicated parent incident after validating the installation.
 - Robust seasonal baseline with 168 day-of-week/hour buckets using median and
   MAD.
 - Deterministic volume/ASR forecast derived from that seasonal baseline and the
@@ -99,9 +104,9 @@ can exist without MOS, RTP correlation or playable audio.
 | Platform/capture | Sniffer, source visibility, portal heap, database, rollups and update state | Active |
 
 The incident engine creates one active incident per deterministic fingerprint.
-Seven factory runbooks cover low ASR, packet loss, capture down, one-way audio,
-Flash Call patterns, fraud suspects and traffic-volume drops. Customer runbooks
-can be added as JSON.
+Eight factory runbooks cover low ASR, packet loss, capture down, one-way audio,
+Flash Call patterns, fraud suspects, traffic-volume drops and shared SIP endpoint
+failures across multiple trunks. Customer runbooks can be added as JSON.
 
 ## AI and agentic functions
 

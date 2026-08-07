@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.42.0] — 2026-08-07
+
+### Hierarchical SIP endpoint health
+- VoxyWatch correlates attributed commercial SIP legs at three levels: logical trunk, observed IP:port service and parent host IP.
+- Shared endpoint candidates require minimum traffic, at least two affected trunks, material trunk/traffic breadth and compatible ASR, NER, 5xx, PDD or retransmission symptoms.
+- Scanner and non-commercial/ignored SIP activity stay outside the calculation; signaling endpoints are not confused with RTP media endpoints.
+
+### Parent incidents without alert storms
+- Correlation starts in shadow mode: health and candidates are visible while no endpoint incident is created.
+- When explicitly enabled, a sustained host condition opens one deduplicated `sip_endpoint_health|IP` parent incident. Affected trunk incidents are folded into its evidence and return automatically if the fault becomes isolated.
+- Opening and recovery have independent sustained-evaluation gates. Evidence includes ports, directions, affected and healthy trunks, impact, symptoms and top SIP codes.
+
+### Operator and AI experience
+- Trunks shows a compact shared-endpoint panel with shadow/active state and a direct path to filtered incidents.
+- Incident filters, bilingual titles, deterministic runbook and the live AI overview understand endpoint-level failures without requiring an LLM for detection.
+- All thresholds are configurable under global trunk health; incident creation remains off until the operator validates local traffic.
+
 ## [3.41.5] — 2026-08-07
 
 ### Destination country accuracy

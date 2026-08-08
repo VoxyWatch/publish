@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.57.1] — 2026-08-07
+
+### Test telemetry boundary
+- Ephemeral portals started by local integration tests or CI no longer report errors to the production Sentry project.
+- Integration and parity harnesses explicitly declare their test runtime, backed by a second guard in the telemetry module.
+- Installed services retain production error reporting and the existing privacy filters.
+
 ## [3.57.0] — 2026-08-07
 
 ### Compact, localized fraud profiles

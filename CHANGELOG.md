@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.55.0] — 2026-08-07
+
+### Consistent search clearing
+- Search fields across Calls, Settings, HEP sources, users, Overview, Trunks and Incidents now show a clear button only while text is present.
+- Clearing reapplies the existing filter and returns focus to the field without reloading the page.
+- CDR Base and IP Directory retain their existing clear controls under the same interaction contract.
+
 ## [3.54.0] — 2026-08-07
 
 ### Clearer multi-leg CDR table

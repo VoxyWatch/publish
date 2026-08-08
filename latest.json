@@ -1,26 +1,26 @@
 {
-  "version": "3.54.0",
+  "version": "3.55.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.54.0/voxywatch-v3.54.0-linux-x64.tar.gz",
-    "sha256": "5816170cbb834b2b9280b78fb56196cb6ba29439a02f671f77aeea1e6a1beed5",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.54.0/voxywatch-v3.54.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.55.0/voxywatch-v3.55.0-linux-x64.tar.gz",
+    "sha256": "a6a1bf2c62e53dca639b64b3d218a362dff8c12ee2fbb4b6ddca63393b2e36ba",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.55.0/voxywatch-v3.55.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Clearer multi-leg CDR table",
-    "The trace shortcut is now the first column, keeping the primary action immediately accessible.",
-    "Call-ID always keeps its complete value and only uses visual ellipsis when the actual column is too narrow; the full value remains available in the title.",
-    "Destination IP now represents the final observed SIP hop, with compatibility fallback for historical CDRs without legs."
+    "Consistent search clearing",
+    "Search fields across Calls, Settings, HEP sources, users, Overview, Trunks and Incidents now show a clear button only while text is present.",
+    "Clearing reapplies the existing filter and returns focus to the field without reloading the page.",
+    "CDR Base and IP Directory retain their existing clear controls under the same interaction contract."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Tabla CDR multi-leg más clara",
-    "El acceso directo a la traza ocupa ahora la primera columna para que la acción principal sea inmediata.",
-    "Call-ID conserva siempre el valor completo y sólo muestra elipsis visual cuando el ancho real de la columna no alcanza; el título mantiene el valor íntegro.",
-    "Destination IP representa el destino del último salto SIP observado, con compatibilidad para CDR históricos sin legs."
+    "Limpieza uniforme de búsquedas",
+    "Los buscadores de Calls, Settings, fuentes HEP, usuarios, Overview, Trunks e Incidents muestran una X únicamente cuando contienen texto.",
+    "La X limpia el valor, reaplica el filtro existente y devuelve el foco al campo sin recargar la página.",
+    "CDR Base e IP Directory conservan sus controles existentes bajo el mismo comportamiento visual y funcional."
   ]
 }

@@ -1,26 +1,26 @@
 {
-  "version": "3.53.2",
+  "version": "3.54.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.53.2/voxywatch-v3.53.2-linux-x64.tar.gz",
-    "sha256": "eef66075a36e4914f46233204ae2e26e887fde2519e13ad45dd19ec4d2bc8285",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.53.2/voxywatch-v3.53.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.54.0/voxywatch-v3.54.0-linux-x64.tar.gz",
+    "sha256": "5816170cbb834b2b9280b78fb56196cb6ba29439a02f671f77aeea1e6a1beed5",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.54.0/voxywatch-v3.54.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Consistent Operations loading",
-    "Fraud and Flash Calls prefetch one shared snapshot in the background when Operations opens.",
-    "Refreshes keep the last valid content visible while new data arrives, removing the blocking “Loading” label that appeared only on those two tabs.",
-    "Manual Refresh forces a fresh request while duplicate in-flight reads remain deduplicated."
+    "Clearer multi-leg CDR table",
+    "The trace shortcut is now the first column, keeping the primary action immediately accessible.",
+    "Call-ID always keeps its complete value and only uses visual ellipsis when the actual column is too narrow; the full value remains available in the title.",
+    "Destination IP now represents the final observed SIP hop, with compatibility fallback for historical CDRs without legs."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Carga uniforme en Operations",
-    "Fraud y Flash Calls precargan en segundo plano un único snapshot compartido al entrar a Operations.",
-    "Al actualizar conservan el último contenido válido visible mientras llega la respuesta nueva; ya no muestran un “Loading” global exclusivo de esas dos pes",
-    "El botón Refresh fuerza una lectura nueva, evita solicitudes duplicadas y vuelve a habilitarse al terminar."
+    "Tabla CDR multi-leg más clara",
+    "El acceso directo a la traza ocupa ahora la primera columna para que la acción principal sea inmediata.",
+    "Call-ID conserva siempre el valor completo y sólo muestra elipsis visual cuando el ancho real de la columna no alcanza; el título mantiene el valor íntegro.",
+    "Destination IP representa el destino del último salto SIP observado, con compatibilidad para CDR históricos sin legs."
   ]
 }

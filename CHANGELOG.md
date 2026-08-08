@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.54.0] — 2026-08-07
+
+### Clearer multi-leg CDR table
+- The trace shortcut is now the first column, keeping the primary action immediately accessible.
+- Call-ID always keeps its complete value and only uses visual ellipsis when the actual column is too narrow; the full value remains available in the title.
+- Destination IP now represents the final observed SIP hop, with compatibility fallback for historical CDRs without legs.
+- The active sort header remains opaque while scrolling, preventing row values from showing through it.
+- Initial loads and refreshes show an accessible visual loading indicator sized to the current visible columns.
+
 ## [3.53.2] — 2026-08-07
 
 ### Consistent Operations loading

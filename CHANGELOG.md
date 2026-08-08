@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.56.0] — 2026-08-07
+
+### Human-friendly fraud country picker
+- High-risk countries and fraud-profile country lists now show localized country names next to their ISO-2 codes.
+- Search accepts either a country name or code, ignores accents, and persists stable ISO-2 values only.
+- The picker reuses VoxyWatch's local E.164 catalog and retries safely after authentication races.
+
 ## [3.55.0] — 2026-08-07
 
 ### Consistent search clearing

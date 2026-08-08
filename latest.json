@@ -1,26 +1,26 @@
 {
-  "version": "3.55.0",
+  "version": "3.56.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.55.0/voxywatch-v3.55.0-linux-x64.tar.gz",
-    "sha256": "a6a1bf2c62e53dca639b64b3d218a362dff8c12ee2fbb4b6ddca63393b2e36ba",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.55.0/voxywatch-v3.55.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.56.0/voxywatch-v3.56.0-linux-x64.tar.gz",
+    "sha256": "7494d10513b8e20498ac887946114ca692a82b1f6833cd47c90ed2ef0db9b58f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.56.0/voxywatch-v3.56.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Consistent search clearing",
-    "Search fields across Calls, Settings, HEP sources, users, Overview, Trunks and Incidents now show a clear button only while text is present.",
-    "Clearing reapplies the existing filter and returns focus to the field without reloading the page.",
-    "CDR Base and IP Directory retain their existing clear controls under the same interaction contract."
+    "Human-friendly fraud country picker",
+    "High-risk countries and fraud-profile country lists now show localized country names next to their ISO-2 codes.",
+    "Search accepts either a country name or code, ignores accents, and persists stable ISO-2 values only.",
+    "The picker reuses VoxyWatch's local E.164 catalog and retries safely after authentication races."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Limpieza uniforme de búsquedas",
-    "Los buscadores de Calls, Settings, fuentes HEP, usuarios, Overview, Trunks e Incidents muestran una X únicamente cuando contienen texto.",
-    "La X limpia el valor, reaplica el filtro existente y devuelve el foco al campo sin recargar la página.",
-    "CDR Base e IP Directory conservan sus controles existentes bajo el mismo comportamiento visual y funcional."
+    "Selector comprensible de países para fraude",
+    "High-risk countries y los países de perfiles muestran código y nombre localizado, por ejemplo `CU · Cuba`.",
+    "Los tres campos aceptan búsquedas por código o nombre, incluso sin acentos; escribir `Mexico` ofrece `MX · México`.",
+    "La interfaz conserva internamente códigos ISO-2 estables y reutiliza el catálogo E.164 local, sin añadir dependencias ni servicios externos."
   ]
 }

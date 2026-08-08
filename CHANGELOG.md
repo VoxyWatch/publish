@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.57.0] — 2026-08-07
+
+### Compact, localized fraud profiles
+- Factory profile names are localized by the active portal language and can no longer be renamed or deleted from the UI.
+- Custom profile creation keeps an editable name and the existing rule controls.
+- Allowlist and watchlist share the searchable `ISO2 · country` picker in a compact responsive two-column layout.
+- Profile actions and thresholds use available horizontal space to reduce scrolling without changing stored profile contracts.
+
 ## [3.56.0] — 2026-08-07
 
 ### Human-friendly fraud country picker

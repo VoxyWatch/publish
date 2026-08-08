@@ -1,26 +1,26 @@
 {
-  "version": "3.56.0",
+  "version": "3.57.0",
   "release_date": "2026-08-07",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.56.0/voxywatch-v3.56.0-linux-x64.tar.gz",
-    "sha256": "7494d10513b8e20498ac887946114ca692a82b1f6833cd47c90ed2ef0db9b58f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.56.0/voxywatch-v3.56.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.57.0/voxywatch-v3.57.0-linux-x64.tar.gz",
+    "sha256": "84c81490ce8ef823a7b9b09e89c8331276c383ab9d8dedc899311f4c542bc23b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.57.0/voxywatch-v3.57.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Human-friendly fraud country picker",
-    "High-risk countries and fraud-profile country lists now show localized country names next to their ISO-2 codes.",
-    "Search accepts either a country name or code, ignores accents, and persists stable ISO-2 values only.",
-    "The picker reuses VoxyWatch's local E.164 catalog and retries safely after authentication races."
+    "Compact, localized fraud profiles",
+    "Factory profile names are localized by the active portal language and can no longer be renamed or deleted from the UI.",
+    "Custom profile creation keeps an editable name and the existing rule controls.",
+    "Allowlist and watchlist share the searchable `ISO2 · country` picker in a compact responsive two-column layout."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Selector comprensible de países para fraude",
-    "High-risk countries y los países de perfiles muestran código y nombre localizado, por ejemplo `CU · Cuba`.",
-    "Los tres campos aceptan búsquedas por código o nombre, incluso sin acentos; escribir `Mexico` ofrece `MX · México`.",
-    "La interfaz conserva internamente códigos ISO-2 estables y reutiliza el catálogo E.164 local, sin añadir dependencias ni servicios externos."
+    "Perfiles de fraude compactos y bilingües",
+    "Los tres perfiles de fábrica muestran nombres localizados según el idioma del portal y ya no se pueden renombrar ni eliminar desde la interfaz.",
+    "El botón Perfil personalizado crea un perfil cuyo nombre sí es editable y cuyas reglas se administran igual que antes.",
+    "Whitelist y Watchlist usan el selector buscable `ISO2 · país` y comparten una distribución compacta de dos columnas en escritorio y una en móvil."
   ]
 }

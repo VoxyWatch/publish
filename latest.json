@@ -1,26 +1,26 @@
 {
-  "version": "3.58.3",
+  "version": "3.58.4",
   "release_date": "2026-08-09",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.58.3/voxywatch-v3.58.3-linux-x64.tar.gz",
-    "sha256": "f599d04a31415d2076dca31c1f107859fbaac618298c9e1deeacf3a8f9d82673",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.58.3/voxywatch-v3.58.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.58.4/voxywatch-v3.58.4-linux-x64.tar.gz",
+    "sha256": "ee989ee7de83c3c7bdc3fb53f4a4487bf4abfeedbffde4226982cdcb1638bb40",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.58.4/voxywatch-v3.58.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Accurate Getting Started count in Diagnostics",
-    "Platform Readiness now displays the actual number of pending basic setup steps instead of reporting `0 pending` beside a warning state.",
-    "Diagnostics and `/api/onboarding` now share one state adapter that supplies real Trunks, IP Directory and HEP-source counts plus license state.",
-    "The aggregator remains compatible with legacy snapshots that represented pending steps as a list."
+    "Consistent workspace toolbar across modules",
+    "Overview now keeps the same toolbar height as Calls, Operations, CDR Base and Configuration on laptop displays; the traffic selector no longer pushes time contr",
+    "Up to 1440 px, Refresh and Autorefresh use compact accessible controls and the traffic selector uses a narrower layout without losing any option.",
+    "Narrow screens retain every control in one horizontally scrollable row."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Conteo coherente de Getting Started en Diagnostics",
-    "Platform Readiness ahora muestra el número real de pasos básicos pendientes que entrega Getting Started, en lugar de indicar incorrectamente `0 pending` junto",
-    "Diagnostics y `/api/onboarding` comparten un único adaptador de estado que convierte Trunks, IP Directory y fuentes HEP a sus conteos reales e incluye el estad",
-    "El agregador mantiene compatibilidad con snapshots heredados que representaban los pendientes como una lista."
+    "Barra superior uniforme entre módulos",
+    "Overview conserva la misma altura que Calls, Operations, CDR Base y Configuration en pantallas de laptop; el selector de tráfico ya no empuja tiempos y accione",
+    "En anchos de hasta 1440 px, Refresh y Autorefresh usan su presentación compacta con títulos accesibles, y el selector comercial reduce su ancho sin perder opc",
+    "En pantallas estrechas, la barra permanece en una sola fila con desplazamiento horizontal discreto, sin ocultar filtros ni acciones."
   ]
 }

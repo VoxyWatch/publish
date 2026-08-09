@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.58.4] — 2026-08-09
+
+### Consistent workspace toolbar across modules
+- Overview now keeps the same toolbar height as Calls, Operations, CDR Base and Configuration on laptop displays; the traffic selector no longer pushes time controls and actions onto a second row.
+- Up to 1440 px, Refresh and Autorefresh use compact accessible controls and the traffic selector uses a narrower layout without losing any option.
+- Narrow screens retain every control in one horizontally scrollable row.
+- Browser regression coverage compares the geometry of all five modules at 1366 px.
+
 ## [3.58.3] — 2026-08-09
 
 ### Accurate Getting Started count in Diagnostics

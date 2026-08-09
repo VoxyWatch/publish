@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.58.2] — 2026-08-09
+
+### Responsive Settings with preserved desktop customization
+- A Settings window previously moved or resized on desktop no longer overflows phone and tablet viewports.
+- Compact layouts temporarily ignore saved desktop geometry, use the available viewport and restore that preference on a larger screen.
+- Mobile resize and drag events cannot overwrite the user's saved desktop dimensions.
+- Browser regression coverage reproduces persisted desktop geometry before opening Settings on a 390 px viewport.
+
 ## [3.58.1] — 2026-08-09
 
 ### Contextual-help layout restoration and mobile polish

@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.57.2] — 2026-08-08
+
+### Security boundaries for webhooks, catalogs and AI
+- Global and per-carrier webhooks are now admin-only, hide their destinations from read-only roles, and connect only to resolved and pinned public addresses to block SSRF and DNS rebinding.
+- Imports that replace IP Directory or Trunks require explicit confirmation and the current ETag before removing existing entries.
+- MCP and the agentic tool loop redact numbers, identities, Call-IDs, signaling and IPs before sending results to an LLM provider while retaining usable opaque references.
+- Changing a custom LLM endpoint with an existing credential requires local approval; Hono and brace-expansion are updated with no known npm advisories.
+
 ## [3.57.1] — 2026-08-07
 
 ### Test telemetry boundary

@@ -1,5 +1,11 @@
 # VoxyWatch MCP Gateway
 
+> Security boundary (v3.57.2): tool results redact phone numbers, display names,
+> Call-IDs, signaling lines and IP addresses unless the token has `mcp:sensitive`.
+> Opaque Call-ID references remain usable by later tool calls. When a custom LLM
+> credential already exists, changing its base URL through MCP requires local
+> credential approval so a remote setup caller cannot redirect that secret.
+
 VoxyWatch exposes live NOC evidence to ChatGPT, Claude, Codex and other MCP
 clients. It also offers an optional, separately gated initial-setup tool. The
 gateway never controls the SBC and never exposes audio, RTP payloads, PCAP or DTMF.

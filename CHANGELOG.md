@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.59.0] — 2026-08-09
+
+### Mobile workspaces with desktop preserved
+- Calls uses a focused list-to-detail flow on phones while the primary desktop split view remains unchanged.
+- Operations, CDR Base and Configuration turn dense records into readable mobile cards; CDR keeps its primary search visible and groups advanced filters behind one explicit control.
+- Settings replaces its dense tab rail with a compact section selector on phones, and LLM chat follows the visual viewport for on-screen keyboards.
+- Overview charts can be expanded individually on compact screens. All new presentation rules are scoped to 768 px and below.
+- Real-browser regression coverage verifies both 500 px mobile behavior and the preserved 1440 px desktop experience.
+
 ## [3.58.5] — 2026-08-09
 
 ### Mobile-ready workspace navigation

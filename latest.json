@@ -1,26 +1,26 @@
 {
-  "version": "3.58.5",
+  "version": "3.59.0",
   "release_date": "2026-08-09",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.58.5/voxywatch-v3.58.5-linux-x64.tar.gz",
-    "sha256": "86c1d907cf49d600d42d384d7cabbcac353425b36bbda7d9471688b94b4598fd",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.58.5/voxywatch-v3.58.5-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.59.0/voxywatch-v3.59.0-linux-x64.tar.gz",
+    "sha256": "ec6cb5a504d7f59ceeed4268f2509aa06a5bb03b2f020ac337c7c4745f6d27c8",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.59.0/voxywatch-v3.59.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Mobile-ready workspace navigation",
-    "On phones, the top workspace bar becomes two independent touch lanes: modules and time/traffic controls.",
-    "Each lane scrolls horizontally without moving the other or creating page overflow; every module, filter and action remains reachable.",
-    "Module buttons provide at least 44 px touch targets and secondary controls at least 36 px."
+    "Mobile workspaces with desktop preserved",
+    "Calls uses a focused list-to-detail flow on phones while the primary desktop split view remains unchanged.",
+    "Operations, CDR Base and Configuration turn dense records into readable mobile cards; CDR keeps its primary search visible and groups advanced filters behind on",
+    "Settings replaces its dense tab rail with a compact section selector on phones, and LLM chat follows the visual viewport for on-screen keyboards."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Navegación superior diseñada para celular",
-    "En teléfonos, la barra superior se divide en dos carriles táctiles independientes: módulos y controles de tiempo/tráfico.",
-    "Cada carril se desplaza horizontalmente sin mover el otro ni generar overflow en la página; ningún módulo, filtro o acción desaparece.",
-    "Los botones de módulo conservan un objetivo táctil mínimo de 44 px y los controles secundarios, 36 px."
+    "Espacios de trabajo móviles, con escritorio preservado",
+    "Calls usa navegación lista-detalle en teléfonos, con regreso visible a la lista y sin alterar el panel dividido de escritorio.",
+    "Operations, CDR Base y Configuration presentan registros densos como tarjetas legibles; CDR conserva la búsqueda principal y agrupa sus filtros avanzados bajo",
+    "Settings sustituye la tira horizontal por un selector de sección en móvil, y el chat LLM ocupa el viewport visual para convivir con el teclado en pantalla."
   ]
 }

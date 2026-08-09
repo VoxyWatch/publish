@@ -2,6 +2,8 @@
 
 This guide tells an AI assistant what each settings area is for. It is not a substitute for the live UI; use the UI labels and installed version as the source of truth.
 
+Settings and operational Configuration expose contextual `?` help beside configurable rows. The same help is available by pointer hover, keyboard focus or click/tap and follows the user's English/Spanish UI language. Health threshold help also states the evaluation direction, sample gate and the practical effect of sensitivity changes; consult it before proposing a threshold edit.
+
 ## Getting Started
 
 Guides first-run configuration. It checks core readiness such as capture source setup, license state, retention/autopurge, SNMP/NMS readiness and anonymous telemetry preference.
@@ -17,6 +19,11 @@ Maps SIP traffic to named carriers, trunks, countries and profiles. Trunk attrib
 ## Monitoring And Thresholds
 
 Controls health thresholds, adaptive baselines, alarms and incident behavior. Threshold changes should reduce false positives without hiding real outages.
+
+- `warn` is the first degraded state; `crit` is the severe state.
+- ASR, NER and MOS degrade when they fall below their limits. SIP 5xx, packet loss, PDD and OWA degrade when they rise above their limits.
+- Minimum samples and consecutive open/clear evaluations are anti-noise gates, not quality targets.
+- Shared-endpoint controls correlate several logical trunks on one IP or IP:port; shadow mode calculates evidence without opening a visible incident.
 
 ## Fraud
 

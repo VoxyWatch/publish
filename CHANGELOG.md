@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.58.0] — 2026-08-08
+
+### Contextual help across Settings and Configuration
+- Settings and operational Configuration now share compact `?` help for configurable rows without filling the workspace with permanent explanatory text.
+- Help works by pointer hover, keyboard focus or click/tap, closes with Escape, stays inside the viewport and follows each user's English or Spanish UI language.
+- Health thresholds explain all 31 parameters, including warning/critical direction, units, sample gates, OWA, anomaly sensitivity and shared-IP incident correlation.
+- Browser regression coverage protects help availability, accessibility, bilingual separation and light/dark theme compatibility.
+
 ## [3.57.3] — 2026-08-08
 
 ### SIP rejections no longer create false CDR alerts

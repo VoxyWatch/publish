@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.59.1] — 2026-08-09
+
+### One mobile Settings navigator at a time
+- Phones now show only the compact Settings section selector; the desktop tab rail no longer appears underneath it.
+- Desktop retains the complete tab rail unchanged.
+- Public E2E coverage now protects Calls list/detail navigation, CDR mobile filters and the mutually exclusive Settings navigators.
+
 ## [3.59.0] — 2026-08-09
 
 ### Mobile workspaces with desktop preserved

@@ -1,26 +1,26 @@
 {
-  "version": "3.59.0",
+  "version": "3.59.1",
   "release_date": "2026-08-09",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.59.0/voxywatch-v3.59.0-linux-x64.tar.gz",
-    "sha256": "ec6cb5a504d7f59ceeed4268f2509aa06a5bb03b2f020ac337c7c4745f6d27c8",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.59.0/voxywatch-v3.59.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.59.1/voxywatch-v3.59.1-linux-x64.tar.gz",
+    "sha256": "3cfbcc53fd7f8cd1ad1208ac880fa79e05284dea4a57607217d0c6e91148eec6",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.59.1/voxywatch-v3.59.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Mobile workspaces with desktop preserved",
-    "Calls uses a focused list-to-detail flow on phones while the primary desktop split view remains unchanged.",
-    "Operations, CDR Base and Configuration turn dense records into readable mobile cards; CDR keeps its primary search visible and groups advanced filters behind on",
-    "Settings replaces its dense tab rail with a compact section selector on phones, and LLM chat follows the visual viewport for on-screen keyboards."
+    "One mobile Settings navigator at a time",
+    "Phones now show only the compact Settings section selector; the desktop tab rail no longer appears underneath it.",
+    "Desktop retains the complete tab rail unchanged.",
+    "Public E2E coverage now protects Calls list/detail navigation, CDR mobile filters and the mutually exclusive Settings navigators."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Espacios de trabajo móviles, con escritorio preservado",
-    "Calls usa navegación lista-detalle en teléfonos, con regreso visible a la lista y sin alterar el panel dividido de escritorio.",
-    "Operations, CDR Base y Configuration presentan registros densos como tarjetas legibles; CDR conserva la búsqueda principal y agrupa sus filtros avanzados bajo",
-    "Settings sustituye la tira horizontal por un selector de sección en móvil, y el chat LLM ocupa el viewport visual para convivir con el teclado en pantalla."
+    "Selector móvil de Settings sin navegación duplicada",
+    "En teléfonos, Settings muestra exclusivamente el selector compacto de sección; la tira de pestañas de escritorio ya no aparece debajo.",
+    "Escritorio conserva la tira completa sin cambios.",
+    "El E2E público ahora valida la transición lista/detalle de Calls, los filtros de CDR y la exclusión mutua entre selector móvil y pestañas de escritorio."
   ]
 }

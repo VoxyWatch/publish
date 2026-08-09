@@ -1,26 +1,26 @@
 {
-  "version": "3.58.0",
-  "release_date": "2026-08-08",
+  "version": "3.58.1",
+  "release_date": "2026-08-09",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.58.0/voxywatch-v3.58.0-linux-x64.tar.gz",
-    "sha256": "e0e845b27b57256f3f5d739a6a710bb4be20a49676fc3bde69d40fd95ac57741",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.58.0/voxywatch-v3.58.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.58.1/voxywatch-v3.58.1-linux-x64.tar.gz",
+    "sha256": "56dad09c1d9795b2f5445ea9c71bd250dfa31a49d47fff625df484e93b2fc684",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.58.1/voxywatch-v3.58.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Contextual help across Settings and Configuration",
-    "Settings and operational Configuration now share compact `?` help for configurable rows without filling the workspace with permanent explanatory text.",
-    "Help works by pointer hover, keyboard focus or click/tap, closes with Escape, stays inside the viewport and follows each user's English or Spanish UI language.",
-    "Health thresholds explain all 31 parameters, including warning/critical direction, units, sample gates, OWA, anomaly sensitivity and shared-IP incident correlat"
+    "Contextual-help layout restoration and mobile polish",
+    "Help icons remain aligned beside each setting title and no longer create extra rows or shift controls.",
+    "Health thresholds render exactly one help control for each of 31 fields, with explicit accessible labels and no duplicate icons.",
+    "Settings now fits phone and tablet viewports, removes the desktop minimum width, keeps header controls aligned and gives long fields the available width."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Ayuda contextual en Settings y Configuration",
-    "Settings y Configuration incorporan un patrón único de ayuda `?` que explica cada fila configurable sin saturar la pantalla; funciona con cursor, foco de tecl",
-    "Las explicaciones respetan el idioma por usuario: inglés predeterminado y español secundario, con actualización inmediata al cambiar de idioma.",
-    "Health thresholds documenta sus 31 parámetros: condición de warning/critical, unidades, muestra, sensibilidad, OWA, anomalías y correlación de incidentes po"
+    "Restauración y mejora visual de la ayuda contextual",
+    "Los iconos `?` permanecen alineados junto al título de cada opción y ya no crean renglones extra ni desplazan controles.",
+    "Health thresholds muestra exactamente una ayuda por cada uno de sus 31 campos; desaparecen los iconos duplicados y cada input conserva una etiqueta accesible ex",
+    "Settings cabe dentro del viewport móvil, elimina el ancho mínimo de escritorio, conserva título/cierre alineados y apila campos largos con ancho completo en"
   ]
 }

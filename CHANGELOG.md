@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.58.1] — 2026-08-09
+
+### Contextual-help layout restoration and mobile polish
+- Help icons remain aligned beside each setting title and no longer create extra rows or shift controls.
+- Health thresholds render exactly one help control for each of 31 fields, with explicit accessible labels and no duplicate icons.
+- Settings now fits phone and tablet viewports, removes the desktop minimum width, keeps header controls aligned and gives long fields the available width.
+- Viewer accounts can open explanations while all editing controls remain read-only.
+- Browser regression tests cover desktop/mobile layout, overflow, permissions, EN/ES, themes and accessibility.
+
 ## [3.58.0] — 2026-08-08
 
 ### Contextual help across Settings and Configuration

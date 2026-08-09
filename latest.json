@@ -1,26 +1,26 @@
 {
-  "version": "3.57.2",
+  "version": "3.57.3",
   "release_date": "2026-08-08",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.57.2/voxywatch-v3.57.2-linux-x64.tar.gz",
-    "sha256": "79cd9af98980e701f2b4ced44b69588edce4a348ab7d042bcba124e7284ae837",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.57.2/voxywatch-v3.57.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.57.3/voxywatch-v3.57.3-linux-x64.tar.gz",
+    "sha256": "289063c9071fd33071c08da449427f38f253dad6a8872c2d202c3ba0783eca24",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.57.3/voxywatch-v3.57.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Security boundaries for webhooks, catalogs and AI",
-    "Global and per-carrier webhooks are now admin-only, hide their destinations from read-only roles, and connect only to resolved and pinned public addresses to bl",
-    "Imports that replace IP Directory or Trunks require explicit confirmation and the current ETag before removing existing entries.",
-    "MCP and the agentic tool loop redact numbers, identities, Call-IDs, signaling and IPs before sending results to an LLM provider while retaining usable opaque re"
+    "SIP rejections no longer create false CDR alerts",
+    "Valid commercial rejections such as 403, 486 and 603 remain visible as SIP outcomes and reasons, but no longer create a critical alert by themselves.",
+    "Alerts remain reserved for independent signaling or quality evidence such as retransmissions, loss, MOS, jitter and PDD.",
+    "Historical CDRs immediately stop presenting the legacy synthetic `FAILED` marker without rewriting or migrating customer data."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Fronteras de seguridad para webhooks, catálogos e IA",
-    "Los webhooks globales y por troncal quedan bajo administración, ocultan sus destinos a roles de solo lectura y sólo conectan a direcciones públicas resueltas",
-    "Las importaciones que reemplazan IP Directory o Trunks ya exigen confirmación explícita y el ETag vigente antes de borrar entradas existentes.",
-    "MCP y el bucle agéntico redactan números, identidades, Call-ID, señalización e IPs antes de entregar resultados a un proveedor LLM, conservando referencias"
+    "Rechazos SIP sin falsas alertas en CDR",
+    "Los rechazos comerciales válidos, como 403, 486 y 603, permanecen visibles como resultado y causa SIP, pero ya no generan por sí solos una alerta crítica.",
+    "Las alertas continúan reservadas para evidencia independiente de señalización o calidad, como retransmisiones, pérdida, MOS, jitter y PDD.",
+    "Los CDR históricos dejan de mostrar inmediatamente el marcador sintético `FAILED` de versiones anteriores, sin reescribir ni migrar datos del cliente."
   ]
 }

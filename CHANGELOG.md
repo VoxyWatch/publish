@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.57.3] — 2026-08-08
+
+### SIP rejections no longer create false CDR alerts
+- Valid commercial rejections such as 403, 486 and 603 remain visible as SIP outcomes and reasons, but no longer create a critical alert by themselves.
+- Alerts remain reserved for independent signaling or quality evidence such as retransmissions, loss, MOS, jitter and PDD.
+- Historical CDRs immediately stop presenting the legacy synthetic `FAILED` marker without rewriting or migrating customer data.
+
 ## [3.57.2] — 2026-08-08
 
 ### Security boundaries for webhooks, catalogs and AI

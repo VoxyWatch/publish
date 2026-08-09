@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.58.3] — 2026-08-09
+
+### Accurate Getting Started count in Diagnostics
+- Platform Readiness now displays the actual number of pending basic setup steps instead of reporting `0 pending` beside a warning state.
+- Diagnostics and `/api/onboarding` now share one state adapter that supplies real Trunks, IP Directory and HEP-source counts plus license state.
+- The aggregator remains compatible with legacy snapshots that represented pending steps as a list.
+- Integrated regression coverage connects the real onboarding output to Platform Readiness and reproduces TICKET-009.
+
 ## [3.58.2] — 2026-08-09
 
 ### Responsive Settings with preserved desktop customization

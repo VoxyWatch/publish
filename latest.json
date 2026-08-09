@@ -1,26 +1,26 @@
 {
-  "version": "3.58.4",
+  "version": "3.58.5",
   "release_date": "2026-08-09",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.58.4/voxywatch-v3.58.4-linux-x64.tar.gz",
-    "sha256": "ee989ee7de83c3c7bdc3fb53f4a4487bf4abfeedbffde4226982cdcb1638bb40",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.58.4/voxywatch-v3.58.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.58.5/voxywatch-v3.58.5-linux-x64.tar.gz",
+    "sha256": "86c1d907cf49d600d42d384d7cabbcac353425b36bbda7d9471688b94b4598fd",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.58.5/voxywatch-v3.58.5-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Consistent workspace toolbar across modules",
-    "Overview now keeps the same toolbar height as Calls, Operations, CDR Base and Configuration on laptop displays; the traffic selector no longer pushes time contr",
-    "Up to 1440 px, Refresh and Autorefresh use compact accessible controls and the traffic selector uses a narrower layout without losing any option.",
-    "Narrow screens retain every control in one horizontally scrollable row."
+    "Mobile-ready workspace navigation",
+    "On phones, the top workspace bar becomes two independent touch lanes: modules and time/traffic controls.",
+    "Each lane scrolls horizontally without moving the other or creating page overflow; every module, filter and action remains reachable.",
+    "Module buttons provide at least 44 px touch targets and secondary controls at least 36 px."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Barra superior uniforme entre módulos",
-    "Overview conserva la misma altura que Calls, Operations, CDR Base y Configuration en pantallas de laptop; el selector de tráfico ya no empuja tiempos y accione",
-    "En anchos de hasta 1440 px, Refresh y Autorefresh usan su presentación compacta con títulos accesibles, y el selector comercial reduce su ancho sin perder opc",
-    "En pantallas estrechas, la barra permanece en una sola fila con desplazamiento horizontal discreto, sin ocultar filtros ni acciones."
+    "Navegación superior diseñada para celular",
+    "En teléfonos, la barra superior se divide en dos carriles táctiles independientes: módulos y controles de tiempo/tráfico.",
+    "Cada carril se desplaza horizontalmente sin mover el otro ni generar overflow en la página; ningún módulo, filtro o acción desaparece.",
+    "Los botones de módulo conservan un objetivo táctil mínimo de 44 px y los controles secundarios, 36 px."
   ]
 }

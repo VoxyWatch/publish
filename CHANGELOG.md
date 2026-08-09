@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.58.5] — 2026-08-09
+
+### Mobile-ready workspace navigation
+- On phones, the top workspace bar becomes two independent touch lanes: modules and time/traffic controls.
+- Each lane scrolls horizontally without moving the other or creating page overflow; every module, filter and action remains reachable.
+- Module buttons provide at least 44 px touch targets and secondary controls at least 36 px.
+- Accessible group labels follow the user's English or Spanish language, with browser coverage for desktop and compact layouts.
+
 ## [3.58.4] — 2026-08-09
 
 ### Consistent workspace toolbar across modules

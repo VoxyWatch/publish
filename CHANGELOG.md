@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.59.2] — 2026-08-10
+
+### Update completion no longer looks like a fresh installation
+- Existing installations now finish with an explicit update message, an old-to-new version transition and confirmation that configuration and users were preserved.
+- Update logs no longer advertise default credentials, Hardware ID or first-time setup instructions.
+- Fresh installations retain the complete onboarding guidance, including the safe fallback when `--update` is invoked without a verifiable existing installation.
+- Executable regression coverage protects fresh install, real update and bootstrap paths independently.
+
 ## [3.59.1] — 2026-08-09
 
 ### One mobile Settings navigator at a time

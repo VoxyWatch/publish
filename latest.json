@@ -1,26 +1,26 @@
 {
-  "version": "3.59.1",
-  "release_date": "2026-08-09",
+  "version": "3.59.2",
+  "release_date": "2026-08-10",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.59.1/voxywatch-v3.59.1-linux-x64.tar.gz",
-    "sha256": "3cfbcc53fd7f8cd1ad1208ac880fa79e05284dea4a57607217d0c6e91148eec6",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.59.1/voxywatch-v3.59.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.59.2/voxywatch-v3.59.2-linux-x64.tar.gz",
+    "sha256": "4d132af2c40b0116c53046996f6f696578e4990ea735b7af4371275f37c9afa0",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.59.2/voxywatch-v3.59.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "One mobile Settings navigator at a time",
-    "Phones now show only the compact Settings section selector; the desktop tab rail no longer appears underneath it.",
-    "Desktop retains the complete tab rail unchanged.",
-    "Public E2E coverage now protects Calls list/detail navigation, CDR mobile filters and the mutually exclusive Settings navigators."
+    "Update completion no longer looks like a fresh installation",
+    "Existing installations now finish with an explicit update message, an old-to-new version transition and confirmation that configuration and users were preserved",
+    "Update logs no longer advertise default credentials, Hardware ID or first-time setup instructions.",
+    "Fresh installations retain the complete onboarding guidance, including the safe fallback when `--update` is invoked without a verifiable existing installation."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Selector móvil de Settings sin navegación duplicada",
-    "En teléfonos, Settings muestra exclusivamente el selector compacto de sección; la tira de pestañas de escritorio ya no aparece debajo.",
-    "Escritorio conserva la tira completa sin cambios.",
-    "El E2E público ahora valida la transición lista/detalle de Calls, los filtros de CDR y la exclusión mutua entre selector móvil y pestañas de escritorio."
+    "El updater ya no se presenta como instalación nueva",
+    "Una actualización sobre una instalación existente muestra `VoxyWatch updated successfully`, la transición de versión y confirma que configuración y usuario",
+    "El cierre del updater omite credenciales predeterminadas, HWID y pasos de configuración inicial que sólo corresponden a una instalación fresca.",
+    "Una instalación nueva conserva toda su guía inicial; incluso `--update` cae al mensaje fresco si no existe una instalación previa verificable."
   ]
 }

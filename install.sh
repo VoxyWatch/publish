@@ -217,6 +217,8 @@ HTTPS_MODE_ARG=""
 HTTPS_HOST_ARG=""
 UPDATE_MODE=0
 REFRESH_EXTERNAL_DEPS=0
+PREVIOUS_VERSION=""
+EXISTING_INSTALL=0
 _need_arg() {
   [ $# -ge 2 ] && [ -n "${2:-}" ] && [[ "$2" != --* ]] \
     || err "Option $1 requires a value"
@@ -241,6 +243,13 @@ done
 [ -z "$HTTPS_HOST_ARG" ] || [ -n "$HTTPS_MODE_ARG" ] \
   || err "--https-host requires --https-mode public or --https-mode internal"
 [ "$HTTPS_MODE_ARG" != "legacy" ] || err "--https-mode accepts only public or internal"
+
+# Read the installed version as data before replacing any files. This is used
+# only for the update completion summary; never source the root-owned config.
+if [ "$UPDATE_MODE" = "1" ] && [ -f "$CONF_FILE" ]; then
+  EXISTING_INSTALL=1
+  PREVIOUS_VERSION="$(grep -oE '^VERSION=[0-9]+\.[0-9]+\.[0-9]+$' "$CONF_FILE" 2>/dev/null | tail -1 | cut -d= -f2 || true)"
+fi
 
 # P2 (opt-in): réplica de lectura. Si se pasa --replica-dsn o está la env VOXYWATCH_DB_REPLICA_DSN,
 # el portal enruta sus LECTURAS (UI/métricas/CDR) a la réplica; escrituras e ingesta van al primario.
@@ -1418,7 +1427,17 @@ fi
 # ── Final summary ─────────────────────────────────────────────────────────────
 echo ""
 echo "══════════════════════════════════════════════"
-echo -e "  ${GREEN}✓ VoxyWatch v${VERSION} installed successfully${NC}"
+if [ "$UPDATE_MODE" = "1" ] && [ "$EXISTING_INSTALL" = "1" ]; then
+  echo -e "  ${GREEN}✓ VoxyWatch updated successfully${NC}"
+  if [ -n "$PREVIOUS_VERSION" ] && [ "$PREVIOUS_VERSION" != "$VERSION" ]; then
+    echo "    Version: v${PREVIOUS_VERSION} → v${VERSION}"
+  else
+    echo "    Version: v${VERSION}"
+  fi
+  echo "    Existing configuration and user credentials were preserved."
+else
+  echo -e "  ${GREEN}✓ VoxyWatch v${VERSION} installed successfully${NC}"
+fi
 echo "══════════════════════════════════════════════"
 echo ""
 echo -e "  ${BOLD}Web portal:${NC}"
@@ -1428,32 +1447,34 @@ else
   echo -e "  ${CYAN}https://${HTTPS_HOST}${NC}"
   [ "$HTTPS_MODE" = "internal" ] && echo "  Private CA: clients must trust Caddy's root certificate once."
 fi
-echo ""
-echo -e "  ${BOLD}Default credentials:${NC}"
-echo "    Username: admin"
-echo "    Password: voxywatch"
-echo -e "  ${YELLOW}  ⚠  Change the default password: Settings → Security → Users${NC}"
-echo ""
-if [ -n "$HWID" ]; then
-  echo -e "  ${BOLD}Hardware ID${NC} (needed to purchase a license):"
-  echo -e "  ${CYAN}${HWID}${NC}"
+if [ "$UPDATE_MODE" = "0" ] || [ "$EXISTING_INSTALL" = "0" ]; then
   echo ""
+  echo -e "  ${BOLD}Default credentials:${NC}"
+  echo "    Username: admin"
+  echo "    Password: voxywatch"
+  echo -e "  ${YELLOW}  ⚠  Change the default password: Settings → Security → Users${NC}"
+  echo ""
+  if [ -n "$HWID" ]; then
+    echo -e "  ${BOLD}Hardware ID${NC} (needed to purchase a license):"
+    echo -e "  ${CYAN}${HWID}${NC}"
+    echo ""
+  fi
+  echo -e "  ${BOLD}License${NC} (optional — free tier works without one):"
+  echo -e "  Purchase: ${CYAN}https://voxywatch.com${NC}"
+  echo "    Once received, upload from the portal: Settings → License"
+  echo "    Or securely from the command line:"
+  echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install /path/to/license.key"
+  echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install --stdin < license.key"
+  echo "    Convenience alias (fresh install or after this installer has run): voxywatch-license"
+  echo ""
+  echo -e "  ${BOLD}LLM credential${NC} (optional, never pass the value as an argument):"
+  echo "      sudo voxywatch-ai-key set --provider openai --stdin"
+  echo "    Or select a customer-managed system credential/environment in Settings → LLM"
+  echo ""
+  echo -e "  ${BOLD}Initial setup CLI${NC} (LLM selection, trunks and IP directory; no secrets):"
+  echo "      sudo voxywatch-setup status"
+  echo "      sudo voxywatch-setup validate --stdin < setup.json"
 fi
-echo -e "  ${BOLD}License${NC} (optional — free tier works without one):"
-echo -e "  Purchase: ${CYAN}https://voxywatch.com${NC}"
-echo "    Once received, upload from the portal: Settings → License"
-echo "    Or securely from the command line:"
-echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install /path/to/license.key"
-echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install --stdin < license.key"
-echo "    Convenience alias (fresh install or after this installer has run): voxywatch-license"
-echo ""
-echo -e "  ${BOLD}LLM credential${NC} (optional, never pass the value as an argument):"
-echo "      sudo voxywatch-ai-key set --provider openai --stdin"
-echo "    Or select a customer-managed system credential/environment in Settings → LLM"
-echo ""
-echo -e "  ${BOLD}Initial setup CLI${NC} (LLM selection, trunks and IP directory; no secrets):"
-echo "      sudo voxywatch-setup status"
-echo "      sudo voxywatch-setup validate --stdin < setup.json"
 echo ""
 echo -e "  ${BOLD}Service logs:${NC}"
 echo "    journalctl -fu voxywatch"

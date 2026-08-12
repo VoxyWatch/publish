@@ -1,26 +1,26 @@
 {
-  "version": "3.59.2",
-  "release_date": "2026-08-10",
+  "version": "3.59.3",
+  "release_date": "2026-08-11",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.59.2/voxywatch-v3.59.2-linux-x64.tar.gz",
-    "sha256": "4d132af2c40b0116c53046996f6f696578e4990ea735b7af4371275f37c9afa0",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.59.2/voxywatch-v3.59.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.59.3/voxywatch-v3.59.3-linux-x64.tar.gz",
+    "sha256": "cddfe716915b5fa4d2f0caee112fa8c98ed35351d344b03076def488674c6a5c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.59.3/voxywatch-v3.59.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Update completion no longer looks like a fresh installation",
-    "Existing installations now finish with an explicit update message, an old-to-new version transition and confirmation that configuration and users were preserved",
-    "Update logs no longer advertise default credentials, Hardware ID or first-time setup instructions.",
-    "Fresh installations retain the complete onboarding guidance, including the safe fallback when `--update` is invoked without a verifiable existing installation."
+    "Stable catalog and diagnostic contracts",
+    "Saving or importing trunks now preserves `updated_at` for entries whose canonical content did not change; only new or modified trunks receive the transaction ti",
+    "SNMP operational health now uses and documents a stable sanitized error taxonomy, including the expected relationship between dispatcher totals and pre-dispatch",
+    "API-key revocation remains an immediate auditable soft revoke with no hidden query parameter, while an unknown ID returns the stable English code `api_key_not_f"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "El updater ya no se presenta como instalación nueva",
-    "Una actualización sobre una instalación existente muestra `VoxyWatch updated successfully`, la transición de versión y confirma que configuración y usuario",
-    "El cierre del updater omite credenciales predeterminadas, HWID y pasos de configuración inicial que sólo corresponden a una instalación fresca.",
-    "Una instalación nueva conserva toda su guía inicial; incluso `--update` cae al mensaje fresco si no existe una instalación previa verificable."
+    "Catálogos y diagnósticos con contratos estables",
+    "Guardar o importar el catálogo de troncales conserva `updated_at` en cada entrada cuyo contenido no cambió; sólo las troncales nuevas o modificadas reciben l",
+    "El estado SNMP documenta y prueba su taxonomía de errores y aclara por qué un datagrama rechazado antes del despacho puede incrementar `requests_rejected` sin",
+    "La revocación de API keys queda protegida por una prueba de contrato: es soft-delete inmediato, no exige un parámetro oculto y un ID inexistente devuelve el c"
   ]
 }

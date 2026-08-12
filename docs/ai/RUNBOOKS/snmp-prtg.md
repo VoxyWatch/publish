@@ -20,6 +20,22 @@ credentials or source addresses. Check `running`, `error_code`,
 community/USM configuration did not match; align both sides instead of weakening
 the agent. Repeated failures are rate-limited in service logs.
 
+`error_code` is a stable diagnostic category, not the raw library message:
+
+- `authentication_failed`: community or SNMPv3 user/authentication mismatch.
+- `source_not_allowed`: the source address is outside the configured NMS allowlist.
+- `protocol_error`: the SNMP decoder rejected a malformed, unsupported or otherwise
+  invalid datagram before normal request dispatch.
+- `bind_failed`: the configured address/port could not be opened.
+- `permission_denied`: the operating system refused the requested socket operation.
+- `request_failed`: an agent error did not match a more specific category.
+
+`requests_total` counts datagrams that reached the normal instrumented dispatcher.
+`requests_rejected` also includes allowlist and protocol/decoder rejections that can
+occur before that dispatcher. Therefore `requests_rejected` may increase while
+`requests_total` remains unchanged; this is expected and does not indicate a broken
+counter. Use `last_error_at` to correlate the most recent category with the NMS test.
+
 ## OID Surfaces
 
 VoxyWatch exposes:

@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.59.3] — 2026-08-11
+
+### Stable catalog and diagnostic contracts
+- Saving or importing trunks now preserves `updated_at` for entries whose canonical content did not change; only new or modified trunks receive the transaction timestamp.
+- SNMP operational health now uses and documents a stable sanitized error taxonomy, including the expected relationship between dispatcher totals and pre-dispatch rejections.
+- API-key revocation remains an immediate auditable soft revoke with no hidden query parameter, while an unknown ID returns the stable English code `api_key_not_found`.
+
 ## [3.59.2] — 2026-08-10
 
 ### Update completion no longer looks like a fresh installation

@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.60.0] — 2026-08-13
+
+### Trunk health thresholds now live where alerts are managed
+- Configuration → Alerts opens with **Trunk health thresholds**; the global editor no longer lives inside Trunks.
+- Thresholds are grouped into evaluation, SIP signaling, media quality, one-way audio, learned behavior and shared IP endpoints.
+- Binary values use global switches and per-trunk `Inherit / On / Off` buttons; IP incident mode keeps its exact `Shadow / Active` states.
+- Primary abbreviations are expanded in visible labels while bilingual contextual help preserves their technical meaning.
+- Minimum sample is no longer a visible global setting and remains an individual per-trunk adjustment.
+
 ## [3.59.4] — 2026-08-13
 
 ### Clearer Audio/RTP, Settings and incidents

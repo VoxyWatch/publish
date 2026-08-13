@@ -1,26 +1,26 @@
 {
-  "version": "3.59.4",
+  "version": "3.60.0",
   "release_date": "2026-08-13",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.59.4/voxywatch-v3.59.4-linux-x64.tar.gz",
-    "sha256": "d357c59a1eb60cde96ad559e7f535eb7d2d48cf4326e875ec04b8efe15a9fe8f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.59.4/voxywatch-v3.59.4-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.60.0/voxywatch-v3.60.0-linux-x64.tar.gz",
+    "sha256": "c540e24091a9d4af3954db25c23868745153a9e158820c9510d17a1b4db8dcbe",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.60.0/voxywatch-v3.60.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Clearer Audio/RTP, Settings and incidents",
-    "Calls no longer repeats loss, jitter and MOS under both Audio and RTP: Audio owns availability/reconstruction while RTP owns transport quality.",
-    "Media alerts follow the user's language; English remains the default and Spanish the secondary language.",
-    "Settings removes General: language lives only in the per-user Profile, organization context is saved with LLM, and AI connections is renamed MCP connections."
+    "Trunk health thresholds now live where alerts are managed",
+    "Configuration → Alerts opens with Trunk health thresholds; the global editor no longer lives inside Trunks.",
+    "Thresholds are grouped into evaluation, SIP signaling, media quality, one-way audio, learned behavior and shared IP endpoints.",
+    "Binary values use global switches and per-trunk `Inherit / On / Off` buttons; IP incident mode keeps its exact `Shadow / Active` states."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Audio/RTP, Settings e incidentes más claros",
-    "Calls deja de repetir pérdida, jitter y MOS en Audio y RTP: Audio explica disponibilidad/reconstrucción y RTP conserva la calidad de transporte.",
-    "Las alertas de medios respetan el idioma del usuario; inglés sigue siendo el predeterminado y español el segundo idioma.",
-    "Settings elimina General: el idioma vive únicamente en Profile por usuario, el contexto de organización se guarda con LLM y AI connections se renombra MCP con"
+    "Umbrales de salud organizados donde se atienden las alertas",
+    "Configuration → Alerts abre con Trunk health thresholds; el editor global ya no está duplicado dentro de Trunks.",
+    "Los umbrales se agrupan por evaluación, señalización SIP, calidad de medios, audio unidireccional, comportamiento aprendido y endpoints IP compartidos.",
+    "Los valores binarios usan interruptores globales y botones `Heredar / Activado / Desactivado` por troncal; el modo de incidentes IP conserva sus estados exactos"
   ]
 }

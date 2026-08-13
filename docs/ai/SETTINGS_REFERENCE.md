@@ -18,7 +18,7 @@ Maps SIP traffic to named carriers, trunks, countries and profiles. Trunk attrib
 
 ## Monitoring And Thresholds
 
-Controls health thresholds, adaptive baselines, alarms and incident behavior. Threshold changes should reduce false positives without hiding real outages.
+Configuration → Alerts owns grouped global trunk-health thresholds, adaptive baselines, alarms and incident behavior. Minimum sample is intentionally configured per trunk because traffic volume differs by carrier; an individual trunk can inherit or override the remaining values. Threshold changes should reduce false positives without hiding real outages.
 
 - `warn` is the first degraded state; `crit` is the severe state.
 - ASR, NER and MOS degrade when they fall below their limits. SIP 5xx, packet loss, PDD and OWA degrade when they rise above their limits.

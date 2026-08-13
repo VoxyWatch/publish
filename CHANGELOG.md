@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.63.1] — 2026-08-13
+
+### Exact time windows for AI analysis
+- Open-ended periods such as “last 24 hours” now freeze their upper boundary when a question is sent, keeping metrics, CDRs and report evidence reproducible.
+- The server distinguishes absent bounds from epoch zero, preventing a null upper bound from silently discarding the requested time scope.
+- Public E2E now requires temporal context in Reports and Calls, together with the dynamic report specification and selected call.
+
 ## [3.63.0] — 2026-08-13
 
 ### Complete, correlated LLM context

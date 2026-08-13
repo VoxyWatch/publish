@@ -1,26 +1,26 @@
 {
-  "version": "3.63.0",
+  "version": "3.63.1",
   "release_date": "2026-08-13",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.63.0/voxywatch-v3.63.0-linux-x64.tar.gz",
-    "sha256": "b15eff19c62f98107cd682d81badf678b5cce3c59a9821d3efd8a4b3c0ec5065",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.63.0/voxywatch-v3.63.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.63.1/voxywatch-v3.63.1-linux-x64.tar.gz",
+    "sha256": "24450b9d205bfa09a480569c5c405eaeb257a9dd6d64c5f8b94422710d67b1e6",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.63.1/voxywatch-v3.63.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Complete, correlated LLM context",
-    "AI chat now carries the exact selected time range, canonical totals, coverage and representative calls; a selected report is revalidated and recalculated by the",
-    "Ask AI about this call builds a dossier with the dynamic CDR, every available leg, SIP ladder, Audio/RTP Expert, ±24-hour trends and related calls by party or",
-    "`search_calls` accepts exact epoch windows, search and trunk filters; `get_call_context` expands one opaque call reference."
+    "Exact time windows for AI analysis",
+    "Open-ended periods such as “last 24 hours” now freeze their upper boundary when a question is sent, keeping metrics, CDRs and report evidence reproducible.",
+    "The server distinguishes absent bounds from epoch zero, preventing a null upper bound from silently discarding the requested time scope.",
+    "Public E2E now requires temporal context in Reports and Calls, together with the dynamic report specification and selected call."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Contexto completo y correlacionado para el LLM",
-    "El chat transmite al motor de IA el rango temporal exacto seleccionado, sus totales canónicos, cobertura y una muestra representativa; una pregunta desde Repor",
-    "“Ask AI about this call” arma un expediente con CDR dinámico, piernas, SIP ladder, Audio/RTP Expert, tendencias ±24 horas y llamadas relacionadas por part",
-    "`search_calls` acepta ventanas epoch exactas, búsqueda y troncal; `get_call_context` permite ampliar el expediente usando referencias opacas reutilizables."
+    "Rango temporal exacto en consultas de IA",
+    "Los periodos abiertos como “últimas 24 horas” congelan el instante superior al enviar la consulta, para que métricas, CDRs y reporte describan una sola ve",
+    "El servidor distingue límites ausentes de epoch cero; evita que `until=null` invalide silenciosamente el contexto temporal antes de armar la evidencia.",
+    "El E2E público exige contexto temporal en Reports y Calls, además de la especificación dinámica del reporte y la llamada seleccionada."
   ]
 }

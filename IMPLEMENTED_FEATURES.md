@@ -1,5 +1,14 @@
 # Implemented Feature Reference
 
+## Deterministic reports
+
+- Seven operational templates plus a custom visual builder.
+- Network, external-trunk and internal-endpoint rollups; bounded CDR detail.
+- Dynamic CDR field discovery and schema-safe saved definitions.
+- Previous-period comparison, findings, chart, table and CSV export.
+- Per-user storage and viewer/operator/admin authorization boundaries.
+- Complete local execution with no LLM dependency.
+
 This document describes capabilities that are present in the current signed
 VoxyWatch release. It complements the product-oriented
 [README](https://github.com/VoxyWatch/publish/blob/main/README.md) and

@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.62.0] — 2026-08-13
+
+### Custom reports that work without AI
+- Adds a Reports workspace with seven templates, a visual builder, periods, grouping, trunk filters, previous-period comparison, charts, tables, per-user saved definitions and CSV export.
+- Calculations use canonical rollups and deterministic formulas, so the feature remains complete without configuring an LLM.
+- CDR-detail columns are discovered from the current canonical public projection and revalidated at execution time instead of being hardcoded.
+- Viewers can run and export reports; operators and administrators can also save definitions.
+
 ## [3.61.0] — 2026-08-13
 
 ### Simpler Alerts with one owner per signal

@@ -85,7 +85,7 @@ behind the reverse proxy.
 
 Full configuration, the current 12-tool catalog, client examples, security
 controls and troubleshooting are in the
-**[MCP Server guide](MCP_SERVER.md)**.
+**[MCP Server guide](MCP_SERVER.md)** · **[Reports guide](REPORTS.md)**.
 
 Initial setup can also be inspected and applied through Settings, the root-only `voxywatch-setup`
 CLI or the gated MCP setup tool. Portal passwords and LLM keys never belong in MCP calls.

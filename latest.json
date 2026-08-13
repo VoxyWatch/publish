@@ -1,26 +1,26 @@
 {
-  "version": "3.61.0",
+  "version": "3.62.0",
   "release_date": "2026-08-13",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.61.0/voxywatch-v3.61.0-linux-x64.tar.gz",
-    "sha256": "3d4cc84e1fe7e5f1d44656456384b62c175f85d18ab803b8f9d3f4bedb030799",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.61.0/voxywatch-v3.61.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.62.0/voxywatch-v3.62.0-linux-x64.tar.gz",
+    "sha256": "4bfb67be3b789129c99abdc3dbfa05366f4932bdec8995917bef3086e97ed224",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.62.0/voxywatch-v3.62.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Simpler Alerts with one owner per signal",
-    "Alerts keeps the existing visual language but starts with compact SIP-response and network-pattern cards; specialist tuning stays available under advanced discl",
-    "SIP 5xx detection has one active owner: Trunk Health preserves compatibility coverage while SIP rules are off and yields automatically when they are enabled.",
-    "Per-trunk learned deviations belong only to Trunk Health; Pattern alarms now cover the network-wide seasonal view without duplicate incidents."
+    "Custom reports that work without AI",
+    "Adds a Reports workspace with seven templates, a visual builder, periods, grouping, trunk filters, previous-period comparison, charts, tables, per-user saved de",
+    "Calculations use canonical rollups and deterministic formulas, so the feature remains complete without configuring an LLM.",
+    "CDR-detail columns are discovered from the current canonical public projection and revalidated at execution time instead of being hardcoded."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Alerts simple, sin configuraciones duplicadas",
-    "Alerts conserva el mismo lenguaje visual, pero presenta dos tarjetas claras: respuestas SIP y patrones aprendidos de toda la red; los ajustes especialistas qued",
-    "Las respuestas 5xx tienen un solo propietario activo: Trunk Health conserva cobertura de compatibilidad mientras las reglas SIP están apagadas y se retira auto",
-    "El aprendizaje estacional por troncal pertenece únicamente a Trunk Health; Pattern alarms queda reservado al comportamiento agregado de toda la red."
+    "Reportes personalizados, útiles aun sin IA",
+    "Se incorpora un módulo Reports con siete plantillas, constructor visual, periodos, agrupación, filtros por troncal, comparación, gráficas, tablas, guardado",
+    "El motor usa rollups canónicos y fórmulas determinísticas; funciona completo sin configurar un LLM y reserva la IA para mejoras posteriores, nunca para inven",
+    "El detalle CDR descubre sus campos escalares desde la proyección pública vigente: no existe una lista fija y cada reporte se revalida cuando el esquema cambia"
   ]
 }

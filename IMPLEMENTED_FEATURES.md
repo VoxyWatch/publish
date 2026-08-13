@@ -146,6 +146,7 @@ failures across multiple trunks. Customer runbooks can be added as JSON.
   always wins and no finding automatically becomes an alarm or action.
 - Deterministic model routing, context/output budgets, usage/latency telemetry,
   prompt-caching support and a concurrency limiter.
+- Opt-in server-side network analysis with a configurable 30-second to 30-minute cadence, material-change deduplication, critical bypass and bounded local report history. It continues without an open browser and leaves live detection entirely local.
 - Offline-only OpenAI Batch workflow for non-interactive workloads; it is not
   used for chat, incidents or urgent investigations.
 - Evidence collection remains available without an LLM.

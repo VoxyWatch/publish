@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.64.0] — 2026-08-13
+
+### Browser-independent routine network analyst
+- Settings → LLM adds **Automatic network analysis** and reuses one global 30-second to 30-minute cadence with a clear token-cost explanation.
+- The server produces network-status interpretations even when no portal is open; the browser only displays the latest persisted report or requests a manual one.
+- Each run uses an exact 24-hour window, live health and broad redacted context. Material-change deduplication avoids another provider request when evidence is unchanged, while critical bypass remains available.
+- Up to 120 local reports are retained with mode 0600 without raw evidence, SIP/RTP/CDRs, identifiers or credentials. Automatic analysis starts off; chat, manual analysis and incident investigations remain available.
+
 ## [3.63.1] — 2026-08-13
 
 ### Exact time windows for AI analysis

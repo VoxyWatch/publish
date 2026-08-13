@@ -8,7 +8,7 @@ The optional LLM receives the exact selected period, canonical totals, coverage 
 
 Build network, trunk, endpoint and CDR-detail reports with templates or visual controls, compare periods, visualize results, save definitions per user and export CSV. The feature works without an LLM, and its CDR field catalog adapts to the current canonical schema instead of hardcoding today's columns. [Reports guide](REPORTS.md).
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.63.1** (2026-08-09).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.64.0** (2026-08-09).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -94,7 +94,7 @@ Build network, trunk, endpoint and CDR-detail reports with templates or visual c
 | **Credential-aware model discovery** | Prepare a managed provider with conservative unverified presets before adding a key, then replace them with the live account-authorized catalog after configuration. Custom Ollama-style servers use the exact model name configured by their administrator. |
 | **Per-user contextual LLM** | Built-in LLM keeps private conversation sessions per user, lets operators reopen/delete history, applies each user's profile prompt, infers reply language from the latest operator message, receives a sanitized hint of the current UI view/call/incident, and supports OpenAI, Anthropic, Google Gemini, OpenRouter, OpenRouter Free, DeepSeek, Groq, Perplexity Sonar and customer-owned Ollama, vLLM or LM Studio servers. |
 | **Grounded AI context and finding memory** | A deterministic-first Context Engine combines bounded chat history, current redacted evidence, optional administrator-confirmed organization name/type and just-in-time VoxyWatch/RFC references. A private local ledger remembers recurring hypotheses and human outcomes without raw SIP, audio, credentials or personal identity; fresh evidence always wins. [Context Engine guide](docs/ai/CONTEXT_ENGINE.md). |
-| **AI cost and freshness control** | Operators choose manual, 30-second, 1-, 5-, 15- or 30-minute narrative refresh while live KPIs remain immediate. Admin floors, critical bypass, token telemetry, context/output budgets, prompt caching, deterministic model routing and offline-only Batch keep spend visible and controlled. |
+| **AI cost and freshness control** | Administrators can leave routine analysis off or enable a browser-independent server cadence of 30 seconds, 1, 5, 15 or 30 minutes while live KPIs remain immediate. Material-change deduplication, admin floors, critical bypass, token telemetry, context/output budgets, prompt caching, deterministic model routing and offline-only Batch keep spend visible and controlled. |
 | **Agent tools API** | Authenticated read-only tool catalog for built-in chat and future ADK/sidecar runtimes, with rate limits and no SBC/network control. |
 | **Verifiable agent decisions** | Every diagnosis can cite stable evidence IDs; unverifiable or low-confidence output stays observe-only. New actions begin in shadow, operator feedback is audited, and release evals block policy/grounding regressions. |
 
@@ -185,4 +185,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.63.1.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.64.0.

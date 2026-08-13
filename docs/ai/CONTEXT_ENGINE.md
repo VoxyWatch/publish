@@ -2,6 +2,17 @@
 
 VoxyWatch uses a deterministic-first context pipeline for its optional LLM features. The model is the explanation and correlation layer, not the source of operational truth.
 
+## Selection-aware evidence pack
+
+The portal sends the active UI scope to the server, including the exact time range and the selected call or validated report definition. Before contacting a provider, VoxyWatch builds `voxywatch-ai-context-pack/v1`:
+
+- canonical rollup totals for the requested period, with source and coverage;
+- a bounded representative CDR sample using the current dynamic public projection;
+- a selected report revalidated and recalculated by the deterministic report engine;
+- for a selected call: every available leg, Audio/RTP Expert, up to 120 SIP ladder events, ±24-hour trends and related calls sharing a party or trunk.
+
+`search_calls` can continue with exact epoch boundaries and `get_call_context` can expand one opaque call reference. Sensitive identifiers are masked or replaced before provider transmission. When the configured context budget is reached, VoxyWatch removes lower-priority sample rows in stages and records the omission; totals, provenance and valid JSON remain intact.
+
 ## Context order
 
 1. Stable product identity, installed version, safety rules and read-only boundary.

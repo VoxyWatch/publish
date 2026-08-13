@@ -102,7 +102,7 @@ consent, client registration and token issuance.
 
 ## Tool catalog
 
-VoxyWatch exposes 13 read-only tools and one separately gated setup tool.
+VoxyWatch exposes 14 read-only tools and one separately gated setup tool.
 Availability is limited by caller scopes and global administrative switches.
 
 | Tool | Scope | Purpose |
@@ -113,6 +113,7 @@ Availability is limited by caller scopes and global administrative switches.
 | `search_calls` | `mcp:traffic` | Bounded CDR search by result, country, client and quality/SIP filters |
 | `get_call_detail` | `mcp:traffic` | One call's redacted CDR and quality alerts |
 | `get_call_flow` | `mcp:traffic` | Bounded, redacted SIP ladder for one call |
+| `get_call_context` | `mcp:traffic` | Correlated dossier with dynamic CDR, legs, SIP/RTP, trends and related calls |
 | `get_incident` | `mcp:incidents` | Incident state, deterministic evidence and recent timeline |
 | `get_error_breakdown` | `mcp:incidents` | Recent SIP failure distribution for a trunk |
 | `get_flash_call_overview` | `mcp:read` | Passive Flash Call pattern evidence with hashed source IDs |

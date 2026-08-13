@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.63.0] — 2026-08-13
+
+### Complete, correlated LLM context
+- AI chat now carries the exact selected time range, canonical totals, coverage and representative calls; a selected report is revalidated and recalculated by the server.
+- Ask AI about this call builds a dossier with the dynamic CDR, every available leg, SIP ladder, Audio/RTP Expert, ±24-hour trends and related calls by party or trunk.
+- `search_calls` accepts exact epoch windows, search and trunk filters; `get_call_context` expands one opaque call reference.
+- Sensitive identifiers are masked before provider transmission, and budget pressure reduces samples structurally without breaking JSON or dropping totals and provenance.
+
 ## [3.62.0] — 2026-08-13
 
 ### Custom reports that work without AI

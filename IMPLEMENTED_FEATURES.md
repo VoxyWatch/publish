@@ -8,6 +8,14 @@
 - Previous-period comparison, findings, chart, table and CSV export.
 - Per-user storage and viewer/operator/admin authorization boundaries.
 - Complete local execution with no LLM dependency.
+- Optional selection-aware LLM context reuses the validated result and exact requested period without moving calculations into the model.
+
+## Full-context AI correlation
+
+- Exact UI time range, canonical totals, provenance, coverage and representative calls.
+- Complete selected-call dossier: dynamic CDR, legs, SIP ladder, Audio/RTP Expert, ±24-hour trends and related calls.
+- Exact-window `search_calls` and reusable opaque-reference `get_call_context` tools.
+- Structured budget reduction and provider-boundary redaction of identifiers.
 
 This document describes capabilities that are present in the current signed
 VoxyWatch release. It complements the product-oriented
@@ -164,7 +172,7 @@ tool.
   OpenAPI and RFC 9457 problem responses.
 - Local admin-only Swagger UI at `/api/docs`; all assets are bundled, external
   validation is disabled and request execution is intentionally unavailable.
-- MCP gateway with 13 read-only evidence/setup-status tools plus one opt-in,
+- MCP gateway with 14 read-only evidence/setup-status tools plus one opt-in,
   merge-only initial-setup tool; API-key or OAuth/JWKS authentication, separate
   `mcp:configure`, dry-run/confirmation, official MCP SDK transport and JSON-Schema validation,
   redaction, bounds and local audit. See

@@ -1,26 +1,26 @@
 {
-  "version": "3.62.0",
+  "version": "3.63.0",
   "release_date": "2026-08-13",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.62.0/voxywatch-v3.62.0-linux-x64.tar.gz",
-    "sha256": "4bfb67be3b789129c99abdc3dbfa05366f4932bdec8995917bef3086e97ed224",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.62.0/voxywatch-v3.62.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.63.0/voxywatch-v3.63.0-linux-x64.tar.gz",
+    "sha256": "b15eff19c62f98107cd682d81badf678b5cce3c59a9821d3efd8a4b3c0ec5065",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.63.0/voxywatch-v3.63.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Custom reports that work without AI",
-    "Adds a Reports workspace with seven templates, a visual builder, periods, grouping, trunk filters, previous-period comparison, charts, tables, per-user saved de",
-    "Calculations use canonical rollups and deterministic formulas, so the feature remains complete without configuring an LLM.",
-    "CDR-detail columns are discovered from the current canonical public projection and revalidated at execution time instead of being hardcoded."
+    "Complete, correlated LLM context",
+    "AI chat now carries the exact selected time range, canonical totals, coverage and representative calls; a selected report is revalidated and recalculated by the",
+    "Ask AI about this call builds a dossier with the dynamic CDR, every available leg, SIP ladder, Audio/RTP Expert, ±24-hour trends and related calls by party or",
+    "`search_calls` accepts exact epoch windows, search and trunk filters; `get_call_context` expands one opaque call reference."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Reportes personalizados, útiles aun sin IA",
-    "Se incorpora un módulo Reports con siete plantillas, constructor visual, periodos, agrupación, filtros por troncal, comparación, gráficas, tablas, guardado",
-    "El motor usa rollups canónicos y fórmulas determinísticas; funciona completo sin configurar un LLM y reserva la IA para mejoras posteriores, nunca para inven",
-    "El detalle CDR descubre sus campos escalares desde la proyección pública vigente: no existe una lista fija y cada reporte se revalida cuando el esquema cambia"
+    "Contexto completo y correlacionado para el LLM",
+    "El chat transmite al motor de IA el rango temporal exacto seleccionado, sus totales canónicos, cobertura y una muestra representativa; una pregunta desde Repor",
+    "“Ask AI about this call” arma un expediente con CDR dinámico, piernas, SIP ladder, Audio/RTP Expert, tendencias ±24 horas y llamadas relacionadas por part",
+    "`search_calls` acepta ventanas epoch exactas, búsqueda y troncal; `get_call_context` permite ampliar el expediente usando referencias opacas reutilizables."
   ]
 }

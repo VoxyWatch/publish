@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.65.0] — 2026-08-13
+
+### Compact, dynamic trunk filters in Reports
+- The default scope includes every enabled trunk without rendering an endless catalog; custom selection opens only when needed.
+- Live name/ID search, direction filtering, selected-only review, visible-result selection, clear action and counters make large catalogs manageable.
+- Rendering is bounded to 60 matches and report scope to 100 trunks, exactly matching the server contract and preventing silent scope changes.
+- Empty custom scope is rejected instead of becoming “all”; saved reports restore their prior selection. The control is bilingual and responsive.
+
 ## [3.64.0] — 2026-08-13
 
 ### Browser-independent routine network analyst

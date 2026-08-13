@@ -1,26 +1,26 @@
 {
-  "version": "3.64.0",
+  "version": "3.65.0",
   "release_date": "2026-08-13",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.64.0/voxywatch-v3.64.0-linux-x64.tar.gz",
-    "sha256": "21a10d57825df762ed8c8c1b789b1e100ec4743baee65e6793d12dbb64a1e4df",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.64.0/voxywatch-v3.64.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.65.0/voxywatch-v3.65.0-linux-x64.tar.gz",
+    "sha256": "03e844ceec7e7e2f46fbbb9926d4450ac7d050da2e39787dde5bb294e8f0c6c7",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.65.0/voxywatch-v3.65.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Browser-independent routine network analyst",
-    "Settings → LLM adds Automatic network analysis and reuses one global 30-second to 30-minute cadence with a clear token-cost explanation.",
-    "The server produces network-status interpretations even when no portal is open; the browser only displays the latest persisted report or requests a manual one.",
-    "Each run uses an exact 24-hour window, live health and broad redacted context. Material-change deduplication avoids another provider request when evidence is un"
+    "Compact, dynamic trunk filters in Reports",
+    "The default scope includes every enabled trunk without rendering an endless catalog; custom selection opens only when needed.",
+    "Live name/ID search, direction filtering, selected-only review, visible-result selection, clear action and counters make large catalogs manageable.",
+    "Rendering is bounded to 60 matches and report scope to 100 trunks, exactly matching the server contract and preventing silent scope changes."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Analista rutinario de red independiente del navegador",
-    "Settings → LLM incorpora Automatic network analysis y reutiliza una única frecuencia global de 30 segundos a 30 minutos, con explicación explícita del cons",
-    "El servidor genera interpretaciones de estado aun sin portal abierto; el navegador sólo muestra el último reporte o solicita uno manual.",
-    "Cada consulta usa una ventana exacta de 24 horas, salud viva y contexto amplio redactado. Un hash material evita pagar otra consulta cuando la evidencia no camb"
+    "Filtros de troncales compactos y dinámicos en Reports",
+    "El alcance predeterminado incluye todas las troncales habilitadas sin desplegar una lista interminable; la selección personalizada sólo se abre cuando se nece",
+    "El selector busca en vivo por nombre o ID, filtra por dirección, permite revisar sólo lo seleccionado y ofrece selección visible o limpieza inmediata con con",
+    "La interfaz renderiza como máximo 60 coincidencias y limita cada reporte a 100 troncales, igual que el contrato del servidor, evitando recortes silenciosos."
   ]
 }

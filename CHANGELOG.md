@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.61.0] — 2026-08-13
+
+### Simpler Alerts with one owner per signal
+- Alerts keeps the existing visual language but starts with compact SIP-response and network-pattern cards; specialist tuning stays available under advanced disclosures.
+- SIP 5xx detection has one active owner: Trunk Health preserves compatibility coverage while SIP rules are off and yields automatically when they are enabled.
+- Per-trunk learned deviations belong only to Trunk Health; Pattern alarms now cover the network-wide seasonal view without duplicate incidents.
+- The redundant Fraud shortcut card is removed and the configuration destination is named **Fraud & Flash Calls**.
+
 ## [3.60.0] — 2026-08-13
 
 ### Trunk health thresholds now live where alerts are managed

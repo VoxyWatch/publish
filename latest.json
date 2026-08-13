@@ -1,26 +1,26 @@
 {
-  "version": "3.60.0",
+  "version": "3.61.0",
   "release_date": "2026-08-13",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.60.0/voxywatch-v3.60.0-linux-x64.tar.gz",
-    "sha256": "c540e24091a9d4af3954db25c23868745153a9e158820c9510d17a1b4db8dcbe",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.60.0/voxywatch-v3.60.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.61.0/voxywatch-v3.61.0-linux-x64.tar.gz",
+    "sha256": "3d4cc84e1fe7e5f1d44656456384b62c175f85d18ab803b8f9d3f4bedb030799",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.61.0/voxywatch-v3.61.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Trunk health thresholds now live where alerts are managed",
-    "Configuration → Alerts opens with Trunk health thresholds; the global editor no longer lives inside Trunks.",
-    "Thresholds are grouped into evaluation, SIP signaling, media quality, one-way audio, learned behavior and shared IP endpoints.",
-    "Binary values use global switches and per-trunk `Inherit / On / Off` buttons; IP incident mode keeps its exact `Shadow / Active` states."
+    "Simpler Alerts with one owner per signal",
+    "Alerts keeps the existing visual language but starts with compact SIP-response and network-pattern cards; specialist tuning stays available under advanced discl",
+    "SIP 5xx detection has one active owner: Trunk Health preserves compatibility coverage while SIP rules are off and yields automatically when they are enabled.",
+    "Per-trunk learned deviations belong only to Trunk Health; Pattern alarms now cover the network-wide seasonal view without duplicate incidents."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Umbrales de salud organizados donde se atienden las alertas",
-    "Configuration → Alerts abre con Trunk health thresholds; el editor global ya no está duplicado dentro de Trunks.",
-    "Los umbrales se agrupan por evaluación, señalización SIP, calidad de medios, audio unidireccional, comportamiento aprendido y endpoints IP compartidos.",
-    "Los valores binarios usan interruptores globales y botones `Heredar / Activado / Desactivado` por troncal; el modo de incidentes IP conserva sus estados exactos"
+    "Alerts simple, sin configuraciones duplicadas",
+    "Alerts conserva el mismo lenguaje visual, pero presenta dos tarjetas claras: respuestas SIP y patrones aprendidos de toda la red; los ajustes especialistas qued",
+    "Las respuestas 5xx tienen un solo propietario activo: Trunk Health conserva cobertura de compatibilidad mientras las reglas SIP están apagadas y se retira auto",
+    "El aprendizaje estacional por troncal pertenece únicamente a Trunk Health; Pattern alarms queda reservado al comportamiento agregado de toda la red."
   ]
 }

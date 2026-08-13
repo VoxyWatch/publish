@@ -1,26 +1,26 @@
 {
-  "version": "3.59.3",
-  "release_date": "2026-08-11",
+  "version": "3.59.4",
+  "release_date": "2026-08-13",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.59.3/voxywatch-v3.59.3-linux-x64.tar.gz",
-    "sha256": "cddfe716915b5fa4d2f0caee112fa8c98ed35351d344b03076def488674c6a5c",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.59.3/voxywatch-v3.59.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.59.4/voxywatch-v3.59.4-linux-x64.tar.gz",
+    "sha256": "d357c59a1eb60cde96ad559e7f535eb7d2d48cf4326e875ec04b8efe15a9fe8f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.59.4/voxywatch-v3.59.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Stable catalog and diagnostic contracts",
-    "Saving or importing trunks now preserves `updated_at` for entries whose canonical content did not change; only new or modified trunks receive the transaction ti",
-    "SNMP operational health now uses and documents a stable sanitized error taxonomy, including the expected relationship between dispatcher totals and pre-dispatch",
-    "API-key revocation remains an immediate auditable soft revoke with no hidden query parameter, while an unknown ID returns the stable English code `api_key_not_f"
+    "Clearer Audio/RTP, Settings and incidents",
+    "Calls no longer repeats loss, jitter and MOS under both Audio and RTP: Audio owns availability/reconstruction while RTP owns transport quality.",
+    "Media alerts follow the user's language; English remains the default and Spanish the secondary language.",
+    "Settings removes General: language lives only in the per-user Profile, organization context is saved with LLM, and AI connections is renamed MCP connections."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Catálogos y diagnósticos con contratos estables",
-    "Guardar o importar el catálogo de troncales conserva `updated_at` en cada entrada cuyo contenido no cambió; sólo las troncales nuevas o modificadas reciben l",
-    "El estado SNMP documenta y prueba su taxonomía de errores y aclara por qué un datagrama rechazado antes del despacho puede incrementar `requests_rejected` sin",
-    "La revocación de API keys queda protegida por una prueba de contrato: es soft-delete inmediato, no exige un parámetro oculto y un ID inexistente devuelve el c"
+    "Audio/RTP, Settings e incidentes más claros",
+    "Calls deja de repetir pérdida, jitter y MOS en Audio y RTP: Audio explica disponibilidad/reconstrucción y RTP conserva la calidad de transporte.",
+    "Las alertas de medios respetan el idioma del usuario; inglés sigue siendo el predeterminado y español el segundo idioma.",
+    "Settings elimina General: el idioma vive únicamente en Profile por usuario, el contexto de organización se guarda con LLM y AI connections se renombra MCP con"
   ]
 }

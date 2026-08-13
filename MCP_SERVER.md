@@ -55,7 +55,7 @@ Caddy / secure tunnel
 
 ## Enable and configure
 
-In **Settings → AI connections**:
+In **Settings → MCP connections**:
 
 1. Enable MCP.
 2. Keep Remote MCP off for local-only usage, or enable it after HTTPS is ready.

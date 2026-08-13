@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.59.4] — 2026-08-13
+
+### Clearer Audio/RTP, Settings and incidents
+- Calls no longer repeats loss, jitter and MOS under both Audio and RTP: Audio owns availability/reconstruction while RTP owns transport quality.
+- Media alerts follow the user's language; English remains the default and Spanish the secondary language.
+- Settings removes General: language lives only in the per-user Profile, organization context is saved with LLM, and AI connections is renamed MCP connections.
+- Active incidents translates and deduplicates historical concatenated keys such as `health_bl_5xxhealth_bl_5xx`.
+- The trunk editor now scrolls internally and stays within the viewport on desktop and mobile.
+
 ## [3.59.3] — 2026-08-11
 
 ### Stable catalog and diagnostic contracts

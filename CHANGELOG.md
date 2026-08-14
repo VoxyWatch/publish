@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.65.1] — 2026-08-14
+
+### Visible percentages in Overview doughnut charts
+- Call results, codec distribution and disconnect causes now show each segment's percentage in the legend, localized to the user's language.
+- Absolute counts remain authoritative and visible in tooltips; each percentage uses exactly the slices rendered by that chart.
+- Empty charts stay localized and never display invalid percentages. A Chromium regression validates shares and counts across all three charts.
+
 ## [3.65.0] — 2026-08-13
 
 ### Compact, dynamic trunk filters in Reports

@@ -440,6 +440,7 @@ The installer also verifies the SHA-256 from the signed manifest before extracti
 ## 📬 Contact
 
 - **Support:** [support@voxywatch.com](mailto:support@voxywatch.com)
+- **Immediate assistance on WhatsApp:** [+52 55 9221 7665](https://wa.me/525592217665)
 - **Sales & licensing:** [contact@voxywatch.com](mailto:contact@voxywatch.com)
 - **Web:** [voxywatch.com](https://voxywatch.com)
 

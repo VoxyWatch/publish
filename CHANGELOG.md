@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.65.2] — 2026-08-14
+
+### Immediate WhatsApp support in Settings
+- The Settings footer keeps both support email addresses and adds a direct WhatsApp contact with the visible phone number `+52 55 9221 7665`.
+- The canonical `wa.me` link opens safely in a separate tab and uses a compact, responsive treatment for desktop and mobile.
+- English remains the default language while each user's Spanish preference localizes the immediate-assistance label; static, accessibility and Chromium tests protect the behavior.
+
 ## [3.65.1] — 2026-08-14
 
 ### Visible percentages in Overview doughnut charts

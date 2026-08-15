@@ -1,26 +1,26 @@
 {
-  "version": "3.65.1",
+  "version": "3.65.2",
   "release_date": "2026-08-14",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.65.1/voxywatch-v3.65.1-linux-x64.tar.gz",
-    "sha256": "a10456b0262ec01d2002344bb95fa5ff11bd49f30c0c35770ebacd88ead33610",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.65.1/voxywatch-v3.65.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.65.2/voxywatch-v3.65.2-linux-x64.tar.gz",
+    "sha256": "10219914f5b09c3f2cb50a5d6b23c6016a1252f23f16f96604e6202f7ff5da65",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.65.2/voxywatch-v3.65.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Visible percentages in Overview doughnut charts",
-    "Call results, codec distribution and disconnect causes now show each segment's percentage in the legend, localized to the user's language.",
-    "Absolute counts remain authoritative and visible in tooltips; each percentage uses exactly the slices rendered by that chart.",
-    "Empty charts stay localized and never display invalid percentages. A Chromium regression validates shares and counts across all three charts."
+    "Immediate WhatsApp support in Settings",
+    "The Settings footer keeps both support email addresses and adds a direct WhatsApp contact with the visible phone number `+52 55 9221 7665`.",
+    "The canonical `wa.me` link opens safely in a separate tab and uses a compact, responsive treatment for desktop and mobile.",
+    "English remains the default language while each user's Spanish preference localizes the immediate-assistance label; static, accessibility and Chromium tests pro"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Porcentajes visibles en las gráficas circulares de Overview",
-    "Resultados de llamadas, distribución de codecs y causas de desconexión muestran en su leyenda el porcentaje de cada segmento con un decimal y formato acorde a",
-    "Las cantidades absolutas permanecen como datos autoritativos y siguen visibles en los tooltips; el porcentaje se calcula únicamente sobre los segmentos present",
-    "El estado sin datos permanece localizado y nunca produce porcentajes inválidos. Una prueba Chromium valida simultáneamente porcentajes y conteos para las tres"
+    "Atención inmediata por WhatsApp en Settings",
+    "El pie de Settings conserva los correos de soporte y agrega un contacto directo de WhatsApp con el número visible `+52 55 9221 7665`.",
+    "El enlace abre `wa.me` en una pestaña separada con aislamiento seguro, icono reconocible y una presentación compacta que funciona en escritorio y celular.",
+    "Inglés permanece como idioma predeterminado y la leyenda de atención inmediata se adapta al español por usuario; pruebas estáticas, de accesibilidad y Chrom"
   ]
 }

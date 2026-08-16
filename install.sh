@@ -691,6 +691,12 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/frontend-runtime.js" "${INSTAL
 install -o root -g voxywatch -m 640 "${EXTRACTED}/frontend-shell.js" "${INSTALL_DIR}/frontend-shell.js"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/product-ux.js" "${INSTALL_DIR}/product-ux.js"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/update-checker.js" "${INSTALL_DIR}/update-checker.js" 2>/dev/null || true
+if [ -d "${EXTRACTED}/assets/brand" ]; then
+  install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/assets" "${INSTALL_DIR}/assets/brand"
+  find "${EXTRACTED}/assets/brand" -maxdepth 1 -type f | while read -r brand_asset; do
+    install -o root -g voxywatch -m 640 "$brand_asset" "${INSTALL_DIR}/assets/brand/$(basename "$brand_asset")"
+  done
+fi
 # Root-owned updater entrypoint delivered by the verified, signed tarball.
 install -o root -g root -m 750 "${EXTRACTED}/install.sh" "${INSTALL_DIR}/install.sh"
 cat > "${INSTALL_DIR}/voxywatch-license" << 'LICENSE_CLI_EOF'

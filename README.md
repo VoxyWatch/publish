@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🛰️ VoxyWatch
+<img src="assets/voxywatch-wordmark.png" alt="VoxyWatch" width="520">
 
 ### The agentic NOC for your voice network.
 

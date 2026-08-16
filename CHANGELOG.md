@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.66.0] — 2026-08-16
+
+### Official visual identity across the portal, browser and devices
+- The header and sign-in screen now use the official ECG mark and wordmark, while the translatable tagline remains accessible HTML for responsive desktop/mobile layouts and light/dark themes.
+- VoxyWatch now ships ICO/PNG favicons, an Apple Touch Icon and an installable web manifest with 192 px and 512 px icons.
+- Multi-megabyte source artwork is delivered as optimized transparent assets under 100 KB for each primary brand image. The marketing animation is not shipped or autoplayed with every installation.
+- The signed binary fallback, tarball, installer and native packages all carry the brand assets, including the first upgrade from an older installer.
+
 ## [3.65.2] — 2026-08-14
 
 ### Immediate WhatsApp support in Settings

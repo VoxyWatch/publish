@@ -1,26 +1,26 @@
 {
-  "version": "3.65.2",
-  "release_date": "2026-08-14",
+  "version": "3.66.0",
+  "release_date": "2026-08-16",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.65.2/voxywatch-v3.65.2-linux-x64.tar.gz",
-    "sha256": "10219914f5b09c3f2cb50a5d6b23c6016a1252f23f16f96604e6202f7ff5da65",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.65.2/voxywatch-v3.65.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.66.0/voxywatch-v3.66.0-linux-x64.tar.gz",
+    "sha256": "9f165ae25074b1ee10982769ba696b5f1a5039281bdf1b2213a6f624e74afb5b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.66.0/voxywatch-v3.66.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Immediate WhatsApp support in Settings",
-    "The Settings footer keeps both support email addresses and adds a direct WhatsApp contact with the visible phone number `+52 55 9221 7665`.",
-    "The canonical `wa.me` link opens safely in a separate tab and uses a compact, responsive treatment for desktop and mobile.",
-    "English remains the default language while each user's Spanish preference localizes the immediate-assistance label; static, accessibility and Chromium tests pro"
+    "Official visual identity across the portal, browser and devices",
+    "The header and sign-in screen now use the official ECG mark and wordmark, while the translatable tagline remains accessible HTML for responsive desktop/mobile l",
+    "VoxyWatch now ships ICO/PNG favicons, an Apple Touch Icon and an installable web manifest with 192 px and 512 px icons.",
+    "Multi-megabyte source artwork is delivered as optimized transparent assets under 100 KB for each primary brand image. The marketing animation is not shipped or"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Atención inmediata por WhatsApp en Settings",
-    "El pie de Settings conserva los correos de soporte y agrega un contacto directo de WhatsApp con el número visible `+52 55 9221 7665`.",
-    "El enlace abre `wa.me` en una pestaña separada con aislamiento seguro, icono reconocible y una presentación compacta que funciona en escritorio y celular.",
-    "Inglés permanece como idioma predeterminado y la leyenda de atención inmediata se adapta al español por usuario; pruebas estáticas, de accesibilidad y Chrom"
+    "Identidad visual oficial en portal, navegador y dispositivos",
+    "El encabezado y el acceso incorporan el isotipo ECG y el wordmark oficial, separados del eslogan traducible para conservar accesibilidad, adaptación móvil y l",
+    "El portal añade favicon ICO/PNG, Apple Touch Icon y un manifiesto web VoxyWatch con iconos instalables de 192 y 512 px; ya no aparece la identidad genérica de",
+    "Los originales de varios megabytes se convierten en assets transparentes de menos de 100 KB para la marca principal. La animación de marketing no forma parte d"
   ]
 }

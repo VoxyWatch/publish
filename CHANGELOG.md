@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.67.1] — 2026-08-16
+
+### Transcript privacy boundary
+- Viewer sessions no longer render the Speech to text panel, matching the backend audio/operator boundary and avoiding a predictable 403.
+- The public browser E2E now opens a call and prevents future regressions that expose conversation controls to viewer accounts.
+
 ## [3.67.0] — 2026-08-16
 
 ### On-demand local Speech to text Beta

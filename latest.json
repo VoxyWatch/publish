@@ -1,26 +1,24 @@
 {
-  "version": "3.67.0",
+  "version": "3.67.1",
   "release_date": "2026-08-16",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.67.0/voxywatch-v3.67.0-linux-x64.tar.gz",
-    "sha256": "c45eec8958d0131b77a430109d21dc93f297d7c574d6fa1e7767fd8ac32592e1",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.67.0/voxywatch-v3.67.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.67.1/voxywatch-v3.67.1-linux-x64.tar.gz",
+    "sha256": "fe81ad68f872d5e4f1bdcbff646031d05f35e7aa5fb09dea00a187a3bc5cb526",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.67.1/voxywatch-v3.67.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "On-demand local Speech to text Beta",
-    "Calls now provides searchable caller/callee transcripts with TXT, JSON and SRT export plus an explicit handoff to the LLM chat that treats spoken text as untrus",
-    "Local mode ships a SHA-256-pinned `whisper.cpp` 1.9.1 engine and multilingual base model; OpenAI is an explicit alternative using the customer's managed credent",
-    "The feature starts off, requires operator/admin access, stores transcripts with mode 0600 and enforces duration, retention and dedicated queue limits outside th"
+    "Transcript privacy boundary",
+    "Viewer sessions no longer render the Speech to text panel, matching the backend audio/operator boundary and avoiding a predictable 403.",
+    "The public browser E2E now opens a call and prevents future regressions that expose conversation controls to viewer accounts."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Speech to text Beta local y bajo demanda",
-    "Calls incorpora transcripciones buscables separando origen/destino, con exportación TXT, JSON y SRT y un envío explícito al chat de IA que trata el texto hab",
-    "El modo local incluye `whisper.cpp` 1.9.1 y el modelo multilingüe base fijados por SHA-256; OpenAI queda como alternativa explícita con la credencial administ",
-    "La función nace apagada, sólo operator/admin, con archivos 0600, retención y límites de duración/cola. Usa una cola separada y nunca toca el sniffer; el mo"
+    "Privacidad visual de transcripciones",
+    "Viewer ya no recibe ni muestra el panel de Speech to text: la interfaz coincide con el límite `audio:read`/operator del backend y evita un 403 predecible.",
+    "El E2E público abre una llamada y bloquea futuras regresiones que vuelvan a exponer controles de conversación a viewer."
   ]
 }

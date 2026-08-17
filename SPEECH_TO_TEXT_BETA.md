@@ -14,9 +14,10 @@ Speech to text is an opt-in Beta feature that creates searchable transcripts fro
 - Explicit deletion and a six-hour retention sweep, independent of new jobs.
 - Detected language, channel-mapping provenance and warnings for one-way audio, high RTP loss or recording suppression.
 - Operator/admin access only; transcripts are stored locally with mode `0600`.
-- Configurable language, call-duration limit, queue limits and retention.
+- Configurable language, call-duration limit, queue limits, retention and an isolated transcript filesystem budget (1–25%, 5% default).
 - Persistent asynchronous jobs: the portal may be reloaded while processing, and a restart marks unfinished work explicitly as interrupted.
-- Paginated Integration API discovery by call-time range, exact source, exact destination or Call-ID; `include=full` returns at most 25 complete transcripts per page.
+- PostgreSQL metadata index for paginated discovery by call-time range, exact source, exact destination or Call-ID. The private file catalog remains the durable fallback and `include=full` returns at most 25 complete transcripts per page.
+- Asynchronous JSONL/CSV range exports with a dedicated `transcript:export` scope, 31-day/10,000-record bounds, 24-hour result expiry and content-free local audit.
 
 Automatic/background transcription is intentionally locked during Beta. This prevents unattended access to conversation content until each customer validates capacity, consent, privacy and retention requirements.
 
@@ -28,7 +29,7 @@ Speech-to-text jobs use a dedicated bounded queue and cannot execute inside the 
 
 **Ask AI** is an explicit disclosure boundary: the transcript is attached to that single request as untrusted evidence and is not part of normal chat, telemetry or background context. Long transcripts are passed as structured timestamped segments rather than copied into the prompt field; exceptionally long calls are reduced in stages and report omitted segments when the configured context budget is reached.
 
-The Integration API exposes separate `transcript:read` and `transcript:generate` scopes. Generation returns `202 Accepted` plus a persistent job URL; stored results can be listed through `/api/v1/transcripts` with bounded cursor pagination. MCP exposes stored transcripts only through `get_call_transcript`, which requires both `mcp:sensitive` and the administrator's sensitive-data switch. Neither channel enables automatic transcription.
+The Integration API exposes separate `transcript:read`, `transcript:generate` and `transcript:export` scopes. Generation and bulk export return `202 Accepted` plus persistent job URLs. Export requests require `from`/`to`, may span at most 31 days, return at most 10,000 records and expire after 24 hours. Audit records action, outcome, counts and filter field names, never filter values or transcript content. MCP exposes stored transcripts only through `get_call_transcript`, which requires both `mcp:sensitive` and the administrator's sensitive-data switch. Neither channel enables automatic transcription.
 
 ## Enable and use
 
@@ -54,5 +55,5 @@ Do not remove the Beta label until an authorized representative corpus covers En
 ## Three-phase roadmap
 
 1. **Scalable foundation (implemented):** persistent asynchronous jobs, private atomic catalog and bounded API listing by call-time range, exact source, exact destination or Call-ID.
-2. **Governance and capacity:** PostgreSQL search index, asynchronous bulk exports, dedicated export scope/audit, transcript disk budget and safe retention enforcement.
+2. **Governance and capacity (implemented):** reconstructible PostgreSQL metadata index, asynchronous bounded bulk exports, dedicated export scope/content-free audit, transcript disk budget and oldest-first safe retention enforcement.
 3. **Storage evolution:** independently selectable audio/transcript volumes, verified migration to a mounted partition or external disk, and only then consent- and capacity-aware automatic policies.

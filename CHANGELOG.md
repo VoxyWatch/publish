@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.70.0] — 2026-08-17
+
+### Speech to text Beta — governance and capacity phase 2
+
+- Adds a reconstructible PostgreSQL metadata index while private transcript files remain the durable authority and capture tables stay untouched.
+- Adds bounded asynchronous JSONL/CSV bulk exports with a dedicated `transcript:export` scope, 31-day and 10,000-record limits, 256 MB backpressure-aware output, 24-hour expiry and content-free audit.
+- Adds an isolated 1–25% transcript filesystem budget (5% default) in Storage. Retention runs first, then removes oldest transcripts only; SIP, CDR and configuration are never affected.
+
 ## [3.69.0] — 2026-08-17
 
 ### Speech to text Beta — scalable foundation phase 1

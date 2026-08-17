@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.71.0] — 2026-08-17
+
+### Speech to text Beta — verified mounted storage
+
+- Administrators can migrate transcripts between local storage and a dedicated mounted filesystem from Storage, while every existing reader keeps the canonical path.
+- A scoped root helper stops only the portal, hashes the complete copy, refuses non-mounts or conflicting data, configures `RequiresMountsFor` and rolls back if the portal cannot restart.
+- Returning to local storage preserves the external copy for manual recovery. Audio relocation remains intentionally unavailable until its legacy files have one canonical boundary.
+
 ## [3.70.0] — 2026-08-17
 
 ### Speech to text Beta — governance and capacity phase 2

@@ -568,6 +568,7 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
     etc/systemd/system/voxywatch-agentic.service \
     etc/systemd/system/voxywatch-apply-update.service \
     etc/systemd/system/voxywatch-apply-web-access.service \
+    etc/systemd/system/voxywatch-apply-transcript-storage.service \
     etc/sysctl.d/99-voxywatch.conf \
     usr/local/sbin/voxywatch-license \
     usr/local/sbin/voxywatch-ai-key; do
@@ -635,6 +636,7 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/get-hwid.js"        "${INSTALL
 [ -f "${EXTRACTED}/voxywatch-mcp.js" ] && install -o root -g voxywatch -m 644 "${EXTRACTED}/voxywatch-mcp.js" "${INSTALL_DIR}/voxywatch-mcp.js"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/migrate_to_db.js"   "${INSTALL_DIR}/migrate_to_db.js" 2>/dev/null || true
 install -o root -g voxywatch -m 750 "${EXTRACTED}/apply-web-access.py" "${INSTALL_DIR}/apply-web-access.py"
+install -o root -g voxywatch -m 750 "${EXTRACTED}/apply-transcript-storage.py" "${INSTALL_DIR}/apply-transcript-storage.py"
 # Helpers que el portal invoca directamente: si falta uno, la instalación está incompleta
 # y debe abortar en lugar de anunciar éxito con Audio/PCAP/DTMF rotos.
 install -o root -g voxywatch -m 640 "${EXTRACTED}/generate_pcap.py"     "${INSTALL_DIR}/generate_pcap.py"
@@ -1081,6 +1083,21 @@ StandardError=journal
 SyslogIdentifier=voxywatch-apply-web-access
 EOF
 
+cat > /etc/systemd/system/voxywatch-apply-transcript-storage.service << EOF
+[Unit]
+Description=VoxyWatch — migrate transcript storage (one-shot)
+After=local-fs.target
+[Service]
+Type=oneshot
+ExecStart=${INSTALL_DIR}/apply-transcript-storage.py
+UMask=0027
+PrivateTmp=true
+ProtectHome=true
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=voxywatch-apply-transcript-storage
+EOF
+
 # ── SIPREC SRS (grabación directa desde SBC) — proceso APARTE, OFF por default ──
 # v2.81: el SRS recibe SIPREC del SBC y escribe al MISMO almacén .seg/.idx que el sniffer.
 # Se instala DORMANTE y NI SIQUIERA se habilita/arranca: el unit queda en disco, detenido y
@@ -1271,7 +1288,8 @@ polkit.addRule(function(action, subject) {
         if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" ||
             u == "voxywatch-agentic.service" ||
             u == "voxywatch-apply-update.service" ||
-            u == "voxywatch-apply-web-access.service")
+            u == "voxywatch-apply-web-access.service" ||
+            u == "voxywatch-apply-transcript-storage.service")
             return polkit.Result.YES;
     }
     // enable/disable persistente SOLO del SRS (la pestaña Settings → SIPREC lo activa en boot).

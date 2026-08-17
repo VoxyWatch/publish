@@ -1,26 +1,26 @@
 {
-  "version": "3.70.0",
+  "version": "3.71.0",
   "release_date": "2026-08-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.70.0/voxywatch-v3.70.0-linux-x64.tar.gz",
-    "sha256": "498a81ac261e31175ee1e331c5ce326eab6b38736f3db4008e3328f6d89cb34e",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.70.0/voxywatch-v3.70.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.71.0/voxywatch-v3.71.0-linux-x64.tar.gz",
+    "sha256": "301ffe7329912e523816b0e5181fc9cdaebbb1a3bdec0cfb32a5dd443d6ae9b8",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.71.0/voxywatch-v3.71.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Speech to text Beta — governance and capacity phase 2",
-    "Adds a reconstructible PostgreSQL metadata index while private transcript files remain the durable authority and capture tables stay untouched.",
-    "Adds bounded asynchronous JSONL/CSV bulk exports with a dedicated `transcript:export` scope, 31-day and 10,000-record limits, 256 MB backpressure-aware output,",
-    "Adds an isolated 1–25% transcript filesystem budget (5% default) in Storage. Retention runs first, then removes oldest transcripts only; SIP, CDR and configur"
+    "Speech to text Beta — verified mounted storage",
+    "Administrators can migrate transcripts between local storage and a dedicated mounted filesystem from Storage, while every existing reader keeps the canonical pa",
+    "A scoped root helper stops only the portal, hashes the complete copy, refuses non-mounts or conflicting data, configures `RequiresMountsFor` and rolls back if t",
+    "Returning to local storage preserves the external copy for manual recovery. Audio relocation remains intentionally unavailable until its legacy files have one c"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Speech to text Beta — governance and capacity phase 2",
-    "Adds a reconstructible PostgreSQL metadata index while private transcript files remain the durable authority and capture tables stay untouched.",
-    "Adds bounded asynchronous JSONL/CSV bulk exports with a dedicated `transcript:export` scope, 31-day and 10,000-record limits, 256 MB backpressure-aware output,",
-    "Adds an isolated 1–25% transcript filesystem budget (5% default) in Storage. Retention runs first, then removes oldest transcripts only; SIP, CDR and configur"
+    "Speech to text Beta — verified mounted storage",
+    "Administrators can migrate transcripts between local storage and a dedicated mounted filesystem from Storage, while every existing reader keeps the canonical pa",
+    "A scoped root helper stops only the portal, hashes the complete copy, refuses non-mounts or conflicting data, configures `RequiresMountsFor` and rolls back if t",
+    "Returning to local storage preserves the external copy for manual recovery. Audio relocation remains intentionally unavailable until its legacy files have one c"
   ]
 }

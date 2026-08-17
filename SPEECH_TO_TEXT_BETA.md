@@ -15,6 +15,8 @@ Speech to text is an opt-in Beta feature that creates searchable transcripts fro
 - Detected language, channel-mapping provenance and warnings for one-way audio, high RTP loss or recording suppression.
 - Operator/admin access only; transcripts are stored locally with mode `0600`.
 - Configurable language, call-duration limit, queue limits and retention.
+- Persistent asynchronous jobs: the portal may be reloaded while processing, and a restart marks unfinished work explicitly as interrupted.
+- Paginated Integration API discovery by call-time range, exact source, exact destination or Call-ID; `include=full` returns at most 25 complete transcripts per page.
 
 Automatic/background transcription is intentionally locked during Beta. This prevents unattended access to conversation content until each customer validates capacity, consent, privacy and retention requirements.
 
@@ -26,7 +28,7 @@ Speech-to-text jobs use a dedicated bounded queue and cannot execute inside the 
 
 **Ask AI** is an explicit disclosure boundary: the transcript is attached to that single request as untrusted evidence and is not part of normal chat, telemetry or background context. Long transcripts are passed as structured timestamped segments rather than copied into the prompt field; exceptionally long calls are reduced in stages and report omitted segments when the configured context budget is reached.
 
-The Integration API exposes separate `transcript:read` and `transcript:generate` scopes. MCP exposes stored transcripts only through `get_call_transcript`, which requires both `mcp:sensitive` and the administrator's sensitive-data switch. Neither channel enables automatic transcription.
+The Integration API exposes separate `transcript:read` and `transcript:generate` scopes. Generation returns `202 Accepted` plus a persistent job URL; stored results can be listed through `/api/v1/transcripts` with bounded cursor pagination. MCP exposes stored transcripts only through `get_call_transcript`, which requires both `mcp:sensitive` and the administrator's sensitive-data switch. Neither channel enables automatic transcription.
 
 ## Enable and use
 
@@ -48,3 +50,9 @@ OpenAI uploads are bounded per request. Large WAV files are split locally into t
 ## Beta exit evidence
 
 Do not remove the Beta label until an authorized representative corpus covers English and Spanish, supported codecs, noisy and lossy media, one-way calls and multi-leg/B2BUA direction. Record accuracy review, real-time factor, peak CPU/RAM, queue saturation, cancellation/failure rate and confirmation that capture drops/RTP shedding remain unchanged. Automatic processing stays unavailable until consent, retention, capacity and trunk-selection behavior pass that review.
+
+## Three-phase roadmap
+
+1. **Scalable foundation (implemented):** persistent asynchronous jobs, private atomic catalog and bounded API listing by call-time range, exact source, exact destination or Call-ID.
+2. **Governance and capacity:** PostgreSQL search index, asynchronous bulk exports, dedicated export scope/audit, transcript disk budget and safe retention enforcement.
+3. **Storage evolution:** independently selectable audio/transcript volumes, verified migration to a mounted partition or external disk, and only then consent- and capacity-aware automatic policies.

@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.69.0] — 2026-08-17
+
+### Speech to text Beta — scalable foundation phase 1
+
+- Transcript generation now returns a persistent asynchronous job with explicit queued, running, completed, failed and interrupted states; browser reloads no longer own worker lifetime.
+- The Integration API lists existing transcripts with cursor pagination and exact filters for call-time range, source number, destination number or Call-ID. Full content is opt-in and capped at 25 records per page.
+- Private atomic catalogs and job state remain mode 0600, and restart reconciliation never reports success without a durable transcript. Capture isolation, RBAC, sensitive scopes and OFF-by-default behavior are unchanged.
+
 ## [3.68.0] — 2026-08-17
 
 ### Speech to text Beta hardening

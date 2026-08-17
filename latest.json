@@ -1,26 +1,26 @@
 {
-  "version": "3.68.0",
+  "version": "3.69.0",
   "release_date": "2026-08-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.68.0/voxywatch-v3.68.0-linux-x64.tar.gz",
-    "sha256": "24637b0e3eaeffe27a73308f935b985a81b053e7c578adb50f1d3b9df9f75a56",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.68.0/voxywatch-v3.68.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.69.0/voxywatch-v3.69.0-linux-x64.tar.gz",
+    "sha256": "8d8f0e3a3c62e399ba98e95265fc9320e6d405fb60491b6fe1b2d2c580f6d690",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.69.0/voxywatch-v3.69.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Speech to text Beta hardening",
-    "Enforces real worker resource limits and verifies/repairs the managed local engine and model from the signed release.",
-    "Adds detected language, quality warnings, playback seeking, bounded cross-call search, deletion and periodic retention.",
-    "Adds large-audio cloud chunking, explicit full-transcript AI context and dedicated sensitive REST/MCP permissions."
+    "Speech to text Beta — scalable foundation phase 1",
+    "Transcript generation now returns a persistent asynchronous job with explicit queued, running, completed, failed and interrupted states; browser reloads no long",
+    "The Integration API lists existing transcripts with cursor pagination and exact filters for call-time range, source number, destination number or Call-ID. Full",
+    "Private atomic catalogs and job state remain mode 0600, and restart reconciliation never reports success without a durable transcript. Capture isolation, RBAC,"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Speech to text Beta hardening",
-    "Enforces a 1 GB per-worker address-space ceiling, hardware-safe concurrency, engine/model manifest and hash verification, and signed-update self-repair for miss",
-    "Adds detected language, confidence when available, RTP/recording warnings, processing metrics, timestamp-to-audio seeking, bounded cross-call search and explici",
-    "Adds periodic retention, bounded OpenAI chunking for large WAV files, explicit full-transcript AI context, REST `transcript:read`/`transcript:generate` scopes a"
+    "Speech to text Beta — scalable foundation phase 1",
+    "Changes generation to persistent asynchronous jobs with explicit queued/running/completed/failed/interrupted states, HTTP 202 and browser polling that survives",
+    "Adds a private atomic transcript catalog and bounded Integration API pagination by call-time range, exact source, exact destination or Call-ID; full content is",
+    "Keeps feature defaults, capture isolation, RBAC and sensitive REST/MCP boundaries unchanged."
   ]
 }

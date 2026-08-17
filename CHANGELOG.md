@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.67.0] — 2026-08-16
+
+### On-demand local Speech to text Beta
+- Calls now provides searchable caller/callee transcripts with TXT, JSON and SRT export plus an explicit handoff to the LLM chat that treats spoken text as untrusted content.
+- Local mode ships a SHA-256-pinned `whisper.cpp` 1.9.1 engine and multilingual base model; OpenAI is an explicit alternative using the customer's managed credential.
+- The feature starts off, requires operator/admin access, stores transcripts with mode 0600 and enforces duration, retention and dedicated queue limits outside the sniffer. Automatic processing remains locked during Beta.
+
 ## [3.66.0] — 2026-08-16
 
 ### Official visual identity across the portal, browser and devices

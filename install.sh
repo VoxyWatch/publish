@@ -640,6 +640,12 @@ install -o root -g voxywatch -m 750 "${EXTRACTED}/apply-web-access.py" "${INSTAL
 install -o root -g voxywatch -m 640 "${EXTRACTED}/generate_pcap.py"     "${INSTALL_DIR}/generate_pcap.py"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/reconstruct_audio.py" "${INSTALL_DIR}/reconstruct_audio.py"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/extract_dtmf.py"      "${INSTALL_DIR}/extract_dtmf.py"
+if [ -d "${EXTRACTED}/speech-to-text" ] && { [ ! -x "${INSTALL_DIR}/speech-to-text/whisper-cli" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; }; then
+  install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/speech-to-text"
+  install -o root -g voxywatch -m 750 "${EXTRACTED}/speech-to-text/whisper-cli" "${INSTALL_DIR}/speech-to-text/whisper-cli"
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/speech-to-text/ggml-base.bin" "${INSTALL_DIR}/speech-to-text/ggml-base.bin"
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/speech-to-text/MANIFEST.json" "${INSTALL_DIR}/speech-to-text/MANIFEST.json"
+fi
 install -o root -g voxywatch -m 640 "${EXTRACTED}/voxywatch_srs.py"   "${INSTALL_DIR}/voxywatch_srs.py" 2>/dev/null || true   # SIPREC SRS (proceso aparte, OFF por default)
 install -o root -g voxywatch -m 640 "${EXTRACTED}/schema.sql"         "${INSTALL_DIR}/schema.sql" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/repair-ownership.sql" "${INSTALL_DIR}/repair-ownership.sql" 2>/dev/null || true
@@ -674,7 +680,7 @@ if [ -d "${EXTRACTED}/docs/ai" ]; then
     install -o root -g voxywatch -m 640 "$f" "${INSTALL_DIR}/docs/ai/${rel}"
   done
 fi
-for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md INITIAL_SETUP_CHANNELS.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md AI_CREDENTIALS.md HTTPS_CONFIGURATION.md; do
+for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md INITIAL_SETUP_CHANNELS.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md AI_CREDENTIALS.md HTTPS_CONFIGURATION.md SPEECH_TO_TEXT_BETA.md; do
   [ -f "${EXTRACTED}/docs/${operational_doc}" ] || continue
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/docs/${operational_doc}" \

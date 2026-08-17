@@ -1,5 +1,9 @@
 # Implemented Feature Reference
 
+## Speech to text (Beta)
+
+VoxyWatch provides opt-in, per-call speech-to-text with a local managed `whisper.cpp` engine or an explicitly selected OpenAI provider. Caller/callee channels remain separated, results can be searched and exported as TXT/JSON/SRT, and processing runs in a dedicated bounded queue outside capture. The feature is OFF by default and unattended automatic transcription remains locked during Beta. See `SPEECH_TO_TEXT_BETA.md`.
+
 ## Deterministic reports
 
 - Seven operational templates plus a custom visual builder.

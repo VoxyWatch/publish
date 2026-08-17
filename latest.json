@@ -1,26 +1,26 @@
 {
-  "version": "3.66.0",
+  "version": "3.67.0",
   "release_date": "2026-08-16",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.66.0/voxywatch-v3.66.0-linux-x64.tar.gz",
-    "sha256": "9f165ae25074b1ee10982769ba696b5f1a5039281bdf1b2213a6f624e74afb5b",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.66.0/voxywatch-v3.66.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.67.0/voxywatch-v3.67.0-linux-x64.tar.gz",
+    "sha256": "c45eec8958d0131b77a430109d21dc93f297d7c574d6fa1e7767fd8ac32592e1",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.67.0/voxywatch-v3.67.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Official visual identity across the portal, browser and devices",
-    "The header and sign-in screen now use the official ECG mark and wordmark, while the translatable tagline remains accessible HTML for responsive desktop/mobile l",
-    "VoxyWatch now ships ICO/PNG favicons, an Apple Touch Icon and an installable web manifest with 192 px and 512 px icons.",
-    "Multi-megabyte source artwork is delivered as optimized transparent assets under 100 KB for each primary brand image. The marketing animation is not shipped or"
+    "On-demand local Speech to text Beta",
+    "Calls now provides searchable caller/callee transcripts with TXT, JSON and SRT export plus an explicit handoff to the LLM chat that treats spoken text as untrus",
+    "Local mode ships a SHA-256-pinned `whisper.cpp` 1.9.1 engine and multilingual base model; OpenAI is an explicit alternative using the customer's managed credent",
+    "The feature starts off, requires operator/admin access, stores transcripts with mode 0600 and enforces duration, retention and dedicated queue limits outside th"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Identidad visual oficial en portal, navegador y dispositivos",
-    "El encabezado y el acceso incorporan el isotipo ECG y el wordmark oficial, separados del eslogan traducible para conservar accesibilidad, adaptación móvil y l",
-    "El portal añade favicon ICO/PNG, Apple Touch Icon y un manifiesto web VoxyWatch con iconos instalables de 192 y 512 px; ya no aparece la identidad genérica de",
-    "Los originales de varios megabytes se convierten en assets transparentes de menos de 100 KB para la marca principal. La animación de marketing no forma parte d"
+    "Speech to text Beta local y bajo demanda",
+    "Calls incorpora transcripciones buscables separando origen/destino, con exportación TXT, JSON y SRT y un envío explícito al chat de IA que trata el texto hab",
+    "El modo local incluye `whisper.cpp` 1.9.1 y el modelo multilingüe base fijados por SHA-256; OpenAI queda como alternativa explícita con la credencial administ",
+    "La función nace apagada, sólo operator/admin, con archivos 0600, retención y límites de duración/cola. Usa una cola separada y nunca toca el sniffer; el mo"
   ]
 }

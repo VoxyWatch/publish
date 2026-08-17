@@ -1,24 +1,26 @@
 {
-  "version": "3.67.1",
-  "release_date": "2026-08-16",
+  "version": "3.68.0",
+  "release_date": "2026-08-17",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.67.1/voxywatch-v3.67.1-linux-x64.tar.gz",
-    "sha256": "fe81ad68f872d5e4f1bdcbff646031d05f35e7aa5fb09dea00a187a3bc5cb526",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.67.1/voxywatch-v3.67.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.68.0/voxywatch-v3.68.0-linux-x64.tar.gz",
+    "sha256": "24637b0e3eaeffe27a73308f935b985a81b053e7c578adb50f1d3b9df9f75a56",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.68.0/voxywatch-v3.68.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Transcript privacy boundary",
-    "Viewer sessions no longer render the Speech to text panel, matching the backend audio/operator boundary and avoiding a predictable 403.",
-    "The public browser E2E now opens a call and prevents future regressions that expose conversation controls to viewer accounts."
+    "Speech to text Beta hardening",
+    "Enforces real worker resource limits and verifies/repairs the managed local engine and model from the signed release.",
+    "Adds detected language, quality warnings, playback seeking, bounded cross-call search, deletion and periodic retention.",
+    "Adds large-audio cloud chunking, explicit full-transcript AI context and dedicated sensitive REST/MCP permissions."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Privacidad visual de transcripciones",
-    "Viewer ya no recibe ni muestra el panel de Speech to text: la interfaz coincide con el límite `audio:read`/operator del backend y evita un 403 predecible.",
-    "El E2E público abre una llamada y bloquea futuras regresiones que vuelvan a exponer controles de conversación a viewer."
+    "Speech to text Beta hardening",
+    "Enforces a 1 GB per-worker address-space ceiling, hardware-safe concurrency, engine/model manifest and hash verification, and signed-update self-repair for miss",
+    "Adds detected language, confidence when available, RTP/recording warnings, processing metrics, timestamp-to-audio seeking, bounded cross-call search and explici",
+    "Adds periodic retention, bounded OpenAI chunking for large WAV files, explicit full-transcript AI context, REST `transcript:read`/`transcript:generate` scopes a"
   ]
 }

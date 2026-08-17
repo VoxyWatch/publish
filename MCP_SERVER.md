@@ -102,7 +102,7 @@ consent, client registration and token issuance.
 
 ## Tool catalog
 
-VoxyWatch exposes 14 read-only tools and one separately gated setup tool.
+VoxyWatch exposes a versioned read-only tool catalog and one separately gated setup tool.
 Availability is limited by caller scopes and global administrative switches.
 
 | Tool | Scope | Purpose |
@@ -127,6 +127,8 @@ There is no generic SQL, shell, network or remediation tool. The single setup
 tool has a fixed schema, rejects secrets, never deletes catalogs, starts in
 dry-run mode and requires both an administrative switch and `APPLY_SETUP`.
 Tool responses are bounded by both per-tool limits and the configured maximum
+
+`get_call_transcript` returns an already generated Speech-to-text Beta result. It requires `mcp:sensitive` and the administrator's global sensitive-data switch; it never generates transcripts and does not enable background processing.
 result size.
 
 ## Local client configuration

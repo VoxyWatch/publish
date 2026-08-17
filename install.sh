@@ -640,7 +640,17 @@ install -o root -g voxywatch -m 750 "${EXTRACTED}/apply-web-access.py" "${INSTAL
 install -o root -g voxywatch -m 640 "${EXTRACTED}/generate_pcap.py"     "${INSTALL_DIR}/generate_pcap.py"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/reconstruct_audio.py" "${INSTALL_DIR}/reconstruct_audio.py"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/extract_dtmf.py"      "${INSTALL_DIR}/extract_dtmf.py"
-if [ -d "${EXTRACTED}/speech-to-text" ] && { [ ! -x "${INSTALL_DIR}/speech-to-text/whisper-cli" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; }; then
+STT_MODEL_SHA="60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe"
+STT_REPAIR=0
+[ -x "${INSTALL_DIR}/speech-to-text/whisper-cli" ] || STT_REPAIR=1
+[ -f "${INSTALL_DIR}/speech-to-text/MANIFEST.json" ] || STT_REPAIR=1
+[ -f "${INSTALL_DIR}/speech-to-text/ggml-base.bin" ] || STT_REPAIR=1
+if [ "$STT_REPAIR" = "0" ] && [ "$(sha256sum "${INSTALL_DIR}/speech-to-text/ggml-base.bin" | awk '{print $1}')" != "$STT_MODEL_SHA" ]; then STT_REPAIR=1; fi
+if [ "$STT_REPAIR" = "0" ]; then
+  STT_BINARY_SHA="$(sed -n 's/.*"binary_sha256":"\([a-f0-9]\{64\}\)".*/\1/p' "${INSTALL_DIR}/speech-to-text/MANIFEST.json" | head -n1)"
+  [ -n "$STT_BINARY_SHA" ] && [ "$(sha256sum "${INSTALL_DIR}/speech-to-text/whisper-cli" | awk '{print $1}')" = "$STT_BINARY_SHA" ] || STT_REPAIR=1
+fi
+if [ -d "${EXTRACTED}/speech-to-text" ] && { [ "$STT_REPAIR" = "1" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; }; then
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/speech-to-text"
   install -o root -g voxywatch -m 750 "${EXTRACTED}/speech-to-text/whisper-cli" "${INSTALL_DIR}/speech-to-text/whisper-cli"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/speech-to-text/ggml-base.bin" "${INSTALL_DIR}/speech-to-text/ggml-base.bin"

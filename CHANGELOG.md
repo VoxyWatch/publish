@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.68.0] — 2026-08-17
+
+### Speech to text Beta hardening
+
+- Enforces real worker resource limits and verifies/repairs the managed local engine and model from the signed release.
+- Adds detected language, quality warnings, playback seeking, bounded cross-call search, deletion and periodic retention.
+- Adds large-audio cloud chunking, explicit full-transcript AI context and dedicated sensitive REST/MCP permissions.
+- Speech to text and unattended automatic processing remain OFF by default and outside capture.
+
 ## [3.67.1] — 2026-08-16
 
 ### Transcript privacy boundary

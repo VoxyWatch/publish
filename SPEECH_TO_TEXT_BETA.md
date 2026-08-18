@@ -13,6 +13,7 @@ Speech to text is an opt-in Beta feature that creates searchable transcripts fro
 - Search inside one transcript or across the bounded local transcript store.
 - Explicit deletion and a six-hour retention sweep, independent of new jobs.
 - Detected language, channel-mapping provenance and warnings for one-way audio, high RTP loss or recording suppression.
+- An administrator-only readiness panel verifies the pinned engine/model, FFmpeg, transcript filesystem and bounded queue separately. It also reports aggregate Beta corpus coverage and downloads a content-free evidence JSON.
 - Operator/admin access only; transcripts are stored locally with mode `0600`.
 - Configurable language, call-duration limit, queue limits, retention and an isolated transcript filesystem budget (1–25%, 5% default).
 - Persistent asynchronous jobs: the portal may be reloaded while processing, and a restart marks unfinished work explicitly as interrupted.
@@ -39,7 +40,8 @@ The Integration API exposes separate `transcript:read`, `transcript:generate` an
 3. Enable the feature and save.
 4. Open a call and expand **Speech to text**.
 5. Select **Generate transcript**. VoxyWatch reconstructs authorized audio if necessary, then transcribes it.
-6. Use **Verify local engine** in Diagnostics to re-check the installed binary, manifest and model hashes.
+6. Use **Run readiness check** in Diagnostics to verify the installed binary/model hashes, FFmpeg, storage and queue.
+7. Use **Download safe evidence** to retain an aggregate validation snapshot. It never contains transcript text, Call-IDs, phone numbers, IP addresses or per-job identifiers.
 
 Before broad use, validate representative authorized calls for language, codec, packet loss, one-way audio, hardware load and legal/compliance requirements.
 
@@ -51,7 +53,9 @@ OpenAI uploads are bounded per request. Large WAV files are split locally into t
 
 ## Beta exit evidence
 
-Do not remove the Beta label until an authorized representative corpus covers English and Spanish, supported codecs, noisy and lossy media, one-way calls and multi-leg/B2BUA direction. Record accuracy review, real-time factor, peak CPU/RAM, queue saturation, cancellation/failure rate and confirmation that capture drops/RTP shedding remain unchanged. Automatic processing stays unavailable until consent, retention, capacity and trunk-selection behavior pass that review.
+Do not remove the Beta label until an authorized representative corpus covers English and Spanish, supported codecs, noisy and lossy media, one-way calls and multi-leg/B2BUA direction. The readiness dashboard measures the objective subset already available (engine dependencies, storage, queue, language/warning coverage, processing rate and failures). Accuracy, codec diversity, multi-leg behavior, peak CPU/RAM and capture-impact review still require an authorized corpus and must not be inferred or fabricated. Automatic processing stays unavailable until consent, retention, capacity and trunk-selection behavior pass that review.
+
+Audio reconstruction now distinguishes missing/expired RTP (`no_audio`) from captured payload that cannot be decoded (`audio_unconvertible`). Missing FFmpeg or helper/database failures remain product-health failures rather than being mislabeled as a call without audio.
 
 ## Three-phase roadmap
 

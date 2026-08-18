@@ -1,26 +1,26 @@
 {
-  "version": "3.71.3",
+  "version": "3.72.0",
   "release_date": "2026-08-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.71.3/voxywatch-v3.71.3-linux-x64.tar.gz",
-    "sha256": "719e56d89cadbbf659c2c13e328a382941509cc93a0e9f564a427a0febbddc6c",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.71.3/voxywatch-v3.71.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.72.0/voxywatch-v3.72.0-linux-x64.tar.gz",
+    "sha256": "ac5443f34be816b63458a16439d129bbad59c19abe7e824362c701ad0c1ed1d2",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.72.0/voxywatch-v3.72.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Sentry noise boundary — captured media outcomes",
-    "RTP that exists but cannot be decoded into a playable WAV is now reported to the caller as a controlled per-call media outcome instead of a vendor software inci",
-    "Missing FFmpeg, PostgreSQL read failures and unexpected helper exits remain reportable product failures; the classifier returns only bounded reason codes and ne",
-    "The CDR keyset path remains isolated on its dedicated 20-second PostgreSQL lane, with regression coverage confirming the historical interactive-pool timeout can"
+    "Speech to text Beta — readiness and safer diagnosis",
+    "Diagnostics now verifies the local engine/model, FFmpeg, transcript filesystem and bounded queue independently, then shows objective Beta coverage without enabl",
+    "Administrators can download a content-free evidence snapshot with aggregate health and coverage; it excludes transcript text, Call-IDs, phone numbers, IP addres",
+    "Audio reconstruction distinguishes missing or expired RTP from captured payload that cannot be decoded, while dependency and helper/database failures remain vis"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Sentry noise boundary — captured media outcomes",
-    "RTP that exists but cannot be decoded into a playable WAV is now reported to the caller as a controlled per-call media outcome instead of a vendor software inci",
-    "Missing FFmpeg, PostgreSQL read failures and unexpected helper exits remain reportable product failures; the classifier returns only bounded reason codes and ne",
-    "The CDR keyset path remains isolated on its dedicated 20-second PostgreSQL lane, with regression coverage confirming the historical interactive-pool timeout can"
+    "Speech to text Beta — readiness and safer diagnosis",
+    "Diagnostics now verifies the local engine/model, FFmpeg, transcript filesystem and bounded queue independently, then shows objective Beta coverage without readi",
+    "Administrators can download a content-free evidence snapshot with aggregate health, language/warning coverage, processing rate and failures; it excludes transcr",
+    "Audio reconstruction now distinguishes absent or expired RTP from captured payload that cannot be decoded, while missing dependencies and helper/database failur"
   ]
 }

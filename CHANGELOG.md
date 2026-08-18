@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.72.0] — 2026-08-18
+
+### Speech to text Beta — readiness and safer diagnosis
+
+- Diagnostics now verifies the local engine/model, FFmpeg, transcript filesystem and bounded queue independently, then shows objective Beta coverage without enabling automatic transcription.
+- Administrators can download a content-free evidence snapshot with aggregate health and coverage; it excludes transcript text, Call-IDs, phone numbers, IP addresses, paths and per-job identifiers.
+- Audio reconstruction distinguishes missing or expired RTP from captured payload that cannot be decoded, while dependency and helper/database failures remain visible product-health failures.
+- Updates remain latest-only: the portal cannot select an older release, and rollback exists solely as automatic restoration when an update fails.
+
 ## [3.71.3] — 2026-08-18
 
 ### Sentry noise boundary — captured media outcomes

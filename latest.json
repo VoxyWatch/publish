@@ -1,26 +1,26 @@
 {
-  "version": "3.71.2",
+  "version": "3.71.3",
   "release_date": "2026-08-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.71.2/voxywatch-v3.71.2-linux-x64.tar.gz",
-    "sha256": "53ce07a0b610a7eabb0467983305fec394cd7035a4e1e3d97f0db9d4cb5c963f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.71.2/voxywatch-v3.71.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.71.3/voxywatch-v3.71.3-linux-x64.tar.gz",
+    "sha256": "719e56d89cadbbf659c2c13e328a382941509cc93a0e9f564a427a0febbddc6c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.71.3/voxywatch-v3.71.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Sentry reliability — background analytics and incident evidence",
-    "Historical trunk baselines and learned patterns now use a dedicated, serialized PostgreSQL analytics lane with a finite 60-second budget instead of the 5-second",
-    "Incident evidence and its timeline event now commit atomically through the dedicated incident lane, retry one transient connection failure and avoid duplicate e",
-    "Telemetry regression coverage now locks the effective `production` environment and exact `voxywatch-portal@<version>` release tags; the capture hot path is unch"
+    "Sentry noise boundary — captured media outcomes",
+    "RTP that exists but cannot be decoded into a playable WAV is now reported to the caller as a controlled per-call media outcome instead of a vendor software inci",
+    "Missing FFmpeg, PostgreSQL read failures and unexpected helper exits remain reportable product failures; the classifier returns only bounded reason codes and ne",
+    "The CDR keyset path remains isolated on its dedicated 20-second PostgreSQL lane, with regression coverage confirming the historical interactive-pool timeout can"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Sentry reliability — background analytics and incident evidence",
-    "Historical trunk baselines and learned patterns now use a dedicated, serialized PostgreSQL analytics lane with a finite 60-second budget instead of the 5-second",
-    "Incident evidence and its timeline event now commit atomically through the dedicated incident lane, retry one transient connection failure and avoid duplicate e",
-    "Telemetry regression coverage now locks the effective `production` environment and exact `voxywatch-portal@<version>` release tags; the capture hot path is unch"
+    "Sentry noise boundary — captured media outcomes",
+    "RTP that exists but cannot be decoded into a playable WAV is now reported to the caller as a controlled per-call media outcome instead of a vendor software inci",
+    "Missing FFmpeg, PostgreSQL read failures and unexpected helper exits remain reportable product failures; the classifier returns only bounded reason codes and ne",
+    "The CDR keyset path remains isolated on its dedicated 20-second PostgreSQL lane, with regression coverage confirming the historical interactive-pool timeout can"
   ]
 }

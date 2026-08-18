@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.71.3] — 2026-08-18
+
+### Sentry noise boundary — captured media outcomes
+
+- RTP that exists but cannot be decoded into a playable WAV is now reported to the caller as a controlled per-call media outcome instead of a vendor software incident.
+- Missing FFmpeg, PostgreSQL read failures and unexpected helper exits remain reportable product failures; the classifier returns only bounded reason codes and never media content, identifiers or stderr.
+- The CDR keyset path remains isolated on its dedicated 20-second PostgreSQL lane, with regression coverage confirming the historical interactive-pool timeout cannot return.
+
 ## [3.71.2] — 2026-08-18
 
 ### Sentry reliability — background analytics and incident evidence

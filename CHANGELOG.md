@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.71.1] — 2026-08-17
+
+### License recovery — complimentary trial contact
+
+- The hard-license recovery screen now offers an official WhatsApp contact with a prefilled request for a complimentary full-featured VoxyWatch trial license.
+- The formal English guidance remains visible before authentication, alongside the server Hardware ID, so evaluation assistance is available even while portal access is blocked.
+- The external contact opens in an isolated tab with `noopener noreferrer`; license validation and activation behavior are unchanged.
+
 ## [3.71.0] — 2026-08-17
 
 ### Speech to text Beta — verified mounted storage

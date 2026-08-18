@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.71.2] — 2026-08-18
+
+### Sentry reliability — background analytics and incident evidence
+
+- Historical trunk baselines and learned patterns now use a dedicated, serialized PostgreSQL analytics lane with a finite 60-second budget instead of the 5-second interactive read pool.
+- Incident evidence and its timeline event now commit atomically through the dedicated incident lane, retry one transient connection failure and avoid duplicate events on an ambiguous retry.
+- Telemetry regression coverage now locks the effective `production` environment and exact `voxywatch-portal@<version>` release tags; the capture hot path is unchanged.
+
 ## [3.71.1] — 2026-08-17
 
 ### License recovery — complimentary trial contact

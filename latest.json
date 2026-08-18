@@ -1,26 +1,26 @@
 {
-  "version": "3.71.1",
-  "release_date": "2026-08-17",
+  "version": "3.71.2",
+  "release_date": "2026-08-18",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.71.1/voxywatch-v3.71.1-linux-x64.tar.gz",
-    "sha256": "5f6a222ba14a0fd64dde55de27e23a72b4b7793abbb7924509ed2de7af891f78",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.71.1/voxywatch-v3.71.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.71.2/voxywatch-v3.71.2-linux-x64.tar.gz",
+    "sha256": "53ce07a0b610a7eabb0467983305fec394cd7035a4e1e3d97f0db9d4cb5c963f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.71.2/voxywatch-v3.71.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "License recovery — complimentary trial contact",
-    "The hard-license recovery screen now offers an official WhatsApp contact with a prefilled request for a complimentary full-featured VoxyWatch trial license.",
-    "The formal English guidance remains visible before authentication, alongside the server Hardware ID, so evaluation assistance is available even while portal acc",
-    "The external contact opens in an isolated tab with `noopener noreferrer`; license validation and activation behavior are unchanged."
+    "Sentry reliability — background analytics and incident evidence",
+    "Historical trunk baselines and learned patterns now use a dedicated, serialized PostgreSQL analytics lane with a finite 60-second budget instead of the 5-second",
+    "Incident evidence and its timeline event now commit atomically through the dedicated incident lane, retry one transient connection failure and avoid duplicate e",
+    "Telemetry regression coverage now locks the effective `production` environment and exact `voxywatch-portal@<version>` release tags; the capture hot path is unch"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "License recovery — complimentary trial contact",
-    "The hard-license recovery screen now offers an official WhatsApp contact with a prefilled request for a complimentary full-featured VoxyWatch trial license.",
-    "The formal English guidance remains visible before authentication, alongside the server Hardware ID, so evaluation assistance is available even while portal acc",
-    "The external contact opens in an isolated tab with `noopener noreferrer`; license validation and activation behavior are unchanged."
+    "Sentry reliability — background analytics and incident evidence",
+    "Historical trunk baselines and learned patterns now use a dedicated, serialized PostgreSQL analytics lane with a finite 60-second budget instead of the 5-second",
+    "Incident evidence and its timeline event now commit atomically through the dedicated incident lane, retry one transient connection failure and avoid duplicate e",
+    "Telemetry regression coverage now locks the effective `production` environment and exact `voxywatch-portal@<version>` release tags; the capture hot path is unch"
   ]
 }

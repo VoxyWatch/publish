@@ -1,26 +1,26 @@
 {
-  "version": "3.72.0",
-  "release_date": "2026-08-18",
+  "version": "3.72.1",
+  "release_date": "2026-08-19",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.72.0/voxywatch-v3.72.0-linux-x64.tar.gz",
-    "sha256": "ac5443f34be816b63458a16439d129bbad59c19abe7e824362c701ad0c1ed1d2",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.72.0/voxywatch-v3.72.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.72.1/voxywatch-v3.72.1-linux-x64.tar.gz",
+    "sha256": "0726db2a951337837bb2310ea2c2e9078235b1eac4555dc627597a76fa730ef0",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.72.1/voxywatch-v3.72.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Speech to text Beta — readiness and safer diagnosis",
-    "Diagnostics now verifies the local engine/model, FFmpeg, transcript filesystem and bounded queue independently, then shows objective Beta coverage without enabl",
-    "Administrators can download a content-free evidence snapshot with aggregate health and coverage; it excludes transcript text, Call-IDs, phone numbers, IP addres",
-    "Audio reconstruction distinguishes missing or expired RTP from captured payload that cannot be decoded, while dependency and helper/database failures remain vis"
+    "Incident recurrence resilience",
+    "Optional recurrence statistics retry exactly once when the dedicated incident lane experiences a transient connection checkout timeout.",
+    "SQL and statement-timeout failures are not retried, pool capacity remains bounded, and failure still degrades safely without affecting incident persistence or S",
+    "PostgreSQL integration coverage reproduces the reported failure and locks successful recovery, bounded exhaustion and the non-transient path."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Speech to text Beta — readiness and safer diagnosis",
-    "Diagnostics now verifies the local engine/model, FFmpeg, transcript filesystem and bounded queue independently, then shows objective Beta coverage without readi",
-    "Administrators can download a content-free evidence snapshot with aggregate health, language/warning coverage, processing rate and failures; it excludes transcr",
-    "Audio reconstruction now distinguishes absent or expired RTP from captured payload that cannot be decoded, while missing dependencies and helper/database failur"
+    "Incident recurrence resilience — VOXY-1X",
+    "Optional incident recurrence statistics now retry exactly once when the dedicated incident pool experiences a transient connection checkout timeout.",
+    "Statement timeouts and SQL failures are never retried, the bounded two-connection incident lane is unchanged, and an exhausted retry preserves the existing `nul",
+    "PostgreSQL integration coverage reproduces the original checkout message, successful recovery, bounded exhaustion and the non-transient no-retry path."
   ]
 }

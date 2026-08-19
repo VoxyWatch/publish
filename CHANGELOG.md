@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.72.1] — 2026-08-19
+
+### Incident recurrence resilience
+
+- Optional recurrence statistics retry exactly once when the dedicated incident lane experiences a transient connection checkout timeout.
+- SQL and statement-timeout failures are not retried, pool capacity remains bounded, and failure still degrades safely without affecting incident persistence or SIP/RTP capture.
+- PostgreSQL integration coverage reproduces the reported failure and locks successful recovery, bounded exhaustion and the non-transient path.
+
 ## [3.72.0] — 2026-08-18
 
 ### Speech to text Beta — readiness and safer diagnosis

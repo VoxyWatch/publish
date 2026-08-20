@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.74.1] — 2026-08-20
+
+### Release credential hardening
+
+- The release uploader no longer places GitHub authorization tokens in `curl` process arguments while large signed assets are uploaded.
+- Authorization is streamed through standard input, and an executable release-tooling guard prevents the unsafe argument form from returning.
+
 ## [3.74.0] — 2026-08-20
 
 ### Passive Mirror Capture Beta

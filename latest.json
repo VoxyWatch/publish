@@ -1,26 +1,24 @@
 {
-  "version": "3.74.0",
+  "version": "3.74.1",
   "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.74.0/voxywatch-v3.74.0-linux-x64.tar.gz",
-    "sha256": "7390910728082dff10a145649ce98faf8688c0146178dd21ffe78ad5c8d23c0e",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.74.0/voxywatch-v3.74.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.74.1/voxywatch-v3.74.1-linux-x64.tar.gz",
+    "sha256": "bc9ff203a578b4288aff486c39efd10c7245655ee986dca6e109cc878ad21326",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.74.1/voxywatch-v3.74.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Passive Mirror Capture Beta",
-    "Settings → Capture Sources can opt into an isolated VoxyWatch Probe for dedicated SPAN/RSPAN interfaces, ERSPAN II/III, or AWS VPC Traffic Mirroring VXLAN.",
-    "The probe normalizes only the inner SIP/RTP/RTCP tuple into the existing loopback HEP pipeline; native HEP and SIPREC remain independent and unchanged.",
-    "Safe defaults require an explicit dedicated interface, learn media from SDP, deduplicate mirrored directions, and keep heuristic media behind trusted SBC/voice"
+    "Release credential hardening",
+    "The release uploader no longer places GitHub authorization tokens in `curl` process arguments while large signed assets are uploaded.",
+    "Authorization is streamed through standard input, and an executable release-tooling guard prevents the unsafe argument form from returning."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Passive Mirror Capture Beta",
-    "Settings → Capture Sources can opt into a bundled, isolated VoxyWatch Probe for dedicated SPAN/RSPAN interfaces, ERSPAN II/III or AWS VPC Traffic Mirroring VX",
-    "The probe normalizes only the inner SIP/RTP/RTCP tuple into the existing loopback HEP pipeline; native HEP and SIPREC remain independent and unchanged.",
-    "Safe defaults require an explicit dedicated interface, learn media from SDP, deduplicate mirrored directions and keep broad heuristic media behind trusted SBC/v"
+    "Release credential hardening",
+    "The release uploader no longer places GitHub authorization tokens in `curl` process arguments while large signed assets are uploaded.",
+    "Authorization is streamed through standard input, and an executable release-tooling guard prevents the unsafe argument form from returning."
   ]
 }

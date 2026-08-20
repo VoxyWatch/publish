@@ -57,8 +57,11 @@ never configure or control the customer's SBC.
 - Additional configurable HEP UDP ports and capture-source labeling.
 - Built-in SIPREC SRS with UDP/TLS signaling and RTP/SRTP (SDES), separate
   service, allowlist and anti-abuse limits. SIPREC is opt-in.
-- Optional VoxyWatch Probe for mirrored-interface capture when a platform cannot
-  send HEP or SIPREC.
+- Passive Mirror Capture (Beta) through the isolated bundled VoxyWatch Probe:
+  dedicated SPAN/RSPAN NIC, ERSPAN II/III and AWS VXLAN; SDP-learned media,
+  duplicate suppression and drop counters. It is OFF by default and feeds the
+  existing local HEP pipeline without changing native HEP or SIPREC. See
+  `PASSIVE_MIRROR_CAPTURE.md`.
 - Asterisk configuration import with preview-before-merge for `chan_sip`, PJSIP,
   identifies, AORs and dial-plan trunk references.
 - Working-set snapshots for fast portal recovery after restart; PostgreSQL

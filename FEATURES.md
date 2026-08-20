@@ -8,11 +8,13 @@ The optional LLM receives the exact selected period, canonical totals, coverage 
 
 Generate searchable caller/callee transcripts on demand with a managed local `whisper.cpp` engine or an explicitly selected OpenAI provider. Persistent asynchronous jobs survive browser reloads, while the Integration API lists existing transcripts by call-time range, exact source, exact destination or Call-ID with bounded cursor pagination. Export TXT/JSON/SRT and optionally hand the visible transcript to LLM chat. The feature is OFF by default, operator/admin-only and isolated from capture; unattended processing remains locked during Beta. [Speech to text Beta guide](SPEECH_TO_TEXT_BETA.md).
 
+Passive Mirror Capture Beta adds an isolated, opt-in probe for dedicated SPAN/RSPAN interfaces, ERSPAN II/III and AWS VPC Traffic Mirroring VXLAN. It feeds normalized inner SIP/RTP/RTCP tuples into the existing loopback HEP pipeline while native HEP and SIPREC remain independent. [Passive Mirror Capture guide](PASSIVE_MIRROR_CAPTURE.md).
+
 ## Deterministic custom reports
 
 Build network, trunk, endpoint and CDR-detail reports with templates or visual controls, compare periods, visualize results, save definitions per user and export CSV. The feature works without an LLM, and its CDR field catalog adapts to the current canonical schema instead of hardcoding today's columns. [Reports guide](REPORTS.md).
 
-> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.73.2** (2026-08-17).
+> Source of truth for the website, datasheets, sales decks and tutorial planning. Updated for **v3.74.0** (2026-08-17).
 > Everything below is shipped and validated with automated regression gates, the public demo and historical high-volume telco evidence.
 
 ---
@@ -189,4 +191,4 @@ Suggested tutorial rule: each video should explain the business value in the fir
 - Secondary page sections: Capture & Analysis → Compliance (PCI) → Integration (API/SNMP/MCP) → Pricing.
 - For tutorials, use a clean demo dataset. Do not show real customer IPs, phone numbers, Call-IDs, tokens, license material, private SIP payloads or private audio.
 - Avoid legacy references: storage is **PostgreSQL + TimescaleDB** (never SQLite/JSONL — those were pre-2.x internals).
-- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.73.2.
+- Current version channel: see `latest.json`. All claims in this file are shipped as of v3.74.0.

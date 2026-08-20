@@ -565,6 +565,7 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
     etc/systemd/system/voxywatch.service \
     etc/systemd/system/voxywatch-sniffer.service \
     etc/systemd/system/voxywatch-srs.service \
+    etc/systemd/system/voxywatch-probe.service \
     etc/systemd/system/voxywatch-agentic.service \
     etc/systemd/system/voxywatch-apply-update.service \
     etc/systemd/system/voxywatch-apply-web-access.service \
@@ -659,6 +660,9 @@ if [ -d "${EXTRACTED}/speech-to-text" ] && { [ "$STT_REPAIR" = "1" ] || [ "$REFR
   install -o root -g voxywatch -m 640 "${EXTRACTED}/speech-to-text/MANIFEST.json" "${INSTALL_DIR}/speech-to-text/MANIFEST.json"
 fi
 install -o root -g voxywatch -m 640 "${EXTRACTED}/voxywatch_srs.py"   "${INSTALL_DIR}/voxywatch_srs.py" 2>/dev/null || true   # SIPREC SRS (proceso aparte, OFF por default)
+install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-probe" "${INSTALL_DIR}/voxywatch-probe.new"
+mv -f "${INSTALL_DIR}/voxywatch-probe.new" "${INSTALL_DIR}/voxywatch-probe"
+install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-probe-launch.py" "${INSTALL_DIR}/voxywatch-probe-launch.py"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/schema.sql"         "${INSTALL_DIR}/schema.sql" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/repair-ownership.sql" "${INSTALL_DIR}/repair-ownership.sql" 2>/dev/null || true
 install -o root -g voxywatch -m 750 "${EXTRACTED}/migrate.sh"         "${INSTALL_DIR}/migrate.sh" 2>/dev/null || true
@@ -692,7 +696,7 @@ if [ -d "${EXTRACTED}/docs/ai" ]; then
     install -o root -g voxywatch -m 640 "$f" "${INSTALL_DIR}/docs/ai/${rel}"
   done
 fi
-for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md INITIAL_SETUP_CHANNELS.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md AI_CREDENTIALS.md HTTPS_CONFIGURATION.md SPEECH_TO_TEXT_BETA.md; do
+for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md INITIAL_SETUP_CHANNELS.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md AI_CREDENTIALS.md HTTPS_CONFIGURATION.md SPEECH_TO_TEXT_BETA.md PASSIVE_MIRROR_CAPTURE.md; do
   [ -f "${EXTRACTED}/docs/${operational_doc}" ] || continue
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/docs/${operational_doc}" \
@@ -915,8 +919,11 @@ sysctl -p /etc/sysctl.d/99-voxywatch.conf >/dev/null 2>&1 \
 info "Installing systemd units..."
 AGENTIC_WAS_ACTIVE=0
 AGENTIC_WAS_ENABLED=0
+MIRROR_WAS_ENABLED=0
+MIRROR_RESTORE_ENABLED=0
 systemctl is-active --quiet voxywatch-agentic.service 2>/dev/null && AGENTIC_WAS_ACTIVE=1 || true
 systemctl is-enabled --quiet voxywatch-agentic.service 2>/dev/null && AGENTIC_WAS_ENABLED=1 || true
+systemctl is-enabled --quiet voxywatch-probe.service 2>/dev/null && MIRROR_WAS_ENABLED=1 || true
 
 # Heap V8 del portal: el binario pkg/SEA IGNORA --max-old-space-size (probado 2026-06-25) — vía NODE_OPTIONS
 # o vía argv da igual: V8 crea su isolate desde el snapshot del binario ANTES de leer cualquier flag, y
@@ -1046,6 +1053,53 @@ SyslogIdentifier=voxywatch-sniffer
 [Install]
 WantedBy=multi-user.target
 EOF
+
+# Passive Mirror Capture (Beta): separate process and OFF by default. It does
+# not listen on a network port; it reads one explicitly selected mirror NIC and
+# sends HEP only to loopback. The launcher repeats the settings gate so a stale
+# enabled unit cannot capture when mirror_enabled is absent/false.
+cat > /etc/systemd/system/voxywatch-probe.service << EOF
+[Unit]
+Description=VoxyWatch Passive Mirror Capture (Beta)
+Documentation=https://github.com/VoxyWatch/publish/blob/main/docs/PASSIVE_MIRROR_CAPTURE.md
+After=network-online.target voxywatch-sniffer.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=${SERVICE_USER}
+Group=${SERVICE_USER}
+WorkingDirectory=${DATA_DIR}
+ExecStart=${INSTALL_DIR}/voxywatch-probe-launch.py
+Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
+RuntimeDirectory=voxywatch-probe
+RuntimeDirectoryMode=0750
+AmbientCapabilities=CAP_NET_RAW CAP_NET_ADMIN
+CapabilityBoundingSet=CAP_NET_RAW CAP_NET_ADMIN
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadOnlyPaths=/sys/class/net
+ReadWritePaths=/run/voxywatch-probe
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=voxywatch-probe
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+if [ "$MIRROR_WAS_ENABLED" = "1" ] \
+   && python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); raise SystemExit(0 if d.get("mirror_enabled") is True else 1)' \
+        "${DATA_DIR}/voxywatch_settings.json" 2>/dev/null; then
+  MIRROR_RESTORE_ENABLED=1
+  systemctl enable voxywatch-probe.service >/dev/null 2>&1 || true
+else
+  systemctl disable --now voxywatch-probe.service >/dev/null 2>&1 || true
+fi
 
 # ── Update applier (oneshot, root) — lo dispara el portal por D-Bus+polkit (one-click update) ──
 # El portal corre con NoNewPrivileges=true → NO puede sudo. En su lugar le pide a systemd (vía
@@ -1286,6 +1340,7 @@ polkit.addRule(function(action, subject) {
     if (action.id == "org.freedesktop.systemd1.manage-units") {
         var u = action.lookup("unit");
         if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" ||
+            u == "voxywatch-probe.service" ||
             u == "voxywatch-agentic.service" ||
             u == "voxywatch-apply-update.service" ||
             u == "voxywatch-apply-web-access.service" ||
@@ -1295,7 +1350,7 @@ polkit.addRule(function(action, subject) {
     // enable/disable persistente SOLO del SRS (la pestaña Settings → SIPREC lo activa en boot).
     if (action.id == "org.freedesktop.systemd1.manage-unit-files") {
         var uf = action.lookup("unit");
-        if (uf == "voxywatch-srs.service" || uf == "voxywatch-agentic.service")
+        if (uf == "voxywatch-srs.service" || uf == "voxywatch-probe.service" || uf == "voxywatch-agentic.service")
             return polkit.Result.YES;
     }
 });
@@ -1423,6 +1478,10 @@ ok "Updates: opt-in — the portal notifies you, the admin applies with one clic
 info "Starting services..."
 systemctl start voxywatch-sniffer
 systemctl start voxywatch
+if [ "$MIRROR_RESTORE_ENABLED" = "1" ]; then
+  systemctl restart voxywatch-probe.service >/dev/null 2>&1 \
+    || warn "Passive Mirror was enabled but could not be restarted"
+fi
 if [ "$HTTPS_MODE" != "legacy" ]; then
   systemctl enable caddy >/dev/null 2>&1 || err "Caddy could not be enabled"
   systemctl reload-or-restart caddy >/dev/null 2>&1 || err "Caddy could not load managed HTTPS"

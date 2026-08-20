@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.74.0] — 2026-08-20
+
+### Passive Mirror Capture Beta
+
+- Settings → Capture Sources can opt into an isolated VoxyWatch Probe for dedicated SPAN/RSPAN interfaces, ERSPAN II/III, or AWS VPC Traffic Mirroring VXLAN.
+- The probe normalizes only the inner SIP/RTP/RTCP tuple into the existing loopback HEP pipeline; native HEP and SIPREC remain independent and unchanged.
+- Safe defaults require an explicit dedicated interface, learn media from SDP, deduplicate mirrored directions, and keep heuristic media behind trusted SBC/voice CIDRs.
+- Bounded asynchronous delivery and kernel/interface/queue counters make overload visible without blocking capture; PCAP-to-HEP, VLAN/VXLAN/ERSPAN, race, installer, and UI tests cover the path.
+
 ## [3.73.2] — 2026-08-20
 
 ### Software-owned burst policy

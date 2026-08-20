@@ -1,26 +1,26 @@
 {
-  "version": "3.73.2",
+  "version": "3.74.0",
   "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.73.2/voxywatch-v3.73.2-linux-x64.tar.gz",
-    "sha256": "af9adfa8dcff4bea58d4c8fcd85ce85477b92428666756a34ef77b8d05d56a71",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.73.2/voxywatch-v3.73.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.74.0/voxywatch-v3.74.0-linux-x64.tar.gz",
+    "sha256": "7390910728082dff10a145649ce98faf8688c0146178dd21ffe78ad5c8d23c0e",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.74.0/voxywatch-v3.74.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Software-owned burst policy",
-    "New signed keys contain tier and contracted capacity but no `burst_limit`; VoxyWatch derives Free 100/150, Pro 1,000/1,100, Telco 5,000/5,500 and Unlimited loca",
-    "Existing schema-v2 keys that contain the former field remain valid when it matches policy, but the field never controls runtime enforcement.",
-    "Vendor CLI/UI and the web/Stripe/AWS handoff now emit the smaller key contract while still displaying the effective software tolerance."
+    "Passive Mirror Capture Beta",
+    "Settings → Capture Sources can opt into an isolated VoxyWatch Probe for dedicated SPAN/RSPAN interfaces, ERSPAN II/III, or AWS VPC Traffic Mirroring VXLAN.",
+    "The probe normalizes only the inner SIP/RTP/RTCP tuple into the existing loopback HEP pipeline; native HEP and SIPREC remain independent and unchanged.",
+    "Safe defaults require an explicit dedicated interface, learn media from SDP, deduplicate mirrored directions, and keep heuristic media behind trusted SBC/voice"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Software-owned burst policy",
-    "New signed keys contain tier and contracted capacity but no `burst_limit`; VoxyWatch derives Free 100/150, Pro 1,000/1,100, Telco 5,000/5,500 and Unlimited loca",
-    "Existing schema-v2 keys that contain the former field remain valid when it matches policy, but the field never controls runtime enforcement.",
-    "Vendor CLI/UI and the web/Stripe/AWS handoff now emit the smaller key contract while still displaying the effective software tolerance."
+    "Passive Mirror Capture Beta",
+    "Settings → Capture Sources can opt into a bundled, isolated VoxyWatch Probe for dedicated SPAN/RSPAN interfaces, ERSPAN II/III or AWS VPC Traffic Mirroring VX",
+    "The probe normalizes only the inner SIP/RTP/RTCP tuple into the existing loopback HEP pipeline; native HEP and SIPREC remain independent and unchanged.",
+    "Safe defaults require an explicit dedicated interface, learn media from SDP, deduplicate mirrored directions and keep broad heuristic media behind trusted SBC/v"
   ]
 }

@@ -33,6 +33,8 @@ the **[Implemented Feature Reference](IMPLEMENTED_FEATURES.md)**. Calls that cro
 remain one investigation session while ingress and egress are measured independently; see
 **[Multi-leg call attribution](MULTI_LEG_CALL_ATTRIBUTION.md)**.
 Authorized operators can generate local, channel-separated call transcripts through the opt-in **Speech to text Beta**. It is off by default, bounded outside capture and supports TXT/JSON/SRT export; unattended processing remains locked during Beta. See the **[Speech to text Beta guide](SPEECH_TO_TEXT_BETA.md)**.
+
+For networks that cannot export HEP or SIPREC, the opt-in **Passive Mirror Capture Beta** can ingest a dedicated SPAN/RSPAN interface, ERSPAN II/III, or AWS VPC Traffic Mirroring VXLAN without changing the existing capture paths. It is off by default and requires an explicit interface. See the **[Passive Mirror Capture guide](PASSIVE_MIRROR_CAPTURE.md)**.
 LLM credentials can be supplied without storing plaintext in normal settings; see the
 **[LLM credential management guide](AI_CREDENTIALS.md)**.
 Deployment options for public-domain and private-network TLS are documented in the **[HTTPS configuration guide](HTTPS_CONFIGURATION.md)**.

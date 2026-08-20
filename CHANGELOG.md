@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.75.1] — 2026-08-20
+
+### Passive Mirror first-open guidance fix
+
+- The input-type and vendor guidance now renders immediately even when authenticated/demo bootstrap completes after `DOMContentLoaded`; administrators no longer need to change a selector before the instructions appear.
+- The release contract now requires an explicit immediate-render hook so delayed-script browser starts cannot silently regress this first-open experience.
+
 ## [3.75.0] — 2026-08-20
 
 ### Guided Passive Mirror setup and live readiness check

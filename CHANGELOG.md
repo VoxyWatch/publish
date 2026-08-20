@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.73.2] — 2026-08-20
+
+### Software-owned burst policy
+
+- New signed keys contain tier and contracted capacity but no `burst_limit`; VoxyWatch derives Free 100/150, Pro 1,000/1,100, Telco 5,000/5,500 and Unlimited locally.
+- Existing schema-v2 keys that contain the former field remain valid when it matches policy, but the field never controls runtime enforcement.
+- Vendor CLI/UI and the web/Stripe/AWS handoff now emit the smaller key contract while still displaying the effective software tolerance.
+
 ## [3.73.1] — 2026-08-20
 
 ### Paid-plan burst tolerance

@@ -1,26 +1,26 @@
 {
-  "version": "3.73.1",
+  "version": "3.73.2",
   "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.73.1/voxywatch-v3.73.1-linux-x64.tar.gz",
-    "sha256": "18767153cc6d5349a77d6a649e5aec4ab6894e52618c6295372fb2ee6cd0182a",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.73.1/voxywatch-v3.73.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.73.2/voxywatch-v3.73.2-linux-x64.tar.gz",
+    "sha256": "af9adfa8dcff4bea58d4c8fcd85ce85477b92428666756a34ef77b8d05d56a71",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.73.2/voxywatch-v3.73.2-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Paid-plan burst tolerance",
-    "Pro keeps 1,000 contracted concurrent calls and allows temporary burst to 1,100; Telco keeps 5,000 contracted calls and allows temporary burst to 5,500.",
-    "Free retains its special 100/150 policy and Unlimited remains unbounded. Burst is operational tolerance, not additional contracted capacity.",
-    "Product enforcement, signed license generation and the web/Stripe/AWS handoff now share the same fixed values."
+    "Software-owned burst policy",
+    "New signed keys contain tier and contracted capacity but no `burst_limit`; VoxyWatch derives Free 100/150, Pro 1,000/1,100, Telco 5,000/5,500 and Unlimited loca",
+    "Existing schema-v2 keys that contain the former field remain valid when it matches policy, but the field never controls runtime enforcement.",
+    "Vendor CLI/UI and the web/Stripe/AWS handoff now emit the smaller key contract while still displaying the effective software tolerance."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Paid-plan burst tolerance",
-    "Pro keeps 1,000 contracted concurrent calls and now allows temporary burst to 1,100; Telco keeps 5,000 contracted calls and allows temporary burst to 5,500.",
-    "Free retains its special 100/150 policy and Unlimited remains unbounded. Burst is operational tolerance, not additional contracted capacity.",
-    "Product validation, capacity enforcement, vendor CLI/UI, tests and the web/Stripe/AWS handoff use the same fixed values."
+    "Software-owned burst policy",
+    "New signed keys contain tier and contracted capacity but no `burst_limit`; VoxyWatch derives Free 100/150, Pro 1,000/1,100, Telco 5,000/5,500 and Unlimited loca",
+    "Existing schema-v2 keys that contain the former field remain valid when it matches policy, but the field never controls runtime enforcement.",
+    "Vendor CLI/UI and the web/Stripe/AWS handoff now emit the smaller key contract while still displaying the effective software tolerance."
   ]
 }

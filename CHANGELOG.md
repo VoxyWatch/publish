@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.75.0] — 2026-08-20
+
+### Guided Passive Mirror setup and live readiness check
+
+- Settings → Capture Sources now guides administrators through delivery type, dedicated NIC selection, a bounded traffic check, and safe activation while Passive Mirror remains OFF by default.
+- Interface discovery identifies link state, IP/default-route management risk, speed, and MTU without exposing host addresses or raw RX counters; local SPAN/RSPAN activation remains blocked on an addressed management interface.
+- A single-flight, read-only two-second check reports link/idle/receiving state, observed rate, utilization, and drops without saving settings, starting capture, or changing network configuration.
+- Compact guidance covers generic switches, Cisco, Huawei, Juniper, Arista, MikroTik, AWS, Google Cloud, and Azure with responsive desktop/mobile layout and honest capacity advice.
+
 ## [3.74.1] — 2026-08-20
 
 ### Release credential hardening

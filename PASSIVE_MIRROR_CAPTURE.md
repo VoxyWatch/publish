@@ -40,6 +40,19 @@ Open **Settings -> Capture Sources -> Passive Mirror Capture**.
 6. Apply. The portal starts only `voxywatch-probe.service` through its scoped
    service-control permission.
 
+The interface selector identifies link state, IP/default-route risk and link
+speed without displaying the host address. For local SPAN/RSPAN, VoxyWatch
+blocks activation when the selected NIC has an address because that is likely
+the management path. Addressed interfaces remain valid for ERSPAN and cloud
+VXLAN delivery, with a visible recommendation to dedicate the collector NIC.
+
+**Check incoming traffic** takes a bounded two-second sample of the selected
+interface counters. It does not start packet capture, change the interface or
+apply settings. The result distinguishes link down, idle link and received
+packets, and reports observed throughput, utilization and RX drops. This proves
+that Ethernet frames reach the host; a real test call is still required to
+prove SIP, SDP and media correlation end to end.
+
 HEP, SIPREC and Passive Mirror are complementary sources, not an exclusive
 radio selector. The local HEP collector remains the internal normalization bus.
 
@@ -81,6 +94,13 @@ the probe and AWS target metrics.
 Use analyzer/port-mirroring (Juniper) or monitor session (Arista) to a dedicated
 collector port. If GRE encapsulation is used, select ERSPAN; if the delivery is
 an untagged/tagged Ethernet copy, select SPAN/RSPAN.
+
+### MikroTik
+
+RouterOS platforms commonly expose `mirror-source`/`mirror-target` on switch
+chips or Packet Sniffer streaming on supported releases. Prefer a hardware
+mirror to a dedicated collector port and confirm that the selected method
+preserves full Ethernet frames; syntax and hardware offload vary by model.
 
 Vendor syntax changes by platform and release. Validate the vendor configuration
 against its official guide before applying it; VoxyWatch does not configure the

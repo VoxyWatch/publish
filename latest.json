@@ -1,24 +1,26 @@
 {
-  "version": "3.74.1",
+  "version": "3.75.0",
   "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.74.1/voxywatch-v3.74.1-linux-x64.tar.gz",
-    "sha256": "bc9ff203a578b4288aff486c39efd10c7245655ee986dca6e109cc878ad21326",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.74.1/voxywatch-v3.74.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.75.0/voxywatch-v3.75.0-linux-x64.tar.gz",
+    "sha256": "c09f9b2f417b6ff5b601606317cadb5e835b484d8d426f19f22d04423a0991c8",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.75.0/voxywatch-v3.75.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Release credential hardening",
-    "The release uploader no longer places GitHub authorization tokens in `curl` process arguments while large signed assets are uploaded.",
-    "Authorization is streamed through standard input, and an executable release-tooling guard prevents the unsafe argument form from returning."
+    "Guided Passive Mirror setup and live readiness check",
+    "Settings → Capture Sources now guides administrators through delivery type, dedicated NIC selection, a bounded traffic check, and safe activation while Passiv",
+    "Interface discovery identifies link state, IP/default-route management risk, speed, and MTU without exposing host addresses or raw RX counters; local SPAN/RSPAN",
+    "A single-flight, read-only two-second check reports link/idle/receiving state, observed rate, utilization, and drops without saving settings, starting capture,"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Release credential hardening",
-    "The release uploader no longer places GitHub authorization tokens in `curl` process arguments while large signed assets are uploaded.",
-    "Authorization is streamed through standard input, and an executable release-tooling guard prevents the unsafe argument form from returning."
+    "Guided Passive Mirror setup and live readiness check",
+    "Settings → Capture Sources now guides administrators through delivery type, dedicated NIC selection, a bounded traffic check and safe activation while Passive",
+    "Interface discovery identifies link state, IP/default-route management risk, speed and MTU without exposing host addresses or raw RX counters; local SPAN/RSPAN",
+    "A single-flight, read-only two-second check reports link/idle/receiving state, observed rate, utilization and drops without saving settings, starting capture or"
   ]
 }

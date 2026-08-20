@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.73.0] — 2026-08-20
+
+### Licensing v2 — four clear plans and safe sustained-capacity enforcement
+
+- The catalog is exactly Free (100 concurrent calls with internal tolerance to 150), Pro (up to 1,000), Telco (up to 5,000), and Unlimited, with calendar terms of 1 month, 6 months, 1 year, or 2 years.
+- Signed schema-v2 keys fail closed on unknown/custom capacity, malformed dates, or signed Free entitlements while retaining the existing RSA trust root and legacy-key validation.
+- Portal capacity limits require 15 continuous minutes above the applicable threshold and use current active calls plus ordered durable samples; SIP/RTP/HEP capture and persistence never stop.
+- The vendor CLI and private console share the same fixed contract. Web, Stripe, and AWS are intentionally unchanged until their separate SKU/signing compatibility matrix is completed.
+
 ## [3.72.1] — 2026-08-19
 
 ### Incident recurrence resilience

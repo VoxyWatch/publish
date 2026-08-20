@@ -1,26 +1,26 @@
 {
-  "version": "3.72.1",
-  "release_date": "2026-08-19",
+  "version": "3.73.0",
+  "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.72.1/voxywatch-v3.72.1-linux-x64.tar.gz",
-    "sha256": "0726db2a951337837bb2310ea2c2e9078235b1eac4555dc627597a76fa730ef0",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.72.1/voxywatch-v3.72.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.73.0/voxywatch-v3.73.0-linux-x64.tar.gz",
+    "sha256": "f6b0392daa852010cedebb4b9afd81c5689ccbcf9f7dab949df0ebdd16fab092",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.73.0/voxywatch-v3.73.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Incident recurrence resilience",
-    "Optional recurrence statistics retry exactly once when the dedicated incident lane experiences a transient connection checkout timeout.",
-    "SQL and statement-timeout failures are not retried, pool capacity remains bounded, and failure still degrades safely without affecting incident persistence or S",
-    "PostgreSQL integration coverage reproduces the reported failure and locks successful recovery, bounded exhaustion and the non-transient path."
+    "Licensing v2 — four clear plans and safe sustained-capacity enforcement",
+    "The catalog is exactly Free (100 concurrent calls with internal tolerance to 150), Pro (up to 1,000), Telco (up to 5,000), and Unlimited, with calendar terms of",
+    "Signed schema-v2 keys fail closed on unknown/custom capacity, malformed dates, or signed Free entitlements while retaining the existing RSA trust root and legac",
+    "Portal capacity limits require 15 continuous minutes above the applicable threshold and use current active calls plus ordered durable samples; SIP/RTP/HEP captu"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Incident recurrence resilience — VOXY-1X",
-    "Optional incident recurrence statistics now retry exactly once when the dedicated incident pool experiences a transient connection checkout timeout.",
-    "Statement timeouts and SQL failures are never retried, the bounded two-connection incident lane is unchanged, and an exhausted retry preserves the existing `nul",
-    "PostgreSQL integration coverage reproduces the original checkout message, successful recovery, bounded exhaustion and the non-transient no-retry path."
+    "Licensing v2 — four clear plans and safe sustained-capacity enforcement",
+    "The catalog is now exactly Free (100 concurrent calls with internal tolerance to 150), Pro (up to 1,000), Telco (up to 5,000), and Unlimited, with calendar term",
+    "Signed schema-v2 licenses reject unknown/custom capacities, malformed dates and signed Free entitlements; the existing RSA trust root remains unchanged and lega",
+    "Capacity enforcement uses current active calls plus ordered durable samples and limits portal access only after 15 continuous minutes above the applicable thres"
   ]
 }

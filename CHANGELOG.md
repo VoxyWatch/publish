@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.73.1] — 2026-08-20
+
+### Paid-plan burst tolerance
+
+- Pro keeps 1,000 contracted concurrent calls and allows temporary burst to 1,100; Telco keeps 5,000 contracted calls and allows temporary burst to 5,500.
+- Free retains its special 100/150 policy and Unlimited remains unbounded. Burst is operational tolerance, not additional contracted capacity.
+- Product enforcement, signed license generation and the web/Stripe/AWS handoff now share the same fixed values.
+
 ## [3.73.0] — 2026-08-20
 
 ### Licensing v2 — four clear plans and safe sustained-capacity enforcement

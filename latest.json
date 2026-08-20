@@ -1,26 +1,26 @@
 {
-  "version": "3.73.0",
+  "version": "3.73.1",
   "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.73.0/voxywatch-v3.73.0-linux-x64.tar.gz",
-    "sha256": "f6b0392daa852010cedebb4b9afd81c5689ccbcf9f7dab949df0ebdd16fab092",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.73.0/voxywatch-v3.73.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.73.1/voxywatch-v3.73.1-linux-x64.tar.gz",
+    "sha256": "18767153cc6d5349a77d6a649e5aec4ab6894e52618c6295372fb2ee6cd0182a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.73.1/voxywatch-v3.73.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
     "url": "",
     "sha256": ""
   },
   "changelog": [
-    "Licensing v2 — four clear plans and safe sustained-capacity enforcement",
-    "The catalog is exactly Free (100 concurrent calls with internal tolerance to 150), Pro (up to 1,000), Telco (up to 5,000), and Unlimited, with calendar terms of",
-    "Signed schema-v2 keys fail closed on unknown/custom capacity, malformed dates, or signed Free entitlements while retaining the existing RSA trust root and legac",
-    "Portal capacity limits require 15 continuous minutes above the applicable threshold and use current active calls plus ordered durable samples; SIP/RTP/HEP captu"
+    "Paid-plan burst tolerance",
+    "Pro keeps 1,000 contracted concurrent calls and allows temporary burst to 1,100; Telco keeps 5,000 contracted calls and allows temporary burst to 5,500.",
+    "Free retains its special 100/150 policy and Unlimited remains unbounded. Burst is operational tolerance, not additional contracted capacity.",
+    "Product enforcement, signed license generation and the web/Stripe/AWS handoff now share the same fixed values."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Licensing v2 — four clear plans and safe sustained-capacity enforcement",
-    "The catalog is now exactly Free (100 concurrent calls with internal tolerance to 150), Pro (up to 1,000), Telco (up to 5,000), and Unlimited, with calendar term",
-    "Signed schema-v2 licenses reject unknown/custom capacities, malformed dates and signed Free entitlements; the existing RSA trust root remains unchanged and lega",
-    "Capacity enforcement uses current active calls plus ordered durable samples and limits portal access only after 15 continuous minutes above the applicable thres"
+    "Paid-plan burst tolerance",
+    "Pro keeps 1,000 contracted concurrent calls and now allows temporary burst to 1,100; Telco keeps 5,000 contracted calls and allows temporary burst to 5,500.",
+    "Free retains its special 100/150 policy and Unlimited remains unbounded. Burst is operational tolerance, not additional contracted capacity.",
+    "Product validation, capacity enforcement, vendor CLI/UI, tests and the web/Stripe/AWS handoff use the same fixed values."
   ]
 }

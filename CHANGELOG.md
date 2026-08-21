@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.77.1] — 2026-08-20
+
+### Complete GnuPG on minimal Linux images
+
+- The prerequisite check requires both `gpg` and `gpg-agent`; minimal Amazon Linux installs the complete verifier before importing the embedded release key instead of failing after the artifact download.
+- The PostgreSQL index gate allows the concurrent index builder up to 60 seconds on contended hosts while retaining the same four mandatory indexes.
+
 ## [3.77.0] — 2026-08-20
 
 ### Amazon Linux 2023 certified platform

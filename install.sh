@@ -94,8 +94,10 @@ print_banner() {
 # not waste bandwidth and then fail. Package-manager trust remains the OS boundary;
 # the VoxyWatch tarball is still verified independently with the embedded vendor key.
 ensure_gpg() {
-  command -v gpg >/dev/null 2>&1 && return 0
-  info "GnuPG not found — installing the mandatory signature verifier..."
+  if command -v gpg >/dev/null 2>&1 && command -v gpg-agent >/dev/null 2>&1; then
+    return 0
+  fi
+  info "Complete GnuPG verifier not found — installing GPG and its agent..."
   if command -v apt-get >/dev/null 2>&1; then
     DEBIAN_FRONTEND=noninteractive apt-get update >/dev/null 2>&1 \
       || warn "Could not refresh apt metadata; trying the existing package cache"
@@ -110,9 +112,9 @@ ensure_gpg() {
   else
     err "gpg is required to authenticate VoxyWatch releases, and no supported package manager (apt, dnf or yum) was found. Install GnuPG and retry."
   fi
-  command -v gpg >/dev/null 2>&1 \
-    || err "gpg is required to authenticate VoxyWatch releases, but it is still unavailable after package installation."
-  ok "GnuPG available — signed release verification enabled"
+  command -v gpg >/dev/null 2>&1 && command -v gpg-agent >/dev/null 2>&1 \
+    || err "gpg and gpg-agent are required to authenticate VoxyWatch releases, but the complete verifier is still unavailable after package installation."
+  ok "Complete GnuPG verifier available — signed release verification enabled"
 }
 
 # Clave pública GPG del vendor (VoxyWatch Release Signing Key, 80EDE252…). Embebida AQUÍ a

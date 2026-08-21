@@ -1,27 +1,25 @@
 {
-  "version": "3.77.0",
+  "version": "3.77.1",
   "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.0/voxywatch-v3.77.0-linux-x64.tar.gz",
-    "sha256": "4753273c53776d4309acd9518e713d4d05560787f0d9600e48df54c2fd14e611",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.0/voxywatch-v3.77.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.1/voxywatch-v3.77.1-linux-x64.tar.gz",
+    "sha256": "613630caef679a253961b75b5e8d0b86f13ae9ac6b1077061be9c2ddd7d3b2aa",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.1/voxywatch-v3.77.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.0/voxywatch-v3.77.0-linux-arm64.tar.gz",
-    "sha256": "f20d67cd837edf60e41a050c3594fc8298543d189e9861814e35f6a2c7cf96db",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.0/voxywatch-v3.77.0-linux-arm64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.1/voxywatch-v3.77.1-linux-arm64.tar.gz",
+    "sha256": "6e949bcfb1c8ff21f6a537f25e73445f609d73504ed1e7c0f74e59ed1df10d52",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.1/voxywatch-v3.77.1-linux-arm64.tar.gz.asc"
   },
   "changelog": [
-    "Amazon Linux 2023 certified platform",
-    "The installer supports Amazon Linux 2023 on x86_64 and ARM64 alongside Debian and Ubuntu, without mixing Debian packages or assuming `postgresql-common` paths.",
-    "PostgreSQL 17 runs as a dedicated VoxyWatch cluster on localhost:5433; TimescaleDB 2.29.0 is built from checksum-pinned official source and Caddy 2.11.4 comes f",
-    "Portal, sniffer, and SIPREC units depend on the platform-specific PostgreSQL service while scoped service control installs polkit through either `dnf` or `apt`."
+    "Complete GnuPG on minimal Linux images",
+    "The prerequisite check requires both `gpg` and `gpg-agent`; minimal Amazon Linux installs the complete verifier before importing the embedded release key instea",
+    "The PostgreSQL index gate allows the concurrent index builder up to 60 seconds on contended hosts while retaining the same four mandatory indexes."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Amazon Linux 2023 como plataforma certificada",
-    "El instalador soporta Amazon Linux 2023 en x86_64 y ARM64, además de Debian/Ubuntu, sin reutilizar paquetes Debian ni asumir rutas de `postgresql-common`.",
-    "PostgreSQL 17 usa un clúster VoxyWatch dedicado en localhost:5433; TimescaleDB 2.29.0 se construye desde fuente oficial fijada por SHA-256 y Caddy 2.11.4 desde",
-    "Las unidades del portal, sniffer y SIPREC ahora dependen del servicio PostgreSQL real de cada familia; polkit conserva el control privilegiado acotado mediante"
+    "GnuPG completo en imágenes Linux mínimas",
+    "El preflight exige `gpg` y `gpg-agent`; Amazon Linux minimal instala el verificador completo antes de importar la llave de release, en vez de fallar después de",
+    "La prueba de índices PostgreSQL concede hasta 60 segundos al creador concurrente en hosts cargados, manteniendo los mismos cuatro índices obligatorios sin con"
   ]
 }

@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.76.0] — 2026-08-20
+
+### Native, signed ARM64 distribution
+
+- VoxyWatch now builds natively for Linux x86_64 and ARM64 from the same source commit, including the portal, capture probe, and speech-to-text runtime for each architecture.
+- The installer detects the server architecture and downloads only the matching signed artifact; unsupported architectures fail before installation begins.
+- The public release contract requires independent URLs, SHA-256 hashes, and GPG signatures for both architectures, preventing partial ARM releases.
+- Supported operating systems are explicit: Debian 12/13 or Ubuntu 22.04/24.04 on x86_64 or ARM64.
+
 ## [3.75.1] — 2026-08-20
 
 ### Passive Mirror first-open guidance fix

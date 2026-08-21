@@ -1,24 +1,27 @@
 {
-  "version": "3.75.1",
+  "version": "3.76.0",
   "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.75.1/voxywatch-v3.75.1-linux-x64.tar.gz",
-    "sha256": "ec955cb4a7aabe8c09cc94433abbafe28ac64fbcdeac26d583dac95bdad98a56",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.75.1/voxywatch-v3.75.1-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.76.0/voxywatch-v3.76.0-linux-x64.tar.gz",
+    "sha256": "e1580ce35fc16703446c825992f4d663aefff21343b02b7366a0d304309d1b7f",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.76.0/voxywatch-v3.76.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
-    "url": "",
-    "sha256": ""
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.76.0/voxywatch-v3.76.0-linux-arm64.tar.gz",
+    "sha256": "be4e4ed1b497f62eedff061b1537e60916ba7e73a6041fe1f72542b9ea40ab18",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.76.0/voxywatch-v3.76.0-linux-arm64.tar.gz.asc"
   },
   "changelog": [
-    "Passive Mirror first-open guidance fix",
-    "The input-type and vendor guidance now renders immediately even when authenticated/demo bootstrap completes after `DOMContentLoaded`; administrators no longer n",
-    "The release contract now requires an explicit immediate-render hook so delayed-script browser starts cannot silently regress this first-open experience."
+    "Native, signed ARM64 distribution",
+    "VoxyWatch now builds natively for Linux x86_64 and ARM64 from the same source commit, including the portal, capture probe, and speech-to-text runtime for each a",
+    "The installer detects the server architecture and downloads only the matching signed artifact; unsupported architectures fail before installation begins.",
+    "The public release contract requires independent URLs, SHA-256 hashes, and GPG signatures for both architectures, preventing partial ARM releases."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Passive Mirror first-open guidance fix",
-    "The input-type and vendor guidance now renders immediately even when authenticated/demo bootstrap completes after `DOMContentLoaded`; administrators no longer n",
-    "The release contract now requires an explicit immediate-render hook so delayed-script browser starts cannot silently regress this first-open experience."
+    "Distribución nativa y firmada para ARM64",
+    "El producto se construye nativamente para Linux x86_64 y ARM64 desde un único commit, con portal, probe y transcripción adecuados a cada arquitectura.",
+    "El instalador detecta la arquitectura y descarga exclusivamente el artefacto firmado correcto; una arquitectura no soportada falla antes de instalar.",
+    "El contrato público exige URL, SHA-256 y firma GPG independientes para ambas arquitecturas, evitando publicar soporte ARM incompleto."
   ]
 }

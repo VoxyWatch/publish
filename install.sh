@@ -7,7 +7,7 @@
 #   — or —
 #   sudo bash install.sh [--version 1.2.10] [--port 3080]
 #
-# Supports: Debian 11+, Ubuntu 20.04+, RHEL / CentOS / Rocky / AlmaLinux 8+
+# Supports: Debian 12/13 and Ubuntu 22.04/24.04 on x86_64 or ARM64.
 # ─────────────────────────────────────────────────────────────────────────────
 
 # All logic inside main() — a partial download won't execute anything.
@@ -268,19 +268,27 @@ ensure_gpg
 info "Fetching signed release metadata..."
 MANIFEST_JSON=$(curl -fsSL --max-time 15 "$VERSION_MANIFEST" 2>/dev/null \
   || err "Could not fetch version manifest from ${VERSION_MANIFEST}")
+case "$(uname -m)" in
+  x86_64|amd64) RELEASE_ARCH="x64" ;;
+  aarch64|arm64) RELEASE_ARCH="arm64" ;;
+  *) err "Unsupported CPU architecture: $(uname -m). Supported: x86_64 and ARM64." ;;
+esac
+MANIFEST_PLATFORM="linux_${RELEASE_ARCH}"
 MANIFEST_VERSION=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['version'])" 2>/dev/null \
   || err "Could not parse version from manifest")
-EXPECTED_SHA256=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['linux_x64']['sha256'])" 2>/dev/null \
-  || err "Manifest has no linux_x64.sha256")
-EXPECTED_SIG_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['linux_x64']['signature'])" 2>/dev/null \
-  || err "Manifest has no linux_x64.signature")
+EXPECTED_SHA256=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)[sys.argv[1]]['sha256'])" "$MANIFEST_PLATFORM" 2>/dev/null \
+  || err "Manifest has no ${MANIFEST_PLATFORM}.sha256")
+EXPECTED_ASSET_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)[sys.argv[1]]['url'])" "$MANIFEST_PLATFORM" 2>/dev/null \
+  || err "Manifest has no ${MANIFEST_PLATFORM}.url")
+EXPECTED_SIG_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)[sys.argv[1]]['signature'])" "$MANIFEST_PLATFORM" 2>/dev/null \
+  || err "Manifest has no ${MANIFEST_PLATFORM}.signature")
 [ -n "$VERSION" ] || VERSION="$MANIFEST_VERSION"
 [ "$VERSION" = "$MANIFEST_VERSION" ] \
   || err "Version ${VERSION} is not the authenticated channel version (${MANIFEST_VERSION}). Refusing unsigned manual install."
 [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || err "Invalid release version in manifest: ${VERSION}"
 [[ "$EXPECTED_SHA256" =~ ^[0-9a-fA-F]{64}$ ]] || err "Invalid or missing SHA-256 in manifest"
 [[ "$EXPECTED_SIG_URL" =~ ^https:// ]] || err "Invalid or missing HTTPS signature URL in manifest"
-ok "Version to install: v${VERSION}"
+ok "Version to install: v${VERSION} (${RELEASE_ARCH})"
 
 # ── Internal backend port ─────────────────────────────────────────────────────
 # Fresh installs always use the safe loopback default. It is not an operator-facing
@@ -417,9 +425,13 @@ fi
 echo ""
 
 # ── Download tarball ──────────────────────────────────────────────────────────
-TARBALL_NAME="voxywatch-v${VERSION}-linux-x64.tar.gz"
-TARBALL_DIR="voxywatch-v${VERSION}-linux-x64"
+TARBALL_NAME="voxywatch-v${VERSION}-linux-${RELEASE_ARCH}.tar.gz"
+TARBALL_DIR="voxywatch-v${VERSION}-linux-${RELEASE_ARCH}"
 DOWNLOAD_URL="${RELEASES_BASE}/v${VERSION}/${TARBALL_NAME}"
+[ "$EXPECTED_ASSET_URL" = "$DOWNLOAD_URL" ] \
+  || err "Manifest asset URL does not match the selected version and architecture"
+[ "$EXPECTED_SIG_URL" = "${DOWNLOAD_URL}.asc" ] \
+  || err "Manifest signature URL does not match the selected release asset"
 
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT

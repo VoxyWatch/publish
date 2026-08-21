@@ -1049,6 +1049,12 @@ if [ "$HTTPS_MODE" != "legacy" ] && { [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EX
   fi
   {
     echo '# Managed by VoxyWatch installer'
+    if [ "$HTTPS_MODE" = "internal" ]; then
+      echo '{'
+      echo "  default_sni ${HTTPS_HOST}"
+      echo '}'
+      echo
+    fi
     echo "${HTTPS_HOST} {"
     [ "$HTTPS_MODE" = "internal" ] && echo '  tls internal'
     echo "  reverse_proxy 127.0.0.1:${PORT}"

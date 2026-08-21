@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.77.3] — 2026-08-20
+
+### Reliable internal HTTPS access by IP
+
+- Internal HTTPS now configures Caddy with the selected host as its default SNI, so browsers and API clients that omit SNI for a literal IP address receive the managed certificate instead of a TLS alert.
+
 ## [3.77.2] — 2026-08-20
 
 ### Safe replacement of minimal GnuPG on Amazon Linux

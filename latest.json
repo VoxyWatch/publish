@@ -1,23 +1,23 @@
 {
-  "version": "3.77.2",
+  "version": "3.77.3",
   "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.2/voxywatch-v3.77.2-linux-x64.tar.gz",
-    "sha256": "a363ff5d02afb287caf0b874341e801702128f1c391cb05870a079b29437a2d2",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.2/voxywatch-v3.77.2-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.3/voxywatch-v3.77.3-linux-x64.tar.gz",
+    "sha256": "e0364e56e07bb6d92f9a7180c9eb4908b027a7725893c267e0a5e79c9b249f43",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.3/voxywatch-v3.77.3-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.2/voxywatch-v3.77.2-linux-arm64.tar.gz",
-    "sha256": "838fd01aaca21cf2c620b8b1b27ba63afcae72babaebd3dec79620084d7c9a91",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.2/voxywatch-v3.77.2-linux-arm64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.3/voxywatch-v3.77.3-linux-arm64.tar.gz",
+    "sha256": "846c7b08406139bb7c68b2c773a3e1600d98cf26cde0050800ef0caeb9a8380e",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.3/voxywatch-v3.77.3-linux-arm64.tar.gz.asc"
   },
   "changelog": [
-    "Safe replacement of minimal GnuPG on Amazon Linux",
-    "The installer lets `dnf` replace the official `gnupg2-minimal` package with the complete `gnupg2` package, enabling `gpg-agent` without mixing repositories or w"
+    "Reliable internal HTTPS access by IP",
+    "Internal HTTPS now configures Caddy with the selected host as its default SNI, so browsers and API clients that omit SNI for a literal IP address receive the ma"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Reemplazo seguro de GnuPG minimal en Amazon Linux",
-    "El instalador permite que `dnf` sustituya el paquete oficial `gnupg2-minimal` por `gnupg2` completo, habilitando `gpg-agent` sin mezclar repositorios ni debilit"
+    "Reliable internal HTTPS access by IP",
+    "Internal HTTPS now configures Caddy with the selected host as its default SNI, so browsers and API clients that omit SNI for a literal IP address receive the ma"
   ]
 }

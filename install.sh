@@ -751,7 +751,9 @@ if [ -d "${EXTRACTED}/agentic" ]; then
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/requirements.txt" "${INSTALL_DIR}/agentic/requirements.txt" 2>/dev/null || true
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/requirements.lock.txt" "${INSTALL_DIR}/agentic/requirements.lock.txt" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/voxywatch_agentic.py" "${INSTALL_DIR}/agentic/voxywatch_agentic.py" 2>/dev/null || true
-  install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/adk_workflow.py" "${INSTALL_DIR}/agentic/adk_workflow.py" 2>/dev/null || true
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/langgraph_workflow.py" "${INSTALL_DIR}/agentic/langgraph_workflow.py" 2>/dev/null || true
+  # Remove the retired workflow module during the one-time v4 replacement.
+  rm -f "${INSTALL_DIR}/agentic/adk_workflow.py"
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/install-agentic-deps.sh" "${INSTALL_DIR}/agentic/install-agentic-deps.sh" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/run-agentic.sh" "${INSTALL_DIR}/agentic/run-agentic.sh" 2>/dev/null || true
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/voxywatch-agentic.service" "${INSTALL_DIR}/agentic/voxywatch-agentic.service" 2>/dev/null || true
@@ -1327,18 +1329,18 @@ EOF
   fi
 fi
 
-# ── Agentic runtime (ADK sidecar) — proceso APARTE, loopback, OFF por default ─
+# ── Agentic runtime (LangGraph sidecar) — proceso APARTE, loopback, OFF por default ─
 # v3.0: el runtime agéntico viaja con cada update, pero no abre puertos externos ni
 # controla el SBC. Si ya estaba activo/habilitado antes del update, preservamos ese
 # estado; en instalaciones nuevas queda instalado y apagado hasta opt-in.
 if [ -f "${INSTALL_DIR}/agentic/voxywatch_agentic.py" ]; then
-  info "Provisioning VoxyWatch Agentic runtime (ADK sidecar, loopback)..."
+  info "Provisioning VoxyWatch Agentic runtime (LangGraph sidecar, loopback)..."
   if [ -f "${INSTALL_DIR}/agentic/voxywatch-agentic.service" ]; then
     install -o root -g root -m 644 "${INSTALL_DIR}/agentic/voxywatch-agentic.service" /etc/systemd/system/voxywatch-agentic.service
   else
     cat > /etc/systemd/system/voxywatch-agentic.service << EOF
 [Unit]
-Description=VoxyWatch Agentic Runtime (ADK sidecar)
+Description=VoxyWatch Agentic Runtime (LangGraph sidecar)
 After=network-online.target voxywatch.service
 Wants=network-online.target
 
@@ -1367,12 +1369,12 @@ WantedBy=multi-user.target
 EOF
   fi
   systemctl daemon-reload 2>/dev/null || true
-  if [ "$REFRESH_EXTERNAL_DEPS" = "1" ] \
-     && { [ "$AGENTIC_WAS_ENABLED" = "1" ] || [ "$AGENTIC_WAS_ACTIVE" = "1" ] \
-          || [ -x "${INSTALL_DIR}/agentic/.venv/bin/python" ]; }; then
+  if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ] \
+     || [ ! -f "${INSTALL_DIR}/agentic/.langgraph-runtime-v1" ]; then
     if [ -x "${INSTALL_DIR}/agentic/install-agentic-deps.sh" ]; then
-      info "Installing controlled Agentic Python dependency lock (explicit refresh)..."
+      info "Installing controlled LangGraph dependency lock..."
       if "${INSTALL_DIR}/agentic/install-agentic-deps.sh" >/var/log/voxywatch-agentic-deps.log 2>&1; then
+        install -o root -g voxywatch -m 640 /dev/null "${INSTALL_DIR}/agentic/.langgraph-runtime-v1"
         ok "Agentic dependencies updated"
       else
         warn "Agentic dependencies could not be updated; sidecar will keep deterministic fallback. Details: /var/log/voxywatch-agentic-deps.log"

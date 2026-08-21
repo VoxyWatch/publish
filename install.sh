@@ -728,6 +728,8 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/voxywatch_srs.py"   "${INSTALL
 install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-probe" "${INSTALL_DIR}/voxywatch-probe.new"
 mv -f "${INSTALL_DIR}/voxywatch-probe.new" "${INSTALL_DIR}/voxywatch-probe"
 install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-probe-launch.py" "${INSTALL_DIR}/voxywatch-probe-launch.py"
+install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-go-core" "${INSTALL_DIR}/voxywatch-go-core.new"
+mv -f "${INSTALL_DIR}/voxywatch-go-core.new" "${INSTALL_DIR}/voxywatch-go-core"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/schema.sql"         "${INSTALL_DIR}/schema.sql" 2>/dev/null || true
 install -o root -g voxywatch -m 640 "${EXTRACTED}/repair-ownership.sql" "${INSTALL_DIR}/repair-ownership.sql" 2>/dev/null || true
 install -o root -g voxywatch -m 750 "${EXTRACTED}/migrate.sh"         "${INSTALL_DIR}/migrate.sh" 2>/dev/null || true

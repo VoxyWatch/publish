@@ -860,7 +860,7 @@ if [ -d "${EXTRACTED}/docs/ai" ]; then
     install -o root -g voxywatch -m 640 "$f" "${INSTALL_DIR}/docs/ai/${rel}"
   done
 fi
-for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md INITIAL_SETUP_CHANNELS.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md AI_CREDENTIALS.md HTTPS_CONFIGURATION.md SPEECH_TO_TEXT_BETA.md PASSIVE_MIRROR_CAPTURE.md; do
+for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md INITIAL_SETUP_CHANNELS.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md AI_CREDENTIALS.md API_REFERENCE.md HTTPS_CONFIGURATION.md SPEECH_TO_TEXT_BETA.md PASSIVE_MIRROR_CAPTURE.md; do
   [ -f "${EXTRACTED}/docs/${operational_doc}" ] || continue
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/docs/${operational_doc}" \

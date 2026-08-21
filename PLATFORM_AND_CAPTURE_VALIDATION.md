@@ -17,8 +17,8 @@ artifacts, SHA-256 values and GPG signatures. The installer selects the artifact
 from `uname -m`; it does not run an x86 binary through QEMU on ARM.
 
 Release 3.77.4 was acceptance-tested on a clean Debian 13 AArch64 host. The
-test covered signed installation, the AArch64 ELF/process, PostgreSQL 17,
-TimescaleDB, systemd services, internal HTTPS by IP, login, CLI, HEP SIP/RTP
+test covered signed installation, the native AArch64 process, managed local
+services, internal HTTPS by IP, login, CLI, HEP SIP/RTP
 ingestion, CDR classification, API search/detail, RTP correlation, audio
 reconstruction, restart and persistence. Amazon Linux 2023 ARM64 was also
 validated through the signed install/update path.
@@ -54,8 +54,8 @@ VXLAN/UDP 4789. See `PASSIVE_MIRROR_CAPTURE.md`.
 Use synthetic numbers and a unique Call-ID. Never replay customer SIP or audio
 into a test installation.
 
-1. Confirm the signed installed version and that the portal, sniffer, Caddy and
-   PostgreSQL services are active.
+1. Confirm the signed installed version and that the portal, capture and HTTPS
+   services are active.
 2. Send an answered HEP dialog: INVITE, provisional response, 200, ACK, BYE and
    final 200.
 3. Confirm all SIP messages reached `packets`, exactly one call reached `calls`,
@@ -70,11 +70,10 @@ into a test installation.
 7. Restart only the portal, then confirm the CDR/RTP evidence persists, HTTPS
    returns 200 and recent service journals contain no new errors.
 
-Global packet/RTP totals use bounded cached PostgreSQL/Timescale estimates and
-can lag immediately after a tiny synthetic injection. Per-call detail and the
-underlying rows are the authoritative immediate acceptance evidence. `ANALYZE`
-may be used on a disposable validation database to refresh estimates; it is not
-required for normal capture.
+Global packet/RTP totals use bounded cached estimates and can lag immediately
+after a tiny synthetic injection. Per-call detail is the authoritative
+immediate acceptance evidence. Local statistics may be refreshed in a
+disposable validation environment; this is not required for normal capture.
 
 ## RTP correlation requirements
 

@@ -69,7 +69,7 @@ settings are collapsed by default.
 
 | Setting | Default | Meaning |
 |---|---:|---|
-| Evaluation window | 15 min | Recent working-set interval evaluated every 60 seconds |
+| Evaluation window | 15 min | Recent activity interval evaluated every 60 seconds |
 | Minimum calls | 30 | Smallest group that can produce a finding |
 | CANCEL timing range | 1–15 s | Accepted `INVITE` to originator `CANCEL` interval |
 | Minimum origin-cancel ratio | 80% | Hard gate: share cancelled by the originating side |

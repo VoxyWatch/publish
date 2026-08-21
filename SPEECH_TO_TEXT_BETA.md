@@ -17,9 +17,9 @@ Speech to text is an opt-in Beta feature that creates searchable transcripts fro
 - Operator/admin access only; transcripts are stored locally with mode `0600`.
 - Configurable language, call-duration limit, queue limits, retention and an isolated transcript filesystem budget (1–25%, 5% default).
 - Persistent asynchronous jobs: the portal may be reloaded while processing, and a restart marks unfinished work explicitly as interrupted.
-- PostgreSQL metadata index for paginated discovery by call-time range, exact source, exact destination or Call-ID. The private file catalog remains the durable fallback and `include=full` returns at most 25 complete transcripts per page.
+- Local metadata index for paginated discovery by call-time range, exact source, exact destination or Call-ID. The private file catalog remains the durable fallback and `include=full` returns at most 25 complete transcripts per page.
 - Asynchronous JSONL/CSV range exports with a dedicated `transcript:export` scope, 31-day/10,000-record bounds, 24-hour result expiry and content-free local audit.
-- Verified migration between local storage and a dedicated mounted filesystem. The canonical path remains stable, every file is SHA-256 verified, systemd waits for the mount and a failed portal restart rolls back.
+- Verified transfer between local storage and a dedicated mounted filesystem. The canonical path remains stable, every file is SHA-256 verified, the service waits for the mount and a failed portal restart rolls back.
 
 Automatic/background transcription is intentionally locked during Beta. This prevents unattended access to conversation content until each customer validates capacity, consent, privacy and retention requirements.
 
@@ -60,5 +60,5 @@ Audio reconstruction now distinguishes missing/expired RTP (`no_audio`) from cap
 ## Three-phase roadmap
 
 1. **Scalable foundation (implemented):** persistent asynchronous jobs, private atomic catalog and bounded API listing by call-time range, exact source, exact destination or Call-ID.
-2. **Governance and capacity (implemented):** reconstructible PostgreSQL metadata index, asynchronous bounded bulk exports, dedicated export scope/content-free audit, transcript disk budget and oldest-first safe retention enforcement.
-3. **Storage evolution:** transcript migration to a mounted partition/external disk is implemented with verification and rollback. Audio relocation remains pending until all legacy audio files share one canonical boundary. Consent- and capacity-aware automatic policies remain locked.
+2. **Governance and capacity (implemented):** reconstructible local metadata index, asynchronous bounded bulk exports, dedicated export scope/content-free audit, transcript disk budget and oldest-first safe retention enforcement.
+3. **Storage evolution:** transcript transfer to a mounted partition/external disk is implemented with verification and rollback. Audio relocation remains pending until all legacy audio files share one canonical boundary. Consent- and capacity-aware automatic policies remain locked.

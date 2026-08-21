@@ -7,7 +7,7 @@ Use CLI only when portal evidence is insufficient or the operator explicitly gra
 - Service status for `voxywatch`, `voxywatch-sniffer` and optional `voxywatch-srs`.
 - Bounded journal excerpts for the affected service.
 - Disk, CPU, RAM and load averages.
-- PostgreSQL/Timescale health with statement timeouts.
+- Local data-service health with bounded timeouts.
 - Local version from the installed portal binary.
 
 ## Production Rules

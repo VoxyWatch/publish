@@ -36,8 +36,8 @@ or run another service.
 | OpenAI Secure MCP Tunnel | Outbound TCP 443 to OpenAI | No inbound port |
 | Claude remote connector | Public TCP 443 from Anthropic infrastructure | Allowlist current Anthropic ranges when required |
 
-Never publish TCP 3080 directly to the Internet. Never expose PostgreSQL 5433,
-HEP 9060/9062, SNMP 161 or the agentic sidecar 3081 for MCP.
+Never publish the local portal directly to the Internet. Do not expose capture,
+monitoring or internal service ports for MCP.
 
 Recommended deployment:
 
@@ -123,8 +123,8 @@ Availability is limited by caller scopes and global administrative switches.
 | `get_setup_status` | `mcp:read` | Redacted Getting Started, LLM, trunk/IP-label and MCP readiness |
 | `configure_initial_setup` | `mcp:configure` | Dry-run then confirmed merge/upsert of non-secret initial setup fields |
 
-There is no generic SQL, shell, network or remediation tool. The single setup
-tool has a fixed schema, rejects secrets, never deletes catalogs, starts in
+There is no generic database, shell, network or remediation tool. The single
+setup tool has a fixed input contract, rejects secrets, never deletes catalogs, starts in
 dry-run mode and requires both an administrative switch and `APPLY_SETUP`.
 Tool responses are bounded by both per-tool limits and the configured maximum
 
@@ -225,7 +225,7 @@ Useful portal endpoints:
 - `GET /api/mcp/audit` — admin-only bounded audit.
 - `POST /api/mcp/test` — admin-only live deterministic tool test.
 
-Tool arguments are validated against their JSON Schemas before execution.
+Tool arguments are validated against strict input contracts before execution.
 Validation errors contain paths and rule names but never echo submitted values.
 Configuration audit records identify actor, tool, result, duration and size but
 never preserve submitted trunks, IP labels, tokens or returned content.

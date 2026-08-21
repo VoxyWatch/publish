@@ -29,7 +29,7 @@ Classify every issue into one of these domains:
 
 - `product-code`: reproducible VoxyWatch code behavior.
 - `packaging-release`: install/update/release artifact problem.
-- `deployment-os`: Linux, systemd, permissions, disk, CPU, RAM, network or PostgreSQL/Timescale deployment.
+- `deployment-os`: Linux, service management, permissions, disk, CPU, RAM or network deployment.
 - `configuration`: VoxyWatch settings, thresholds, licenses, users, roles or feature flags.
 - `integration-source`: SBC/probe/HEP/SIPREC source behavior.
 - `external-provider`: carrier, upstream provider, DNS, NTP, GitHub or third-party dependency.

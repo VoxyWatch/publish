@@ -5,7 +5,7 @@
 - `voxywatch` restarts.
 - UI becomes unavailable.
 - Journal shows heap or out-of-memory errors.
-- Working-set trims appear frequently.
+- Memory-pressure protections activate frequently.
 
 ## First Checks
 
@@ -22,4 +22,4 @@
 
 ## Guardrails
 
-Never fix OOM by broadening database scans or reloading large windows into memory. Prefer bounded queries, streaming, working-set caps and tests that reproduce the memory shape.
+Never fix OOM by broadening data scans or reloading large windows into memory. Prefer bounded queries, streaming, memory caps and tests that reproduce the memory shape.

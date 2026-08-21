@@ -12,12 +12,10 @@
     "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.4/voxywatch-v3.77.4-linux-arm64.tar.gz.asc"
   },
   "changelog": [
-    "Clean internal CA provisioning",
-    "Internal HTTPS tells Caddy not to modify the server trust store. Clients still trust the exported private CA explicitly, while the unprivileged Caddy service no"
+    "Improved private HTTPS setup reliability on supported installations."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Clean internal CA provisioning",
-    "Internal HTTPS tells Caddy not to modify the server trust store. Clients still trust the exported private CA explicitly, while the unprivileged Caddy service no"
+    "Mejoramos la confiabilidad de la configuracion HTTPS privada en instalaciones compatibles."
   ]
 }

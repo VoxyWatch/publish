@@ -1,15 +1,15 @@
 {
-  "version": "3.81.0",
+  "version": "3.81.1",
   "release_date": "2026-08-21",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.81.0/voxywatch-v3.81.0-linux-x64.tar.gz",
-    "sha256": "ae463c6581c278da880afb2cce3a7e1c2390e32e6d1f3173892b1f6dc0d8e5b2",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.81.0/voxywatch-v3.81.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.81.1/voxywatch-v3.81.1-linux-x64.tar.gz",
+    "sha256": "3c453436615d77f374ce3c05065bb9aa7b25f20aaf53e08cffc6d3968db16a3a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.81.1/voxywatch-v3.81.1-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.81.0/voxywatch-v3.81.0-linux-arm64.tar.gz",
-    "sha256": "e29fd33a593f79f6a693c834407b10c9882c56a15e4d91b45d89678312c0ceb3",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.81.0/voxywatch-v3.81.0-linux-arm64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.81.1/voxywatch-v3.81.1-linux-arm64.tar.gz",
+    "sha256": "7f2118736bc437526d16f864b695d62391f805d1e8f2fa1231289bff9d1e364c",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.81.1/voxywatch-v3.81.1-linux-arm64.tar.gz.asc"
   },
   "min_upgrade_from": "1.0.0"
 }

@@ -517,6 +517,36 @@ info "Extracting..."
 tar -xzf "${TMPDIR}/${TARBALL_NAME}" -C "$TMPDIR"
 EXTRACTED="${TMPDIR}/${TARBALL_DIR}"
 [ -d "$EXTRACTED" ] || err "Unexpected tarball layout — expected directory: ${TARBALL_DIR}"
+if ! python3 - "$EXTRACTED" "$VERSION" "$RELEASE_ARCH" <<'PY'
+import hashlib, json, pathlib, re, stat, sys
+root = pathlib.Path(sys.argv[1]).resolve()
+manifest_path = root / 'ARTIFACT-MANIFEST.json'
+data = json.loads(manifest_path.read_text())
+assert data.get('schema') == 1
+assert data.get('version') == sys.argv[2]
+assert data.get('architecture') == sys.argv[3]
+assert re.fullmatch(r'[0-9a-f]{40}', str(data.get('source_commit', '')))
+expected = set()
+for item in data.get('entries', []):
+    rel = item.get('path', '')
+    assert rel and not rel.startswith('/') and '..' not in pathlib.PurePosixPath(rel).parts
+    assert rel not in expected
+    expected.add(rel)
+    target = (root / rel).resolve()
+    assert target.is_relative_to(root) and target.is_file() and not target.is_symlink()
+    h = hashlib.sha256()
+    with target.open('rb') as fh:
+        for chunk in iter(lambda: fh.read(1024 * 1024), b''):
+            h.update(chunk)
+    assert h.hexdigest() == item.get('sha256')
+    assert target.stat().st_size == item.get('size')
+    assert stat.S_IMODE(target.stat().st_mode) == item.get('mode')
+actual = {p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file() and p.name != 'ARTIFACT-MANIFEST.json'}
+assert actual == expected
+PY
+then
+  err "Artifact member integrity verification failed"
+fi
 ok "Extracted OK"
 
 # ── Create service user ───────────────────────────────────────────────────────
@@ -706,7 +736,12 @@ for migration in "${EXTRACTED}"/migrations/*.sql; do
   [ -e "$migration" ] || continue
   install -o root -g voxywatch -m 640 "$migration" "${INSTALL_DIR}/migrations/$(basename "$migration")"
 done
-install -o root -g root      -m 644 "${EXTRACTED}/WIKI_INTEGRATION.md" "${INSTALL_DIR}/WIKI_INTEGRATION.md" 2>/dev/null || true
+# Legacy WIKI and internal design documents are intentionally not distributed.
+rm -f "${INSTALL_DIR}/WIKI_INTEGRATION.md" \
+      "${INSTALL_DIR}/docs/ai/CHANGELOG_AI_CONTEXT.md" \
+      "${INSTALL_DIR}/docs/ai/ARCHITECTURE_MAP.md" \
+      "${INSTALL_DIR}/docs/ai/EXTENDING_VOXYWATCH.md" \
+      "${INSTALL_DIR}/docs/ai/CONTEXT_ENGINE.md"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/AI_TROUBLESHOOTING.md" "${INSTALL_DIR}/AI_TROUBLESHOOTING.md" 2>/dev/null || true
 if [ -d "${EXTRACTED}/agentic" ]; then
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/agentic"

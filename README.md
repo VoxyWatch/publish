@@ -51,12 +51,12 @@ For the exact context order, privacy boundary, RFC selection and local finding m
 curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | sudo bash
 ```
 
-Supports **Debian 11+**, **Ubuntu 20.04+**, **RHEL / CentOS / Rocky / AlmaLinux 8+**.
+Certified on **Debian 12/13**, **Ubuntu 22.04/24.04**, and **Amazon Linux 2023**, on x86_64 and ARM64.
 The installer auto-detects your distro and CPU architecture, provisions a dedicated PostgreSQL + TimescaleDB cluster, and starts everything as systemd services.
 On minimal hosts it also installs the mandatory GnuPG verifier through the detected OS package manager
 before downloading VoxyWatch. Package signature verification remains fail-closed.
 
-Then open **`http://YOUR-IP:3080`**.
+Then open **`https://YOUR-IP`** (or the HTTPS hostname selected by the installer).
 
 | Field | Value |
 |---|---|
@@ -136,7 +136,7 @@ curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh |
 
 ```bash
 apt-get install -y sudo      # Debian / Ubuntu
-dnf install -y sudo          # RHEL / Rocky / Alma
+dnf install -y sudo          # Amazon Linux 2023
 ```
 
 **Updates also require root.** Existing installations use the root-owned installer that arrived

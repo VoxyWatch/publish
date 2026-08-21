@@ -7,7 +7,7 @@
 #   — or —
 #   sudo bash install.sh [--version 1.2.10] [--port 3080]
 #
-# Supports: Debian 12/13 and Ubuntu 22.04/24.04 on x86_64 or ARM64.
+# Supports: Debian 12/13, Ubuntu 22.04/24.04 and Amazon Linux 2023 on x86_64 or ARM64.
 # ─────────────────────────────────────────────────────────────────────────────
 
 # All logic inside main() — a partial download won't execute anything.
@@ -196,6 +196,24 @@ command -v python3 &>/dev/null || err "python3 is required:  apt install python3
 # sudo se usa para correr psql como los roles postgres/voxywatch (auth peer). Sin él, el
 # provisioning fallaría A MITAD (cluster creado, sin esquema) → chequeo fail-fast aquí.
 command -v sudo    &>/dev/null || err "sudo is required:  apt install sudo   or   yum install sudo"
+source /etc/os-release 2>/dev/null || err "Could not identify this Linux distribution"
+OS_ID="${ID:-unknown}"
+OS_VERSION_ID="${VERSION_ID:-unknown}"
+case "$OS_ID" in
+  debian)
+    case "${OS_VERSION_ID%%.*}" in 12|13) ;; *) err "Unsupported Debian version: ${OS_VERSION_ID}. Certified: 12 and 13." ;; esac
+    OS_FAMILY="deb"
+    ;;
+  ubuntu)
+    case "$OS_VERSION_ID" in 22.04|24.04) ;; *) err "Unsupported Ubuntu version: ${OS_VERSION_ID}. Certified: 22.04 and 24.04." ;; esac
+    OS_FAMILY="deb"
+    ;;
+  amzn)
+    [ "${OS_VERSION_ID%%.*}" = "2023" ] || err "Unsupported Amazon Linux version: ${OS_VERSION_ID}. Certified: 2023."
+    OS_FAMILY="rpm"
+    ;;
+  *) err "Unsupported Linux distribution: ${OS_ID} ${OS_VERSION_ID}. Supported: Debian, Ubuntu and Amazon Linux 2023." ;;
+esac
 
 # ── Mutex de instalación (v2.0.4) ─────────────────────────────────────────────
 # Evita que dos instalaciones/actualizaciones corran a la vez (p.ej. un update lanzado
@@ -407,14 +425,17 @@ if [ "$SERVICE_CONTROL" = "yes" ]; then
   # then looks configured while every busctl StartUnit is rejected as denied.
   # Install it before touching product files so an apt failure cannot leave a
   # half-updated VoxyWatch installation.
-  command -v apt-get &>/dev/null \
-    || err "Service control requires polkit on a Debian/Ubuntu host (apt-get not found)"
   if ! command -v pkaction &>/dev/null; then
     info "Installing polkit for scoped portal service control..."
-    apt-get update >/dev/null 2>&1 || true
-    apt-get install -y polkitd >/dev/null 2>&1 \
-      || apt-get install -y policykit-1 >/dev/null 2>&1 \
-      || err "Could not install polkit; disable service control or install polkit manually"
+    if [ "$OS_FAMILY" = "deb" ]; then
+      apt-get update >/dev/null 2>&1 || true
+      apt-get install -y polkitd >/dev/null 2>&1 \
+        || apt-get install -y policykit-1 >/dev/null 2>&1 \
+        || err "Could not install polkit; disable service control or install polkit manually"
+    else
+      dnf install -y polkit >/dev/null 2>&1 \
+        || err "Could not install polkit; disable service control or install polkit manually"
+    fi
   fi
   command -v pkaction &>/dev/null \
     || err "Service control was requested but polkit is not available"
@@ -775,7 +796,10 @@ ok "Config written: ${CONF_FILE}"
 # Cluster local DEDICADO en puerto no-default (5433), bindeado a localhost, con
 # auth peer por socket (sin password). Aislado del stack del cliente (5432/Influx).
 info "Provisioning PostgreSQL + TimescaleDB (cluster ${PG_CLUSTER} on :${PG_PORT})..."
-command -v apt-get &>/dev/null || err "The PostgreSQL+TimescaleDB database requires Debian/Ubuntu (apt). RHEL: contact support."
+if [ "$OS_FAMILY" = "rpm" ]; then
+  # shellcheck source=packaging/scripts/provision-rpm-platform.sh
+  source "${EXTRACTED}/provision-rpm-platform.sh"
+else
 
 # 1) External software policy. A normal product update must not turn into an OS,
 # PostgreSQL, TimescaleDB or Python upgrade. Fresh installs provision dependencies;
@@ -864,6 +888,8 @@ fi
 
 systemctl enable --now "postgresql@${PG_VER}-${PG_CLUSTER}" >/dev/null 2>&1 \
   || pg_ctlcluster "${PG_VER}" "${PG_CLUSTER}" start >/dev/null 2>&1 || true
+PG_SERVICE="postgresql@${PG_VER}-${PG_CLUSTER}.service"
+fi
 
 # 4) Esperar readiness del cluster
 for i in $(seq 1 30); do
@@ -888,8 +914,8 @@ AVAILABLE_TS=$(${PSQL_SU} -tAc "SELECT default_version FROM pg_available_extensi
 if { [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; } \
    && [ -n "$INSTALLED_TS" ] && [ -n "$AVAILABLE_TS" ] && [ "$INSTALLED_TS" != "$AVAILABLE_TS" ]; then
   info "Updating TimescaleDB extension ${INSTALLED_TS} → ${AVAILABLE_TS}..."
-  systemctl restart "postgresql@${PG_VER}-${PG_CLUSTER}" 2>/dev/null \
-    || pg_ctlcluster "${PG_VER}" "${PG_CLUSTER}" restart 2>/dev/null || true
+  systemctl restart "$PG_SERVICE" 2>/dev/null \
+    || { [ "$OS_FAMILY" = "deb" ] && pg_ctlcluster "${PG_VER}" "${PG_CLUSTER}" restart 2>/dev/null; } || true
   for i in $(seq 1 30); do pg_isready -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" >/dev/null 2>&1 && break; sleep 1; done
   ${PSQL_SU} -d "${DB_NAME}" -c "ALTER EXTENSION timescaledb UPDATE;" >/dev/null 2>&1 \
     && ok "TimescaleDB updated to ${AVAILABLE_TS}" \
@@ -952,8 +978,8 @@ cat > /etc/systemd/system/voxywatch.service << EOF
 [Unit]
 Description=VoxyWatch SIP Capture Portal
 Documentation=https://voxywatch.com/docs
-After=network.target postgresql@${PG_VER}-${PG_CLUSTER}.service voxywatch-sniffer.service
-Wants=postgresql@${PG_VER}-${PG_CLUSTER}.service
+After=network.target ${PG_SERVICE} voxywatch-sniffer.service
+Wants=${PG_SERVICE}
 
 [Service]
 Type=simple
@@ -1037,8 +1063,8 @@ cat > /etc/systemd/system/voxywatch-sniffer.service << EOF
 [Unit]
 Description=VoxyWatch HEP Sniffer (HEPv1/v2/v3)
 Documentation=https://voxywatch.com/docs
-After=network.target postgresql@${PG_VER}-${PG_CLUSTER}.service
-Wants=postgresql@${PG_VER}-${PG_CLUSTER}.service
+After=network.target ${PG_SERVICE}
+Wants=${PG_SERVICE}
 Before=voxywatch.service
 
 [Service]
@@ -1216,7 +1242,7 @@ if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
 [Unit]
 Description=VoxyWatch SRS (SIPREC Session Recording Server)
 Documentation=https://voxywatch.com/docs
-After=network-online.target postgresql@${PG_VER}-${PG_CLUSTER}.service voxywatch.service
+After=network-online.target ${PG_SERVICE} voxywatch.service
 Wants=network-online.target
 
 [Service]

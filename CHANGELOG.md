@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.77.0] — 2026-08-20
+
+### Amazon Linux 2023 certified platform
+
+- The installer supports Amazon Linux 2023 on x86_64 and ARM64 alongside Debian and Ubuntu, without mixing Debian packages or assuming `postgresql-common` paths.
+- PostgreSQL 17 runs as a dedicated VoxyWatch cluster on localhost:5433; TimescaleDB 2.29.0 is built from checksum-pinned official source and Caddy 2.11.4 comes from the checksum-pinned official artifact for the detected architecture.
+- Portal, sniffer, and SIPREC units depend on the platform-specific PostgreSQL service while scoped service control installs polkit through either `dnf` or `apt`.
+- Amazon Linux without FFmpeg retains capture, analysis, and metrics and reports that audio reconstruction requires an operator-approved FFmpeg package.
+
 ## [3.76.0] — 2026-08-20
 
 ### Native, signed ARM64 distribution

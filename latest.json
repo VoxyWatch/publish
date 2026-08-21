@@ -1,27 +1,27 @@
 {
-  "version": "3.76.0",
+  "version": "3.77.0",
   "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.76.0/voxywatch-v3.76.0-linux-x64.tar.gz",
-    "sha256": "e1580ce35fc16703446c825992f4d663aefff21343b02b7366a0d304309d1b7f",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.76.0/voxywatch-v3.76.0-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.0/voxywatch-v3.77.0-linux-x64.tar.gz",
+    "sha256": "4753273c53776d4309acd9518e713d4d05560787f0d9600e48df54c2fd14e611",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.0/voxywatch-v3.77.0-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.76.0/voxywatch-v3.76.0-linux-arm64.tar.gz",
-    "sha256": "be4e4ed1b497f62eedff061b1537e60916ba7e73a6041fe1f72542b9ea40ab18",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.76.0/voxywatch-v3.76.0-linux-arm64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.0/voxywatch-v3.77.0-linux-arm64.tar.gz",
+    "sha256": "f20d67cd837edf60e41a050c3594fc8298543d189e9861814e35f6a2c7cf96db",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.0/voxywatch-v3.77.0-linux-arm64.tar.gz.asc"
   },
   "changelog": [
-    "Native, signed ARM64 distribution",
-    "VoxyWatch now builds natively for Linux x86_64 and ARM64 from the same source commit, including the portal, capture probe, and speech-to-text runtime for each a",
-    "The installer detects the server architecture and downloads only the matching signed artifact; unsupported architectures fail before installation begins.",
-    "The public release contract requires independent URLs, SHA-256 hashes, and GPG signatures for both architectures, preventing partial ARM releases."
+    "Amazon Linux 2023 certified platform",
+    "The installer supports Amazon Linux 2023 on x86_64 and ARM64 alongside Debian and Ubuntu, without mixing Debian packages or assuming `postgresql-common` paths.",
+    "PostgreSQL 17 runs as a dedicated VoxyWatch cluster on localhost:5433; TimescaleDB 2.29.0 is built from checksum-pinned official source and Caddy 2.11.4 comes f",
+    "Portal, sniffer, and SIPREC units depend on the platform-specific PostgreSQL service while scoped service control installs polkit through either `dnf` or `apt`."
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Distribución nativa y firmada para ARM64",
-    "El producto se construye nativamente para Linux x86_64 y ARM64 desde un único commit, con portal, probe y transcripción adecuados a cada arquitectura.",
-    "El instalador detecta la arquitectura y descarga exclusivamente el artefacto firmado correcto; una arquitectura no soportada falla antes de instalar.",
-    "El contrato público exige URL, SHA-256 y firma GPG independientes para ambas arquitecturas, evitando publicar soporte ARM incompleto."
+    "Amazon Linux 2023 como plataforma certificada",
+    "El instalador soporta Amazon Linux 2023 en x86_64 y ARM64, además de Debian/Ubuntu, sin reutilizar paquetes Debian ni asumir rutas de `postgresql-common`.",
+    "PostgreSQL 17 usa un clúster VoxyWatch dedicado en localhost:5433; TimescaleDB 2.29.0 se construye desde fuente oficial fijada por SHA-256 y Caddy 2.11.4 desde",
+    "Las unidades del portal, sniffer y SIPREC ahora dependen del servicio PostgreSQL real de cada familia; polkit conserva el control privilegiado acotado mediante"
   ]
 }

@@ -30,11 +30,10 @@ If a document must be public for customer AI assistants, sync it to the public p
 
 ## Release
 
-Customer-facing changes require:
+Customer-visible product changes require:
 
 - Source changelog.
-- Public changelog.
 - Tests and invariants.
 - Signed release.
-- `latest.json` update.
+- Version-only `latest.json` update.
 - Public docs sync when docs changed.

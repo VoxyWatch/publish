@@ -65,9 +65,9 @@ external AI automatically.
 
 ## Updates
 
-VoxyWatch checks the signed public release manifest and shows concise
-customer-facing changes inside the application. Updates are administrator
-initiated and signature verification fails closed.
+VoxyWatch checks the signed public release manifest and shows the available
+version inside the application. Updates are administrator initiated and
+signature verification fails closed.
 
 Detailed engineering history, architecture and internal implementation records
 are not part of this public distribution repository.

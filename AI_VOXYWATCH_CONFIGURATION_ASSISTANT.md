@@ -26,10 +26,10 @@ Use the latest available copy of:
 - `AI_VOXYWATCH_CONFIGURATION_ASSISTANT.md`
 - `README.md`
 - `FEATURES.md`
-- `CHANGELOG.md`
 - VoxyWatch configuration, onboarding, SIPREC, API, and troubleshooting documentation
 
-Prefer the latest GitHub content over cached knowledge or model memory.
+Prefer the latest GitHub content over cached knowledge or model memory. Release
+history and internal implementation notes are not published.
 
 If you cannot access GitHub, tell the user that you are using the uploaded copy of this guide and ask them to upload the latest file if they want the newest instructions.
 

@@ -11,11 +11,5 @@
     "sha256": "7cd57bd00dfd84dc57cc7fb2ac4842854ffddb0447d969714048c8924e4c769b",
     "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.4/voxywatch-v3.77.4-linux-arm64.tar.gz.asc"
   },
-  "changelog": [
-    "Improved private HTTPS setup reliability on supported installations."
-  ],
-  "min_upgrade_from": "1.0.0",
-  "changelog_es": [
-    "Mejoramos la confiabilidad de la configuracion HTTPS privada en instalaciones compatibles."
-  ]
+  "min_upgrade_from": "1.0.0"
 }

@@ -12,7 +12,7 @@
 
 # All logic inside main() — a partial download won't execute anything.
 main() {
-set -euo pipefail
+set -Eeuo pipefail
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 GITHUB_ORG="VoxyWatch"
@@ -43,14 +43,102 @@ if [ -t 1 ]; then
 else
   RED=''; GREEN=''; YELLOW=''; CYAN=''; BOLD=''; NC=''
 fi
-ok()   { echo -e "${GREEN}  ✓${NC} $1"; }
-warn() { echo -e "${YELLOW}  ⚠${NC}  $1"; }
-err()  {
-  echo -e "${RED}  ✗${NC} $1"
-  if declare -F rollback_update >/dev/null 2>&1; then rollback_update "installer_error"; fi
+exec 3>&1 4>&2
+INSTALL_LOG="$(mktemp /tmp/voxywatch-installer.XXXXXX.log 2>/dev/null)" || {
+  printf '%b  ✗ Installation could not create its private diagnostic log.%b\n' "$RED" "$NC" >&3
+  printf '    Support: support@voxywatch.com\n' >&3
   exit 1
 }
-info() { echo -e "${CYAN}  →${NC} $1"; }
+chmod 600 "$INSTALL_LOG" || {
+  printf '%b  ✗ Installation could not protect its diagnostic log.%b\n' "$RED" "$NC" >&3
+  printf '    Support: support@voxywatch.com\n' >&3
+  rm -f "$INSTALL_LOG"
+  exit 1
+}
+exec >"$INSTALL_LOG" 2>&1 || {
+  printf '%b  ✗ Installation could not open its diagnostic log.%b\n' "$RED" "$NC" >&3
+  printf '    Support: support@voxywatch.com\n' >&3
+  rm -f "$INSTALL_LOG"
+  exit 1
+}
+INSTALL_STAGE="startup"
+VW_PROGRESS=2
+VW_ERROR_HANDLED=0
+
+_progress_draw() {
+  local pct="${1:-$VW_PROGRESS}" width=32 filled empty bar
+  [ "$pct" -gt 100 ] && pct=100
+  filled=$((pct * width / 100)); empty=$((width - filled))
+  printf -v bar '%*s' "$filled" ''; bar=${bar// /█}
+  printf -v empty '%*s' "$empty" ''; empty=${empty// /░}
+  printf '\r  %b[%s%s]%b %3d%%' "$CYAN" "$bar" "$empty" "$NC" "$pct" >&3
+}
+_progress_tick() {
+  INSTALL_STAGE="${1:-working}"
+  [ "$VW_PROGRESS" -lt 94 ] && VW_PROGRESS=$((VW_PROGRESS + 2))
+  _progress_draw "$VW_PROGRESS"
+}
+
+# Installer failures are reported directly because the portal/Sentry SDK may not
+# exist yet. The envelope contains no host, IP, HWID, command output or secrets.
+_report_installer_failure() {
+  local status="${1:-1}" line="${2:-0}" reason="${3:-installer_failure}" event_id safe_reason
+  [ "${VOXYWATCH_INSTALLER_TELEMETRY:-1}" != "0" ] || return 0
+  command -v curl >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1 || return 0
+  event_id="$(od -An -N16 -tx1 /dev/urandom 2>/dev/null | tr -d ' \n')"
+  [ "${#event_id}" = "32" ] || event_id="$(printf '%032x' "$$")"
+  safe_reason="$(printf '%s' "$reason" | sed -E 's#https?://[^ ]+#[url]#g; s#(/[A-Za-z0-9._-]+)+#[path]#g; s#[0-9]{1,3}(\.[0-9]{1,3}){3}#[ip]#g' | tr '\n' ' ' | cut -c1-180)"
+  if python3 - "$event_id" "${VERSION:-unknown}" "${RELEASE_ARCH:-unknown}" "${OS_FAMILY:-unknown}" "$INSTALL_STAGE" "$status" "$line" "$safe_reason" <<'PY' \
+    | curl -fsS --connect-timeout 3 --max-time 6 -H 'Content-Type: application/x-sentry-envelope' --data-binary @- \
+      'https://o4511453780705280.ingest.us.sentry.io/api/4511463746568192/envelope/' >/dev/null 2>&1
+import datetime, json, sys
+event_id, version, arch, os_family, stage, status, line, reason = sys.argv[1:]
+sent_at = datetime.datetime.now(datetime.timezone.utc).isoformat().replace('+00:00', 'Z')
+dsn = 'https://71725a65d4e8cc3e3e21bd93083b1578@o4511453780705280.ingest.us.sentry.io/4511463746568192'
+event = {
+  'event_id': event_id, 'timestamp': sent_at, 'platform': 'other', 'level': 'error',
+  'logger': 'voxywatch.installer', 'release': f'voxywatch-installer@{version}',
+  'environment': 'production', 'message': {'formatted': f'installer_failure: {reason}'},
+  'tags': {'component': 'installer', 'stage': stage[:80], 'arch': arch[:20], 'os_family': os_family[:20]},
+  'extra': {'exit_status': status, 'line': line},
+}
+print(json.dumps({'event_id': event_id, 'dsn': dsn, 'sent_at': sent_at}, separators=(',', ':')))
+print(json.dumps({'type': 'event', 'content_type': 'application/json'}, separators=(',', ':')))
+print(json.dumps(event, separators=(',', ':')))
+PY
+  then
+    printf '%s' "$event_id"
+  fi
+  return 0
+}
+
+_installer_fail() {
+  local status="${1:-1}" line="${2:-0}" reason="${3:-Installation failed}" report_id
+  [ "$VW_ERROR_HANDLED" = "0" ] || exit "$status"
+  VW_ERROR_HANDLED=1
+  set +e
+  printf '\n' >&3
+  report_id="$(_report_installer_failure "$status" "$line" "$reason")"
+  printf '%b  ✗ Installation failed%b\n' "$RED" "$NC" >&3
+  printf '    Error: %s\n' "$reason" >&3
+  [ -n "$report_id" ] && printf '    Sentry report: %s\n' "$report_id" >&3
+  printf '    Diagnostic log: %s\n' "$INSTALL_LOG" >&3
+  printf '    Support: support@voxywatch.com\n' >&3
+  if declare -F rollback_update >/dev/null 2>&1; then rollback_update "installer_error"; fi
+  exit "$status"
+}
+
+ok()   { _progress_tick "$1"; }
+warn() { INSTALL_STAGE="${1:-warning}"; }
+err()  {
+  _installer_fail 1 "${BASH_LINENO[0]:-0}" "$1"
+}
+info() { _progress_tick "$1"; }
+_unexpected_installer_error() {
+  local status="$1" line="$2"
+  _installer_fail "$status" "$line" "Unexpected installer error during ${INSTALL_STAGE}"
+}
+trap '_unexpected_installer_error "$?" "$LINENO"' ERR
 # tty_ok: ¿hay terminal interactiva para prompts? Silencioso si no la hay (timer,
 # ssh sin tty, curl|bash sin terminal) — evita el ruido "/dev/tty: No such device".
 tty_ok() { { true </dev/tty; } 2>/dev/null; }
@@ -189,7 +277,9 @@ hjRBqQi7zxDox8s=
 VWPUBKEY
 }
 
-print_banner
+print_banner >&3
+printf '  Installing VoxyWatch securely...\n' >&3
+_progress_draw "$VW_PROGRESS"
 
 # ── Pre-flight checks ─────────────────────────────────────────────────────────
 [ "$EUID" -ne 0 ] && err "Must run as root:  curl -fsSL https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/main/install.sh | sudo bash"
@@ -1610,6 +1700,12 @@ if command -v node &>/dev/null && [ -f "${INSTALL_DIR}/get-hwid.js" ]; then
 fi
 
 # ── Final summary ─────────────────────────────────────────────────────────────
+if declare -F _progress_draw >/dev/null 2>&1; then
+  VW_PROGRESS=100
+  _progress_draw "$VW_PROGRESS"
+  printf '\n' >&3
+  exec 1>&3 2>&4
+fi
 echo ""
 echo "══════════════════════════════════════════════"
 if [ "$UPDATE_MODE" = "1" ] && [ "$EXISTING_INSTALL" = "1" ]; then
@@ -1640,12 +1736,14 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$EXISTING_INSTALL" = "0" ]; then
   echo -e "  ${YELLOW}  ⚠  Change the default password: Settings → Security → Users${NC}"
   echo ""
   if [ -n "$HWID" ]; then
-    echo -e "  ${BOLD}Hardware ID${NC} (needed to purchase a license):"
+    echo -e "  ${BOLD}Hardware ID (HWID)${NC} — required when purchasing a license:"
     echo -e "  ${CYAN}${HWID}${NC}"
+    echo "    Find it later in Settings → License, or run:"
+    echo "      node ${INSTALL_DIR}/get-hwid.js"
     echo ""
   fi
   echo -e "  ${BOLD}License${NC} (optional — free tier works without one):"
-  echo -e "  Purchase: ${CYAN}https://voxywatch.com${NC}"
+  echo -e "  Purchase: ${CYAN}https://voxywatch.com/pricing/${NC}"
   echo "    Once received, upload from the portal: Settings → License"
   echo "    Or securely from the command line:"
   echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install /path/to/license.key"
@@ -1659,16 +1757,14 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$EXISTING_INSTALL" = "0" ]; then
   echo -e "  ${BOLD}Initial setup CLI${NC} (LLM selection, trunks and IP directory; no secrets):"
   echo "      sudo voxywatch-setup status"
   echo "      sudo voxywatch-setup validate --stdin < setup.json"
+  echo "    AI-assisted setup is also available through MCP:"
+  echo "      Settings → MCP connections"
 fi
-echo ""
-echo -e "  ${BOLD}Service logs:${NC}"
-echo "    journalctl -fu voxywatch"
-echo "    journalctl -fu voxywatch-sniffer"
 echo ""
 echo -e "  ${BOLD}Updates:${NC} opt-in — the portal checks hourly and notifies you in the bell 🔔"
 echo "    Apply with one click from:  Settings → Update → Update now"
-echo "    (no longer auto-updates — you decide when)"
 echo ""
+[ -z "${INSTALL_LOG:-}" ] || rm -f "$INSTALL_LOG"
 
 } # end of main()
 

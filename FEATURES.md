@@ -1,7 +1,7 @@
 # VoxyWatch feature summary
 
-Updated for **v4.0.3**.
-Current capabilities are shipped as of v4.0.3.
+Updated for **v4.0.4**.
+Current capabilities are shipped as of v4.0.4.
 
 VoxyWatch provides a self-hosted operational workspace for voice networks:
 

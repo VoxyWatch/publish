@@ -56,6 +56,10 @@ The installer auto-detects your distro and CPU architecture, provisions a dedica
 On minimal hosts it also installs the mandatory GnuPG verifier through the detected OS package manager
 before downloading VoxyWatch. Package signature verification remains fail-closed.
 
+For the exact support policy, native ARM64 evidence, HEP firewall rules and the
+SIP-to-CDR-to-RTP-to-audio acceptance test, see
+**[Platform and HEP Sniffer Validation](PLATFORM_AND_CAPTURE_VALIDATION.md)**.
+
 Then open **`https://YOUR-IP`** (or the HTTPS hostname selected by the installer).
 
 | Field | Value |

@@ -55,6 +55,8 @@ never configure or control the customer's SBC.
 
 - HEP v1/v2/v3 over UDP and TCP for SIP, RTP, RTCP and supported LOG payloads.
 - Additional configurable HEP UDP ports and capture-source labeling.
+- Native signed x86_64 and ARM64 artifacts with an end-to-end platform/sniffer
+  acceptance contract. See `PLATFORM_AND_CAPTURE_VALIDATION.md`.
 - Built-in SIPREC SRS with UDP/TLS signaling and RTP/SRTP (SDES), separate
   service, allowlist and anti-abuse limits. SIPREC is opt-in.
 - Passive Mirror Capture (Beta) through the isolated bundled VoxyWatch Probe:

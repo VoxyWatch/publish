@@ -1052,6 +1052,7 @@ if [ "$HTTPS_MODE" != "legacy" ] && { [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EX
     if [ "$HTTPS_MODE" = "internal" ]; then
       echo '{'
       echo "  default_sni ${HTTPS_HOST}"
+      echo '  skip_install_trust'
       echo '}'
       echo
     fi

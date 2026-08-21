@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.77.4] — 2026-08-20
+
+### Clean internal CA provisioning
+
+- Internal HTTPS tells Caddy not to modify the server trust store. Clients still trust the exported private CA explicitly, while the unprivileged Caddy service no longer produces misleading `sudo` authentication errors during a clean install.
+
 ## [3.77.3] — 2026-08-20
 
 ### Reliable internal HTTPS access by IP

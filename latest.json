@@ -1,23 +1,23 @@
 {
-  "version": "3.77.3",
+  "version": "3.77.4",
   "release_date": "2026-08-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.3/voxywatch-v3.77.3-linux-x64.tar.gz",
-    "sha256": "e0364e56e07bb6d92f9a7180c9eb4908b027a7725893c267e0a5e79c9b249f43",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.3/voxywatch-v3.77.3-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.4/voxywatch-v3.77.4-linux-x64.tar.gz",
+    "sha256": "e03d594ede779a2acf42aa5cae459e1e62a7f77ac51549536855bfbe1b4c7665",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.4/voxywatch-v3.77.4-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.3/voxywatch-v3.77.3-linux-arm64.tar.gz",
-    "sha256": "846c7b08406139bb7c68b2c773a3e1600d98cf26cde0050800ef0caeb9a8380e",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.3/voxywatch-v3.77.3-linux-arm64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v3.77.4/voxywatch-v3.77.4-linux-arm64.tar.gz",
+    "sha256": "7cd57bd00dfd84dc57cc7fb2ac4842854ffddb0447d969714048c8924e4c769b",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v3.77.4/voxywatch-v3.77.4-linux-arm64.tar.gz.asc"
   },
   "changelog": [
-    "Reliable internal HTTPS access by IP",
-    "Internal HTTPS now configures Caddy with the selected host as its default SNI, so browsers and API clients that omit SNI for a literal IP address receive the ma"
+    "Clean internal CA provisioning",
+    "Internal HTTPS tells Caddy not to modify the server trust store. Clients still trust the exported private CA explicitly, while the unprivileged Caddy service no"
   ],
   "min_upgrade_from": "1.0.0",
   "changelog_es": [
-    "Reliable internal HTTPS access by IP",
-    "Internal HTTPS now configures Caddy with the selected host as its default SNI, so browsers and API clients that omit SNI for a literal IP address receive the ma"
+    "Clean internal CA provisioning",
+    "Internal HTTPS tells Caddy not to modify the server trust store. Clients still trust the exported private CA explicitly, while the unprivileged Caddy service no"
   ]
 }

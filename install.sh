@@ -104,7 +104,7 @@ ensure_gpg() {
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gnupg >/dev/null 2>&1 \
       || err "Could not install mandatory GnuPG with apt. Fix the OS repositories and retry."
   elif command -v dnf >/dev/null 2>&1; then
-    dnf install -y gnupg2 >/dev/null 2>&1 \
+    dnf install -y --allowerasing gnupg2 >/dev/null 2>&1 \
       || err "Could not install mandatory GnuPG with dnf. Fix the OS repositories and retry."
   elif command -v yum >/dev/null 2>&1; then
     yum install -y gnupg2 >/dev/null 2>&1 \

@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.77.2] — 2026-08-20
+
+### Safe replacement of minimal GnuPG on Amazon Linux
+
+- The installer lets `dnf` replace the official `gnupg2-minimal` package with the complete `gnupg2` package, enabling `gpg-agent` without mixing repositories or weakening mandatory release verification.
+
 ## [3.77.1] — 2026-08-20
 
 ### Complete GnuPG on minimal Linux images

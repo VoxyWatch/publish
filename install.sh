@@ -1352,19 +1352,31 @@ if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
   # It is created on first install and refreshed only in an explicit external
   # dependency maintenance run. The approved pylibsrtp version is exact.
   SRS_PY="/usr/bin/python3"
+  # The isolated SRTP venv must also see the distro-managed psycopg2 package.
+  # This changes only venv resolution; normal product updates still never fetch
+  # or upgrade an external dependency. Repair older venvs created without it.
+  if [ -f "${INSTALL_DIR}/srs-venv/pyvenv.cfg" ] \
+     && python3 -c 'import psycopg2' >/dev/null 2>&1; then
+    sed -i -E 's/^include-system-site-packages[[:space:]]*=.*/include-system-site-packages = true/' \
+      "${INSTALL_DIR}/srs-venv/pyvenv.cfg"
+  fi
   if [ -x "${INSTALL_DIR}/srs-venv/bin/python" ] \
      && [ "$REFRESH_EXTERNAL_DEPS" = "0" ]; then
     SRS_PY="${INSTALL_DIR}/srs-venv/bin/python"
-    ok "SRS: preserving installed pylibsrtp environment"
+    "$SRS_PY" -c 'import psycopg2' >/dev/null 2>&1 \
+      || err "SRS environment cannot load the required distro psycopg2 package"
+    ok "SRS: preserving installed pylibsrtp environment with PostgreSQL support"
   elif [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
     if command -v apt-get >/dev/null 2>&1 && ! python3 -m ensurepip --version >/dev/null 2>&1; then
       apt-get install -y --no-install-recommends python3-venv >/dev/null 2>&1 || true
     fi
-    if python3 -m venv --clear "${INSTALL_DIR}/srs-venv" >/dev/null 2>&1; then
+    if python3 -m venv --system-site-packages --clear "${INSTALL_DIR}/srs-venv" >/dev/null 2>&1; then
     SRS_VPY="${INSTALL_DIR}/srs-venv/bin/python"
     [ -x "${INSTALL_DIR}/srs-venv/bin/pip" ] || "$SRS_VPY" -m ensurepip >/dev/null 2>&1 || true
     if "$SRS_VPY" -m pip install --quiet --disable-pip-version-check 'pylibsrtp==1.0.0' > /var/log/voxywatch-srs-pip.log 2>&1; then
       SRS_PY="$SRS_VPY"
+      "$SRS_PY" -c 'import psycopg2' >/dev/null 2>&1 \
+        || err "SRS environment cannot load the required distro psycopg2 package"
       ok "SRS: approved pylibsrtp 1.0.0 installed (SRTP available)"
     else
       warn "SRS: pylibsrtp could not be installed → SRTP unavailable (cleartext RTP still works). Details: /var/log/voxywatch-srs-pip.log"

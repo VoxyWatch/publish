@@ -1127,6 +1127,7 @@ Environment=VOXYWATCH_BIND_HOST=$([ "$HTTPS_MODE" = "legacy" ] && printf '' || p
 Environment=VOXYWATCH_HTTPS_MODE=$([ "$HTTPS_MODE" = "legacy" ] && printf '' || printf '%s' "$HTTPS_MODE")
 Environment=VOXYWATCH_HTTPS_HOST=$([ "$HTTPS_MODE" = "legacy" ] && printf '' || printf '%s' "$HTTPS_HOST")
 Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
+Environment=VW_SRS_ACTIVE_STATUS_FILE=/run/voxywatch-srs/active.json
 Environment=PGHOST=${PG_SOCKET_DIR}
 Environment=PGPORT=${PG_PORT}
 Environment=PGDATABASE=${DB_NAME}
@@ -1305,6 +1306,8 @@ After=caddy.service
 Type=oneshot
 ExecStart=${INSTALL_DIR}/apply-web-access.py
 UMask=0027
+RuntimeDirectory=voxywatch-srs
+RuntimeDirectoryMode=0750
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectHome=true

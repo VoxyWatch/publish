@@ -1647,7 +1647,7 @@ ok "Systemd units installed and enabled"
 # ── Updates: aviso en el portal, NO auto-aplicar (v2.80) ────────────────────────
 # A partir de v2.80 VoxyWatch NO se auto-actualiza. El portal verifica cada hora si
 # hay una versión nueva y la avisa en la campana; el admin aplica con un clic desde
-# Settings → Actualización (POST /api/update, firmado + SHA256). Esto le da control
+# el encabezado de Settings (POST /api/update, firmado + SHA256). Esto le da control
 # total al operador (nada cambia solo a media operación).
 #
 # MIGRACIÓN: si esta instalación venía con el auto-updater viejo (timer/servicio
@@ -1777,7 +1777,7 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$EXISTING_INSTALL" = "0" ]; then
 fi
 echo ""
 echo -e "  ${BOLD}Updates:${NC} opt-in — the portal checks hourly and notifies you in the bell 🔔"
-echo "    Apply with one click from:  Settings → Update → Update now"
+echo "    Apply with one click from the update controls at the top of Settings"
 echo ""
 [ -z "${INSTALL_LOG:-}" ] || rm -f "$INSTALL_LOG"
 

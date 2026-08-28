@@ -11,19 +11,18 @@ The portal sends the active UI scope to the server, including the exact time ran
 - a selected report revalidated and recalculated by the deterministic report engine;
 - for a selected call: every available leg, Audio/RTP Expert, up to 120 SIP ladder events, ±24-hour trends and related calls sharing a party or trunk.
 
-`search_calls` can continue with exact epoch boundaries and `get_call_context` can expand one opaque call reference. Sensitive identifiers are masked or replaced before provider transmission. When the configured context budget is reached, VoxyWatch removes lower-priority sample rows in stages and records the omission; totals, provenance and valid JSON remain intact.
+`search_calls` can continue with exact epoch boundaries and `get_call_context` can expand one opaque call reference. Sensitive identifiers are masked or replaced before provider transmission. When the fixed internal safety limit is reached, VoxyWatch removes lower-priority sample rows in stages and records the omission; totals, provenance and valid JSON remain intact.
 
 ## Context order
 
 1. Stable product identity, installed version, safety rules and read-only boundary.
-2. Minimal administrator-confirmed organization profile: name and organization type.
-3. Current user's portal role, interface language and optional personal AI instructions; personal identity stays local.
-4. Server-side chat history, bounded by the configured context budget.
-5. Current deterministic snapshot and fresh results from read-only tools.
-6. Locally selected VoxyWatch documentation and RFC references relevant to the question.
-7. Related historical findings, clearly marked as leads rather than current facts.
+2. Current user's portal role, interface language and optional personal AI instructions; personal identity stays local.
+3. Server-side chat history, bounded by the same internal safety limit.
+4. Current deterministic snapshot and fresh results from read-only tools.
+5. Locally selected VoxyWatch documentation and RFC references relevant to the question.
+6. Related historical findings, clearly marked as leads rather than current facts.
 
-Stable instructions are kept before dynamic evidence to improve provider prompt-cache reuse. VoxyWatch never sends email addresses or infers the organization from an email domain. Raw SIP, audio, telephone numbers, customer IP addresses, Call-IDs, credentials and server paths remain excluded.
+Stable instructions are kept before dynamic evidence to improve provider prompt-cache reuse. VoxyWatch never sends email addresses or infers an organization from an email domain. Raw SIP, audio, telephone numbers, customer IP addresses, Call-IDs, credentials and server paths remain excluded.
 
 ## Knowledge selection
 

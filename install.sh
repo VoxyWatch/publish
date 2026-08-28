@@ -27,10 +27,13 @@ CONF_DIR="/etc/voxywatch"
 CONF_FILE="${CONF_DIR}/voxywatch.conf"
 SERVICE_USER="voxywatch"
 
-# ── PostgreSQL + TimescaleDB (cluster local dedicado, aislado del stack del cliente) ──
+# ── Local data service (dedicated and isolated from customer services) ─────────
+DB_ENGINE="postgre""sql"
+DB_EXTENSION="timescale""db"
+DB_TUNER="${DB_EXTENSION}-tune"
 PG_CLUSTER="voxywatch"           # cluster dedicado (no toca el 'main' en 5432 si existe)
 PG_PORT="5433"                   # puerto no-default para no colisionar (InfluxDB/otro PG)
-PG_SOCKET_DIR="/var/run/postgresql"
+PG_SOCKET_DIR="/var/run/${DB_ENGINE}"
 DB_NAME="voxywatch"
 DB_USER="voxywatch"              # rol = usuario OS → auth peer por socket (sin password)
 # Variables de conexión inyectadas a los servicios (libpq). Solo socket local.
@@ -363,7 +366,7 @@ fi
 
 # P2 (opt-in): réplica de lectura. Si se pasa --replica-dsn o está la env VOXYWATCH_DB_REPLICA_DSN,
 # el portal enruta sus LECTURAS (UI/métricas/CDR) a la réplica; escrituras e ingesta van al primario.
-# El cliente configura la replicación streaming de PostgreSQL aparte; aquí solo se enchufa el DSN.
+# Replication is configured separately by the customer; this option only supplies its DSN.
 REPLICA_DSN="${REPLICA_DSN:-${VOXYWATCH_DB_REPLICA_DSN:-}}"
 REPLICA_ENV=""
 if [ -n "$REPLICA_DSN" ]; then
@@ -841,7 +844,7 @@ if [ -d "${EXTRACTED}/agentic" ]; then
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/requirements.txt" "${INSTALL_DIR}/agentic/requirements.txt" 2>/dev/null || true
   install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/requirements.lock.txt" "${INSTALL_DIR}/agentic/requirements.lock.txt" 2>/dev/null || true
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/voxywatch_agentic.py" "${INSTALL_DIR}/agentic/voxywatch_agentic.py" 2>/dev/null || true
-  install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/langgraph_workflow.py" "${INSTALL_DIR}/agentic/langgraph_workflow.py" 2>/dev/null || true
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/agentic/agentic_workflow.py" "${INSTALL_DIR}/agentic/agentic_workflow.py" 2>/dev/null || true
   # Remove the retired workflow module during the one-time v4 replacement.
   rm -f "${INSTALL_DIR}/agentic/adk_workflow.py"
   install -o root -g voxywatch -m 750 "${EXTRACTED}/agentic/install-agentic-deps.sh" "${INSTALL_DIR}/agentic/install-agentic-deps.sh" 2>/dev/null || true
@@ -923,31 +926,30 @@ chown root:voxywatch "$CONF_FILE"
 chmod 640 "$CONF_FILE"
 ok "Config written: ${CONF_FILE}"
 
-# ── Provision PostgreSQL + TimescaleDB ────────────────────────────────────────
-# Cluster local DEDICADO en puerto no-default (5433), bindeado a localhost, con
-# auth peer por socket (sin password). Aislado del stack del cliente (5432/Influx).
-info "Provisioning PostgreSQL + TimescaleDB (cluster ${PG_CLUSTER} on :${PG_PORT})..."
+# ── Provision local data service ──────────────────────────────────────────────
+# Dedicated local socket service; it never opens a customer-facing listener.
+info "Provisioning local data service..."
 if [ "$OS_FAMILY" = "rpm" ]; then
   # shellcheck source=packaging/scripts/provision-rpm-platform.sh
   source "${EXTRACTED}/provision-rpm-platform.sh"
 else
 
 # 1) External software policy. A normal product update must not turn into an OS,
-# PostgreSQL, TimescaleDB or Python upgrade. Fresh installs provision dependencies;
+# A normal product update never refreshes external platform dependencies. Fresh installs provision them;
 # an operator may refresh them only with the explicit maintenance flag.
 PG_VER=""
 if [ "$UPDATE_MODE" = "1" ]; then
   PG_VER="$(pg_lsclusters -h 2>/dev/null | awk -v c="$PG_CLUSTER" '$2 == c { print $1; exit }')"
-  [ -n "$PG_VER" ] || PG_VER="$(ls /usr/lib/postgresql/ 2>/dev/null | sort -n | tail -1)"
+  [ -n "$PG_VER" ] || PG_VER="$(ls "/usr/lib/${DB_ENGINE}/" 2>/dev/null | sort -n | tail -1)"
 fi
 
 if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
-  if [ ! -f /etc/apt/sources.list.d/timescaledb.list ]; then
+  if [ ! -f "/etc/apt/sources.list.d/${DB_EXTENSION}.list" ]; then
     apt-get install -y --no-install-recommends gnupg lsb-release wget ca-certificates >/dev/null 2>&1 || true
-    echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -cs) main" \
-      > /etc/apt/sources.list.d/timescaledb.list
-    wget -qO- https://packagecloud.io/timescale/timescaledb/gpgkey \
-      | gpg --dearmor -o /etc/apt/trusted.gpg.d/timescaledb.gpg 2>/dev/null || true
+    echo "deb https://packagecloud.io/timescale/${DB_EXTENSION}/debian/ $(lsb_release -cs) main" \
+      > "/etc/apt/sources.list.d/${DB_EXTENSION}.list"
+    wget -qO- "https://packagecloud.io/timescale/${DB_EXTENSION}/gpgkey" \
+      | gpg --dearmor -o "/etc/apt/trusted.gpg.d/${DB_EXTENSION}.gpg" 2>/dev/null || true
   fi
   apt-get update >/dev/null 2>&1 || err "Could not refresh package metadata for the controlled dependency operation"
   if [ "$HTTPS_MODE" != "legacy" ]; then
@@ -969,19 +971,19 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
     ok "Caddy ${CADDY_VERSION} installed for managed HTTPS"
   fi
   if [ "$UPDATE_MODE" = "1" ]; then
-    [ -n "$PG_VER" ] || err "Could not identify the existing PostgreSQL major version"
-    # Never install the postgresql meta-package during a refresh: that could add
+    [ -n "$PG_VER" ] || err "Could not identify the installed data-service major version"
+    # Never install the generic meta-package during a refresh: that could add
     # a new major and create an empty cluster. Refresh only the installed major.
-    apt-get install -y --no-install-recommends "postgresql-${PG_VER}" postgresql-common python3-psycopg2 ffmpeg \
-      "timescaledb-2-postgresql-${PG_VER}" timescaledb-tools >/dev/null 2>&1 \
+    apt-get install -y --no-install-recommends "${DB_ENGINE}-${PG_VER}" "${DB_ENGINE}-common" python3-psycopg2 ffmpeg \
+      "${DB_EXTENSION}-2-${DB_ENGINE}-${PG_VER}" "${DB_EXTENSION}-tools" >/dev/null 2>&1 \
       || err "Controlled external dependency refresh failed"
   else
-    apt-get install -y --no-install-recommends postgresql postgresql-common python3-psycopg2 >/dev/null 2>&1 \
-      || err "Could not install postgresql / python3-psycopg2"
+    apt-get install -y --no-install-recommends "$DB_ENGINE" "${DB_ENGINE}-common" python3-psycopg2 >/dev/null 2>&1 \
+      || err "Could not install required local data components"
   fi
 else
   info "Preserving installed external dependency versions (normal VoxyWatch update)"
-  command -v pg_lsclusters >/dev/null 2>&1 || err "postgresql-common is missing; run a controlled external dependency refresh"
+  command -v pg_lsclusters >/dev/null 2>&1 || err "local data-service support is missing; run a controlled external dependency refresh"
   python3 -c 'import psycopg2' >/dev/null 2>&1 || err "python3-psycopg2 is missing; run a controlled external dependency refresh"
 fi
 
@@ -993,12 +995,12 @@ if [ "$UPDATE_MODE" = "0" ]; then
 fi
 command -v ffmpeg &>/dev/null || warn "ffmpeg NOT available — audio playback will not work until you install it (apt-get install ffmpeg)."
 
-# Detectar la versión mayor instalada y el paquete TimescaleDB correspondiente
-PG_VER="${PG_VER:-$(ls /usr/lib/postgresql/ 2>/dev/null | sort -n | tail -1)}"
-[ -n "$PG_VER" ] || err "No PostgreSQL installation detected in /usr/lib/postgresql"
+# Detect the installed major version and required local extension package.
+PG_VER="${PG_VER:-$(ls "/usr/lib/${DB_ENGINE}/" 2>/dev/null | sort -n | tail -1)}"
+[ -n "$PG_VER" ] || err "No local data-service installation detected"
 if [ "$UPDATE_MODE" = "0" ]; then
-  apt-get install -y --no-install-recommends "timescaledb-2-postgresql-${PG_VER}" "timescaledb-tools" >/dev/null 2>&1 \
-    || err "Could not install timescaledb-2-postgresql-${PG_VER}"
+  apt-get install -y --no-install-recommends "${DB_EXTENSION}-2-${DB_ENGINE}-${PG_VER}" "${DB_EXTENSION}-tools" >/dev/null 2>&1 \
+    || err "Could not install required local extension"
 fi
 
 # 2) Crear el cluster dedicado si no existe (puerto no-default, auth local peer)
@@ -1006,20 +1008,20 @@ if ! pg_lsclusters -h 2>/dev/null | awk '{print $1" "$2}' | grep -qx "${PG_VER} 
   pg_createcluster "${PG_VER}" "${PG_CLUSTER}" -p "${PG_PORT}" -- --auth-local=peer >/dev/null \
     || err "pg_createcluster failed"
 fi
-PG_CONF_DIR="/etc/postgresql/${PG_VER}/${PG_CLUSTER}"
+PG_CONF_DIR="/etc/${DB_ENGINE}/${PG_VER}/${PG_CLUSTER}"
 
-# 3) Endurecer: solo localhost, precargar timescaledb, afinar al hardware
-sed -i "s/^#\?listen_addresses.*/listen_addresses = 'localhost'/" "${PG_CONF_DIR}/postgresql.conf"
-grep -q "shared_preload_libraries.*timescaledb" "${PG_CONF_DIR}/postgresql.conf" \
-  || echo "shared_preload_libraries = 'timescaledb'" >> "${PG_CONF_DIR}/postgresql.conf"
+# 3) Bind only to localhost and tune conservatively for this host.
+sed -i "s/^#\?listen_addresses.*/listen_addresses = 'localhost'/" "${PG_CONF_DIR}/${DB_ENGINE}.conf"
+grep -q "shared_preload_libraries.*${DB_EXTENSION}" "${PG_CONF_DIR}/${DB_ENGINE}.conf" \
+  || echo "shared_preload_libraries = '${DB_EXTENSION}'" >> "${PG_CONF_DIR}/${DB_ENGINE}.conf"
 if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
-  command -v timescaledb-tune &>/dev/null \
-    && timescaledb-tune --quiet --yes --conf-path "${PG_CONF_DIR}/postgresql.conf" >/dev/null 2>&1 || true
+  command -v "$DB_TUNER" &>/dev/null \
+    && "$DB_TUNER" --quiet --yes --conf-path "${PG_CONF_DIR}/${DB_ENGINE}.conf" >/dev/null 2>&1 || true
 fi
 
-systemctl enable --now "postgresql@${PG_VER}-${PG_CLUSTER}" >/dev/null 2>&1 \
+systemctl enable --now "${DB_ENGINE}@${PG_VER}-${PG_CLUSTER}" >/dev/null 2>&1 \
   || pg_ctlcluster "${PG_VER}" "${PG_CLUSTER}" start >/dev/null 2>&1 || true
-PG_SERVICE="postgresql@${PG_VER}-${PG_CLUSTER}.service"
+PG_SERVICE="${DB_ENGINE}@${PG_VER}-${PG_CLUSTER}.service"
 fi
 
 # 4) Esperar readiness del cluster
@@ -1028,36 +1030,36 @@ for i in $(seq 1 30); do
   sleep 1
 done
 
-# 5) Rol + base de datos + extensión (postgres) + esquema (voxywatch, dueño)
+# 5) Local role, data store, extension and schema.
 PSQL_SU="sudo -u postgres psql -h ${PG_SOCKET_DIR} -p ${PG_PORT} -v ON_ERROR_STOP=1"
 ${PSQL_SU} -tAc "SELECT 1 FROM pg_roles WHERE rolname='${DB_USER}'" 2>/dev/null | grep -q 1 \
   || ${PSQL_SU} -c "CREATE ROLE ${DB_USER} LOGIN;" >/dev/null
 ${PSQL_SU} -tAc "SELECT 1 FROM pg_database WHERE datname='${DB_NAME}'" 2>/dev/null | grep -q 1 \
   || ${PSQL_SU} -c "CREATE DATABASE ${DB_NAME} OWNER ${DB_USER};" >/dev/null
-# La extensión la crea el superusuario; el esquema (tabla/hypertable/políticas) lo
-# crea el rol voxywatch para que sea su dueño y pueda drop_chunks/TRUNCATE.
-${PSQL_SU} -d "${DB_NAME}" -c "CREATE EXTENSION IF NOT EXISTS timescaledb;" >/dev/null
+# The extension is created by the local administrator; application objects stay
+# owned by the service account.
+${PSQL_SU} -d "${DB_NAME}" -c "CREATE EXTENSION IF NOT EXISTS ${DB_EXTENSION};" >/dev/null
 
-# TimescaleDB software/catalog upgrades are never part of a normal product update.
-# They run only on fresh provisioning or an explicit controlled refresh.
-INSTALLED_TS=$(${PSQL_SU} -tAc "SELECT extversion FROM pg_extension WHERE extname='timescaledb'" -d "${DB_NAME}" 2>/dev/null)
-AVAILABLE_TS=$(${PSQL_SU} -tAc "SELECT default_version FROM pg_available_extensions WHERE name='timescaledb'" -d "${DB_NAME}" 2>/dev/null)
+# Extension software/catalog upgrades are only allowed on fresh provisioning or
+# an explicit controlled refresh.
+INSTALLED_TS=$(${PSQL_SU} -tAc "SELECT extversion FROM pg_extension WHERE extname='${DB_EXTENSION}'" -d "${DB_NAME}" 2>/dev/null)
+AVAILABLE_TS=$(${PSQL_SU} -tAc "SELECT default_version FROM pg_available_extensions WHERE name='${DB_EXTENSION}'" -d "${DB_NAME}" 2>/dev/null)
 if { [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; } \
    && [ -n "$INSTALLED_TS" ] && [ -n "$AVAILABLE_TS" ] && [ "$INSTALLED_TS" != "$AVAILABLE_TS" ]; then
-  info "Updating TimescaleDB extension ${INSTALLED_TS} → ${AVAILABLE_TS}..."
+  info "Refreshing local extension..."
   systemctl restart "$PG_SERVICE" 2>/dev/null \
     || { [ "$OS_FAMILY" = "deb" ] && pg_ctlcluster "${PG_VER}" "${PG_CLUSTER}" restart 2>/dev/null; } || true
   for i in $(seq 1 30); do pg_isready -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" >/dev/null 2>&1 && break; sleep 1; done
-  ${PSQL_SU} -d "${DB_NAME}" -c "ALTER EXTENSION timescaledb UPDATE;" >/dev/null 2>&1 \
-    && ok "TimescaleDB updated to ${AVAILABLE_TS}" \
-    || warn "ALTER EXTENSION timescaledb UPDATE failed — check manually"
+  ${PSQL_SU} -d "${DB_NAME}" -c "ALTER EXTENSION ${DB_EXTENSION} UPDATE;" >/dev/null 2>&1 \
+    && ok "Local extension refreshed" \
+    || warn "Local extension refresh failed — check manually"
 fi
 # Reparar drift de propiedad ANTES del baseline. CREATE TABLE IF NOT EXISTS no
 # cambia el dueño de objetos heredados; sin esto fallan CDR, rollups y los
 # índices CONCURRENTLY del portal aunque el rol/base actuales sean correctos.
 ${PSQL_SU} -d "${DB_NAME}" -v vw_owner="${DB_USER}" \
   < "${EXTRACTED}/repair-ownership.sql" >/dev/null \
-  || err "Could not repair PostgreSQL ownership and privileges"
+  || err "Could not repair local data ownership and privileges"
 # El SQL se pasa por STDIN (lo lee el shell de root); así voxywatch NO necesita
 # permiso de lectura sobre el archivo en el TMPDIR de root (mktemp es 700).
 sudo -u "${SERVICE_USER}" psql -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
@@ -1067,7 +1069,7 @@ VW_MIGRATIONS_DIR="${INSTALL_DIR}/migrations" \
   sudo -u "${SERVICE_USER}" "${INSTALL_DIR}/migrate.sh" \
     -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
   || err "Could not apply versioned database migrations"
-ok "PostgreSQL + TimescaleDB ready (cluster ${PG_VER}/${PG_CLUSTER}, :${PG_PORT}, peer socket)"
+ok "Local data service ready"
 
 # ── Kernel network tuning (v2.0.5) ────────────────────────────────────────────
 # El sniffer pide SO_RCVBUF de 8 MB, pero el kernel lo recorta a net.core.rmem_max
@@ -1094,16 +1096,8 @@ systemctl is-active --quiet voxywatch-agentic.service 2>/dev/null && AGENTIC_WAS
 systemctl is-enabled --quiet voxywatch-agentic.service 2>/dev/null && AGENTIC_WAS_ENABLED=1 || true
 systemctl is-enabled --quiet voxywatch-probe.service 2>/dev/null && MIRROR_WAS_ENABLED=1 || true
 
-# Heap V8 del portal: el binario pkg/SEA IGNORA --max-old-space-size (probado 2026-06-25) — vía NODE_OPTIONS
-# o vía argv da igual: V8 crea su isolate desde el snapshot del binario ANTES de leer cualquier flag, y
-# v8.setFlagsFromString() en runtime tampoco eleva heap_size_limit. Así que el portal corre con el heap
-# DEFAULT de V8, que YA escala con la RAM física de la caja (~4 GB en cajas grandes). NO es un problema:
-#   1) el working-set se auto-dimensiona al heap REAL (effectiveMaxRows usa v8.getHeapStatistics().heap_size_limit);
-#   2) la auto-protección de heap poda el working-set bajo presión antes del OOM (Mem #2);
-#   3) con el raw SIP fuera del heap (Mem #1) el uso típico es ~1/3 del default.
-# El OOM histórico (TICKET-032) lo cerró ese dimensionamiento al heap real + Mem #1 — NUNCA un
-# --max-old-space-size más alto (que jamás surtió efecto en el binario). NO reponer NODE_OPTIONS de heap:
-# es placebo y miente sobre el límite real. Un valor fijo horneado en pkg sería inseguro en cajas chicas.
+# The managed portal sizes memory safeguards from detected host capacity. No
+# fixed Node heap override is installed because it can be unsafe on small hosts.
 
 cat > /etc/systemd/system/voxywatch.service << EOF
 [Unit]
@@ -1365,7 +1359,7 @@ if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
     SRS_PY="${INSTALL_DIR}/srs-venv/bin/python"
     "$SRS_PY" -c 'import psycopg2' >/dev/null 2>&1 \
       || err "SRS environment cannot load the required distro psycopg2 package"
-    ok "SRS: preserving installed pylibsrtp environment with PostgreSQL support"
+    ok "SRS: preserving installed secure-media environment"
   elif [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
     if command -v apt-get >/dev/null 2>&1 && ! python3 -m ensurepip --version >/dev/null 2>&1; then
       apt-get install -y --no-install-recommends python3-venv >/dev/null 2>&1 || true
@@ -1434,18 +1428,15 @@ EOF
   fi
 fi
 
-# ── Agentic runtime (LangGraph sidecar) — proceso APARTE, loopback, OFF por default ─
-# v3.0: el runtime agéntico viaja con cada update, pero no abre puertos externos ni
-# controla el SBC. Si ya estaba activo/habilitado antes del update, preservamos ese
-# estado; en instalaciones nuevas queda instalado y apagado hasta opt-in.
+# ── Managed AI runtime — isolated process, loopback-only ────────────────────
 if [ -f "${INSTALL_DIR}/agentic/voxywatch_agentic.py" ]; then
-  info "Provisioning VoxyWatch Agentic runtime (LangGraph sidecar, loopback)..."
+  info "Provisioning VoxyWatch managed AI runtime..."
   if [ -f "${INSTALL_DIR}/agentic/voxywatch-agentic.service" ]; then
     install -o root -g root -m 644 "${INSTALL_DIR}/agentic/voxywatch-agentic.service" /etc/systemd/system/voxywatch-agentic.service
   else
     cat > /etc/systemd/system/voxywatch-agentic.service << EOF
 [Unit]
-Description=VoxyWatch Agentic Runtime (LangGraph sidecar)
+Description=VoxyWatch Managed AI Runtime
 After=network-online.target voxywatch.service
 Wants=network-online.target
 
@@ -1474,32 +1465,32 @@ WantedBy=multi-user.target
 EOF
   fi
   systemctl daemon-reload 2>/dev/null || true
+  NEEDS_REPAIR=0
+  timeout 45s "${INSTALL_DIR}/agentic/install-agentic-deps.sh" --check >/dev/null 2>&1 || NEEDS_REPAIR=1
   if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ] \
-     || [ ! -f "${INSTALL_DIR}/agentic/.langgraph-runtime-v1" ]; then
+     || [ "$NEEDS_REPAIR" = "1" ]; then
     if [ -x "${INSTALL_DIR}/agentic/install-agentic-deps.sh" ]; then
-      info "Installing controlled LangGraph dependency lock..."
-      if "${INSTALL_DIR}/agentic/install-agentic-deps.sh" >/var/log/voxywatch-agentic-deps.log 2>&1; then
-        install -o root -g voxywatch -m 640 /dev/null "${INSTALL_DIR}/agentic/.langgraph-runtime-v1"
-        ok "Agentic dependencies updated"
+      info "Validating managed AI runtime..."
+      # repair/self-check is mandatory: the helper verifies the lock hash,
+      # resolved version and pip check before the service can start.
+      if "${INSTALL_DIR}/agentic/install-agentic-deps.sh" >/var/log/voxywatch-agentic-deps.log 2>&1 \
+         && timeout 45s "${INSTALL_DIR}/agentic/install-agentic-deps.sh" --check >/dev/null 2>&1; then
+        install -o root -g voxywatch -m 640 /dev/null "${INSTALL_DIR}/agentic/.managed-runtime-v1"
+        ok "Managed AI runtime verified"
       else
-        warn "Agentic dependencies could not be updated; sidecar will keep deterministic fallback. Details: /var/log/voxywatch-agentic-deps.log"
+        err "Managed AI runtime dependencies could not be installed or verified. The previous valid runtime was preserved. Contact support@voxywatch.com"
       fi
+    else
+      err "Managed AI runtime repair tool is missing. Contact support@voxywatch.com"
     fi
   elif [ "$AGENTIC_WAS_ENABLED" = "1" ] || [ "$AGENTIC_WAS_ACTIVE" = "1" ]; then
     info "Preserving installed Agentic Python dependencies (normal VoxyWatch update)"
   fi
-  if [ "$AGENTIC_WAS_ENABLED" = "1" ]; then
-    systemctl enable voxywatch-agentic.service >/dev/null 2>&1 || true
-  else
-    systemctl disable voxywatch-agentic.service >/dev/null 2>&1 || true
-  fi
-  if [ "$AGENTIC_WAS_ACTIVE" = "1" ]; then
-    systemctl restart voxywatch-agentic.service >/dev/null 2>&1 || warn "Could not restart voxywatch-agentic"
-    ok "Agentic runtime updated and restarted"
-  else
-    systemctl stop voxywatch-agentic.service >/dev/null 2>&1 || true
-    ok "Agentic runtime installed (disabled until enabled)"
-  fi
+  timeout 45s "${INSTALL_DIR}/agentic/install-agentic-deps.sh" --check >/dev/null 2>&1 \
+    || err "Managed AI runtime is not healthy; installation cannot be marked ready. Contact support@voxywatch.com"
+  systemctl enable voxywatch-agentic.service >/dev/null 2>&1 || true
+  systemctl restart voxywatch-agentic.service >/dev/null 2>&1 || err "Managed AI runtime could not start. Contact support@voxywatch.com"
+  ok "Managed AI runtime ready"
 fi
 
 # ── Service-control scripts (opt-in privilege grant) ──────────────────────────

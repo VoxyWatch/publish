@@ -7,7 +7,7 @@ Speech to text is an opt-in Beta feature that creates searchable transcripts fro
 - Explicit processing policy: **Off** by default, **On demand**, **All new calls with recoverable audio**, or **Only selected trunks**.
 - Manual, per-call generation from **Calls** remains available in On demand and automatic modes.
 - Caller and callee are transcribed independently and merged by timestamp.
-- Local processing with the release-pinned `whisper.cpp` engine and managed multilingual `base` model.
+- Local processing with the release-pinned `whisper.cpp` engine and two managed profiles: **Base** (faster, 1 GiB worker ceiling) and **Small** (higher accuracy, one 2 GiB worker).
 - Optional OpenAI processing with a dedicated STT credential and `whisper-1`, `gpt-4o-mini-transcribe` or `gpt-4o-transcribe`.
 - TXT, JSON and SRT downloads.
 - Clickable timestamp segments synchronized with the reconstructed-audio player.
@@ -16,17 +16,17 @@ Speech to text is an opt-in Beta feature that creates searchable transcripts fro
 - Detected language, channel-mapping provenance and warnings for one-way audio, high RTP loss or recording suppression.
 - An administrator-only readiness panel verifies the pinned engine/model with a real bounded runtime probe, FFmpeg, transcript filesystem and queue separately. It also reports aggregate Beta corpus coverage and downloads a content-free evidence JSON.
 - Operator/admin access only; transcripts are stored locally with mode `0600`.
-- Automatic multilingual detection or one explicit language; workload limits remain conservative internal Beta guards.
+- The operator chooses one expected language; workload limits remain conservative internal Beta guards.
 - Persistent asynchronous jobs: the portal may be reloaded while processing, and a restart marks unfinished work explicitly as interrupted.
 - A local metadata index for paginated discovery by call-time range, exact source, exact destination or Call-ID. The private file catalog remains the durable fallback and `include=full` returns at most 25 complete transcripts per page.
 - Asynchronous JSONL/CSV range exports with a dedicated `transcript:export` scope, 31-day/10,000-record bounds, 24-hour result expiry and content-free local audit.
 - Legacy mounted-storage migration is retained only for compatibility and rollback; it is not a second portal storage or retention policy.
 
-Automatic processing is a controlled Beta opt-in. Selecting an automatic mode starts at the current completion point and processes only new completed calls; it never backfills historical calls. **Only selected trunks** uses the trunk records selected in Settings, so renamed trunks remain correctly scoped. Calls without recoverable audio are safely skipped.
+Automatic processing is a controlled Beta opt-in. Selecting an automatic mode starts at the current completion point and processes only new completed calls; it never backfills historical calls. **Only selected trunks** uses the trunk records selected in Settings, so renamed trunks remain correctly scoped. Calls without recoverable audio are safely skipped. SDP alone is not audio evidence: automatic processing only spends reconstruction capacity after VoxyWatch has observed recoverable RTP for the call or already has a reconstructed track.
 
 ## Privacy and operational boundaries
 
-Local mode uses the single release-managed model, needs no key and does not send audio outside the server. OpenAI mode sends only selected audio and uses the isolated `openai_stt` credential from secure store, `VOXYWATCH_STT_OPENAI_API_KEY` (`OPENAI_STT_API_KEY` alias), or Linux credential `voxywatch-stt-openai.key`; the browser never receives the secret. The Settings control is visually masked but deliberately does not use browser password-field semantics, so a password manager cannot mistake the API key for a portal login; the login remains the only browser-saveable password. Expert interpretation is separate: it sends bounded transcript text through the global LLM connection, preserves the original and never uses the STT key. Transcript content, audio, phone numbers and Call-IDs are never written to telemetry, Sentry, operational diagnostics or logs.
+Local mode uses one of two release-managed models, needs no key and does not send audio outside the server. Base remains the conservative default; Small is offered only with its single-worker 2 GiB ceiling so it cannot stall the portal under parallel load. The operator chooses the expected call language, avoiding automatic per-track detection and `multiple` results. OpenAI mode sends only selected audio and uses the isolated `openai_stt` credential from secure store, `VOXYWATCH_STT_OPENAI_API_KEY` (`OPENAI_STT_API_KEY` alias), or Linux credential `voxywatch-stt-openai.key`; the browser never receives the secret. The Settings control is visually masked but deliberately does not use browser password-field semantics, so a password manager cannot mistake the API key for a portal login; the login remains the only browser-saveable password. Expert interpretation is separate: it sends bounded transcript text through the global LLM connection, preserves the original and never uses the STT key. Transcript content, audio, phone numbers and Call-IDs are never written to telemetry, Sentry, operational diagnostics or logs.
 
 Speech-to-text jobs use a dedicated bounded queue and cannot execute inside the sniffer. Automatic jobs run below manually requested jobs, in small bounded batches, and preserve their progress across a portal restart without storing conversation content in their operational state. Local workers use enforced resource limits and adapt concurrency to the host. PCI/recording suppression and normal audio retention remain authoritative: missing or suppressed audio cannot be reconstructed by transcription.
 
@@ -41,14 +41,14 @@ The Integration API exposes separate `transcript:read`, `transcript:generate` an
 3. Choose **On demand**, **All new calls with recoverable audio**, or **Only selected trunks**, then enable the feature and save. Automatic choices never process older calls.
 4. For selected-trunk mode, choose one or more trunks from the list.
 5. For a manual transcript, open **Calls**, select a call, expand **Speech to text** and select **Generate transcript**. VoxyWatch reconstructs authorized audio if necessary, then transcribes it.
-6. Use **Run readiness check** in Transcription to verify the real engine/model runtime, credential when applicable, FFmpeg, storage, queue, recent media coverage and completed output.
+6. The Transcription page displays aggregate readiness when it opens: engine/model runtime, credential when applicable, FFmpeg, storage, queue, recent media coverage and completed output. Use **Run readiness check** to repeat the real local runtime probe on demand.
 7. Use **Download safe evidence** to retain an aggregate validation snapshot. It never contains transcript text, Call-IDs, phone numbers, IP addresses or per-job identifiers.
 
 Before broad use, validate representative authorized calls for language, codec, packet loss, one-way audio, hardware load and legal/compliance requirements.
 
 ## Managed dependency
 
-The release contains `whisper.cpp` 1.9.1 and the multilingual `ggml-base` model with pinned SHA-256 hashes. The installer preserves valid managed artifacts and automatically repairs a missing or corrupt executable, manifest or model from the signed release. A version change still requires the controlled `--refresh-external-dependencies` maintenance path.
+The release contains `whisper.cpp` 1.9.1 plus `ggml-base` and `ggml-small`, each with a pinned SHA-256 hash. The installer preserves valid managed artifacts and automatically repairs a missing or corrupt executable, manifest or model from the signed release. A version change still requires the controlled `--refresh-external-dependencies` maintenance path.
 
 OpenAI uploads are bounded per request. Large WAV files are split locally into ten-minute PCM chunks, transcribed serially and merged by timestamp; temporary chunks are removed after success, cancellation or failure.
 

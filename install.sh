@@ -27,12 +27,15 @@ CONF_DIR="/etc/voxywatch"
 CONF_FILE="${CONF_DIR}/voxywatch.conf"
 SERVICE_USER="voxywatch"
 
-# ── Local data service (dedicated and isolated from customer services) ─────────
-DB_ENGINE="postgre""sql"
-DB_EXTENSION="timescale""db"
+# ── Local application data service ───────────────────────────────────────────
+# These package names are the minimum required for a reproducible installation.
+# The managed service remains local to VoxyWatch; its implementation details are
+# intentionally not part of the public product documentation.
+DB_ENGINE="postgresql"
+DB_EXTENSION="timescaledb"
 DB_TUNER="${DB_EXTENSION}-tune"
-PG_CLUSTER="voxywatch"           # cluster dedicado (no toca el 'main' en 5432 si existe)
-PG_PORT="5433"                   # puerto no-default para no colisionar (InfluxDB/otro PG)
+PG_CLUSTER="voxywatch"
+PG_PORT="5433"
 PG_SOCKET_DIR="/var/run/${DB_ENGINE}"
 DB_NAME="voxywatch"
 DB_USER="voxywatch"              # rol = usuario OS → auth peer por socket (sin password)
@@ -802,11 +805,14 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/generate_pcap.py"     "${INSTA
 install -o root -g voxywatch -m 640 "${EXTRACTED}/reconstruct_audio.py" "${INSTALL_DIR}/reconstruct_audio.py"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/extract_dtmf.py"      "${INSTALL_DIR}/extract_dtmf.py"
 STT_MODEL_SHA="60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe"
+STT_SMALL_MODEL_SHA="1be3a9b2063867b937e64e2ec7483364a79917e157fa98c5d94b5c1fffea987b"
 STT_REPAIR=0
 [ -x "${INSTALL_DIR}/speech-to-text/whisper-cli" ] || STT_REPAIR=1
 [ -f "${INSTALL_DIR}/speech-to-text/MANIFEST.json" ] || STT_REPAIR=1
 [ -f "${INSTALL_DIR}/speech-to-text/ggml-base.bin" ] || STT_REPAIR=1
+[ -f "${INSTALL_DIR}/speech-to-text/ggml-small.bin" ] || STT_REPAIR=1
 if [ "$STT_REPAIR" = "0" ] && [ "$(sha256sum "${INSTALL_DIR}/speech-to-text/ggml-base.bin" | awk '{print $1}')" != "$STT_MODEL_SHA" ]; then STT_REPAIR=1; fi
+if [ "$STT_REPAIR" = "0" ] && [ "$(sha256sum "${INSTALL_DIR}/speech-to-text/ggml-small.bin" | awk '{print $1}')" != "$STT_SMALL_MODEL_SHA" ]; then STT_REPAIR=1; fi
 if [ "$STT_REPAIR" = "0" ]; then
   STT_BINARY_SHA="$(sed -n 's/.*"binary_sha256":"\([a-f0-9]\{64\}\)".*/\1/p' "${INSTALL_DIR}/speech-to-text/MANIFEST.json" | head -n1)"
   [ -n "$STT_BINARY_SHA" ] && [ "$(sha256sum "${INSTALL_DIR}/speech-to-text/whisper-cli" | awk '{print $1}')" = "$STT_BINARY_SHA" ] || STT_REPAIR=1
@@ -815,6 +821,7 @@ if [ -d "${EXTRACTED}/speech-to-text" ] && { [ "$STT_REPAIR" = "1" ] || [ "$REFR
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/speech-to-text"
   install -o root -g voxywatch -m 750 "${EXTRACTED}/speech-to-text/whisper-cli" "${INSTALL_DIR}/speech-to-text/whisper-cli"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/speech-to-text/ggml-base.bin" "${INSTALL_DIR}/speech-to-text/ggml-base.bin"
+  install -o root -g voxywatch -m 640 "${EXTRACTED}/speech-to-text/ggml-small.bin" "${INSTALL_DIR}/speech-to-text/ggml-small.bin"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/speech-to-text/MANIFEST.json" "${INSTALL_DIR}/speech-to-text/MANIFEST.json"
 fi
 install -o root -g voxywatch -m 640 "${EXTRACTED}/voxywatch_srs.py"   "${INSTALL_DIR}/voxywatch_srs.py" 2>/dev/null || true   # SIPREC SRS (proceso aparte, OFF por default)

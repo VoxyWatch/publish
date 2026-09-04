@@ -959,7 +959,9 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
       | gpg --dearmor -o "/etc/apt/trusted.gpg.d/${DB_EXTENSION}.gpg" 2>/dev/null || true
   fi
   apt-get update >/dev/null 2>&1 || err "Could not refresh package metadata for the controlled dependency operation"
-  if [ "$HTTPS_MODE" != "legacy" ]; then
+  # Caddy is provisioned on a fresh managed-HTTPS install. A database refresh
+  # must not silently replace the web entrypoint with an unrelated package.
+  if [ "$HTTPS_MODE" != "legacy" ] && [ "$UPDATE_MODE" = "0" ]; then
     CADDY_VERSION="2.11.4"
     if [ ! -f /usr/share/keyrings/caddy-stable-archive-keyring.gpg ]; then
       curl -1fsSL 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' \
@@ -981,7 +983,10 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
     [ -n "$PG_VER" ] || err "Could not identify the installed data-service major version"
     # Never install the generic meta-package during a refresh: that could add
     # a new major and create an empty cluster. Refresh only the installed major.
-    apt-get install -y --no-install-recommends "${DB_ENGINE}-${PG_VER}" "${DB_ENGINE}-common" python3-psycopg2 ffmpeg \
+    # Keep this maintenance operation scoped to the managed data service.
+    # Media and web-access components have independent compatibility matrices
+    # and are never upgraded as a side effect of this qualification.
+    apt-get install -y --no-install-recommends "${DB_ENGINE}-${PG_VER}" "${DB_ENGINE}-common" python3-psycopg2 \
       "${DB_EXTENSION}-2-${DB_ENGINE}-${PG_VER}" "${DB_EXTENSION}-tools" >/dev/null 2>&1 \
       || err "Controlled external dependency refresh failed"
   else

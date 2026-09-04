@@ -668,6 +668,7 @@ SETUP_CLI_LINK_WAS_PRESENT=0
 CADDY_CONFIG_WAS_PRESENT=0
 CADDY_WAS_ACTIVE=0
 CADDY_WAS_INSTALLED=0
+CADDY_CONFIG_CHANGED=0
 command -v caddy >/dev/null 2>&1 && CADDY_WAS_INSTALLED=1 || true
 rollback_update() {
   local reason="${1:-unexpected_error}"
@@ -1201,6 +1202,7 @@ if [ "$HTTPS_MODE" != "legacy" ] && { [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EX
   chmod 640 /etc/caddy/Caddyfile
   caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null \
     || err "Generated Caddy HTTPS configuration is invalid"
+  CADDY_CONFIG_CHANGED=1
 fi
 
 cat > /etc/systemd/system/voxywatch-sniffer.service << EOF
@@ -1676,12 +1678,25 @@ if [ "$MIRROR_RESTORE_ENABLED" = "1" ]; then
   systemctl restart voxywatch-probe.service >/dev/null 2>&1 \
     || warn "Passive Mirror was enabled but could not be restarted"
 fi
-if [ "$HTTPS_MODE" != "legacy" ]; then
+_activate_managed_https() {
+  [ "$HTTPS_MODE" != "legacy" ] || return 0
   systemctl enable caddy >/dev/null 2>&1 || err "Caddy could not be enabled"
-  systemctl reload-or-restart caddy >/dev/null 2>&1 || err "Caddy could not load managed HTTPS"
+  # A normal signed application update deliberately preserves the already
+  # validated Caddyfile. Reloading it anyway creates a needless failure point:
+  # a transient systemd/Caddy control-plane error can roll back an otherwise
+  # healthy application update even though HTTPS is serving normally. Reload
+  # only when this run changed the managed proxy configuration, or when Caddy
+  # is not already active and must be started.
+  if [ "$CADDY_CONFIG_CHANGED" = "1" ] || ! systemctl is-active --quiet caddy; then
+    systemctl reload-or-restart caddy >/dev/null 2>&1 || err "Caddy could not load managed HTTPS"
+  else
+    ok "caddy already active; managed HTTPS configuration preserved"
+  fi
   systemctl is-active --quiet caddy || err "Caddy HTTPS service is not active"
   ok "caddy active (${HTTPS_MODE} HTTPS)"
-fi
+}
+
+_activate_managed_https
 
 # v2.0.4: verificar que ambos quedaron activos (un update no debe dejar el sistema
 # abajo). Si alguno no levantó, reintentar una vez y avisar dónde mirar.

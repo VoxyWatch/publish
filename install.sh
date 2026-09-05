@@ -352,6 +352,16 @@ while [ $# -gt 0 ]; do
     *) err "Unknown option: $1" ;;
   esac
 done
+# The installed configuration, not the caller's flags, is authoritative. This
+# also covers the documented curl | bash reinstall without --update.
+if [ -L "$CONF_FILE" ]; then
+  err "Installed configuration must not be a symbolic link; restore a regular voxywatch.conf before retrying"
+elif [ -f "$CONF_FILE" ]; then
+  [ -r "$CONF_FILE" ] || err "Installed configuration is unreadable; restore access before retrying"
+  UPDATE_MODE=1
+elif [ -e "$INSTALL_DIR" ] || [ -e "$CONF_FILE" ] || [ -L "$CONF_FILE" ]; then
+  err "Existing installation has no readable regular configuration; restore voxywatch.conf before retrying"
+fi
 [ "$REFRESH_EXTERNAL_DEPS" = "0" ] || [ "$UPDATE_MODE" = "1" ] \
   || err "--refresh-external-dependencies requires --update and a planned maintenance window"
 [ -z "$HTTPS_MODE_ARG" ] || [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ] \
@@ -359,6 +369,21 @@ done
 [ -z "$HTTPS_HOST_ARG" ] || [ -n "$HTTPS_MODE_ARG" ] \
   || err "--https-host requires --https-mode public or --https-mode internal"
 [ "$HTTPS_MODE_ARG" != "legacy" ] || err "--https-mode accepts only public or internal"
+
+# Settings owns uploaded TLS and its service drop-in. CLI migration must not
+# silently discard that certificate or leave an override pointing to the old
+# listener. Use its validated, rollback-capable Web Access operation instead.
+if [ "$UPDATE_MODE" = "1" ] && { [ -n "$HTTPS_MODE_ARG" ] || [ -n "$PORT_ARG" ]; }; then
+  if [ -e "${DATA_DIR:-/var/lib/voxywatch}/voxywatch.crt" ] \
+     || [ -e "${DATA_DIR:-/var/lib/voxywatch}/voxywatch.key" ] \
+     || [ -e /etc/systemd/system/voxywatch.service.d/web-access.conf ] \
+     || { [ -f /etc/caddy/Caddyfile ] && awk '
+       /^[[:space:]]*tls[[:space:]]/ && $2 != "internal" { custom = 1 }
+       END { exit !custom }
+     ' /etc/caddy/Caddyfile; }; then
+    err "Existing Web Access/TLS configuration must be migrated through Settings > Web Access; CLI migration was not applied"
+  fi
+fi
 
 # Read the installed version as data before replacing any files. This is used
 # only for the update completion summary; never source the root-owned config.
@@ -373,7 +398,24 @@ fi
 REPLICA_DSN="${REPLICA_DSN:-${VOXYWATCH_DB_REPLICA_DSN:-}}"
 REPLICA_ENV=""
 if [ -n "$REPLICA_DSN" ]; then
-  REPLICA_ENV="Environment=VOXYWATCH_DB_REPLICA_DSN=${REPLICA_DSN}"
+  [[ "$REPLICA_DSN" != *$'\n'* && "$REPLICA_DSN" != *$'\r'* ]] \
+    || err "Invalid replica DSN: multiline values are not supported"
+  # Quote for systemd, not shell; do not expand specifiers or log the DSN.
+  _replica_escaped="${REPLICA_DSN//\\/\\\\}"
+  _replica_escaped="${_replica_escaped//\"/\\\"}"
+  _replica_escaped="${_replica_escaped//%/%%}"
+  REPLICA_ENV="Environment=\"VOXYWATCH_DB_REPLICA_DSN=${_replica_escaped}\""
+  unset _replica_escaped
+elif [ "$UPDATE_MODE" = "1" ] && [ -f /etc/systemd/system/voxywatch.service ]; then
+  # Recover only the installer-generated directive, never source a unit, query
+  # the effective environment (which exposes secrets), or import ExecStart.
+  REPLICA_ENV="$(awk '
+    /^\[/ { service = ($0 == "[Service]") }
+    service && /^Environment="?VOXYWATCH_DB_REPLICA_DSN=/ { value = $0 }
+    END { if (value != "") print value }
+  ' /etc/systemd/system/voxywatch.service)"
+  [[ "$REPLICA_ENV" != *\\ && "$REPLICA_ENV" != *$'\r'* ]] \
+    || err "Unsupported replica directive; move replica configuration to a systemd drop-in before retrying"
 fi
 
 # Install the mandatory verifier only after arguments and the install mutex have
@@ -415,15 +457,20 @@ if [ -n "$PORT_ARG" ]; then
 elif [ "$UPDATE_MODE" = "1" ] && [ -f "$CONF_FILE" ]; then
   # Preserve the installed listener unless the operator explicitly migrates it
   # with --port. Parse the root-owned config as data; never source shell code.
-  PORT="$(grep -oE '^PORT=[0-9]+$' "$CONF_FILE" 2>/dev/null | tail -1 | cut -d= -f2 || true)"
-  PORT="${PORT:-3080}"
+  PORT="$(sed -n 's/^PORT=//p' "$CONF_FILE" | tail -1)"
+  [ -n "$PORT" ] || err "Installed PORT is missing or invalid; restore configuration or specify --port"
 else
   PORT="3080"
 fi
-if ! echo "$PORT" | grep -qE '^[0-9]+$' || [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65535 ]; then
+# Bound the decimal string before arithmetic: shell integer overflow must never
+# turn an invalid installed listener into an accepted port. Treat leading zeros
+# as decimal, not octal, and normalize the value sent to every consumer.
+if [[ ! "$PORT" =~ ^[0-9]{1,5}$ ]] || (( 10#$PORT < 1 || 10#$PORT > 65535 )); then
+  [ "$UPDATE_MODE" = "0" ] || err "Installed or requested PORT is invalid; no listener change was applied"
   warn "Invalid port '${PORT}' — using default 3080"
   PORT="3080"
 fi
+PORT="$((10#$PORT))"
 [ -z "$PORT_ARG" ] || ok "Advanced internal backend port: ${PORT} (HTTPS remains on 443)"
 
 # Public domains use Caddy Automatic HTTPS. Private hostnames/IPs use Caddy's
@@ -473,17 +520,20 @@ else
     || err "Could not detect a private hostname/IP; rerun with --https-mode internal --https-host <address>"
 fi
 [ -n "$HTTPS_MODE" ] || HTTPS_MODE="legacy"
-case "$HTTPS_MODE" in public|internal|legacy) ;; *) err "Invalid HTTPS mode '${HTTPS_MODE}': use public or internal" ;; esac
+case "$HTTPS_MODE" in public|internal|legacy) ;; *) err "Invalid HTTPS mode: use public or internal" ;; esac
 if [ "$UPDATE_MODE" = "1" ] && [ -n "$PORT_ARG" ] && [ "$HTTPS_MODE" != "legacy" ] \
    && [ "$REFRESH_EXTERNAL_DEPS" != "1" ]; then
   err "Changing the internal portal port behind managed HTTPS requires --refresh-external-dependencies"
 fi
 if [ "$HTTPS_MODE" != "legacy" ]; then
+  if [ "$UPDATE_MODE" = "1" ] && [ -z "$HTTPS_MODE_ARG" ] && [ -z "$HTTPS_HOST" ]; then
+    err "Installed HTTPS host is missing; restore configuration before retrying"
+  fi
   if [ -z "$HTTPS_HOST" ] && [ "$HTTPS_MODE" = "public" ]; then
     err "Public HTTPS requires --https-host with a DNS name that points to this server"
   fi
   [ -n "$HTTPS_HOST" ] || HTTPS_HOST="$(_detected_private_host)"
-  _valid_https_host "$HTTPS_HOST" || err "Invalid HTTPS hostname/IP '${HTTPS_HOST}'"
+  _valid_https_host "$HTTPS_HOST" || err "Invalid HTTPS hostname/IP"
   if [ "$HTTPS_MODE" = "public" ]; then
     _valid_public_https_host "$HTTPS_HOST" \
       || err "Public HTTPS requires a fully-qualified DNS name, not an IP address"
@@ -922,16 +972,33 @@ install -d -o root -g voxywatch -m 750 "${CONF_DIR}/credentials"
 ok "Files installed"
 
 # ── Write config file ─────────────────────────────────────────────────────────
-cat > "$CONF_FILE" << EOF
-# VoxyWatch configuration
-# Generated by installer on $(date -u '+%Y-%m-%d %H:%M UTC')
-PORT=${PORT}
-HTTPS_MODE=${HTTPS_MODE}
-HTTPS_HOST=${HTTPS_HOST}
-VERSION=${VERSION}
-EOF
-chown root:voxywatch "$CONF_FILE"
-chmod 640 "$CONF_FILE"
+_write_installer_config() {
+  local temporary
+  temporary="$(mktemp "${CONF_FILE}.XXXXXX")" || err "Could not stage configuration"
+  # Treat every line as data. Keep comments and operator keys; only these
+  # four installer-owned fields are replaced (including old duplicates).
+  if [ -f "$CONF_FILE" ]; then
+    if ! awk '!/^(PORT|HTTPS_MODE|HTTPS_HOST|VERSION)=/' "$CONF_FILE" > "$temporary"; then
+      rm -f "$temporary"
+      err "Could not preserve configuration"
+    fi
+  else
+    printf '# VoxyWatch configuration\n' > "$temporary"
+  fi
+  if ! printf 'PORT=%s\nHTTPS_MODE=%s\nHTTPS_HOST=%s\nVERSION=%s\n' \
+      "$PORT" "$HTTPS_MODE" "$HTTPS_HOST" "$VERSION" >> "$temporary"; then
+    rm -f "$temporary"
+    err "Could not preserve configuration"
+  fi
+  if ! chown root:voxywatch "$temporary" || ! chmod 640 "$temporary" \
+     || ! mv -f "$temporary" "$CONF_FILE"; then
+    rm -f "$temporary"
+    err "Could not atomically install configuration"
+  fi
+}
+_write_installer_config
+# Configuration remains root-owned and group-readable for the portal.
+# Service Control below deliberately sets its own key for this invocation.
 ok "Config written: ${CONF_FILE}"
 
 # ── Provision local data service ──────────────────────────────────────────────
@@ -1111,6 +1178,12 @@ systemctl is-enabled --quiet voxywatch-probe.service 2>/dev/null && MIRROR_WAS_E
 
 # The managed portal sizes memory safeguards from detected host capacity. No
 # fixed Node heap override is installed because it can be unsafe on small hosts.
+# Supported operator Environment/EnvironmentFile/LoadCredential overrides belong
+# in voxywatch.service.d/*.conf, which are never replaced here. The base unit is
+# installer-owned; only its generated replica directive is carried forward.
+if [ "$UPDATE_MODE" = "1" ]; then
+  info "Preserving systemd drop-ins; custom base-unit edits are unsupported (use voxywatch.service.d/*.conf)"
+fi
 
 cat > /etc/systemd/system/voxywatch.service << EOF
 [Unit]
@@ -1174,9 +1247,10 @@ _caddy_is_legacy_voxywatch() {
   return 1
 }
 
-# Manage Caddy only for a fresh install or an explicitly requested dependency
-# refresh. Normal signed product updates preserve the installed proxy/version.
-if [ "$HTTPS_MODE" != "legacy" ] && { [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; }; then
+# Refreshing dependencies is not a request to change HTTPS. Only fresh installs
+# or explicit mode/port migration render a new proxy configuration.
+if [ "$HTTPS_MODE" != "legacy" ] && { [ "$UPDATE_MODE" = "0" ] \
+   || { [ "$REFRESH_EXTERNAL_DEPS" = "1" ] && { [ -n "$HTTPS_MODE_ARG" ] || [ -n "$PORT_ARG" ]; }; }; }; then
   install -d -o root -g caddy -m 750 /etc/caddy
   if [ "$CADDY_WAS_INSTALLED" = "1" ] && [ -s /etc/caddy/Caddyfile ] \
      && ! grep -q '^# Managed by VoxyWatch installer$' /etc/caddy/Caddyfile \
@@ -1563,10 +1637,45 @@ rm -f /etc/systemd/system/voxywatch.service.d/service-control.conf
 rm -f /etc/sudoers.d/voxywatch-update
 
 # 3) persist state + reload
-if grep -q '^SERVICE_CONTROL=' "$CONF_FILE" 2>/dev/null; then
-    grep -v '^SERVICE_CONTROL=' "$CONF_FILE" > "${CONF_FILE}.tmp" && mv "${CONF_FILE}.tmp" "$CONF_FILE"
-fi
-echo "SERVICE_CONTROL=enabled" >> "$CONF_FILE"
+# Preserve confidential configuration through the complete helper, including
+# its final state write. The config directory is group-writable: stage outside
+# it, reject linked inputs, and never use a predictable sibling temporary file.
+python3 - "$CONF_FILE" enabled <<'SERVICE_CONTROL_CONFIG_PY'
+import os
+import shutil
+import stat
+import sys
+import tempfile
+
+config, state = sys.argv[1:]
+fd = os.open(config, os.O_RDONLY | os.O_NOFOLLOW)
+with os.fdopen(fd, 'rb') as source:
+    metadata = os.fstat(source.fileno())
+    if not stat.S_ISREG(metadata.st_mode) or metadata.st_uid != os.geteuid():
+        raise SystemExit('Service-control configuration must be a regular file owned by the caller')
+    content = b''.join(line for line in source.read().splitlines(keepends=True)
+                       if not line.startswith(b'SERVICE_CONTROL='))
+if content and not content.endswith(b'\n'):
+    content += b'\n'
+content += ('SERVICE_CONTROL=' + state + '\n').encode('ascii')
+parent = os.path.dirname(os.path.dirname(config))
+parent_metadata = os.stat(parent, follow_symlinks=False)
+if (not stat.S_ISDIR(parent_metadata.st_mode) or parent_metadata.st_uid != os.geteuid()
+        or parent_metadata.st_mode & 0o022):
+    raise SystemExit('Service-control staging parent must be protected from other users')
+staging = tempfile.mkdtemp(prefix='.voxywatch-config-', dir=parent)
+try:
+    temporary = os.path.join(staging, 'config')
+    with open(temporary, 'xb') as target:
+        target.write(content)
+        target.flush()
+        os.fchown(target.fileno(), metadata.st_uid, metadata.st_gid)
+        os.fchmod(target.fileno(), 0o640)
+        os.fsync(target.fileno())
+    os.replace(temporary, config)
+finally:
+    shutil.rmtree(staging)
+SERVICE_CONTROL_CONFIG_PY
 systemctl reload polkit 2>/dev/null || systemctl restart polkit 2>/dev/null || true
 systemctl daemon-reload
 systemctl restart voxywatch 2>/dev/null || true
@@ -1586,10 +1695,45 @@ rm -f /etc/polkit-1/rules.d/49-voxywatch.rules
 rm -f /etc/polkit-1/rules.d/49-voxywatch-sniffer.rules
 rm -f /etc/systemd/system/voxywatch.service.d/service-control.conf
 rm -f /etc/sudoers.d/voxywatch-update
-if grep -q '^SERVICE_CONTROL=' "$CONF_FILE" 2>/dev/null; then
-    grep -v '^SERVICE_CONTROL=' "$CONF_FILE" > "${CONF_FILE}.tmp" && mv "${CONF_FILE}.tmp" "$CONF_FILE"
-fi
-echo "SERVICE_CONTROL=disabled" >> "$CONF_FILE"
+# Preserve confidential configuration through the complete helper, including
+# its final state write. The config directory is group-writable: stage outside
+# it, reject linked inputs, and never use a predictable sibling temporary file.
+python3 - "$CONF_FILE" disabled <<'SERVICE_CONTROL_CONFIG_PY'
+import os
+import shutil
+import stat
+import sys
+import tempfile
+
+config, state = sys.argv[1:]
+fd = os.open(config, os.O_RDONLY | os.O_NOFOLLOW)
+with os.fdopen(fd, 'rb') as source:
+    metadata = os.fstat(source.fileno())
+    if not stat.S_ISREG(metadata.st_mode) or metadata.st_uid != os.geteuid():
+        raise SystemExit('Service-control configuration must be a regular file owned by the caller')
+    content = b''.join(line for line in source.read().splitlines(keepends=True)
+                       if not line.startswith(b'SERVICE_CONTROL='))
+if content and not content.endswith(b'\n'):
+    content += b'\n'
+content += ('SERVICE_CONTROL=' + state + '\n').encode('ascii')
+parent = os.path.dirname(os.path.dirname(config))
+parent_metadata = os.stat(parent, follow_symlinks=False)
+if (not stat.S_ISDIR(parent_metadata.st_mode) or parent_metadata.st_uid != os.geteuid()
+        or parent_metadata.st_mode & 0o022):
+    raise SystemExit('Service-control staging parent must be protected from other users')
+staging = tempfile.mkdtemp(prefix='.voxywatch-config-', dir=parent)
+try:
+    temporary = os.path.join(staging, 'config')
+    with open(temporary, 'xb') as target:
+        target.write(content)
+        target.flush()
+        os.fchown(target.fileno(), metadata.st_uid, metadata.st_gid)
+        os.fchmod(target.fileno(), 0o640)
+        os.fsync(target.fileno())
+    os.replace(temporary, config)
+finally:
+    shutil.rmtree(staging)
+SERVICE_CONTROL_CONFIG_PY
 systemctl reload polkit 2>/dev/null || systemctl restart polkit 2>/dev/null || true
 systemctl daemon-reload
 systemctl restart voxywatch 2>/dev/null || true

@@ -811,7 +811,11 @@ fi
 # por el update). El portal (voxywatch) sí se reinicia siempre: no captura tráfico.
 # `systemctl start voxywatch-sniffer` más abajo es no-op si el sniffer sigue activo.
 SNIFFER_CHANGED=1
-if [ -f "${INSTALL_DIR}/hep_sniffer.py" ] && cmp -s "${EXTRACTED}/hep_sniffer.py" "${INSTALL_DIR}/hep_sniffer.py" 2>/dev/null; then
+# The already-installed reconstructor also owns the pure persisted RTP codec.
+# Reload the writer if either module changed; older first-hop installers already
+# restart here because this release changes hep_sniffer.py itself.
+if [ -f "${INSTALL_DIR}/hep_sniffer.py" ] && cmp -s "${EXTRACTED}/hep_sniffer.py" "${INSTALL_DIR}/hep_sniffer.py" 2>/dev/null \
+   && cmp -s "${EXTRACTED}/reconstruct_audio.py" "${INSTALL_DIR}/reconstruct_audio.py" 2>/dev/null; then
   SNIFFER_CHANGED=0
 fi
 if [ "$SNIFFER_CHANGED" = "1" ]; then

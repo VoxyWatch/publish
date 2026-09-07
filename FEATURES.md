@@ -1,14 +1,16 @@
 # VoxyWatch feature summary
 
-Updated for **v4.2.45**.
-Current capabilities are shipped as of v4.2.45.
+Updated for **v4.3.0**.
+Current capabilities are shipped as of v4.3.0.
 
 VoxyWatch provides a self-hosted operational workspace for voice networks:
 
 - Passive SIP/RTP/RTCP ingestion through supported capture sources.
 - Call search, CDR views, SIP ladder and media evidence.
 - Trunk, endpoint and network-health views.
+- Internal IP statistics with activity history and explicit evidence coverage.
 - Deterministic incident, fraud and Flash Call detection.
+- A Tickets workspace for incident history, urgent attention and shared important pins.
 - Configurable alerts and operational reports.
 - Optional AI assistance and scoped MCP connectivity.
 - Optional speech-to-text and audio reconstruction.

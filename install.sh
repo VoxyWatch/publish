@@ -828,16 +828,126 @@ else
 fi
 
 # ── Create directories ────────────────────────────────────────────────────────
+repair_auth_state_ownership() {
+  # Sólo estos dos archivos: sin recursión, glob, reescritura de bytes ni enlaces.
+  python3 - "$DATA_DIR" "$SERVICE_USER" <<'PY_AUTH_STATE'
+import os
+import pwd
+import re
+import stat
+import sys
+
+def repair():
+    identity = pwd.getpwnam(sys.argv[2])
+    allowed = {0, identity.pw_uid}
+    directory = os.path.abspath(sys.argv[1])
+    parts = directory.strip('/').split('/')
+    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    parent = os.open('/', flags)
+    files = []
+    plans = []
+
+    def same(a, b):
+        return (a.st_dev, a.st_ino) == (b.st_dev, b.st_ino)
+
+    def revalidate(plan, links):
+        fd, name, before, orphan = plan
+        current = os.fstat(fd)
+        named = os.stat(name, dir_fd=parent, follow_symlinks=False)
+        for item in (current, named):
+            if not stat.S_ISREG(item.st_mode) or not same(item, before) or item.st_nlink != links:
+                raise ValueError('changed identity')
+            if item.st_uid != before.st_uid or item.st_gid != before.st_gid or item.st_mode != before.st_mode:
+                raise ValueError('changed identity metadata')
+        if orphan and links == 2:
+            temporary = os.stat(orphan, dir_fd=parent, follow_symlinks=False)
+            if not stat.S_ISREG(temporary.st_mode) or not same(temporary, before) or temporary.st_nlink != 2:
+                raise ValueError('changed publication')
+    try:
+        for index, part in enumerate(parts):
+            try:
+                child = os.open(part, flags, dir_fd=parent)
+            except FileNotFoundError:
+                if index != len(parts) - 1:
+                    raise
+                os.mkdir(part, 0o750, dir_fd=parent)
+                child = os.open(part, flags, dir_fd=parent)
+            os.close(parent)
+            parent = child
+        metadata = os.fstat(parent)
+        if metadata.st_uid not in allowed or metadata.st_mode & 0o022:
+            raise ValueError('unsafe directory')
+        # Validar todos los descriptores antes de reparar; conservar estado ajeno.
+        for name in ('voxywatch_jwt_secret', 'voxywatch_users.json'):
+            try:
+                fd = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
+            except FileNotFoundError:
+                # Un enlace colgante no equivale a identidad ausente.
+                try:
+                    os.stat(name, dir_fd=parent, follow_symlinks=False)
+                except FileNotFoundError:
+                    continue
+                raise ValueError('unsafe link')
+            files.append(fd)
+            metadata = os.fstat(fd)
+            if not stat.S_ISREG(metadata.st_mode) or metadata.st_nlink not in (1, 2) or metadata.st_uid not in allowed:
+                raise ValueError('unsafe identity file')
+            orphan = None
+            if metadata.st_nlink == 2:
+                if metadata.st_mode & 0o077 or metadata.st_gid not in (0, identity.pw_gid):
+                    raise ValueError('unsafe publication metadata')
+                pattern = re.compile(re.escape(name) + r'\.tmp-[1-9][0-9]*-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\Z')
+                candidates = []
+                for sibling in os.listdir(parent):
+                    if pattern.fullmatch(sibling):
+                        item = os.stat(sibling, dir_fd=parent, follow_symlinks=False)
+                        if same(item, metadata):
+                            candidates.append(sibling)
+                if len(candidates) != 1:
+                    raise ValueError('unrecognized publication')
+                orphan = candidates[0]
+            plans.append((fd, name, metadata, orphan))
+        # Validación de AMBOS archivos antes de cualquier unlink/chown/chmod.
+        # El nombre sólo reconoce el protocolo; no autentica otra UID hostil.
+        for plan in plans:
+            revalidate(plan, plan[2].st_nlink)
+        for plan in plans:
+            if plan[3]:
+                revalidate(plan, 2)
+                try:
+                    os.unlink(plan[3], dir_fd=parent)
+                except FileNotFoundError:
+                    pass
+                revalidate(plan, 1)
+                os.fsync(parent)
+        for fd in files:
+            os.fchown(fd, identity.pw_uid, identity.pw_gid)
+            os.fchmod(fd, 0o600)
+            os.fsync(fd)
+        os.fchown(parent, identity.pw_uid, identity.pw_gid)
+        os.fchmod(parent, 0o750)
+        os.fsync(parent)
+    finally:
+        for fd in files:
+            os.close(fd)
+        os.close(parent)
+
+try:
+    repair()
+except Exception:
+    sys.exit('Authentication state ownership repair refused; existing content preserved.')
+PY_AUTH_STATE
+}
+
 info "Setting up directories..."
-mkdir -p "$INSTALL_DIR" "$DATA_DIR" "$CONF_DIR"
+repair_auth_state_ownership
+mkdir -p "$INSTALL_DIR" "$CONF_DIR"
 
 # INSTALL_DIR: root owns, readable by voxywatch
 chown root:voxywatch "$INSTALL_DIR"
 chmod 750 "$INSTALL_DIR"
 
-# DATA_DIR: voxywatch owns (binario escribe capturas, DB, settings aquí)
-chown voxywatch:voxywatch "$DATA_DIR"
-chmod 750 "$DATA_DIR"
+# DATA_DIR y los archivos exactos de autenticación se repararon por descriptor.
 
 # CONF_DIR: root:voxywatch — el proceso puede escribir license.key desde la GUI
 chown root:voxywatch "$CONF_DIR"

@@ -751,9 +751,11 @@ rollback_update() {
 }
 rollback_unexpected() {
   local rc=$?
+  local line="${BASH_LINENO[0]:-0}"
   trap - ERR
-  rollback_update "unexpected_command_failure"
-  exit "$rc"
+  # Conservar el mismo reporte y correo de soporte también en fallos tardíos.
+  # _installer_fail invoca rollback_update una sola vez, después de reportar.
+  _unexpected_installer_error "$rc" "$line"
 }
 
 if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; then
@@ -1871,7 +1873,7 @@ done
 # The new release is healthy. Keep the root-only snapshot for an explicit
 # operator rollback, but disarm automatic restoration before final reporting.
 ROLLBACK_READY=0
-trap - ERR
+trap '_unexpected_installer_error "$?" "$LINENO"' ERR
 
 # ── Get HWID ──────────────────────────────────────────────────────────────────
 SERVER_IP=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "YOUR-IP")

@@ -2,23 +2,16 @@
 
 This file is the entry point for an AI assistant helping a VoxyWatch operator configure, debug or extend an installation.
 
-Load this file first, then follow the links in `docs/ai/`. If you have access to the VoxyWatch portal, open Settings -> Diagnostics and use:
-
-- Open AI docs
-- Copy AI context
-- Download AI context
-- Download support bundle
-
-The AI context and support bundle are intentionally safe to share with an assistant. They are allowlist-based and exclude secrets, credentials, raw SIP, audio, settings files, logs, phone numbers, IP addresses, trunks and Call-IDs.
+Load this file first, then follow the links in `docs/ai/`. Use the installed version, visible operational status and sanitized symptom details. Do not share credentials, raw SIP, audio, settings files or unredacted logs with an AI assistant.
 
 ## Start Here
 
 - [AI README](docs/ai/README.md)
-- [AI Context Engine and finding ledger](docs/ai/CONTEXT_ENGINE.md)
+- [Optional AI assistance and privacy](docs/ai/CONTEXT_ENGINE.md)
 - [Troubleshooting workflow](docs/ai/TROUBLESHOOTING.md)
 - [CLI operations](docs/ai/CLI_OPERATIONS.md)
 - [Settings reference](docs/ai/SETTINGS_REFERENCE.md)
-- [Architecture map](docs/ai/ARCHITECTURE_MAP.md)
+- [Support scope](docs/ai/ARCHITECTURE_MAP.md)
 - [Do not touch](docs/ai/DO_NOT_TOUCH.md)
 - [Extending VoxyWatch](docs/ai/EXTENDING_VOXYWATCH.md)
 

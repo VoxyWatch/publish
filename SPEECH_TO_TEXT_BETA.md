@@ -36,7 +36,7 @@ The Integration API exposes separate `transcript:read`, `transcript:generate` an
 
 ## Enable and use
 
-1. Open **Settings → Operation → Transcription**.
+1. Open **Settings → Transcription**.
 2. Review the Beta notice and select Local or OpenAI processing.
 3. Choose **On demand**, **All new calls with recoverable audio**, or **Only selected trunks**, then enable the feature and save. Automatic choices never process older calls.
 4. For selected-trunk mode, choose one or more trunks from the list.

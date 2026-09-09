@@ -13,8 +13,6 @@ Identify:
 
 Prefer:
 
-- AI context JSON from Settings -> Diagnostics.
-- Support bundle from Settings -> Diagnostics.
 - Operational health snapshot.
 - Exact VoxyWatch version and latest published version.
 

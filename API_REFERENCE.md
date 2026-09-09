@@ -122,9 +122,19 @@ curl --fail-with-body -X POST -H "$AUTH" \
   "${VOXYWATCH_URL}/api/v1/calls/${ENCODED_ID}/transcript"
 ```
 
-A generation request returns `202 Accepted` and a job reference. Poll the job at
-the location returned by the service; use gradual backoff rather than rapid
-polling.
+A generation request returns `202 Accepted`; read the persistent identifier from
+`body.job.id` in the JSON response and poll the canonical job route with
+gradual backoff rather than rapid polling:
+
+```bash
+curl --fail-with-body -H "$AUTH" \
+  "${VOXYWATCH_URL}/api/v1/transcription/jobs/${JOB_ID}"
+```
+
+Use the `transcript:generate` scope for this request. Some installed versions return
+the portal-session URL `/api/transcription/jobs/...` in `Location`; an API-key client
+must instead use the versioned route above with the returned `job.id`. Job polling
+returns `{ "data": { ... }, "beta": true }`. A queued job is not a finished transcript.
 
 Search stored transcripts by range, source, destination or Call-ID:
 
@@ -151,10 +161,23 @@ curl --fail-with-body -X POST -H "$AUTH" \
   "${VOXYWATCH_URL}/api/v1/transcript-exports"
 ```
 
-The response is asynchronous. Read its `Location` header or job identifier,
-poll the job status, then download the completed file from the download URL
-reported by the service. Export files expire after 24 hours. The same request
-may include `source`, `destination`, or `call_id`.
+The response is asynchronous. Set `EXPORT_ID` from `body.data.id`, then poll the
+export route below using `transcript:export`. Export jobs are separate from
+transcription-generation jobs and do not use `/api/v1/transcription/jobs`.
+
+```bash
+curl --fail-with-body -H "$AUTH" \
+  "${VOXYWATCH_URL}/api/v1/transcript-exports/${EXPORT_ID}"
+
+# Only after data.status is completed; use a new local filename.
+curl --fail-with-body -H "$AUTH" \
+  "${VOXYWATCH_URL}/api/v1/transcript-exports/${EXPORT_ID}/download" \
+  --output transcripts-export.csv
+```
+
+Use `.jsonl` for a JSONL export. Files expire after 24 hours. The original export
+request may also include `source`, `destination`, or `call_id`. A 404 can mean the
+result is not ready, unavailable or expired; inspect the export job status first.
 
 ## Errors, limits and compatibility
 

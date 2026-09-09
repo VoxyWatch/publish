@@ -2,15 +2,20 @@
 
 VoxyWatch supports one explicit credential source per selected LLM provider. It never falls back silently to a different source.
 
+Open **Settings → LLM**, choose the provider (or Custom), select a credential
+source, enter the required fields, Save, and use **Test connection**. Only
+administrators change these system-wide settings.
+
 ## Sources
 
 ### Encrypted VoxyWatch store
 
-This is the recommended choice when an administrator enters the key in the web portal. The value is encrypted with AES-256-GCM in `voxywatch_ai_credentials.json`; the independent 256-bit master key and vault are permission-restricted. `voxywatch_settings.json` stores only `ai_key_source` and never the API key. The browser receives only a masked value ending in the final four characters.
+This is the recommended choice when an administrator enters the key in the web portal. VoxyWatch stores it securely and never returns the value to the browser; the UI shows only a masked confirmation.
 
-### Protected Linux credential file
+### Advanced CLI compatibility
 
-The service reads `voxywatch-llm-<provider>.key` from `$CREDENTIALS_DIRECTORY` when supplied by systemd, otherwise from `/etc/voxywatch/credentials/`. The installer creates the latter directory as `root:voxywatch` mode `0750`.
+Existing system-managed credential integrations can use the secure CLI. This is
+not an additional credential-source option in the simplified web menu.
 
 Provision it without exposing the value in process arguments or shell history:
 
@@ -41,12 +46,19 @@ The `_FILE` form is preferred because the process environment contains only a pa
 
 ## Security boundary
 
-The portal process must use the credential in memory when authenticating an HTTPS request to the chosen provider. VoxyWatch does not send the credential to its browser, telemetry, Sentry, support bundles or its own services. Linux `root` can still inspect or replace system-level credentials. Google credentials are sent in the `x-goog-api-key` header rather than a URL query parameter. **OpenRouter Free** shares the normal OpenRouter credential and fixes the model to `openrouter/free`; it is free routing, not credential-free access.
-
-Old plaintext `ai_api_key` settings are migrated once into the encrypted store and removed atomically from normal settings.
+VoxyWatch uses a selected credential only for the chosen provider connection. It never sends credentials to the browser, telemetry, support material or another provider. **OpenRouter Free** uses the normal OpenRouter credential; it is not credential-free access.
 
 ## Model discovery before and after credentials
 
-Settings can show a small, release-pinned recommended catalog before a credential exists. These entries are configuration presets, not a claim that the customer's account can use them. **Show recommended models** replaces any previous list and selected model; it never carries a stale identifier into the new recommendations. After the selected provider credential is available, **Load available models** asks that provider for the models authorized for the account and marks the result as provider-verified. OpenRouter retains its public catalog. Custom servers intentionally have no catalog controls because self-hosted APIs do not consistently expose model discovery; the administrator enters the exact model name configured in Ollama, vLLM or LM Studio.
+Recommended models are configuration suggestions, not proof of account access.
+**Show recommended models** replaces the previous list; **Load available models**
+queries the selected connection when supported. Custom endpoints may expose a
+compatible model catalog; otherwise enter the exact model identifier supplied by
+your server. Supply its API base URL, not merely a web-chat page. Test the same
+URL, model and credential that you intend to save. For Custom-model knowledge
+materials, contact support@voxywatch.com without sending credentials.
 
-**Test connection** never treats a recommended or public catalog as proof that a credential works. A missing or rejected credential is reported in the active UI language. Administrators can always type a model identifier manually; image, audio, embedding, realtime and robotics-specialized models are excluded from the assisted NOC list.
+**Test connection** never treats a recommended or public catalog as proof that a
+credential works. The provider and installed release determine compatible models.
+Speech-to-text credentials are configured separately in **Settings → Transcription**;
+optional expert interpretation uses the main LLM connection.

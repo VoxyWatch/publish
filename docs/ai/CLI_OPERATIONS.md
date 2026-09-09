@@ -20,9 +20,8 @@ Use CLI only when portal evidence is insufficient or the operator explicitly gra
 
 ## Update Path
 
-Production code fixes must flow through:
-
-`local code -> tests -> signed build -> GitHub release -> latest.json -> portal updater or installer -> validation`
+Install product fixes only through the official signed updater or installer.
+Confirm the effective installed version and affected function after the update.
 
 If the portal update button fails, classify whether it is:
 

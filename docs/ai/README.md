@@ -10,16 +10,12 @@ Use this pack to help an operator configure the product or diagnose an issue wit
 2. `docs/ai/ARCHITECTURE_MAP.md`
 3. `docs/ai/SETTINGS_REFERENCE.md`
 4. The relevant runbook under `docs/ai/RUNBOOKS/`
-5. The AI context JSON from Settings -> Diagnostics, if the operator grants portal access
 
 ## Evidence Model
 
 The safest built-in evidence is:
 
-- `/api/ai-troubleshooting-context`
-- `/api/support-bundle`
 - `/api/operational-health`
-- Settings -> Diagnostics evidence copy
 
 These surfaces are designed to avoid secrets and customer identifiers. Do not replace them with broad log dumps unless the operator explicitly approves a narrow, sanitized extract.
 

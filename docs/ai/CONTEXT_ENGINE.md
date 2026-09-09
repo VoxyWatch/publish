@@ -1,44 +1,27 @@
-# VoxyWatch AI Context Engine
+# Optional AI assistance
 
-VoxyWatch uses a deterministic-first context pipeline for its optional LLM features. The model is the explanation and correlation layer, not the source of operational truth.
+VoxyWatch can use an optional AI provider to explain operational evidence. AI is
+not the source of truth and never controls the customer SBC.
 
-## Selection-aware evidence pack
+Use AI only after confirming the installed version, time range and operational
+symptom. Deterministic CDRs, health and incident evidence remain authoritative;
+an AI response is guidance to review, not an automated action.
 
-The portal sends the active UI scope to the server, including the exact time range and the selected call or validated report definition. Before contacting a provider, VoxyWatch builds `voxywatch-ai-context-pack/v1`:
+## Privacy
 
-- canonical rollup totals for the requested period, with source and coverage;
-- a bounded representative CDR sample using the current dynamic public projection;
-- a selected report revalidated and recalculated by the deterministic report engine;
-- for a selected call: every available leg, Audio/RTP Expert, up to 120 SIP ladder events, ±24-hour trends and related calls sharing a party or trunk.
+AI is opt-in and administrator controlled. Before data leaves the installation,
+VoxyWatch applies its privacy boundary and limits the request to the selected
+task. Credentials are never sent to the browser or another provider. Do not
+paste credentials, raw SIP, audio, complete CDRs or unredacted logs into an AI
+assistant.
 
-`search_calls` can continue with exact epoch boundaries and `get_call_context` can expand one opaque call reference. Sensitive identifiers are masked or replaced before provider transmission. When the fixed internal safety limit is reached, VoxyWatch removes lower-priority sample rows in stages and records the omission; totals, provenance and valid JSON remain intact.
+Keep sensitive-data controls disabled unless a documented operational need and
+appropriate authorization require otherwise. Review provider terms, data
+residency and retention before enabling AI.
 
-## Context order
+## Safe operator workflow
 
-1. Stable product identity, installed version, safety rules and read-only boundary.
-2. Current user's portal role, interface language and optional personal AI instructions; personal identity stays local.
-3. Server-side chat history, bounded by the same internal safety limit.
-4. Current deterministic snapshot and fresh results from read-only tools.
-5. Locally selected VoxyWatch documentation and RFC references relevant to the question.
-6. Related historical findings, clearly marked as leads rather than current facts.
-
-Stable instructions are kept before dynamic evidence to improve provider prompt-cache reuse. VoxyWatch never sends email addresses or infers an organization from an email domain. Raw SIP, audio, telephone numbers, customer IP addresses, Call-IDs, credentials and server paths remain excluded.
-
-## Knowledge selection
-
-The built-in catalog routes questions to public product documentation and applicable RFC families, including SIP, RTP/RTCP, SDP, offer/answer, STIR/PASSporT, RTCP XR, DTMF and SIPREC. References are selected just in time; the entire repository or RFC corpus is never placed in every prompt. A URL identifies an authoritative source but is not represented as fetched content unless a tool actually retrieves it.
-
-## Finding ledger
-
-Incident investigations can persist a bounded local `voxywatch_ai_findings.json` ledger. Each entry contains a reproducible evidence hash, scope, hypothesis, confidence, evidence IDs, prompt/model version, recurrence count and review state. It contains no raw evidence or customer identifiers.
-
-Allowed review states are `unverified`, `confirmed`, `refuted` and `resolved`. Historical findings are advisory. Fresh deterministic evidence always wins. Promotion follows:
-
-`detector evidence -> LLM hypothesis -> human feedback -> replay -> shadow candidate -> deterministic rule`
-
-No LLM hypothesis automatically becomes an alarm or changes customer infrastructure.
-
-## API
-
-- `GET /api/ai/findings` lists the local ledger for operator and administrator roles.
-- `POST /api/ai/findings/{id}/feedback` lets an administrator classify a finding and record a bounded outcome.
+1. Confirm capture, health and the relevant call or incident in the portal.
+2. Ask a bounded question about the observed symptom.
+3. Verify recommendations against the portal and approved runbooks.
+4. Apply changes only through the normal administrator workflow.

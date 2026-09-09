@@ -2,77 +2,72 @@
 
 <img src="assets/voxywatch-wordmark.png" alt="VoxyWatch" width="520">
 
-### The agentic NOC for your voice network
-
-VoxyWatch turns passive voice-network evidence into searchable calls,
-operational health, incidents and carrier-ready diagnostics. It is self-hosted,
-keeps customer data under customer control and never configures or controls the
-customer's SBC.
+### Voice-network observability, under your control
 
 </div>
 
-## Install
+VoxyWatch is a self-hosted operations platform for passive SIP/HEP evidence,
+CDRs, health, incidents and permitted media analysis. It observes the network;
+it never configures or controls a customer SBC.
+
+## Install and first access
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | sudo bash
 ```
 
-Supported platforms:
+Signed releases support Debian 12/13, Ubuntu 22.04/24.04 LTS and Amazon Linux
+2023 on x86_64 and ARM64. Open `https://YOUR-HOST`, change the initial
+administrator password, and complete the visible setup checks before admitting
+live traffic.
 
-- Debian 12/13
-- Ubuntu 22.04/24.04 LTS
-- Amazon Linux 2023
-- x86_64 and ARM64
+Fresh installations use a private certificate authority. Trust its root on each
+browser/API/MCP client, or configure a public hostname or your own certificate
+in **Settings → Web Access**. See the [HTTPS guide](HTTPS_CONFIGURATION.md).
 
-The installer selects the native signed artifact for the detected architecture,
-verifies its SHA-256 and mandatory GPG signature, and configures the required
-local services. Open `https://YOUR-HOST` after installation.
+**Initial credentials:** **admin** / **voxywatch**. Change this password immediately in
+**Settings → Security → Users** and restrict access to your management network.
 
-Initial credentials:
+## Capture choices
 
-| Field | Value |
-|---|---|
-| Username | `admin` |
-| Password | `voxywatch` |
+- **HEP** receives approved SIP/RTP/RTCP exporters on UDP or TCP 9060 by default.
+- **SIPREC** is optional and off by default; configure its source and port range
+  explicitly.
+- **Passive Mirror Capture** is opt-in for a read-only SPAN/RSPAN/ERSPAN/VXLAN
+  copy when an exporter is unavailable.
 
-Change the default password immediately in **Settings → Security → Users**.
+| Input | What you can analyze | Important limit |
+|---|---|---|
+| HEP | Original signaling and any exported media | Audio requires RTP actually exported and correlated |
+| SIPREC | Recorded sessions, supplied metadata and eligible audio/transcripts | Metadata does not recreate original SIP messages or commercial ASR/NER/PDD |
+| Mirror | Visible signaling/media from the mirrored interface | Mirroring cannot decode encrypted SIP/media |
 
-## Capture inputs
+Restrict capture inputs to approved source networks. The HTTPS portal uses TCP
+443; do not expose its local backend.
 
-VoxyWatch supports native HEP, optional SIPREC and opt-in Passive Mirror Capture.
-HEP listens on UDP/TCP 9060 by default; restrict network access to approved
-capture sources. The portal is served through HTTPS on TCP 443 and its local
-backend port must not be exposed directly.
+## Operator guides
 
-Configuration guides:
-
-- [Platform and HEP validation](PLATFORM_AND_CAPTURE_VALIDATION.md)
+- [Platform and capture validation](PLATFORM_AND_CAPTURE_VALIDATION.md)
+- [SIPREC validation](PLATFORM_AND_CAPTURE_VALIDATION.md#siprec-validation)
 - [Passive Mirror Capture](PASSIVE_MIRROR_CAPTURE.md)
-- [HTTPS access](HTTPS_CONFIGURATION.md)
+- [HTTPS access and certificate trust](HTTPS_CONFIGURATION.md)
 - [Initial setup channels](INITIAL_SETUP_CHANNELS.md)
-
-## Optional integrations
-
+- [Integration API](API_REFERENCE.md)
 - [MCP connection](MCP_SERVER.md)
-- [LLM credential management](AI_CREDENTIALS.md)
-- [Speech to text Beta](SPEECH_TO_TEXT_BETA.md)
-- [Flash Call detection](FLASH_CALL_DETECTION.md)
-- [Reports](REPORTS.md)
+- [Speech to Text Beta](SPEECH_TO_TEXT_BETA.md)
+- [LLM credentials](AI_CREDENTIALS.md)
+- [Reports](REPORTS.md) and [available features](FEATURES.md)
 
-Optional integrations start disabled or require explicit administrator
-configuration. VoxyWatch does not send raw SIP, RTP/audio or credentials to an
-external AI automatically.
+AI, MCP and transcription are optional and require explicit administrator
+configuration. VoxyWatch does not automatically send raw SIP, RTP/audio or
+credentials to an external provider.
 
 ## Updates
 
-VoxyWatch checks the signed public release manifest and shows the available
-version inside the application. Updates are administrator initiated and
-signature verification fails closed.
+Updates are administrator initiated and verify the signed public release
+manifest before installation. This repository contains operator documentation;
+private engineering records and recovery procedures are not distributed here.
 
-Detailed engineering history, architecture and internal implementation records
-are not part of this public distribution repository.
-
-Purchase and product information: https://voxywatch.com
-
-Support: support@voxywatch.com
-WhatsApp: https://wa.me/525592217665
+Support: [support@voxywatch.com](mailto:support@voxywatch.com) ·
+[WhatsApp +52 55 9221 7665](https://wa.me/525592217665) ·
+[Plans and trial licenses](https://voxywatch.com/pricing/)

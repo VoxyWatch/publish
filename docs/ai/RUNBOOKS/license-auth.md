@@ -9,7 +9,7 @@
 
 ## First Checks
 
-- License status in Settings -> License and Diagnostics.
+- License status in **Settings → License** and the separate operational health view.
 - User role and password-change requirement.
 - API key creation flow.
 - Browser autocomplete behavior for non-login secrets.

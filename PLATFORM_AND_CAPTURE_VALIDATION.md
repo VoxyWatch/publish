@@ -16,7 +16,7 @@ Every signed release contains separate native `linux-x64` and `linux-arm64`
 artifacts, SHA-256 values and GPG signatures. The installer selects the artifact
 from `uname -m`; it does not run an x86 binary through QEMU on ARM.
 
-Release 3.77.4 was acceptance-tested on a clean Debian 13 AArch64 host. The
+Historical evidence: release 3.77.4 was acceptance-tested on a clean Debian 13 AArch64 host. The
 test covered signed installation, the native AArch64 process, managed local
 services, internal HTTPS by IP, login, CLI, HEP SIP/RTP
 ingestion, CDR classification, API search/detail, RTP correlation, audio
@@ -58,17 +58,39 @@ into a test installation.
    services are active.
 2. Send an answered HEP dialog: INVITE, provisional response, 200, ACK, BYE and
    final 200.
-3. Confirm all SIP messages reached `packets`, exactly one call reached `calls`,
-   and the call is `answered`.
-4. Send bounded RTP with the same Call-ID and SDP endpoint pair. Confirm a
-   flow-keyed row reaches `rtp_packets` and call detail reports
-   `rtp_available=true`.
-5. Reconstruct audio and download it through the authenticated API. A successful
-   test returns a non-empty `audio/wav` response.
-6. Exercise rejected, busy and cancelled dialogs. An OPTIONS transaction must
+3. Confirm one answered call is visible in **Calls/CDRs** with the expected
+   result and timestamps.
+4. Send bounded RTP with the same call and SDP endpoint pair. Confirm media
+   visibility in call detail, then reconstruct audio where policy permits.
+5. Exercise rejected, busy and cancelled dialogs. An OPTIONS transaction must
    not become a call.
-7. Restart only the portal, then confirm the CDR/RTP evidence persists, HTTPS
-   returns 200 and recent service journals contain no new errors.
+6. Confirm the CDR and media result remain visible after the agreed operational
+   check, and that HTTPS remains reachable.
+
+## SIPREC validation
+
+In **Settings → Capture → SIPREC**, enable the optional listener only for an
+authorized recording source. Configure SIPREC UDP port `5060` and the configured
+RTP port base (default `40000`) to match the source and firewall. Confirm
+recording metadata and media visibility in Calls/CDRs. SIPREC metadata is not
+original SIP signaling and does not itself establish ASR, NER or PDD; those
+metrics require original HEP or mirror signaling. Do not
+open every RTP port; allow only the configured range and approved source networks.
+
+Set the **advertised media IP** to an address reachable from your recording source;
+behind NAT it may differ from the local address. Use negotiated recording ports,
+not original customer-media endpoints. Your network administrator must restrict
+the SIP listener and recording-media range to authorized senders. This basic
+workflow does not promise TLS/SRTP interoperability.
+
+Make an authorized test call. Participants and the recording timeline should appear
+in **Calls/CDRs**; audio should play in both directions if both streams were sent
+and recording policy permits it. A successful recording setup alone does not prove
+RTP arrival. For transcription, enable **Settings → Transcription**, confirm readiness
+and make a new eligible call; automatic processing does not backfill old recordings.
+
+Keep original HEP or mirror signaling alongside SIPREC for true SIP sequences,
+call outcome, route metrics, ASR, NER and PDD. Unavailable evidence is not a successful call.
 
 Global packet/RTP totals use bounded cached estimates and can lag immediately
 after a tiny synthetic injection. Per-call detail is the authoritative

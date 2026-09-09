@@ -68,8 +68,9 @@ runtime OID catalog, so names and numeric OIDs cannot drift independently:
   Library sensor. PRTG SNMP Custom v2 can also consume supported ASN.1 MIB folders.
 - `voxywatch-snmp-oids.csv`: flat scalar list for PRTG Custom sensors, Nagios-compatible checks,
   spreadsheets and provisioning scripts. Every scalar already includes its `.0` instance.
-- `voxywatch-zabbix-7.4-snmp.yaml`: importable Zabbix 7.4 template with 47 SNMP agent items.
-  Configure the SNMP interface and credentials on the Zabbix host after importing it.
+- `voxywatch-zabbix-snmp.yaml`: importable Zabbix template. Check the export's
+  declared version and item count before importing, then configure the SNMP
+  interface and credentials on the Zabbix host.
 - `voxywatch-snmp-catalog.json`: versioned machine-readable catalog for automation and custom NMS adapters.
 
 The MIB intentionally defines VoxyWatch enterprise objects only. Continue using the NMS vendor's

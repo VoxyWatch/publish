@@ -1,39 +1,13 @@
-# Extending VoxyWatch
+# Extending VoxyWatch safely
 
-## Development Principles
+Extensions should use the documented HTTPS API or MCP interface and must respect
+scopes, role checks, rate limits and privacy controls. Do not depend on private
+files, internal services or undocumented endpoints.
 
-- Read existing code and module docs first.
-- Preserve current patterns and contracts.
-- Keep behavior configurable, bilingual and hardware-adaptive.
-- Add new settings through the server-side whitelist and UI load/save paths.
-- Prefer deterministic analysis for telecom workflows; use AI as explanation and assistance, not as the only decision source.
+Start with the installed API contract at `/api/v1/openapi.json`, use a least-
+privilege API key, and keep TLS verification enabled. Treat response fields as
+additive and ignore unknown fields for forward compatibility.
 
-## Tests
-
-Add focused tests for:
-
-- New parser/analysis behavior.
-- Settings merge/sanitize behavior.
-- Public API contracts.
-- UI anchors for visible features.
-- Release/build packaging when adding served assets.
-
-## Packaging
-
-If a file must exist in installed systems, include it in:
-
-- `build.sh` tarball staging.
-- `install.sh` copy step.
-- `package.json.pkg.assets` only if it must be served from the pkg virtual filesystem.
-
-If a document must be public for customer AI assistants, sync it to the public publish repository during release.
-
-## Release
-
-Customer-visible product changes require:
-
-- Source changelog.
-- Tests and invariants.
-- Signed release.
-- Version-only `latest.json` update.
-- Public docs sync when docs changed.
+An extension must not configure a customer SBC, bypass access controls, export
+credentials, or assume that audio, transcripts or traffic identifiers are
+available. For MCP, see [MCP Server](../../MCP_SERVER.md).

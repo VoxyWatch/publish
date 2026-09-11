@@ -1,4 +1,4 @@
-# Passive Mirror Capture (Beta)
+# Passive Mirror Capture
 
 Passive Mirror Capture lets VoxyWatch ingest a read-only copy of SIP, RTP and
 RTCP when the SBC cannot export HEP and SIPREC is unavailable. It never logs in
@@ -21,7 +21,8 @@ SBC/voice VLAN -> switch/cloud mirror -> dedicated VoxyWatch NIC
   interface. Never select `any` or loopback.
 - Media authorization defaults to **SDP-learned**. Unrelated high-port UDP is
   rejected. SBC/voice CIDRs add a stronger first filter.
-- Duplicate packets observed on both directions are suppressed for 1.5 s.
+- Duplicate **media** packets observed on both directions are suppressed for
+  1.5 s; SIP retransmissions are preserved.
 - The probe exposes bounded counters in `/run/voxywatch-probe/status.json`:
   kernel/interface/queue drops, duplicates, untrusted frames and HEP sends.
 - SIP TLS, SRTP and IPsec remain encrypted. The probe can expose connection and
@@ -29,7 +30,7 @@ SBC/voice VLAN -> switch/cloud mirror -> dedicated VoxyWatch NIC
 
 ## Settings
 
-Open **Settings -> Capture Sources -> Passive Mirror Capture**.
+Open **Settings -> Capture -> Sniffer**.
 
 1. Select the dedicated interface.
 2. Choose Local SPAN, RSPAN, ERSPAN, AWS VXLAN or Auto detect.
@@ -118,7 +119,7 @@ network device.
 - Mirrored traffic contains personal communications. Apply retention, access,
   encryption and lawful-interception/privacy requirements before enabling it.
 
-## Current Beta boundaries
+## Capture boundaries
 
 UDP SIP/RTP/RTCP, VLAN/QinQ, VXLAN and ERSPAN II/III are supported. Complete SIP
 message payloads over TCP are recognized; TLS cannot be decrypted. Fragmented IP

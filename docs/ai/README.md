@@ -4,12 +4,18 @@ VoxyWatch is an on-prem or customer-hosted telecom observability platform for SI
 
 Use this pack to help an operator configure the product or diagnose an issue without creating unnecessary support tickets.
 
-## What To Load
+## Operational pack
 
-1. `AI_TROUBLESHOOTING.md`
-2. `docs/ai/ARCHITECTURE_MAP.md`
-3. `docs/ai/SETTINGS_REFERENCE.md`
-4. The relevant runbook under `docs/ai/RUNBOOKS/`
+Load only the operator material needed for the question:
+
+1. [AI troubleshooting](../../AI_TROUBLESHOOTING.md) for symptom-led diagnosis.
+2. [Configuration and credentials](../../AI_CREDENTIALS.md) or the relevant Settings screen.
+3. [MCP](../../MCP_SERVER.md), [HTTPS](../../HTTPS_CONFIGURATION.md), or
+   [Passive Mirror](../../PASSIVE_MIRROR_CAPTURE.md) when that integration is in scope.
+4. Authorized diagnostic results obtained through the portal or MCP.
+
+Do not load internal architecture maps, source maps, governance records or broad logs
+into an operator/support conversation.
 
 ## Evidence Model
 

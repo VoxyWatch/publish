@@ -1435,7 +1435,7 @@ EOF
 cat > /etc/systemd/system/voxywatch-probe.service << EOF
 [Unit]
 Description=VoxyWatch Passive Mirror Capture (Beta)
-Documentation=https://github.com/VoxyWatch/publish/blob/main/docs/PASSIVE_MIRROR_CAPTURE.md
+Documentation=https://github.com/VoxyWatch/publish/blob/main/PASSIVE_MIRROR_CAPTURE.md
 After=network-online.target voxywatch-sniffer.service
 Wants=network-online.target
 

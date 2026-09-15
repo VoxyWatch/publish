@@ -1,7 +1,6 @@
 # VoxyWatch feature summary
 
-Updated for **v4.3.11**.
-Current capabilities are shipped as of v4.3.11.
+Prepared for **v4.4.0**; it is not published until the signed release and demo validation complete.
 
 VoxyWatch provides a self-hosted operational workspace for voice networks:
 
@@ -11,7 +10,7 @@ VoxyWatch provides a self-hosted operational workspace for voice networks:
 - Internal IP statistics with activity history and explicit evidence coverage.
 - Deterministic incident, fraud and Flash Call detection.
 - A Tickets workspace for incident history, urgent attention and shared important pins.
-- Configurable alerts and operational reports.
+- Configurable alerts and operational reports with saved definitions, controlled exports and optional schedules.
 - Optional AI assistance and scoped MCP connectivity.
 - Optional speech-to-text and audio reconstruction.
 - Signed updates and role-based administration.

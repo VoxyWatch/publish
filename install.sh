@@ -487,7 +487,7 @@ _valid_public_https_host() {
 }
 _detected_private_host() {
   local candidate
-  candidate="$(hostname -I 2>/dev/null | awk '{for(i=1;i<=NF;i++) if ($i ~ /\./ && $i !~ /^127\./) {print $i; exit}}')"
+  candidate="$(hostname -I 2>/dev/null | awk '!seen {for(i=1;i<=NF;i++) if ($i ~ /\./ && $i !~ /^127\./) {print $i; seen=1; break}}')"
   _valid_https_host "$candidate" && { printf '%s' "$candidate"; return; }
   candidate="$(hostname -f 2>/dev/null || true)"
   _valid_https_host "$candidate" && [ "$candidate" != localhost ] && { printf '%s' "$candidate"; return; }
@@ -776,7 +776,7 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
   if [ -e /usr/local/bin/voxywatch ] || [ -L /usr/local/bin/voxywatch ]; then
     UNIFIED_CLI_LINK_WAS_PRESENT=1
   fi
-  PREVIOUS_VERSION=$(sed -n 's/^VERSION=//p' "$CONF_FILE" | head -1)
+  PREVIOUS_VERSION=$(sed -n 's/^VERSION=//p' "$CONF_FILE" | sed -n '1p')
   ROLLBACK_STAMP=$(date -u '+%Y%m%dT%H%M%SZ')
   ROLLBACK_DIR="${ROLLBACK_ROOT}/${PREVIOUS_VERSION:-unknown}-${ROLLBACK_STAMP}"
   install -d -o root -g root -m 700 "$ROLLBACK_ROOT" "$ROLLBACK_DIR"
@@ -991,7 +991,7 @@ STT_REPAIR=0
 if [ "$STT_REPAIR" = "0" ] && [ "$(sha256sum "${INSTALL_DIR}/speech-to-text/ggml-base.bin" | awk '{print $1}')" != "$STT_MODEL_SHA" ]; then STT_REPAIR=1; fi
 if [ "$STT_REPAIR" = "0" ] && [ "$(sha256sum "${INSTALL_DIR}/speech-to-text/ggml-small.bin" | awk '{print $1}')" != "$STT_SMALL_MODEL_SHA" ]; then STT_REPAIR=1; fi
 if [ "$STT_REPAIR" = "0" ]; then
-  STT_BINARY_SHA="$(sed -n 's/.*"binary_sha256":"\([a-f0-9]\{64\}\)".*/\1/p' "${INSTALL_DIR}/speech-to-text/MANIFEST.json" | head -n1)"
+  STT_BINARY_SHA="$(sed -n 's/.*"binary_sha256":"\([a-f0-9]\{64\}\)".*/\1/p' "${INSTALL_DIR}/speech-to-text/MANIFEST.json" | sed -n '1p')"
   [ -n "$STT_BINARY_SHA" ] && [ "$(sha256sum "${INSTALL_DIR}/speech-to-text/whisper-cli" | awk '{print $1}')" = "$STT_BINARY_SHA" ] || STT_REPAIR=1
 fi
 if [ -d "${EXTRACTED}/speech-to-text" ] && { [ "$STT_REPAIR" = "1" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; }; then
@@ -1160,7 +1160,7 @@ else
 # an operator may refresh them only with the explicit maintenance flag.
 PG_VER=""
 if [ "$UPDATE_MODE" = "1" ]; then
-  PG_VER="$(pg_lsclusters -h 2>/dev/null | awk -v c="$PG_CLUSTER" '$2 == c { print $1; exit }')"
+  PG_VER="$(pg_lsclusters -h 2>/dev/null | awk -v c="$PG_CLUSTER" '!seen && $2 == c { print $1; seen=1 }')"
   [ -n "$PG_VER" ] || PG_VER="$(ls "/usr/lib/${DB_ENGINE}/" 2>/dev/null | sort -n | tail -1)"
 fi
 
@@ -1187,7 +1187,8 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
       chmod 644 /usr/share/keyrings/caddy-stable-archive-keyring.gpg /etc/apt/sources.list.d/caddy-stable.list
       apt-get update >/dev/null 2>&1 || err "Could not refresh metadata after adding the official Caddy repository"
     fi
-    CADDY_PACKAGE_VERSION="$(apt-cache madison caddy 2>/dev/null | awk -v v="$CADDY_VERSION" '$3 ~ ("^" v "([+~-]|$)") {print $3; exit}')"
+    # Keep the first match but drain every row: early exit can SIGPIPE apt-cache under pipefail.
+    CADDY_PACKAGE_VERSION="$(apt-cache madison caddy 2>/dev/null | awk -v v="$CADDY_VERSION" '!seen && $3 ~ ("^" v "([+~-]|$)") {print $3; seen=1}')"
     [ -n "$CADDY_PACKAGE_VERSION" ] || err "Validated Caddy ${CADDY_VERSION} is unavailable from the configured repository"
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "caddy=${CADDY_PACKAGE_VERSION}" >/dev/null 2>&1 \
       || err "Could not install validated Caddy ${CADDY_VERSION}"
@@ -1230,7 +1231,8 @@ if [ "$UPDATE_MODE" = "0" ]; then
 fi
 
 # 2) Crear el cluster dedicado si no existe (puerto no-default, auth local peer)
-if ! pg_lsclusters -h 2>/dev/null | awk '{print $1" "$2}' | grep -qx "${PG_VER} ${PG_CLUSTER}"; then
+PG_CLUSTER_ROWS="$(pg_lsclusters -h 2>/dev/null)"
+if ! printf '%s\n' "$PG_CLUSTER_ROWS" | awk '{print $1" "$2}' | grep -x "${PG_VER} ${PG_CLUSTER}" >/dev/null; then
   pg_createcluster "${PG_VER}" "${PG_CLUSTER}" -p "${PG_PORT}" -- --auth-local=peer >/dev/null \
     || err "pg_createcluster failed"
 fi

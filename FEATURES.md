@@ -1,6 +1,6 @@
 # VoxyWatch feature summary
 
-Features shipped as of v4.4.0.
+Features shipped as of v4.5.0.
 
 VoxyWatch provides a self-hosted operational workspace for voice networks:
 
@@ -14,6 +14,7 @@ VoxyWatch provides a self-hosted operational workspace for voice networks:
 - Optional AI assistance and scoped MCP connectivity.
 - Optional speech-to-text and audio reconstruction.
 - Signed updates and role-based administration.
+- A bounded local administrator CLI with dry-run previews and safe JSON output.
 
 Availability depends on the configured capture source and the evidence present
 in customer traffic. Optional or Beta capabilities remain disabled until an

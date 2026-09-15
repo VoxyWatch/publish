@@ -715,6 +715,7 @@ ROLLBACK_ROOT="/var/backups/voxywatch"
 LICENSE_CLI_LINK_WAS_PRESENT=0
 AI_KEY_CLI_LINK_WAS_PRESENT=0
 SETUP_CLI_LINK_WAS_PRESENT=0
+UNIFIED_CLI_LINK_WAS_PRESENT=0
 CADDY_CONFIG_WAS_PRESENT=0
 CADDY_WAS_ACTIVE=0
 CADDY_WAS_INSTALLED=0
@@ -731,6 +732,9 @@ rollback_update() {
     [ "$LICENSE_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-license
     [ "$AI_KEY_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-ai-key
     [ "$SETUP_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-setup
+    if [ "$UNIFIED_CLI_LINK_WAS_PRESENT" != "1" ] && [ -L /usr/local/bin/voxywatch ] && [ "$(readlink /usr/local/bin/voxywatch)" = "${INSTALL_DIR}/voxywatch" ]; then
+      rm -f /usr/local/bin/voxywatch
+    fi
     [ "$CADDY_CONFIG_WAS_PRESENT" = "1" ] || rm -f /etc/caddy/Caddyfile
     if [ "$CADDY_WAS_ACTIVE" = "1" ]; then
       systemctl reload-or-restart caddy 2>/dev/null || true
@@ -769,6 +773,9 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
   if [ -e /usr/local/sbin/voxywatch-setup ] || [ -L /usr/local/sbin/voxywatch-setup ]; then
     SETUP_CLI_LINK_WAS_PRESENT=1
   fi
+  if [ -e /usr/local/bin/voxywatch ] || [ -L /usr/local/bin/voxywatch ]; then
+    UNIFIED_CLI_LINK_WAS_PRESENT=1
+  fi
   PREVIOUS_VERSION=$(sed -n 's/^VERSION=//p' "$CONF_FILE" | head -1)
   ROLLBACK_STAMP=$(date -u '+%Y%m%dT%H%M%SZ')
   ROLLBACK_DIR="${ROLLBACK_ROOT}/${PREVIOUS_VERSION:-unknown}-${ROLLBACK_STAMP}"
@@ -790,6 +797,9 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
     [ -e "/${_p}" ] && _rollback_paths+=("$_p")
   done
   [ -e /usr/local/sbin/voxywatch-setup ] && _rollback_paths+=("usr/local/sbin/voxywatch-setup")
+  if [ -e /usr/local/bin/voxywatch ] || [ -L /usr/local/bin/voxywatch ]; then
+    _rollback_paths+=("usr/local/bin/voxywatch")
+  fi
   if [ -e /etc/caddy/Caddyfile ]; then
     CADDY_CONFIG_WAS_PRESENT=1
     _rollback_paths+=("etc/caddy/Caddyfile")
@@ -1037,7 +1047,7 @@ if [ -d "${EXTRACTED}/docs/ai" ]; then
     install -o root -g voxywatch -m 640 "$f" "${INSTALL_DIR}/docs/ai/${rel}"
   done
 fi
-for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md INITIAL_SETUP_CHANNELS.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md AI_CREDENTIALS.md API_REFERENCE.md HTTPS_CONFIGURATION.md SPEECH_TO_TEXT_BETA.md PASSIVE_MIRROR_CAPTURE.md; do
+for operational_doc in FLASH_CALL_DETECTION.md MCP_SERVER.md INITIAL_SETUP_CHANNELS.md IMPLEMENTED_FEATURES.md LICENSE_CLI.md CLI_REFERENCE.md AI_CREDENTIALS.md API_REFERENCE.md HTTPS_CONFIGURATION.md SPEECH_TO_TEXT_BETA.md PASSIVE_MIRROR_CAPTURE.md; do
   [ -f "${EXTRACTED}/docs/${operational_doc}" ] || continue
   install -d -o root -g voxywatch -m 750 "${INSTALL_DIR}/docs"
   install -o root -g voxywatch -m 640 "${EXTRACTED}/docs/${operational_doc}" \
@@ -1062,6 +1072,26 @@ if [ -d "${EXTRACTED}/assets/brand" ]; then
 fi
 # Root-owned updater entrypoint delivered by the verified, signed tarball.
 install -o root -g root -m 750 "${EXTRACTED}/install.sh" "${INSTALL_DIR}/install.sh"
+# Unified entrypoint; do not replace an unrelated command or dangling link.
+cat > "${INSTALL_DIR}/voxywatch" << 'UNIFIED_CLI_EOF'
+#!/bin/sh
+INSTALL_DIR=/opt/voxywatch
+if [ ! -x "${INSTALL_DIR}/voxywatch-portal" ]; then
+  echo "VoxyWatch administrative CLI requires access to the installed binary. Run sudo voxywatch --help." >&2
+  exit 3
+fi
+exec "${INSTALL_DIR}/voxywatch-portal" cli "$@"
+UNIFIED_CLI_EOF
+chown root:root "${INSTALL_DIR}/voxywatch"
+chmod 755 "${INSTALL_DIR}/voxywatch"
+mkdir -p /usr/local/bin
+if [ -e /usr/local/bin/voxywatch ] || [ -L /usr/local/bin/voxywatch ]; then
+  if [ ! -L /usr/local/bin/voxywatch ] || [ "$(readlink /usr/local/bin/voxywatch)" != "${INSTALL_DIR}/voxywatch" ]; then
+    warn "Existing /usr/local/bin/voxywatch is unrelated; preserved. Use the full portal cli entrypoint."
+  fi
+else
+  ln -s "${INSTALL_DIR}/voxywatch" /usr/local/bin/voxywatch
+fi
 cat > "${INSTALL_DIR}/voxywatch-license" << 'LICENSE_CLI_EOF'
 #!/bin/sh
 exec /opt/voxywatch/voxywatch-portal license "$@"
@@ -1137,7 +1167,7 @@ fi
 if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
   if [ ! -f "/etc/apt/sources.list.d/${DB_EXTENSION}.list" ]; then
     apt-get install -y --no-install-recommends gnupg lsb-release wget ca-certificates >/dev/null 2>&1 || true
-    echo "deb https://packagecloud.io/timescale/${DB_EXTENSION}/debian/ $(lsb_release -cs) main" \
+    echo "deb https://packagecloud.io/timescale/${DB_EXTENSION}/${OS_ID}/ $(lsb_release -cs) main" \
       > "/etc/apt/sources.list.d/${DB_EXTENSION}.list"
     wget -qO- "https://packagecloud.io/timescale/${DB_EXTENSION}/gpgkey" \
       | gpg --dearmor -o "/etc/apt/trusted.gpg.d/${DB_EXTENSION}.gpg" 2>/dev/null || true
@@ -2041,7 +2071,7 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$EXISTING_INSTALL" = "0" ]; then
   echo "    Or securely from the command line:"
   echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install /path/to/license.key"
   echo "      sudo ${INSTALL_DIR}/voxywatch-portal license install --stdin < license.key"
-  echo "    Convenience alias (fresh install or after this installer has run): voxywatch-license"
+  echo "    Unified administration: sudo voxywatch --help (legacy alias: voxywatch-license)"
   echo ""
   echo -e "  ${BOLD}LLM credential${NC} (optional, never pass the value as an argument):"
   echo "      sudo voxywatch-ai-key set --provider openai --stdin"

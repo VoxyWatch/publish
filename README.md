@@ -56,6 +56,7 @@ Restrict capture inputs to approved source networks. The HTTPS portal uses TCP
 - [MCP connection](MCP_SERVER.md)
 - [Speech to Text Beta](SPEECH_TO_TEXT_BETA.md)
 - [LLM credentials](AI_CREDENTIALS.md)
+- [Local CLI reference](CLI_REFERENCE.md)
 - [Reports](REPORTS.md) and [available features](FEATURES.md)
 
 AI, MCP and transcription are optional and require explicit administrator

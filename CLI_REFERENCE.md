@@ -57,6 +57,11 @@ successful health assertion. `config export` is a portable, non-secret initial
 setup document, not a full backup. Except `config export --json`, which emits
 that portable document without a `schema_version` envelope.
 
+`security recaptcha status --json` is also read-only. On a valid fresh
+VoxyWatch data directory with no settings file it reports saved reCAPTCHA as
+disabled and live state as `unknown`; it does not create settings, lock or
+audit state, and does not start or query the portal.
+
 ## Preview before changing state
 
 Supported mutations accept `--dry-run`. A preview reads and validates its input
@@ -132,3 +137,8 @@ transcript.
 Run `sudo voxywatch <group> --help` before applying any command. This guide
 describes local administration only; it does not authorize a build, release,
 deployment, or action on network equipment.
+
+For reCAPTCHA, `disable` may create the initial protected settings file with
+only `recaptcha_enabled: false`. `enable` still needs the persistent local
+credential vault before any change. A malformed, linked, unsafe, oversized or
+concurrently appearing settings file is rejected without overwriting it.

@@ -827,7 +827,8 @@ SNIFFER_CHANGED=1
 # Reload the writer if either module changed; older first-hop installers already
 # restart here because this release changes hep_sniffer.py itself.
 if [ -f "${INSTALL_DIR}/hep_sniffer.py" ] && cmp -s "${EXTRACTED}/hep_sniffer.py" "${INSTALL_DIR}/hep_sniffer.py" 2>/dev/null \
-   && cmp -s "${EXTRACTED}/reconstruct_audio.py" "${INSTALL_DIR}/reconstruct_audio.py" 2>/dev/null; then
+   && cmp -s "${EXTRACTED}/reconstruct_audio.py" "${INSTALL_DIR}/reconstruct_audio.py" 2>/dev/null \
+   && cmp -s "${EXTRACTED}/capture_storage_policy.py" "${INSTALL_DIR}/capture_storage_policy.py" 2>/dev/null; then
   SNIFFER_CHANGED=0
 fi
 if [ "$SNIFFER_CHANGED" = "1" ]; then
@@ -971,6 +972,7 @@ info "Installing files to ${INSTALL_DIR}..."
 install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-portal"   "${INSTALL_DIR}/voxywatch-portal.new"
 mv -f "${INSTALL_DIR}/voxywatch-portal.new" "${INSTALL_DIR}/voxywatch-portal"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/hep_sniffer.py"     "${INSTALL_DIR}/hep_sniffer.py"
+install -o root -g voxywatch -m 640 "${EXTRACTED}/capture_storage_policy.py" "${INSTALL_DIR}/capture_storage_policy.py"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/get-hwid.js"        "${INSTALL_DIR}/get-hwid.js"
 [ -f "${EXTRACTED}/voxywatch-mcp.js" ] && install -o root -g voxywatch -m 644 "${EXTRACTED}/voxywatch-mcp.js" "${INSTALL_DIR}/voxywatch-mcp.js"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/migrate_to_db.js"   "${INSTALL_DIR}/migrate_to_db.js" 2>/dev/null || true
@@ -1508,6 +1510,7 @@ else
 fi
 
 # ── Update applier (oneshot, root) — lo dispara el portal por D-Bus+polkit (one-click update) ──
+install -d -o root -g root -m 700 /var/lib/voxywatch-cli
 # El portal corre con NoNewPrivileges=true → NO puede sudo. En su lugar le pide a systemd (vía
 # polkit) que arranque ESTE unit, que corre como root el helper root-owned apply-update.sh.
 # Nunca se habilita: se arranca on-demand. systemd es su dueño → sobrevive al reinicio del portal.

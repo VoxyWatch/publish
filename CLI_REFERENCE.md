@@ -121,6 +121,11 @@ transcript.
 | AI and notifications | `ai test`, `ai key remove`; `notifications test` | Test configured AI or an explicit delivery channel. |
 | Security | `security recaptcha keys status`, `set`, `remove`, `test`; `security recaptcha test` | Manage or check reCAPTCHA material without exposing it. |
 | Operations | `logs`, `update check`, `update apply` | Bounded journal metadata and signed-update request/preview. |
+| Registration capture | `capture registrations status`; `capture registrations configure --stdin` | Inspect or validate storage/retention policy; disabling new storage does not erase prior evidence. |
+| Participant geography | `geography status`, `geography policies`; `geography configure --stdin` | Passive country policy using the same portal validation and revision checks. |
+| Threat evidence | `threats registrations`, `threats geography` | Read bounded observations; never block traffic or control the SBC. |
+| SNMP | `snmp status`; `snmp configure --stdin` | Inspect state or validate configuration with the portal's shared rules. |
+| System | `system diagnostics` | Bounded instantaneous system/hardware summary, without charts. |
 
 - `web tls validate --stdin` and `web tls import --stdin` accept JSON with
   `cert_pem` and `key_pem`; use dry-run before import.
@@ -130,6 +135,16 @@ transcript.
 - `api token create --stdin --output FILE` writes its one-time token only to
   the selected protected output file. Token input JSON supports `name`,
   `scopes`, `ips`, `rate_per_min`, and `expires_at`.
+- `api token list`, `api token status --id ID` and
+  `api token revoke --id ID --confirm REVOKE_TOKEN` inspect/revoke existing
+  credentials without revealing their values.
+- `geography key set --stdin` stores the dedicated provider credential;
+  `geography key remove --confirm REMOVE_GEO_KEY` removes it. Do not pass keys
+  as command-line arguments. Provider setup is admin-only; policy editing uses
+  the permissions of the authenticated portal identity.
+- For Google/Gemini transcription, use `provider: "google"` in transcription
+  configuration JSON. Its STT credential is separate from the chat provider;
+  `transcripts test --file FILE --confirm SEND_AUDIO` still sends selected audio.
 - `license install` accepts a file or `--stdin`; `license remove` supports a
   preview. Legacy `voxywatch-license`, `voxywatch-ai-key`, and
   `voxywatch-setup` remain available for compatibility.

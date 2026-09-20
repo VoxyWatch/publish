@@ -9,6 +9,7 @@ Speech to text is an opt-in Beta feature that creates searchable transcripts fro
 - Caller and callee are transcribed independently and merged by timestamp.
 - Local processing with the release-pinned `whisper.cpp` engine and two managed profiles: **Base** (faster, 1 GiB worker ceiling) and **Small** (higher accuracy, one 2 GiB worker).
 - Optional OpenAI processing with a dedicated STT credential and `whisper-1`, `gpt-4o-mini-transcribe` or `gpt-4o-transcribe`.
+- Optional Google/Gemini processing with a separate STT credential and `gemini-3.5-transcribe`. Selecting a cloud provider can send the selected audio outside the server; it never inherits the chat credential.
 - TXT, JSON and SRT downloads.
 - Clickable timestamp segments synchronized with the reconstructed-audio player.
 - Search inside one transcript or across the bounded local transcript store.
@@ -37,12 +38,16 @@ The Integration API exposes separate `transcript:read`, `transcript:generate` an
 ## Enable and use
 
 1. Open **Settings → Transcription**.
-2. Review the Beta notice and select Local or OpenAI processing.
+2. Select Local, OpenAI or Google/Gemini processing. The feature remains Beta; validate accuracy and privacy with authorized calls before broad use.
 3. Choose **On demand**, **All new calls with recoverable audio**, or **Only selected trunks**, then enable the feature and save. Automatic choices never process older calls.
 4. For selected-trunk mode, choose one or more trunks from the list.
 5. For a manual transcript, open **Calls**, select a call, expand **Speech to text** and select **Generate transcript**. VoxyWatch reconstructs authorized audio if necessary, then transcribes it.
-6. The Transcription page displays aggregate readiness when it opens: engine/model runtime, credential when applicable, FFmpeg, storage, queue, recent media coverage and completed output. Use **Run readiness check** to repeat the real local runtime probe on demand.
-7. Use **Download safe evidence** to retain an aggregate validation snapshot. It never contains transcript text, Call-IDs, phone numbers, IP addresses or per-job identifiers.
+6. Follow the processing status and actionable error shown for the selected call. Internal readiness checks remain enforced, without a separate readiness/evidence panel in Settings.
+
+Google/Gemini uses its isolated `google_stt` credential. Testing the credential
+checks the supported model catalog; it does not prove transcription accuracy or
+send test audio. Explicit audio tests and actual generation are separate actions.
+Local synthetic validation does not claim a successful call to an external provider.
 
 Before broad use, validate representative authorized calls for language, codec, packet loss, one-way audio, hardware load and legal/compliance requirements.
 

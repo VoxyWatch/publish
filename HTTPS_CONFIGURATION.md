@@ -22,6 +22,22 @@ For the built-in private CA, the public root certificate is normally at
 distributes that certificate through a trusted channel. API clients can use their
 trusted-CA setting, such as `curl --cacert root.crt`; do not disable TLS verification.
 
+### Additional private addresses
+
+For private access with the built-in CA, **Additional private IPs** lets an
+administrator authorize up to 16 exact LAN/VPN addresses assigned to this server.
+Enter IP addresses, not ranges, wildcards or URLs. Existing installations keep
+their current access addresses until an administrator explicitly changes them.
+All clients must still trust the same root certificate.
+
+Additional addresses are not available with public DNS or an uploaded certificate.
+Remove them before switching certificate modes. An unconfigured address can
+produce a certificate error or an explicit address-not-configured response; use
+the configured portal address to review Web Access settings.
+
+After upgrading an older installation, apply additional addresses from Web Access
+if needed. The first update alone may preserve the previous routing configuration.
+
 ## Certificate upload and operation
 
 In **Settings → Web Access**, upload the approved PEM certificate chain and its

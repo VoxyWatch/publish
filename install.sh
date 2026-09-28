@@ -370,13 +370,49 @@ fi
   || err "--https-host requires --https-mode public or --https-mode internal"
 [ "$HTTPS_MODE_ARG" != "legacy" ] || err "--https-mode accepts only public or internal"
 
-# Settings owns uploaded TLS and its service drop-in. CLI migration must not
-# silently discard that certificate or leave an override pointing to the old
-# listener. Use its validated, rollback-capable Web Access operation instead.
+# This pre-download guard cannot depend on the newly distributed helper: an
+# installed older helper may not support its migration subcommand yet. Admit
+# only the complete generated override matching installed data; custom keys,
+# uploaded certificates and unknown overrides remain protected.
+_web_access_dropin_is_generated() {
+  command python3 - "$CONF_FILE" /etc/systemd/system/voxywatch.service.d/web-access.conf <<'WEB_ACCESS_GUARD_PY'
+import os, re, stat, sys
+def bounded(file, maximum):
+    fd = os.open(file, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    try:
+        info = os.fstat(fd)
+        if not stat.S_ISREG(info.st_mode) or info.st_size > maximum:
+            raise ValueError('unsafe configuration')
+        raw = os.read(fd, maximum + 1)
+        if len(raw) > maximum:
+            raise ValueError('oversized configuration')
+        return raw.decode('utf-8')
+    finally:
+        os.close(fd)
+try:
+    lines = bounded(sys.argv[1], 16384).splitlines()
+    def field(name, optional=False):
+        values = [line[len(name)+1:] for line in lines if line.startswith(name + '=')]
+        if len(values) != 1 and not (optional and not values):
+            raise ValueError('ambiguous configuration')
+        return values[0] if values else ''
+    mode, host, aliases = field('HTTPS_MODE'), field('HTTPS_HOST'), field('HTTPS_ALIASES', True)
+    if (mode not in ('internal', 'public') or len(host) > 253 or '..' in host
+            or not re.fullmatch(r'(?:[a-z0-9]|[a-z0-9][a-z0-9.-]*[a-z0-9])', host)
+            or len(aliases) > 736 or not re.fullmatch(r'[0-9a-fA-F:.,]*', aliases)):
+        raise ValueError('invalid configuration')
+    legacy = f'[Service]\nEnvironment=VOXYWATCH_HTTPS_MODE={mode}\nEnvironment=VOXYWATCH_HTTPS_HOST={host}\n'
+    current = legacy.replace('[Service]\n', '[Service]\nEnvironment=VOXYWATCH_BIND_HOST=127.0.0.1\n') + f'Environment=VOXYWATCH_HTTPS_ALIASES={aliases}\n'
+    raise SystemExit(0 if bounded(sys.argv[2], 4096) in (legacy, current) else 1)
+except (OSError, ValueError):
+    raise SystemExit(1)
+WEB_ACCESS_GUARD_PY
+}
 if [ "$UPDATE_MODE" = "1" ] && { [ -n "$HTTPS_MODE_ARG" ] || [ -n "$PORT_ARG" ]; }; then
   if [ -e "${DATA_DIR:-/var/lib/voxywatch}/voxywatch.crt" ] \
      || [ -e "${DATA_DIR:-/var/lib/voxywatch}/voxywatch.key" ] \
-     || [ -e /etc/systemd/system/voxywatch.service.d/web-access.conf ] \
+     || { { [ -e /etc/systemd/system/voxywatch.service.d/web-access.conf ] || [ -L /etc/systemd/system/voxywatch.service.d/web-access.conf ]; } \
+          && ! _web_access_dropin_is_generated; } \
      || { [ -f /etc/caddy/Caddyfile ] && awk '
        /^[[:space:]]*tls[[:space:]]/ && $2 != "internal" { custom = 1 }
        END { exit !custom }
@@ -501,6 +537,14 @@ _read_tty_line() {
 
 HTTPS_MODE=""
 HTTPS_HOST=""
+HTTPS_PREVIOUS_MODE=""
+HTTPS_PREVIOUS_HOST=""
+HTTPS_PREVIOUS_PORT=""
+if [ "$UPDATE_MODE" = "1" ] && [ -f "$CONF_FILE" ]; then
+  HTTPS_PREVIOUS_MODE="$(sed -n 's/^HTTPS_MODE=//p' "$CONF_FILE" | tail -1)"
+  HTTPS_PREVIOUS_HOST="$(sed -n 's/^HTTPS_HOST=//p' "$CONF_FILE" | tail -1)"
+  HTTPS_PREVIOUS_PORT="$(sed -n 's/^PORT=//p' "$CONF_FILE" | tail -1)"
+fi
 if [ "$UPDATE_MODE" = "1" ] && [ -f "$CONF_FILE" ] && [ -z "$HTTPS_MODE_ARG" ]; then
   HTTPS_MODE="$(sed -n 's/^HTTPS_MODE=//p' "$CONF_FILE" | tail -1)"
   HTTPS_HOST="$(sed -n 's/^HTTPS_HOST=//p' "$CONF_FILE" | tail -1)"
@@ -717,6 +761,7 @@ AI_KEY_CLI_LINK_WAS_PRESENT=0
 SETUP_CLI_LINK_WAS_PRESENT=0
 UNIFIED_CLI_LINK_WAS_PRESENT=0
 CADDY_CONFIG_WAS_PRESENT=0
+WEB_ACCESS_DROPIN_WAS_PRESENT=0
 CADDY_WAS_ACTIVE=0
 CADDY_WAS_INSTALLED=0
 CADDY_CONFIG_CHANGED=0
@@ -736,10 +781,15 @@ rollback_update() {
       rm -f /usr/local/bin/voxywatch
     fi
     [ "$CADDY_CONFIG_WAS_PRESENT" = "1" ] || rm -f /etc/caddy/Caddyfile
+    [ "$WEB_ACCESS_DROPIN_WAS_PRESENT" = "1" ] || rm -f /etc/systemd/system/voxywatch.service.d/web-access.conf
     if [ "$CADDY_WAS_ACTIVE" = "1" ]; then
-      systemctl reload-or-restart caddy 2>/dev/null || true
+      if ! systemctl reload-or-restart caddy 2>/dev/null || ! systemctl is-active --quiet caddy; then
+        warn "HTTPS rollback requires manual recovery; previous files and snapshot retained"
+      fi
     else
-      systemctl disable --now caddy 2>/dev/null || true
+      if ! systemctl disable --now caddy 2>/dev/null || systemctl is-active --quiet caddy; then
+        warn "HTTPS rollback could not restore the previous inactive state"
+      fi
     fi
     systemctl daemon-reload 2>/dev/null || true
     systemctl start voxywatch-sniffer 2>/dev/null || true
@@ -803,6 +853,10 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
   if [ -e /etc/caddy/Caddyfile ]; then
     CADDY_CONFIG_WAS_PRESENT=1
     _rollback_paths+=("etc/caddy/Caddyfile")
+  fi
+  if [ -e /etc/systemd/system/voxywatch.service.d/web-access.conf ]; then
+    WEB_ACCESS_DROPIN_WAS_PRESENT=1
+    _rollback_paths+=("etc/systemd/system/voxywatch.service.d/web-access.conf")
   fi
   tar --exclude='opt/voxywatch/agentic/.venv' --exclude='opt/voxywatch/srs-venv' \
     -C / -czf "$ROLLBACK_ARCHIVE" "${_rollback_paths[@]}" \
@@ -1381,52 +1435,35 @@ SyslogIdentifier=voxywatch
 WantedBy=multi-user.target
 EOF
 
-# A few pre-managed demo/early installs used the exact VoxyWatch reverse-proxy
-# shape before the ownership marker existed. Recognize only that narrow shape;
-# any extra site/directive remains unmanaged and fails closed.
-_caddy_is_legacy_voxywatch() {
-  local file="${1:-/etc/caddy/Caddyfile}" normalized expected
-  [ -f "$file" ] || return 1
-  normalized="$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e '/^$/d' "$file")"
-  for backend in "localhost:${PORT}" "127.0.0.1:${PORT}"; do
-    expected="$(printf '%s {\nreverse_proxy %s\n}' "$HTTPS_HOST" "$backend")"
-    [ "$normalized" = "$expected" ] && return 0
-    expected="$(printf '%s {\nreverse_proxy %s\nencode zstd gzip\n}' "$HTTPS_HOST" "$backend")"
-    [ "$normalized" = "$expected" ] && return 0
-  done
-  return 1
-}
-
-# Refreshing dependencies is not a request to change HTTPS. Only fresh installs
-# or explicit mode/port migration render a new proxy configuration.
-if [ "$HTTPS_MODE" != "legacy" ] && { [ "$UPDATE_MODE" = "0" ] \
+# A few pre-managed installations used exact historical shapes. Recognition,
+# rendering and versioned migration share the root helper already distributed
+# by old installers. A marker alone never authorizes replacing operator config.
+# Refreshing dependencies does not broaden HTTPS authorization. Internal-CA
+# updates may only migrate the exact managed shape to routing version 2.
+if [ "$HTTPS_MODE" != "legacy" ] && { [ "$HTTPS_MODE" = "internal" ] || [ "$UPDATE_MODE" = "0" ] \
    || { [ "$REFRESH_EXTERNAL_DEPS" = "1" ] && { [ -n "$HTTPS_MODE_ARG" ] || [ -n "$PORT_ARG" ]; }; }; }; then
-  install -d -o root -g caddy -m 750 /etc/caddy
-  if [ "$CADDY_WAS_INSTALLED" = "1" ] && [ -s /etc/caddy/Caddyfile ] \
-     && ! grep -q '^# Managed by VoxyWatch installer$' /etc/caddy/Caddyfile \
-     && ! _caddy_is_legacy_voxywatch /etc/caddy/Caddyfile; then
-    err "An unmanaged Caddy configuration already exists; VoxyWatch will not overwrite it"
-  fi
-  {
-    echo '# Managed by VoxyWatch installer'
-    if [ "$HTTPS_MODE" = "internal" ]; then
-      echo '{'
-      echo "  default_sni ${HTTPS_HOST}"
-      echo '  skip_install_trust'
-      echo '}'
-      echo
+  _https_args=(install-config --mode "$HTTPS_MODE" --host "$HTTPS_HOST" --port "$PORT")
+  if [ "$UPDATE_MODE" = "0" ]; then
+    _https_args+=(--fresh)
+    [ "$CADDY_WAS_INSTALLED" = "1" ] || _https_args+=(--package-default)
+    [ -n "$HTTPS_HOST_ARG" ] || _https_args+=(--auto-private)
+  elif [ -n "$HTTPS_MODE_ARG" ] || [ -n "$PORT_ARG" ]; then
+    _https_args+=(--explicit)
+    if [ "$HTTPS_PREVIOUS_MODE" = "public" ] || [ "$HTTPS_PREVIOUS_MODE" = "internal" ]; then
+      _https_args+=(--previous-mode "$HTTPS_PREVIOUS_MODE" --previous-host "$HTTPS_PREVIOUS_HOST" --previous-port "$HTTPS_PREVIOUS_PORT")
     fi
-    echo "${HTTPS_HOST} {"
-    [ "$HTTPS_MODE" = "internal" ] && echo '  tls internal'
-    echo "  reverse_proxy 127.0.0.1:${PORT}"
-    echo '  encode zstd gzip'
-    echo '}'
-  } > /etc/caddy/Caddyfile
-  chown root:caddy /etc/caddy/Caddyfile
-  chmod 640 /etc/caddy/Caddyfile
-  caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null \
-    || err "Generated Caddy HTTPS configuration is invalid"
-  CADDY_CONFIG_CHANGED=1
+  fi
+  _https_result="$(VW_CONF_FILE="$CONF_FILE" VW_CADDYFILE=/etc/caddy/Caddyfile \
+    VW_WEB_ACCESS_DROPIN=/etc/systemd/system/voxywatch.service.d/web-access.conf \
+    VW_TLS_CERT="${DATA_DIR}/voxywatch.crt" VW_TLS_KEY="${DATA_DIR}/voxywatch.key" \
+    python3 "${INSTALL_DIR}/apply-web-access.py" "${_https_args[@]}")" \
+    || err "Managed HTTPS migration failed; restore the installer snapshot if recovery is required"
+  case "$_https_result" in
+    changed) CADDY_CONFIG_CHANGED=1 ;;
+    unchanged|metadata_changed) : ;;
+    preserved_review_required) warn "HTTPS configuration preserved; review Settings > Web Access before authorizing additional private IPs" ;;
+    *) err "Unexpected HTTPS migration result" ;;
+  esac
 fi
 
 cat > /etc/systemd/system/voxywatch-sniffer.service << EOF

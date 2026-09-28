@@ -129,6 +129,15 @@ transcript.
 
 - `web tls validate --stdin` and `web tls import --stdin` accept JSON with
   `cert_pem` and `key_pem`; use dry-run before import.
+- `web access status --json` reports host routing separately from TLS.
+  `web access validate --stdin` validates JSON using the authenticated portal;
+  `web access apply --stdin --confirm=APPLY_WEB_ACCESS` requests the scoped helper.
+  JSON: `mode` (`internal`/`public`), `host`, optional `aliases`, `access_policy`
+  (`open` default/`restricted`) and `allowed_hosts` (up to 32 exact IPs/DNS names).
+  Omitted lists preserve installed values. `--dry-run` validates input locally;
+  it does not prove live readiness. Accepted does not mean applied or verified.
+  Open routing preserves login and TLS verification; it does not make an
+  untrusted certificate or mismatched name trusted. See HTTPS_CONFIGURATION.md.
 - `user create` and `user reset-password` read the password from stdin.
   Usernames and roles are explicit; an offline password reset preserves the
   portal active/inactive state and never touches capture.

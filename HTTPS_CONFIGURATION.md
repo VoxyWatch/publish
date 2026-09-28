@@ -4,6 +4,19 @@ VoxyWatch serves the portal, API and remote MCP access over HTTPS on TCP 443.
 Use **Settings → Web Access** to choose the access name and review certificate
 status. HTTPS is always enabled; do not expose the local application backend.
 
+## Address policy
+
+**Settings → Web Access → Access policy** separates permitted addresses from
+certificate trust. New managed installations accept incoming hostnames and IPs
+by default; login, user permissions and TLS verification still apply.
+Choose **Restricted** to accept only the primary address, configured private
+aliases and up to32 explicit additional hostnames/IPs. Do not use URLs, ranges
+or wildcards. Existing explicit restrictions and uploaded certificates are preserved.
+
+Allowing an address does not issue a certificate for it. Use a name covered by
+your certificate; an unknown name can still produce a browser trust warning.
+For command-line administration, see the [CLI reference](CLI_REFERENCE.md).
+
 ## Public DNS name
 
 Choose **Public DNS name** when an FQDN resolves to the server and TCP 80/443

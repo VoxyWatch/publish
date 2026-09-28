@@ -376,7 +376,17 @@ fi
 # uploaded certificates and unknown overrides remain protected.
 _web_access_dropin_is_generated() {
   command python3 - "$CONF_FILE" /etc/systemd/system/voxywatch.service.d/web-access.conf <<'WEB_ACCESS_GUARD_PY'
-import os, re, stat, sys
+import os, re, stat, sys, ipaddress
+def exact_host(value):
+    if not value or len(value) > 253 or re.search(r'[\s/%@]', value):
+        raise ValueError('invalid host')
+    try:
+        if str(ipaddress.ip_address(value)) != value:
+            raise ValueError('noncanonical address')
+    except ValueError:
+        if re.fullmatch(r'[\d.]+', value) or not all(re.fullmatch(r'[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?', label) for label in value.split('.')):
+            raise ValueError('invalid host')
+    return value
 def bounded(file, maximum):
     fd = os.open(file, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
     try:
@@ -397,13 +407,24 @@ try:
             raise ValueError('ambiguous configuration')
         return values[0] if values else ''
     mode, host, aliases = field('HTTPS_MODE'), field('HTTPS_HOST'), field('HTTPS_ALIASES', True)
-    if (mode not in ('internal', 'public') or len(host) > 253 or '..' in host
-            or not re.fullmatch(r'(?:[a-z0-9]|[a-z0-9][a-z0-9.-]*[a-z0-9])', host)
+    exact_host(host)
+    if (mode not in ('internal', 'public')
             or len(aliases) > 736 or not re.fullmatch(r'[0-9a-fA-F:.,]*', aliases)):
         raise ValueError('invalid configuration')
     legacy = f'[Service]\nEnvironment=VOXYWATCH_HTTPS_MODE={mode}\nEnvironment=VOXYWATCH_HTTPS_HOST={host}\n'
     current = legacy.replace('[Service]\n', '[Service]\nEnvironment=VOXYWATCH_BIND_HOST=127.0.0.1\n') + f'Environment=VOXYWATCH_HTTPS_ALIASES={aliases}\n'
-    raise SystemExit(0 if bounded(sys.argv[2], 4096) in (legacy, current) else 1)
+    shapes = [legacy, current]
+    policy, allowed = field('HTTPS_ACCESS_POLICY', True), field('HTTPS_ALLOWED_HOSTS', True)
+    if policy:
+        hosts = allowed.split(',') if allowed else []
+        if policy not in ('open', 'restricted') or len(hosts) > 32 or len(set(hosts)) != len(hosts):
+            raise ValueError('invalid policy')
+        for value in hosts:
+            exact_host(value)
+        shapes = [current + f'Environment=VOXYWATCH_HTTPS_ACCESS_POLICY={policy}\nEnvironment=VOXYWATCH_HTTPS_ALLOWED_HOSTS={allowed}\n']
+    elif allowed or any(line.startswith('HTTPS_ACCESS_POLICY=') for line in lines):
+        raise ValueError('missing policy')
+    raise SystemExit(0 if bounded(sys.argv[2], 16384) in shapes else 1)
 except (OSError, ValueError):
     raise SystemExit(1)
 WEB_ACCESS_GUARD_PY
@@ -513,12 +534,22 @@ PORT="$((10#$PORT))"
 # internal CA. HTTPS is not optional on fresh installs; PORT remains a loopback
 # backend and is never the operator-facing URL.
 _valid_https_host() {
-  [[ "$1" =~ ^([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9.-]*[A-Za-z0-9])$ ]] \
-    && [[ "$1" != *..* ]] && [[ "$1" != http://* ]] && [[ "$1" != https://* ]]
+  python3 - "$1" <<'HTTPS_HOST_PY'
+import ipaddress, re, sys
+host = sys.argv[1]
+if not host or len(host) > 253 or re.search(r'[\s/%@\[\]]', host):
+    raise SystemExit(1)
+try:
+    ipaddress.ip_address(host)
+except ValueError:
+    if re.fullmatch(r'[\d.]+', host) or not all(re.fullmatch(r'[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?', label) for label in host.split('.')):
+        raise SystemExit(1)
+HTTPS_HOST_PY
 }
 _valid_public_https_host() {
   _valid_https_host "$1" \
     && [[ "$1" == *.* ]] \
+    && [[ "$1" != *:* ]] \
     && [[ ! "$1" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]]
 }
 _detected_private_host() {
@@ -578,13 +609,15 @@ if [ "$HTTPS_MODE" != "legacy" ]; then
   fi
   [ -n "$HTTPS_HOST" ] || HTTPS_HOST="$(_detected_private_host)"
   _valid_https_host "$HTTPS_HOST" || err "Invalid HTTPS hostname/IP"
+  HTTPS_AUTHORITY="$HTTPS_HOST"
+  [[ "$HTTPS_HOST" != *:* ]] || HTTPS_AUTHORITY="[$HTTPS_HOST]"
   if [ "$HTTPS_MODE" = "public" ]; then
     _valid_public_https_host "$HTTPS_HOST" \
       || err "Public HTTPS requires a fully-qualified DNS name, not an IP address"
-    ok "Portal URL: https://${HTTPS_HOST} (publicly trusted certificate)"
+    ok "Portal URL: https://${HTTPS_AUTHORITY} (publicly trusted certificate)"
     info "Before opening it: point DNS to this server and allow inbound TCP 80 and 443"
   else
-    ok "Portal URL: https://${HTTPS_HOST} (private Caddy certificate)"
+    ok "Portal URL: https://${HTTPS_AUTHORITY} (private Caddy certificate)"
     info "Before opening it: allow inbound TCP 443 and trust Caddy's root certificate on each client"
   fi
 else
@@ -811,6 +844,15 @@ rollback_unexpected() {
   # _installer_fail invoca rollback_update una sola vez, después de reportar.
   _unexpected_installer_error "$rc" "$line"
 }
+
+# Snapshot-only preflight before rollback activation or any service stop. A
+# later lock can still arrive (TOCTOU); migrate.sh enforces the actual budgets.
+if [ "$UPDATE_MODE" = "1" ] && [ -f "${EXTRACTED}/migrate.sh" ]; then
+  VW_MIGRATIONS_DIR="${EXTRACTED}/migrations" VW_PSQL_BIN=psql \
+    bash "${EXTRACTED}/migrate.sh" --preflight \
+      -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -U postgres -d "${DB_NAME}" \
+    || err "Database preflight failed; existing services were not stopped"
+fi
 
 if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; then
   systemctl is-active --quiet caddy 2>/dev/null && CADDY_WAS_ACTIVE=1 || true
@@ -1346,7 +1388,7 @@ ${PSQL_SU} -d "${DB_NAME}" -v vw_owner="${DB_USER}" \
   || err "Could not repair local data ownership and privileges"
 # El SQL se pasa por STDIN (lo lee el shell de root); así voxywatch NO necesita
 # permiso de lectura sobre el archivo en el TMPDIR de root (mktemp es 700).
-sudo -u "${SERVICE_USER}" psql -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
+sudo -u "${SERVICE_USER}" env PGOPTIONS='-c lock_timeout=5s -c statement_timeout=120s' psql -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
      -v ON_ERROR_STOP=1 -f - < "${EXTRACTED}/schema.sql" >/dev/null \
   || err "Could not apply the schema (schema.sql)"
 VW_MIGRATIONS_DIR="${INSTALL_DIR}/migrations" \
@@ -2090,7 +2132,7 @@ echo -e "  ${BOLD}Web portal:${NC}"
 if [ "$HTTPS_MODE" = "legacy" ]; then
   echo -e "  ${CYAN}Use the existing HTTPS endpoint${NC}"
 else
-  echo -e "  ${CYAN}https://${HTTPS_HOST}${NC}"
+  echo -e "  ${CYAN}https://${HTTPS_AUTHORITY}${NC}"
   [ "$HTTPS_MODE" = "internal" ] && echo "  Private CA: clients must trust Caddy's root certificate once."
 fi
 if [ "$UPDATE_MODE" = "0" ] || [ "$EXISTING_INSTALL" = "0" ]; then

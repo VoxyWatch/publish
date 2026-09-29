@@ -75,3 +75,23 @@ The write tool is merge/upsert-only. An empty list cannot erase existing configu
 Passwords, API keys, tokens, communities and other secret-shaped fields are rejected before
 any write. LLM credentials continue to use Settings, Linux credentials/environment or the
 dedicated secure CLI.
+
+## Trunk catalog CSV and DNS rules
+
+In **Configuration → Trunks**, CSV/JSON export the full saved catalog, including
+registration rules. Use **Import → Download template** for the current columns.
+Names are merged case-insensitively; existing rows absent from the file remain.
+Review the combined-catalog preview before applying. Shared IPs are allowed when
+prefix rules differ; duplicate endpoint/port and prefix rules block saving even
+when priorities or directions differ. Fix the listed rules and reselect the file.
+The preview shows a total and bounded details, not automatic duplicate removal.
+
+Voice CSV endpoints must be IP addresses or CIDRs (default port5060), not DNS
+hostnames. For SIP registrations, use type `registration`, leave `ips`/`prefixes`
+blank, and set `registration_field` to `aor_domain`, `registrar` or `realm` with
+its observed `registration_value`. Domains support `*.example.net` for subdomains,
+not the apex `example.net`; realms are exact, case-sensitive, without wildcards.
+Do not convert a voice DNS hostname into a registration rule just to import it.
+Both export formats preserve these registration fields. Preview errors do not
+save changes. If a connection fails during Apply, inspect the saved catalog
+before retrying because the response may have been lost after a successful save.

@@ -25,6 +25,16 @@ does not change DNS, firewall, certificates or an SBC.
 Use a least-privilege credential supported by the installed release. SSO/OIDC
 login is a roadmap item and is distinct from MCP authorization.
 
+## Command-line administration
+
+Administrators can inspect MCP with `voxywatch mcp status`, validate a JSON
+configuration with `voxywatch mcp validate --stdin`, and apply it with
+`voxywatch mcp configure --stdin`. Use `--dry-run` before applying changes.
+`voxywatch mcp tools`, `voxywatch mcp test` and `voxywatch mcp audit --limit 100`
+provide bounded checks. The local test does not prove remote client connectivity.
+See [CLI reference](CLI_REFERENCE.md#mcp-status) for permissions, examples,
+API-key administration and every command's help. Never send credentials in chat.
+
 ## Client authentication
 
 For private automation, create a revocable API key in **Settings → API** with

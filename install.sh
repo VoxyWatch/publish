@@ -328,6 +328,10 @@ fi
 
 # ── Parse arguments ───────────────────────────────────────────────────────────
 VERSION=""
+PIN_SHA256=""
+PIN_SIGNATURE_SHA256=""
+PIN_ARCHITECTURE=""
+PINNED_RELEASE=0
 PORT_ARG=""
 HTTPS_MODE_ARG=""
 HTTPS_HOST_ARG=""
@@ -344,6 +348,9 @@ while [ $# -gt 0 ]; do
     --update)  UPDATE_MODE=1; shift ;;
     --refresh-external-dependencies) REFRESH_EXTERNAL_DEPS=1; shift ;;
     --version) _need_arg "$@"; VERSION="$2"; shift 2 ;;
+    --expected-sha256) _need_arg "$@"; PIN_SHA256="$2"; shift 2 ;;
+    --expected-signature-sha256) _need_arg "$@"; PIN_SIGNATURE_SHA256="$2"; shift 2 ;;
+    --expected-architecture) _need_arg "$@"; PIN_ARCHITECTURE="$2"; shift 2 ;;
     --port)    _need_arg "$@"; PORT_ARG="$2"; shift 2 ;;
     --https-mode) _need_arg "$@"; HTTPS_MODE_ARG="$2"; shift 2 ;;
     --https-host) _need_arg "$@"; HTTPS_HOST_ARG="$2"; shift 2 ;;
@@ -352,6 +359,15 @@ while [ $# -gt 0 ]; do
     *) err "Unknown option: $1" ;;
   esac
 done
+# Identidad fijada por un operador: nunca degradar a latest ante un pin incompleto.
+if [ -n "$PIN_SHA256$PIN_SIGNATURE_SHA256$PIN_ARCHITECTURE" ]; then
+  [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ && "$PIN_SHA256" =~ ^[0-9a-f]{64}$ && "$PIN_SIGNATURE_SHA256" =~ ^[0-9a-f]{64}$ ]] \
+    || err "Pinned release requires version, artifact SHA-256 and signature SHA-256"
+  [[ "$PIN_ARCHITECTURE" = linux-x64 || "$PIN_ARCHITECTURE" = linux-arm64 ]] \
+    || err "Pinned release requires supported architecture"
+  PINNED_RELEASE=1
+  command -v flock >/dev/null || err "Pinned update requires an exclusive installer lock"
+fi
 # The installed configuration, not the caller's flags, is authoritative. This
 # also covers the documented curl | bash reinstall without --update.
 if [ -L "$CONF_FILE" ]; then
@@ -481,14 +497,26 @@ ensure_gpg
 
 # ── Fetch latest version and asset info ───────────────────────────────────────
 info "Fetching signed release metadata..."
-MANIFEST_JSON=$(curl -fsSL --max-time 15 "$VERSION_MANIFEST" 2>/dev/null \
-  || err "Could not fetch version manifest from ${VERSION_MANIFEST}")
 case "$(uname -m)" in
   x86_64|amd64) RELEASE_ARCH="x64" ;;
   aarch64|arm64) RELEASE_ARCH="arm64" ;;
   *) err "Unsupported CPU architecture: $(uname -m). Supported: x86_64 and ARM64." ;;
 esac
 MANIFEST_PLATFORM="linux_${RELEASE_ARCH}"
+if [ "$PINNED_RELEASE" = "1" ]; then
+  [ "$UPDATE_MODE" = "1" ] && [[ "$PREVIOUS_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] \
+    || err "Pinned update requires a known installed version"
+  [ "$PIN_ARCHITECTURE" = "linux-${RELEASE_ARCH}" ] || err "Pinned architecture does not match this host"
+  MANIFEST_VERSION="$VERSION"
+  if [ -n "$PREVIOUS_VERSION" ] && [ "$(printf '%s\n%s\n' "$PREVIOUS_VERSION" "$VERSION" | sort -V | head -1)" != "$PREVIOUS_VERSION" ]; then
+    err "Pinned release is older than the installed version; downgrade is not allowed"
+  fi
+  EXPECTED_SHA256="$PIN_SHA256"
+  EXPECTED_ASSET_URL="${RELEASES_BASE}/v${VERSION}/voxywatch-v${VERSION}-linux-${RELEASE_ARCH}.tar.gz"
+  EXPECTED_SIG_URL="${EXPECTED_ASSET_URL}.asc"
+else
+MANIFEST_JSON=$(curl -fsSL --max-time 15 "$VERSION_MANIFEST" 2>/dev/null \
+  || err "Could not fetch version manifest from ${VERSION_MANIFEST}")
 MANIFEST_VERSION=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['version'])" 2>/dev/null \
   || err "Could not parse version from manifest")
 EXPECTED_SHA256=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)[sys.argv[1]]['sha256'])" "$MANIFEST_PLATFORM" 2>/dev/null \
@@ -497,6 +525,7 @@ EXPECTED_ASSET_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(
   || err "Manifest has no ${MANIFEST_PLATFORM}.url")
 EXPECTED_SIG_URL=$(echo "$MANIFEST_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)[sys.argv[1]]['signature'])" "$MANIFEST_PLATFORM" 2>/dev/null \
   || err "Manifest has no ${MANIFEST_PLATFORM}.signature")
+fi
 [ -n "$VERSION" ] || VERSION="$MANIFEST_VERSION"
 [ "$VERSION" = "$MANIFEST_VERSION" ] \
   || err "Version ${VERSION} is not the authenticated channel version (${MANIFEST_VERSION}). Refusing unsigned manual install."
@@ -717,6 +746,11 @@ if [ -n "${EXPECTED_SIG_URL:-}" ]; then
   if command -v gpg >/dev/null 2>&1; then
     info "Verifying GPG signature..."
     if curl -fsSL --max-time 30 "$EXPECTED_SIG_URL" -o "${TMPDIR}/${TARBALL_NAME}.asc" 2>/dev/null; then
+      if [ "$PINNED_RELEASE" = "1" ]; then
+        ACTUAL_SIGNATURE_SHA256=$(sha256sum "${TMPDIR}/${TARBALL_NAME}.asc")
+        ACTUAL_SIGNATURE_SHA256="${ACTUAL_SIGNATURE_SHA256%% *}"
+        [ "$ACTUAL_SIGNATURE_SHA256" = "$PIN_SIGNATURE_SHA256" ] || err "Pinned signature SHA-256 mismatch"
+      fi
       GNUPGHOME_TMP=$(mktemp -d); chmod 700 "$GNUPGHOME_TMP"
       _vw_release_pubkey | GNUPGHOME="$GNUPGHOME_TMP" gpg --quiet --import 2>/dev/null \
         || err "Could not import the embedded release signing key"

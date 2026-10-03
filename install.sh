@@ -68,6 +68,7 @@ exec >"$INSTALL_LOG" 2>&1 || {
   exit 1
 }
 INSTALL_STAGE="startup"
+INSTALL_STAGE_CODE="startup"
 VW_PROGRESS=2
 VW_ERROR_HANDLED=0
 
@@ -81,6 +82,14 @@ _progress_draw() {
 }
 _progress_tick() {
   INSTALL_STAGE="${1:-working}"
+  case "$INSTALL_STAGE" in
+    *download*|*Download*|*signature*|*GnuPG*) INSTALL_STAGE_CODE=artifact ;;
+    *service*|*Service*|*polkit*) INSTALL_STAGE_CODE=services ;;
+    *Config*|*config*) INSTALL_STAGE_CODE=configuration ;;
+    *SRS*|*SRTP*) INSTALL_STAGE_CODE=media ;;
+    *Caddy*|*HTTPS*) INSTALL_STAGE_CODE=web_access ;;
+    *) INSTALL_STAGE_CODE=installation ;;
+  esac
   [ "$VW_PROGRESS" -lt 94 ] && VW_PROGRESS=$((VW_PROGRESS + 2))
   _progress_draw "$VW_PROGRESS"
 }
@@ -88,24 +97,29 @@ _progress_tick() {
 # Installer failures are reported directly because the portal/Sentry SDK may not
 # exist yet. The envelope contains no host, IP, HWID, command output or secrets.
 _report_installer_failure() {
-  local status="${1:-1}" line="${2:-0}" reason="${3:-installer_failure}" event_id safe_reason
+  local status="${1:-1}" line="${2:-0}" event_id
   [ "${VOXYWATCH_INSTALLER_TELEMETRY:-1}" != "0" ] || return 0
   command -v curl >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1 || return 0
   event_id="$(od -An -N16 -tx1 /dev/urandom 2>/dev/null | tr -d ' \n')"
   [ "${#event_id}" = "32" ] || event_id="$(printf '%032x' "$$")"
-  safe_reason="$(printf '%s' "$reason" | sed -E 's#https?://[^ ]+#[url]#g; s#(/[A-Za-z0-9._-]+)+#[path]#g; s#[0-9]{1,3}(\.[0-9]{1,3}){3}#[ip]#g' | tr '\n' ' ' | cut -c1-180)"
-  if python3 - "$event_id" "${VERSION:-unknown}" "${RELEASE_ARCH:-unknown}" "${OS_FAMILY:-unknown}" "$INSTALL_STAGE" "$status" "$line" "$safe_reason" <<'PY' \
+  if python3 - "$event_id" "${VERSION:-unknown}" "${RELEASE_ARCH:-unknown}" "${OS_FAMILY:-unknown}" "$INSTALL_STAGE_CODE" "$status" "$line" <<'PY' \
     | curl -fsS --connect-timeout 3 --max-time 6 -H 'Content-Type: application/x-sentry-envelope' --data-binary @- \
       'https://o4511453780705280.ingest.us.sentry.io/api/4511463746568192/envelope/' >/dev/null 2>&1
-import datetime, json, sys
-event_id, version, arch, os_family, stage, status, line, reason = sys.argv[1:]
+import datetime, json, re, sys
+event_id, version, arch, os_family, stage, status, line = sys.argv[1:]
+version = version if re.fullmatch(r'[0-9]{1,5}\.[0-9]{1,5}\.[0-9]{1,5}', version) else 'unknown'
+arch = arch if arch in {'x64', 'arm64', 'linux-x64', 'linux-arm64'} else 'unknown'
+os_family = os_family if os_family in {'debian', 'ubuntu', 'deb', 'rpm'} else 'unknown'
+stage = stage if stage in {'startup', 'artifact', 'services', 'configuration', 'media', 'web_access', 'installation'} else 'installation'
+status = int(status) if re.fullmatch(r'[0-9]{1,3}', status) and 0 <= int(status) <= 255 else 1
+line = int(line) if re.fullmatch(r'[0-9]{1,6}', line) else 0
 sent_at = datetime.datetime.now(datetime.timezone.utc).isoformat().replace('+00:00', 'Z')
 dsn = 'https://71725a65d4e8cc3e3e21bd93083b1578@o4511453780705280.ingest.us.sentry.io/4511463746568192'
 event = {
   'event_id': event_id, 'timestamp': sent_at, 'platform': 'other', 'level': 'error',
   'logger': 'voxywatch.installer', 'release': f'voxywatch-installer@{version}',
-  'environment': 'production', 'message': {'formatted': f'installer_failure: {reason}'},
-  'tags': {'component': 'installer', 'stage': stage[:80], 'arch': arch[:20], 'os_family': os_family[:20]},
+  'environment': 'production', 'message': {'formatted': 'installer_failure'},
+  'tags': {'component': 'installer', 'stage': stage, 'arch': arch, 'os_family': os_family},
   'extra': {'exit_status': status, 'line': line},
 }
 print(json.dumps({'event_id': event_id, 'dsn': dsn, 'sent_at': sent_at}, separators=(',', ':')))
@@ -1251,26 +1265,75 @@ ok "Files installed"
 
 # ── Write config file ─────────────────────────────────────────────────────────
 _write_installer_config() {
-  local temporary
-  temporary="$(mktemp "${CONF_FILE}.XXXXXX")" || err "Could not stage configuration"
-  # Treat every line as data. Keep comments and operator keys; only these
-  # four installer-owned fields are replaced (including old duplicates).
-  if [ -f "$CONF_FILE" ]; then
-    if ! awk '!/^(PORT|HTTPS_MODE|HTTPS_HOST|VERSION)=/' "$CONF_FILE" > "$temporary"; then
-      rm -f "$temporary"
-      err "Could not preserve configuration"
-    fi
-  else
-    printf '# VoxyWatch configuration\n' > "$temporary"
-  fi
-  if ! printf 'PORT=%s\nHTTPS_MODE=%s\nHTTPS_HOST=%s\nVERSION=%s\n' \
-      "$PORT" "$HTTPS_MODE" "$HTTPS_HOST" "$VERSION" >> "$temporary"; then
-    rm -f "$temporary"
-    err "Could not preserve configuration"
-  fi
-  if ! chown root:voxywatch "$temporary" || ! chmod 640 "$temporary" \
-     || ! mv -f "$temporary" "$CONF_FILE"; then
-    rm -f "$temporary"
+  if ! python3 - "$CONF_FILE" "$PORT" "$HTTPS_MODE" "$HTTPS_HOST" "$VERSION" <<'CONFIG_PY'
+import os, stat, sys, tempfile
+from pathlib import Path
+target, port, mode, host, version = sys.argv[1:]
+target = Path(target).absolute()
+directory = os.open('/', os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+stage = None
+stage_name = None
+stage_info = None
+try:
+    for index, component in enumerate(target.parent.parts[1:]):
+        next_fd = os.open(component, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=directory)
+        info = os.fstat(next_fd)
+        leaf = index == len(target.parent.parts) - 2
+        sticky_root = info.st_uid == 0 and info.st_mode & stat.S_ISVTX
+        if (leaf and (info.st_uid != os.geteuid() or info.st_mode & 0o002)) or (not leaf and (info.st_uid not in (0, os.geteuid()) or (info.st_mode & 0o022 and not sticky_root))):
+            os.close(next_fd)
+            raise ValueError('unsafe_config_parent')
+        os.close(directory)
+        directory = next_fd
+    owner = os.fstat(directory)
+    previous = '# VoxyWatch configuration\n'
+    try:
+        fd = os.open(target.name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=directory)
+    except FileNotFoundError:
+        fd = None
+    if fd is not None:
+        with os.fdopen(fd, 'rb') as handle:
+            before = os.fstat(handle.fileno())
+            if not stat.S_ISREG(before.st_mode) or before.st_nlink != 1 or before.st_uid != os.geteuid() or before.st_mode & 0o022 or before.st_size > 1048576:
+                raise ValueError('unsafe_config_file')
+            raw = handle.read(1048577)
+            after = os.fstat(handle.fileno())
+            if len(raw) > 1048576 or (before.st_size, before.st_mtime_ns, before.st_ctime_ns) != (after.st_size, after.st_mtime_ns, after.st_ctime_ns):
+                raise ValueError('config_changed')
+            previous = raw.decode('utf-8')
+    lines = [line for line in previous.splitlines() if not line.startswith(('PORT=', 'HTTPS_MODE=', 'HTTPS_HOST=', 'VERSION='))]
+    values = {'PORT': port, 'HTTPS_MODE': mode, 'HTTPS_HOST': host, 'VERSION': version}
+    if any('\n' in value or '\r' in value for value in values.values()):
+        raise ValueError('invalid_config_value')
+    content = '\n'.join(lines + [key + '=' + value for key, value in values.items()]) + '\n'
+    stage_name = Path(tempfile.mkdtemp(prefix='.installer-write-', dir=f'/proc/self/fd/{directory}')).name
+    stage = os.open(stage_name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=directory)
+    stage_info = os.fstat(stage)
+    if stage_info.st_uid != os.geteuid() or stage_info.st_mode & 0o077:
+        raise ValueError('unsafe_config_staging')
+    fd = os.open('value', os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600, dir_fd=stage)
+    with os.fdopen(fd, 'w') as handle:
+        handle.write(content)
+        handle.flush()
+        os.fchown(handle.fileno(), owner.st_uid, owner.st_gid)
+        os.fchmod(handle.fileno(), 0o640)
+        os.fsync(handle.fileno())
+    os.replace('value', target.name, src_dir_fd=stage, dst_dir_fd=directory)
+    os.fsync(directory)
+finally:
+    if stage is not None:
+        try: os.unlink('value', dir_fd=stage)
+        except FileNotFoundError: pass
+        os.close(stage)
+    if stage_name and stage_info:
+        try:
+            visible = os.stat(stage_name, dir_fd=directory, follow_symlinks=False)
+            if (visible.st_dev, visible.st_ino) == (stage_info.st_dev, stage_info.st_ino):
+                os.rmdir(stage_name, dir_fd=directory)
+        except FileNotFoundError: pass
+    os.close(directory)
+CONFIG_PY
+  then
     err "Could not atomically install configuration"
   fi
 }
@@ -1307,7 +1370,7 @@ if [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
   apt-get update >/dev/null 2>&1 || err "Could not refresh package metadata for the controlled dependency operation"
   # Caddy is provisioned on a fresh managed-HTTPS install. A database refresh
   # must not silently replace the web entrypoint with an unrelated package.
-  if [ "$HTTPS_MODE" != "legacy" ] && [ "$UPDATE_MODE" = "0" ]; then
+  if [ "$HTTPS_MODE" != "legacy" ] && { [ "$UPDATE_MODE" = "0" ] || { [ "$REFRESH_EXTERNAL_DEPS" = "1" ] && ! command -v caddy >/dev/null 2>&1; }; }; then
     CADDY_VERSION="2.11.4"
     if [ ! -f /usr/share/keyrings/caddy-stable-archive-keyring.gpg ]; then
       curl -1fsSL 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' \
@@ -1698,36 +1761,48 @@ if [ -f "${INSTALL_DIR}/voxywatch_srs.py" ]; then
   # It is created on first install and refreshed only in an explicit external
   # dependency maintenance run. The approved pylibsrtp version is exact.
   SRS_PY="/usr/bin/python3"
-  # The isolated SRTP venv must also see the distro-managed psycopg2 package.
-  # This changes only venv resolution; normal product updates still never fetch
-  # or upgrade an external dependency. Repair older venvs created without it.
-  if [ -f "${INSTALL_DIR}/srs-venv/pyvenv.cfg" ] \
-     && python3 -c 'import psycopg2' >/dev/null 2>&1; then
-    sed -i -E 's/^include-system-site-packages[[:space:]]*=.*/include-system-site-packages = true/' \
-      "${INSTALL_DIR}/srs-venv/pyvenv.cfg"
-  fi
+  # Legacy environments may be service-writable. Neither their interpreter nor
+  # their configuration is ever executed or rewritten with root authority.
   if [ -x "${INSTALL_DIR}/srs-venv/bin/python" ] \
      && [ "$REFRESH_EXTERNAL_DEPS" = "0" ]; then
     SRS_PY="${INSTALL_DIR}/srs-venv/bin/python"
-    "$SRS_PY" -c 'import psycopg2' >/dev/null 2>&1 \
+    if [ -f "${INSTALL_DIR}/srs-venv/pyvenv.cfg" ] \
+       && ! grep -Eq '^include-system-site-packages[[:space:]]*=[[:space:]]*true' "${INSTALL_DIR}/srs-venv/pyvenv.cfg"; then
+      runuser -u "$SERVICE_USER" -- /usr/bin/env -i PATH=/usr/bin:/bin \
+        /usr/bin/sed -i -E 's/^include-system-site-packages[[:space:]]*=.*/include-system-site-packages = true/' \
+        "${INSTALL_DIR}/srs-venv/pyvenv.cfg" \
+        || err "Legacy SRS environment requires a controlled dependency refresh"
+    fi
+    runuser -u "$SERVICE_USER" -- /usr/bin/env -i PATH=/usr/bin:/bin "$SRS_PY" -I -c 'import psycopg2' >/dev/null 2>&1 \
       || err "SRS environment cannot load the required distro psycopg2 package"
     ok "SRS: preserving installed secure-media environment"
   elif [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; then
     if command -v apt-get >/dev/null 2>&1 && ! python3 -m ensurepip --version >/dev/null 2>&1; then
       apt-get install -y --no-install-recommends python3-venv >/dev/null 2>&1 || true
     fi
-    if python3 -m venv --system-site-packages --clear "${INSTALL_DIR}/srs-venv" >/dev/null 2>&1; then
-    SRS_VPY="${INSTALL_DIR}/srs-venv/bin/python"
-    [ -x "${INSTALL_DIR}/srs-venv/bin/pip" ] || "$SRS_VPY" -m ensurepip >/dev/null 2>&1 || true
-    if "$SRS_VPY" -m pip install --quiet --disable-pip-version-check 'pylibsrtp==1.0.0' > /var/log/voxywatch-srs-pip.log 2>&1; then
-      SRS_PY="$SRS_VPY"
-      "$SRS_PY" -c 'import psycopg2' >/dev/null 2>&1 \
+    SRS_STAGE="$(mktemp -d "${INSTALL_DIR}/.srs-venv-new.XXXXXXXX")" || err "Could not stage a trusted SRS environment"
+    if (umask 022; /usr/bin/python3 -I -m venv --system-site-packages "$SRS_STAGE") >/dev/null 2>&1; then
+    SRS_VPY="${SRS_STAGE}/bin/python"
+    [ -x "${SRS_STAGE}/bin/pip" ] || "$SRS_VPY" -I -m ensurepip >/dev/null 2>&1 || true
+    if (umask 022; "$SRS_VPY" -I -m pip install --quiet --disable-pip-version-check 'pylibsrtp==1.0.0') > /var/log/voxywatch-srs-pip.log 2>&1; then
+      "$SRS_VPY" -I -c 'import psycopg2' >/dev/null 2>&1 \
         || err "SRS environment cannot load the required distro psycopg2 package"
+      # Keep legacy bytes for recovery; changing ownership cannot make them trusted.
+      if [ -e "${INSTALL_DIR}/srs-venv" ] || [ -L "${INSTALL_DIR}/srs-venv" ]; then
+        mv -T "${INSTALL_DIR}/srs-venv" "${SRS_STAGE}.previous"
+      fi
+      chmod 755 "$SRS_STAGE"
+      mv -T "$SRS_STAGE" "${INSTALL_DIR}/srs-venv"
+      SRS_PY="${INSTALL_DIR}/srs-venv/bin/python"
       ok "SRS: approved pylibsrtp 1.0.0 installed (SRTP available)"
     else
-      warn "SRS: pylibsrtp could not be installed → SRTP unavailable (cleartext RTP still works). Details: /var/log/voxywatch-srs-pip.log"
+      if [ -x "${INSTALL_DIR}/srs-venv/bin/python" ]; then
+        SRS_PY="${INSTALL_DIR}/srs-venv/bin/python"
+        runuser -u "$SERVICE_USER" -- /usr/bin/env -i PATH=/usr/bin:/bin "$SRS_PY" -I -c 'import psycopg2' >/dev/null 2>&1 \
+          || err "Preserved SRS environment cannot load the required distro psycopg2 package"
+      fi
+      warn "SRS: dependency refresh unavailable; preserving the previous environment when present, otherwise cleartext RTP only. Details: /var/log/voxywatch-srs-pip.log"
     fi
-    chown -R "${SERVICE_USER}:${SERVICE_USER}" "${INSTALL_DIR}/srs-venv" 2>/dev/null || true
     else
       warn "SRS: could not create venv (install python3-venv) → SRS will run with the system python, without SRTP."
     fi
@@ -1873,12 +1948,15 @@ polkit.addRule(function(action, subject) {
     if (subject.user != "${SERVICE_USER}") return;
     if (action.id == "org.freedesktop.systemd1.manage-units") {
         var u = action.lookup("unit");
+        var verb = action.lookup("verb");
         if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" ||
             u == "voxywatch-probe.service" ||
-            u == "voxywatch-agentic.service" ||
-            u == "voxywatch-apply-update.service" ||
+            u == "voxywatch-agentic.service") {
+            if (verb == "start" || verb == "stop" || verb == "restart") return polkit.Result.YES;
+        }
+        if ((u == "voxywatch-apply-update.service" ||
             u == "voxywatch-apply-web-access.service" ||
-            u == "voxywatch-apply-transcript-storage.service")
+            u == "voxywatch-apply-transcript-storage.service") && verb == "start")
             return polkit.Result.YES;
     }
     // enable/disable persistente SOLO del SRS (la pestaña Settings → SIPREC lo activa en boot).
@@ -2171,10 +2249,11 @@ else
 fi
 if [ "$UPDATE_MODE" = "0" ] || [ "$EXISTING_INSTALL" = "0" ]; then
   echo ""
-  echo -e "  ${BOLD}Default credentials:${NC}"
+  echo -e "  ${BOLD}Initial credentials / Credenciales iniciales:${NC}"
   echo "    Username: admin"
-  echo "    Password: voxywatch"
-  echo -e "  ${YELLOW}  ⚠  Change the default password: Settings → Security → Users${NC}"
+  echo "    Retrieve the unique password locally as root / Consulte la contraseña única localmente como root:"
+  echo "      sudo cat ${DATA_DIR}/voxywatch_bootstrap_password"
+  echo -e "  ${YELLOW}  ⚠  Change it at first login / Cámbiela al iniciar sesión.${NC}"
   echo ""
   if [ -n "$HWID" ]; then
     echo -e "  ${BOLD}Hardware ID (HWID)${NC} — required when purchasing a license:"

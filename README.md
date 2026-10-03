@@ -25,8 +25,11 @@ Fresh installations use a private certificate authority. Trust its root on each
 browser/API/MCP client, or configure a public hostname or your own certificate
 in **Settings → Web Access**. See the [HTTPS guide](HTTPS_CONFIGURATION.md).
 
-**Initial credentials:** **admin** / **voxywatch**. Change this password immediately in
-**Settings → Security → Users** and restrict access to your management network.
+**Initial credentials:** username **admin**. The installer tells you where to read the private,
+installation-specific bootstrap password using privileged local access. Replace
+it when first signing in; protected portal functions require that change. There
+is no shared default password. Existing configured accounts are preserved during
+updates. Restrict access to your management network.
 
 ## Capture choices
 

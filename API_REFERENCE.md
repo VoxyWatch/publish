@@ -16,14 +16,21 @@ Set these variables in your shell without storing the key in a script:
 
 ```bash
 export VOXYWATCH_URL='https://voxywatch.example.com'
-read -rsp 'VoxyWatch API key: ' VOXYWATCH_API_KEY; export VOXYWATCH_API_KEY
+read -rsp 'VoxyWatch API key: ' VOXYWATCH_API_KEY; printf '\n'
+vw_api() {
+  printf 'Authorization: Bearer %s\n' "$VOXYWATCH_API_KEY" |
+    curl --fail-with-body --header @- "$@"
+}
 ```
 
+The helper supplies the credential through standard input, not process arguments
+or an exported environment variable. Do not use shell tracing (`set -x`) while
+handling credentials. Use explicit `-d` bodies, not `--data @-`, because the helper
+reserves standard input for the header. Run `unset VOXYWATCH_API_KEY` when finished.
 Every authenticated request uses:
 
 ```bash
-curl --fail-with-body \
-  -H "Authorization: Bearer ${VOXYWATCH_API_KEY}" \
+vw_api \
   "${VOXYWATCH_URL}/api/v1"
 ```
 
@@ -48,8 +55,7 @@ locally before its routes can return content.
 Search by number, Call-ID or other supported text, outcome and time range:
 
 ```bash
-curl --fail-with-body -G \
-  -H "Authorization: Bearer ${VOXYWATCH_API_KEY}" \
+vw_api -G \
   --data-urlencode 'q=52550001' \
   --data-urlencode 'from=2026-08-20T00:00:00Z' \
   --data-urlencode 'to=2026-08-21T00:00:00Z' \
@@ -67,8 +73,7 @@ For a Call-ID, URL-encode the complete identifier:
 CALL_ID='complete-call-id@example-sbc'
 ENCODED_ID="$(python3 -c 'import sys,urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$CALL_ID")"
 
-curl --fail-with-body \
-  -H "Authorization: Bearer ${VOXYWATCH_API_KEY}" \
+vw_api \
   "${VOXYWATCH_URL}/api/v1/cdrs/${ENCODED_ID}"
 ```
 
@@ -76,20 +81,20 @@ Related evidence uses the same encoded Call-ID:
 
 ```bash
 # SIP ladder as JSON
-curl --fail-with-body -H "Authorization: Bearer ${VOXYWATCH_API_KEY}" \
+vw_api \
   "${VOXYWATCH_URL}/api/v1/calls/${ENCODED_ID}/trace"
 
 # Bounded Audio/RTP analysis and trends
-curl --fail-with-body -H "Authorization: Bearer ${VOXYWATCH_API_KEY}" \
+vw_api \
   "${VOXYWATCH_URL}/api/v1/calls/${ENCODED_ID}/insights"
 
 # Reconstructed stereo audio
-curl --fail-with-body -H "Authorization: Bearer ${VOXYWATCH_API_KEY}" \
+vw_api \
   "${VOXYWATCH_URL}/api/v1/calls/${ENCODED_ID}/audio?channel=stereo" \
   --output call.wav
 
 # SIP and correlated RTP evidence
-curl --fail-with-body -H "Authorization: Bearer ${VOXYWATCH_API_KEY}" \
+vw_api \
   "${VOXYWATCH_URL}/api/v1/calls/${ENCODED_ID}/pcap" \
   --output call.pcap
 ```
@@ -98,13 +103,18 @@ Audio and PCAP can return `409` when eligible media is unavailable and `503`
 when the protected media worker is busy. Do not retry either response in a tight
 loop.
 
+A signaling trace exceeding the installed safety limits returns `413`
+(`trace_too_large`), not a partial ladder presented as complete. The current
+limits are 5,000 messages and an 8 MiB payload budget per trace. SIPREC evidence
+describes the recording session and metadata; it does not recreate unobserved
+original signaling.
+
 ## Network metrics
 
 ```bash
-AUTH="Authorization: Bearer ${VOXYWATCH_API_KEY}"
-curl --fail-with-body -H "$AUTH" "${VOXYWATCH_URL}/api/v1/health"
-curl --fail-with-body -H "$AUTH" "${VOXYWATCH_URL}/api/v1/stats"
-curl --fail-with-body -H "$AUTH" "${VOXYWATCH_URL}/api/v1/trunks/health"
+vw_api "${VOXYWATCH_URL}/api/v1/health"
+vw_api "${VOXYWATCH_URL}/api/v1/stats"
+vw_api "${VOXYWATCH_URL}/api/v1/trunks/health"
 ```
 
 These routes provide capture liveness, global KPIs and trunk health. They do not
@@ -115,10 +125,10 @@ control a customer SBC.
 Retrieve an existing transcript or queue generation:
 
 ```bash
-curl --fail-with-body -H "$AUTH" \
+vw_api \
   "${VOXYWATCH_URL}/api/v1/calls/${ENCODED_ID}/transcript"
 
-curl --fail-with-body -X POST -H "$AUTH" \
+vw_api -X POST \
   "${VOXYWATCH_URL}/api/v1/calls/${ENCODED_ID}/transcript"
 ```
 
@@ -127,7 +137,7 @@ A generation request returns `202 Accepted`; read the persistent identifier from
 gradual backoff rather than rapid polling:
 
 ```bash
-curl --fail-with-body -H "$AUTH" \
+vw_api \
   "${VOXYWATCH_URL}/api/v1/transcription/jobs/${JOB_ID}"
 ```
 
@@ -139,7 +149,7 @@ returns `{ "data": { ... }, "beta": true }`. A queued job is not a finished tran
 Search stored transcripts by range, source, destination or Call-ID:
 
 ```bash
-curl --fail-with-body -G -H "$AUTH" \
+vw_api -G \
   --data-urlencode 'from=2026-08-20T00:00:00Z' \
   --data-urlencode 'to=2026-08-21T00:00:00Z' \
   --data-urlencode 'source=52550001' \
@@ -155,7 +165,7 @@ For a bounded bulk JSONL or CSV export, supply a required time range of at most
 31 days and no more than 10,000 records:
 
 ```bash
-curl --fail-with-body -X POST -H "$AUTH" \
+vw_api -X POST \
   -H 'Content-Type: application/json' \
   -d '{"from":"2026-08-20T00:00:00Z","to":"2026-08-21T00:00:00Z","format":"csv","max_records":10000}' \
   "${VOXYWATCH_URL}/api/v1/transcript-exports"
@@ -166,11 +176,11 @@ export route below using `transcript:export`. Export jobs are separate from
 transcription-generation jobs and do not use `/api/v1/transcription/jobs`.
 
 ```bash
-curl --fail-with-body -H "$AUTH" \
+vw_api \
   "${VOXYWATCH_URL}/api/v1/transcript-exports/${EXPORT_ID}"
 
 # Only after data.status is completed; use a new local filename.
-curl --fail-with-body -H "$AUTH" \
+vw_api \
   "${VOXYWATCH_URL}/api/v1/transcript-exports/${EXPORT_ID}/download" \
   --output transcripts-export.csv
 ```
@@ -182,7 +192,7 @@ result is not ready, unavailable or expired; inspect the export job status first
 ## Errors, limits and compatibility
 
 - Errors use an HTTP status and a structured problem response. Handle `401`,
-  `403`, `404`, `409`, `429`, `503` and timeouts explicitly.
+  `403`, `404`, `409`, `413`, `429`, `503` and timeouts explicitly.
 - Respect rate-limit and retry headers. Use exponential backoff with jitter for
   transient responses.
 - Never log keys, full transcripts, audio, phone numbers or Call-IDs.

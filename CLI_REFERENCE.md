@@ -1,5 +1,15 @@
 # VoxyWatch local CLI reference
 
+## First sign-in and local recovery
+
+Fresh installations use `admin` with a unique bootstrap password, not a shared
+default. The installer identifies its private local file. Read it only with
+authorized local access and change it at first portal sign-in before using CLI
+commands backed by protected portal routes. Do not paste credentials into
+command arguments, support tickets or AI chats. Local recovery and license
+installation remain available independently; use `voxywatch user --help` for
+the installed recovery commands. Updates preserve configured accounts.
+
 ## Command index
 
 Each action below is also available through static `voxywatch <command> --help`.

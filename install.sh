@@ -2237,6 +2237,9 @@ if [ "$UPDATE_MODE" = "1" ] && [ "$EXISTING_INSTALL" = "1" ]; then
   echo "    Existing configuration and user credentials were preserved."
 else
   echo -e "  ${GREEN}✓ VoxyWatch v${VERSION} installed successfully${NC}"
+  if [ "$EXISTING_INSTALL" = "1" ]; then
+    echo "    Existing configuration and user credentials were preserved."
+  fi
 fi
 echo "══════════════════════════════════════════════"
 echo ""
@@ -2249,11 +2252,15 @@ else
 fi
 if [ "$UPDATE_MODE" = "0" ] || [ "$EXISTING_INSTALL" = "0" ]; then
   echo ""
-  echo -e "  ${BOLD}Initial credentials / Credenciales iniciales:${NC}"
-  echo "    Username: admin"
-  echo "    Retrieve the unique password locally as root / Consulte la contraseña única localmente como root:"
-  echo "      sudo cat ${DATA_DIR}/voxywatch_bootstrap_password"
-  echo -e "  ${YELLOW}  ⚠  Change it at first login / Cámbiela al iniciar sesión.${NC}"
+  if [ "$EXISTING_INSTALL" = "0" ]; then
+    echo -e "  ${BOLD}Initial credentials / Credenciales iniciales:${NC}"
+    echo "    Username: admin"
+    echo "    Password: voxywatch"
+    echo "    Usuario: admin · Contraseña: voxywatch"
+    echo -e "  ${YELLOW}  ⚠  Change it at first login / Cámbiela al iniciar sesión.${NC}"
+  else
+    echo "    Sign in with your existing account / Inicie sesión con su cuenta existente."
+  fi
   echo ""
   if [ -n "$HWID" ]; then
     echo -e "  ${BOLD}Hardware ID (HWID)${NC} — required when purchasing a license:"

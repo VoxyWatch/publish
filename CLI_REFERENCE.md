@@ -2,13 +2,15 @@
 
 ## First sign-in and local recovery
 
-Fresh installations use `admin` with a unique bootstrap password, not a shared
-default. The installer identifies its private local file. Read it only with
-authorized local access and change it at first portal sign-in before using CLI
-commands backed by protected portal routes. Do not paste credentials into
+Fresh installations use username `admin` and password `voxywatch`. This is a
+public factory credential: change it at first portal sign-in before using CLI
+commands backed by protected portal routes. The portal keeps its change-password
+reminder and first-login protection. Do not paste your chosen credentials into
 command arguments, support tickets or AI chats. Local recovery and license
 installation remain available independently; use `voxywatch user --help` for
-the installed recovery commands. Updates preserve configured accounts.
+the installed recovery commands. Updates, restarts and reinstalls preserve all
+existing accounts and passwords; they do not reset them to the factory password.
+An older installation's unique initial password remains valid until you change it.
 
 ## Command index
 

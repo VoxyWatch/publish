@@ -47,6 +47,7 @@ Use nested help for exact installed flags; commands never accept secrets on argv
 | <a id="snmp-status"></a>`snmp status` | Inspect current state (snmp). |
 | <a id="snmp-configure"></a>`snmp configure` | Validate and save a JSON configuration patch (snmp). |
 | <a id="system-diagnostics"></a>`system diagnostics` | Inspect system diagnostics (system). |
+| <a id="system-database"></a>`system database` | Read administrator-only database settings and aggregate lock, chunk and wait counters. No tuning or restart. |
 | <a id="capture-filters-status"></a>`capture filters status` | Inspect current state (capture filters). |
 | <a id="capture-filters-configure"></a>`capture filters configure` | Validate and save a JSON configuration patch (capture filters). |
 | <a id="config-export"></a>`config export` | Export supported initial-setup configuration (config). |
@@ -229,6 +230,7 @@ sudo voxywatch transcripts refinement enable --dry-run --json
 | Threat evidence | `threats registrations`, `threats geography` | Read bounded observations; never block traffic or control the SBC. |
 | SNMP | `snmp status`; `snmp configure --stdin` | Inspect state or validate configuration with the portal's shared rules. |
 | System | `system diagnostics` | Bounded instantaneous system/hardware summary, without charts. |
+| System | `system database [--json]` | Administrator-only database snapshot. Inspect `status`: partial/unavailable and unknown values are not healthy zeroes. No queries or connection details are returned. |
 
 - `web tls validate --stdin` and `web tls import --stdin` accept JSON with
   `cert_pem` and `key_pem`; use dry-run before import.

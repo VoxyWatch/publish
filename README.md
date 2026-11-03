@@ -17,7 +17,8 @@ curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh |
 ```
 
 Signed releases support Debian 12/13, Ubuntu 22.04/24.04 LTS and Amazon Linux
-2023 on x86_64 and ARM64. Open `https://YOUR-HOST`, change the initial
+2023 on x86_64 and ARM64. Version 4.7.3 adds Rocky Linux 10.2 on x86_64.
+Open `https://YOUR-HOST`, change the initial
 administrator password, and complete the visible setup checks before admitting
 live traffic.
 
@@ -25,11 +26,10 @@ Fresh installations use a private certificate authority. Trust its root on each
 browser/API/MCP client, or configure a public hostname or your own certificate
 in **Settings → Web Access**. See the [HTTPS guide](HTTPS_CONFIGURATION.md).
 
-**Initial credentials:** username **admin**. The installer tells you where to read the private,
-installation-specific bootstrap password using privileged local access. Replace
-it when first signing in; protected portal functions require that change. There
-is no shared default password. Existing configured accounts are preserved during
-updates. Restrict access to your management network.
+**Initial credentials:** username **admin**, password **voxywatch** on a fresh
+installation. Updates preserve existing users and passwords. Replace
+it when first signing in; protected portal functions require that change.
+Restrict access to your management network.
 
 ## Capture choices
 

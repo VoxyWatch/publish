@@ -1,5 +1,10 @@
 # VoxyWatch local CLI reference
 
+For the passive capture component use `voxywatch logs --unit capture-agent`.
+The historical `--unit probe` spelling remains accepted for existing scripts.
+Standalone **VoxyWatch Capture Agent** installation/help remains at
+[the original repository](https://github.com/VoxyWatch/voxywatch-probe).
+
 ## First sign-in and local recovery
 
 Fresh installations use username `admin` and password `voxywatch`. This is a

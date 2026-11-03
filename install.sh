@@ -8,6 +8,7 @@
 #   sudo bash install.sh [--version 1.2.10] [--port 3080]
 #
 # Supports: Debian 12/13, Ubuntu 22.04/24.04 and Amazon Linux 2023 on x86_64 or ARM64.
+# Local qualification profile: Rocky Linux 10.2 on x86_64 only.
 # ─────────────────────────────────────────────────────────────────────────────
 
 # All logic inside main() — a partial download won't execute anything.
@@ -311,6 +312,7 @@ command -v sudo    &>/dev/null || err "sudo is required:  apt install sudo   or 
 source /etc/os-release 2>/dev/null || err "Could not identify this Linux distribution"
 OS_ID="${ID:-unknown}"
 OS_VERSION_ID="${VERSION_ID:-unknown}"
+PG_BIN_DIR="/usr/bin"
 case "$OS_ID" in
   debian)
     case "${OS_VERSION_ID%%.*}" in 12|13) ;; *) err "Unsupported Debian version: ${OS_VERSION_ID}. Certified: 12 and 13." ;; esac
@@ -324,8 +326,16 @@ case "$OS_ID" in
     [ "${OS_VERSION_ID%%.*}" = "2023" ] || err "Unsupported Amazon Linux version: ${OS_VERSION_ID}. Certified: 2023."
     OS_FAMILY="rpm"
     ;;
-  *) err "Unsupported Linux distribution: ${OS_ID} ${OS_VERSION_ID}. Supported: Debian, Ubuntu and Amazon Linux 2023." ;;
+  rocky)
+    [ "$OS_VERSION_ID" = "10.2" ] && [ "$(uname -m)" = "x86_64" ] \
+      || err "Unsupported Rocky Linux platform: ${OS_VERSION_ID}/$(uname -m). Allowed: 10.2 x86_64."
+    OS_FAMILY="rpm"
+    PG_BIN_DIR="/usr/pgsql-17/bin"
+    ;;
+  *) err "Unsupported Linux distribution: ${OS_ID} ${OS_VERSION_ID}. Supported: Debian, Ubuntu, Amazon Linux 2023 and Rocky Linux 10.2 x86_64." ;;
 esac
+PG_PSQL="${PG_BIN_DIR}/psql"
+PG_ISREADY="${PG_BIN_DIR}/pg_isready"
 
 # ── Mutex de instalación (v2.0.4) ─────────────────────────────────────────────
 # Evita que dos instalaciones/actualizaciones corran a la vez (p.ej. un update lanzado
@@ -334,7 +344,8 @@ esac
 # el otro ya había arrancado el portal, y el segundo 'install' del binario en uso
 # fallaba (set -e → aborto antes de re-arrancar). Con el lock, el segundo sale limpio.
 if command -v flock &>/dev/null; then
-  exec 9>"/run/voxywatch-install.lock" 2>/dev/null || exec 9>"/tmp/voxywatch-install.lock"
+  # Scope stderr suppression: exec's redirection must not hide later diagnostics.
+  { exec 9>"/run/voxywatch-install.lock"; } 2>/dev/null || exec 9>"/tmp/voxywatch-install.lock"
   if ! flock -n 9; then
     err "Another VoxyWatch install/update is already running — aborting to avoid a clash. Retry in a few minutes."
   fi
@@ -855,6 +866,11 @@ rollback_update() {
   warn "Update failed (${reason}); restoring the previous VoxyWatch files..."
   systemctl stop voxywatch voxywatch-sniffer 2>/dev/null || true
   if tar -xzf "$ROLLBACK_ARCHIVE" -C /; then
+    if [ -f "${EXTRACTED}/capture-agent-service-receipt.json" ]; then
+      python3 "${EXTRACTED}/capture-agent-migrate-service.py" rollback \
+        "${EXTRACTED}/capture-agent.service" "${EXTRACTED}/capture-agent-service-receipt.json" \
+        || warn "Capture service rollback needs inspection; receipt retained"
+    fi
     [ "$LICENSE_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-license
     [ "$AI_KEY_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-ai-key
     [ "$SETUP_CLI_LINK_WAS_PRESENT" = "1" ] || rm -f /usr/local/sbin/voxywatch-setup
@@ -896,7 +912,7 @@ rollback_unexpected() {
 # Snapshot-only preflight before rollback activation or any service stop. A
 # later lock can still arrive (TOCTOU); migrate.sh enforces the actual budgets.
 if [ "$UPDATE_MODE" = "1" ] && [ -f "${EXTRACTED}/migrate.sh" ]; then
-  VW_MIGRATIONS_DIR="${EXTRACTED}/migrations" VW_PSQL_BIN=psql \
+  VW_MIGRATIONS_DIR="${EXTRACTED}/migrations" VW_PSQL_BIN="$PG_PSQL" \
     bash "${EXTRACTED}/migrate.sh" --preflight \
       -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -U postgres -d "${DB_NAME}" \
     || err "Database preflight failed; existing services were not stopped"
@@ -927,6 +943,7 @@ if [ "$UPDATE_MODE" = "1" ] && [ -d "$INSTALL_DIR" ] && [ -f "$CONF_FILE" ]; the
     etc/systemd/system/voxywatch-sniffer.service \
     etc/systemd/system/voxywatch-srs.service \
     etc/systemd/system/voxywatch-probe.service \
+    etc/systemd/system/voxywatch-capture-agent.service \
     etc/systemd/system/voxywatch-agentic.service \
     etc/systemd/system/voxywatch-apply-update.service \
     etc/systemd/system/voxywatch-apply-web-access.service \
@@ -1151,6 +1168,9 @@ install -o root -g voxywatch -m 640 "${EXTRACTED}/voxywatch_srs.py"   "${INSTALL
 install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-probe" "${INSTALL_DIR}/voxywatch-probe.new"
 mv -f "${INSTALL_DIR}/voxywatch-probe.new" "${INSTALL_DIR}/voxywatch-probe"
 install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-probe-launch.py" "${INSTALL_DIR}/voxywatch-probe-launch.py"
+install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-capture-agent" "${INSTALL_DIR}/voxywatch-capture-agent.new"
+mv -f "${INSTALL_DIR}/voxywatch-capture-agent.new" "${INSTALL_DIR}/voxywatch-capture-agent"
+install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-capture-agent-launch.py" "${INSTALL_DIR}/voxywatch-capture-agent-launch.py"
 install -o root -g voxywatch -m 750 "${EXTRACTED}/voxywatch-go-core" "${INSTALL_DIR}/voxywatch-go-core.new"
 mv -f "${INSTALL_DIR}/voxywatch-go-core.new" "${INSTALL_DIR}/voxywatch-go-core"
 install -o root -g voxywatch -m 640 "${EXTRACTED}/schema.sql"         "${INSTALL_DIR}/schema.sql" 2>/dev/null || true
@@ -1449,12 +1469,12 @@ fi
 
 # 4) Esperar readiness del cluster
 for i in $(seq 1 30); do
-  pg_isready -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" >/dev/null 2>&1 && break
+  "$PG_ISREADY" -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" >/dev/null 2>&1 && break
   sleep 1
 done
 
 # 5) Local role, data store, extension and schema.
-PSQL_SU="sudo -u postgres psql -h ${PG_SOCKET_DIR} -p ${PG_PORT} -v ON_ERROR_STOP=1"
+PSQL_SU="sudo -u postgres ${PG_PSQL} -h ${PG_SOCKET_DIR} -p ${PG_PORT} -v ON_ERROR_STOP=1"
 ${PSQL_SU} -tAc "SELECT 1 FROM pg_roles WHERE rolname='${DB_USER}'" 2>/dev/null | grep -q 1 \
   || ${PSQL_SU} -c "CREATE ROLE ${DB_USER} LOGIN;" >/dev/null
 ${PSQL_SU} -tAc "SELECT 1 FROM pg_database WHERE datname='${DB_NAME}'" 2>/dev/null | grep -q 1 \
@@ -1472,7 +1492,7 @@ if { [ "$UPDATE_MODE" = "0" ] || [ "$REFRESH_EXTERNAL_DEPS" = "1" ]; } \
   info "Refreshing local extension..."
   systemctl restart "$PG_SERVICE" 2>/dev/null \
     || { [ "$OS_FAMILY" = "deb" ] && pg_ctlcluster "${PG_VER}" "${PG_CLUSTER}" restart 2>/dev/null; } || true
-  for i in $(seq 1 30); do pg_isready -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" >/dev/null 2>&1 && break; sleep 1; done
+  for i in $(seq 1 30); do "$PG_ISREADY" -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" >/dev/null 2>&1 && break; sleep 1; done
   ${PSQL_SU} -d "${DB_NAME}" -c "ALTER EXTENSION ${DB_EXTENSION} UPDATE;" >/dev/null 2>&1 \
     && ok "Local extension refreshed" \
     || warn "Local extension refresh failed — check manually"
@@ -1485,11 +1505,11 @@ ${PSQL_SU} -d "${DB_NAME}" -v vw_owner="${DB_USER}" \
   || err "Could not repair local data ownership and privileges"
 # El SQL se pasa por STDIN (lo lee el shell de root); así voxywatch NO necesita
 # permiso de lectura sobre el archivo en el TMPDIR de root (mktemp es 700).
-sudo -u "${SERVICE_USER}" env PGOPTIONS='-c lock_timeout=5s -c statement_timeout=120s' psql -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
+sudo -u "${SERVICE_USER}" env PGOPTIONS='-c lock_timeout=5s -c statement_timeout=120s' "$PG_PSQL" -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
      -v ON_ERROR_STOP=1 -f - < "${EXTRACTED}/schema.sql" >/dev/null \
   || err "Could not apply the schema (schema.sql)"
-VW_MIGRATIONS_DIR="${INSTALL_DIR}/migrations" \
-  sudo -u "${SERVICE_USER}" "${INSTALL_DIR}/migrate.sh" \
+sudo -u "${SERVICE_USER}" env VW_MIGRATIONS_DIR="${INSTALL_DIR}/migrations" VW_PSQL_BIN="$PG_PSQL" \
+    "${INSTALL_DIR}/migrate.sh" \
     -h "${PG_SOCKET_DIR}" -p "${PG_PORT}" -d "${DB_NAME}" \
   || err "Could not apply versioned database migrations"
 ok "Local data service ready"
@@ -1514,10 +1534,14 @@ info "Installing systemd units..."
 AGENTIC_WAS_ACTIVE=0
 AGENTIC_WAS_ENABLED=0
 MIRROR_WAS_ENABLED=0
-MIRROR_RESTORE_ENABLED=0
+MIRROR_WAS_ACTIVE=0
+MIRROR_RESTORE_ACTIVE=0
 systemctl is-active --quiet voxywatch-agentic.service 2>/dev/null && AGENTIC_WAS_ACTIVE=1 || true
 systemctl is-enabled --quiet voxywatch-agentic.service 2>/dev/null && AGENTIC_WAS_ENABLED=1 || true
 systemctl is-enabled --quiet voxywatch-probe.service 2>/dev/null && MIRROR_WAS_ENABLED=1 || true
+systemctl is-enabled --quiet voxywatch-capture-agent.service 2>/dev/null && MIRROR_WAS_ENABLED=1 || true
+systemctl is-active --quiet voxywatch-probe.service 2>/dev/null && MIRROR_WAS_ACTIVE=1 || true
+systemctl is-active --quiet voxywatch-capture-agent.service 2>/dev/null && MIRROR_WAS_ACTIVE=1 || true
 
 # The managed portal sizes memory safeguards from detected host capacity. No
 # fixed Node heap override is installed because it can be unsafe on small hosts.
@@ -1541,7 +1565,7 @@ User=${SERVICE_USER}
 Group=${SERVICE_USER}
 WorkingDirectory=${DATA_DIR}
 # Readiness: systemd After= no garantiza que PG acepte queries.
-ExecStartPre=/usr/bin/pg_isready -h ${PG_SOCKET_DIR} -p ${PG_PORT} -t 30
+ExecStartPre=${PG_ISREADY} -h ${PG_SOCKET_DIR} -p ${PG_PORT} -t 30
 ExecStart=${INSTALL_DIR}/voxywatch-portal
 Environment=PORT=${PORT}
 # Legacy updates preserve their historical listener for compatibility. Platform readiness marks
@@ -1618,7 +1642,7 @@ Type=simple
 User=${SERVICE_USER}
 Group=${SERVICE_USER}
 WorkingDirectory=${DATA_DIR}
-ExecStartPre=/usr/bin/pg_isready -h ${PG_SOCKET_DIR} -p ${PG_PORT} -t 30
+ExecStartPre=${PG_ISREADY} -h ${PG_SOCKET_DIR} -p ${PG_PORT} -t 30
 ExecStart=/usr/bin/python3 -u ${INSTALL_DIR}/hep_sniffer.py --quiet
 Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
 Environment=PGHOST=${PG_SOCKET_DIR}
@@ -1642,9 +1666,9 @@ EOF
 # not listen on a network port; it reads one explicitly selected mirror NIC and
 # sends HEP only to loopback. The launcher repeats the settings gate so a stale
 # enabled unit cannot capture when mirror_enabled is absent/false.
-cat > /etc/systemd/system/voxywatch-probe.service << EOF
+cat > "${EXTRACTED}/capture-agent.service" << EOF
 [Unit]
-Description=VoxyWatch Passive Mirror Capture (Beta)
+Description=VoxyWatch Capture Agent
 Documentation=https://github.com/VoxyWatch/publish/blob/main/PASSIVE_MIRROR_CAPTURE.md
 After=network-online.target voxywatch-sniffer.service
 Wants=network-online.target
@@ -1654,9 +1678,9 @@ Type=simple
 User=${SERVICE_USER}
 Group=${SERVICE_USER}
 WorkingDirectory=${DATA_DIR}
-ExecStart=${INSTALL_DIR}/voxywatch-probe-launch.py
+ExecStart=${INSTALL_DIR}/voxywatch-capture-agent-launch.py
 Environment=VOXYWATCH_DATA_DIR=${DATA_DIR}
-RuntimeDirectory=voxywatch-probe
+RuntimeDirectory=voxywatch-capture-agent
 RuntimeDirectoryMode=0750
 AmbientCapabilities=CAP_NET_RAW CAP_NET_ADMIN
 CapabilityBoundingSet=CAP_NET_RAW CAP_NET_ADMIN
@@ -1665,24 +1689,32 @@ ProtectSystem=strict
 ProtectHome=true
 PrivateTmp=true
 ReadOnlyPaths=/sys/class/net
-ReadWritePaths=/run/voxywatch-probe
+ReadWritePaths=/run/voxywatch-capture-agent
 Restart=on-failure
 RestartSec=5
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=voxywatch-probe
+SyslogIdentifier=voxywatch-capture-agent
 
 [Install]
 WantedBy=multi-user.target
+Alias=voxywatch-probe.service
 EOF
 
-if [ "$MIRROR_WAS_ENABLED" = "1" ] \
-   && python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); raise SystemExit(0 if d.get("mirror_enabled") is True else 1)' \
+python3 "${EXTRACTED}/capture-agent-migrate-service.py" install \
+  "${EXTRACTED}/capture-agent.service" "${EXTRACTED}/capture-agent-service-receipt.json" \
+  || err "Capture Agent service migration failed; previous configuration preserved"
+
+if python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); raise SystemExit(0 if d.get("mirror_enabled") is True else 1)' \
         "${DATA_DIR}/voxywatch_settings.json" 2>/dev/null; then
-  MIRROR_RESTORE_ENABLED=1
-  systemctl enable voxywatch-probe.service >/dev/null 2>&1 || true
+  MIRROR_RESTORE_ACTIVE="$MIRROR_WAS_ACTIVE"
+  if [ "$MIRROR_WAS_ENABLED" = "1" ]; then
+    systemctl enable voxywatch-capture-agent.service >/dev/null 2>&1 || err "Capture Agent enablement could not be restored"
+  else
+    systemctl disable voxywatch-capture-agent.service >/dev/null 2>&1 || err "Capture Agent disabled state could not be restored"
+  fi
 else
-  systemctl disable --now voxywatch-probe.service >/dev/null 2>&1 || true
+  systemctl disable --now voxywatch-capture-agent.service >/dev/null 2>&1 || err "Capture Agent could not be disabled"
 fi
 
 # ── Update applier (oneshot, root) — lo dispara el portal por D-Bus+polkit (one-click update) ──
@@ -1951,6 +1983,7 @@ polkit.addRule(function(action, subject) {
         var verb = action.lookup("verb");
         if (u == "voxywatch-sniffer.service" || u == "voxywatch-srs.service" ||
             u == "voxywatch-probe.service" ||
+            u == "voxywatch-capture-agent.service" ||
             u == "voxywatch-agentic.service") {
             if (verb == "start" || verb == "stop" || verb == "restart") return polkit.Result.YES;
         }
@@ -1962,7 +1995,7 @@ polkit.addRule(function(action, subject) {
     // enable/disable persistente SOLO del SRS (la pestaña Settings → SIPREC lo activa en boot).
     if (action.id == "org.freedesktop.systemd1.manage-unit-files") {
         var uf = action.lookup("unit");
-        if (uf == "voxywatch-srs.service" || uf == "voxywatch-probe.service" || uf == "voxywatch-agentic.service")
+        if (uf == "voxywatch-srs.service" || uf == "voxywatch-probe.service" || uf == "voxywatch-capture-agent.service" || uf == "voxywatch-agentic.service")
             return polkit.Result.YES;
     }
 });
@@ -2160,9 +2193,9 @@ ok "Updates: opt-in — the portal notifies you, the admin applies with one clic
 info "Starting services..."
 systemctl start voxywatch-sniffer
 systemctl start voxywatch
-if [ "$MIRROR_RESTORE_ENABLED" = "1" ]; then
-  systemctl restart voxywatch-probe.service >/dev/null 2>&1 \
-    || warn "Passive Mirror was enabled but could not be restarted"
+if [ "$MIRROR_RESTORE_ACTIVE" = "1" ]; then
+  systemctl restart voxywatch-capture-agent.service >/dev/null 2>&1 \
+    || err "Capture Agent was active but could not be restarted"
 fi
 _activate_managed_https() {
   [ "$HTTPS_MODE" != "legacy" ] || return 0

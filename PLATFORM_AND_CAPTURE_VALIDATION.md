@@ -9,6 +9,8 @@ addresses, credentials or captured traffic.
 - **Recommended:** Debian 12 or 13 on x86_64; Debian 13 on ARM64.
 - **Also supported:** Ubuntu 22.04/24.04 LTS and Amazon Linux 2023 on x86_64 or
   ARM64.
+- **From v4.7.3:** Rocky Linux 10.2 on x86_64. Other Rocky versions and Rocky
+  ARM64 require separate validation; this does not imply support for every RPM distribution.
 - Other distributions require a separate compatibility review before
   installation. Similar package names are not evidence of compatibility.
 

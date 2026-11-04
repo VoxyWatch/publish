@@ -6,71 +6,49 @@
 
 </div>
 
-VoxyWatch is a self-hosted operations platform for passive SIP/HEP evidence,
-CDRs, health, incidents and permitted media analysis. It observes the network;
-it never configures or controls a customer SBC.
+VoxyWatch is a self-hosted operations platform for call evidence, CDRs, statistics,
+incidents, reports and permitted media analysis. It observes your network; it never
+configures or controls your SBC. AI is optional, not a requirement to get started.
+
+## Start here — your first installation
+
+**[Open the six-step installation and setup guide](https://github.com/VoxyWatch/publish/blob/main/INITIAL_SETUP_CHANNELS.md)**
+
+Prerequisites → capture → installation → minimum setup → first call → daily operation.
 
 ## Install and first access
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/VoxyWatch/publish/main/install.sh | sudo bash
-```
+Use the [official installation command](INITIAL_SETUP_CHANNELS.md#3-install-and-sign-in)
+after checking the [supported platforms](INITIAL_SETUP_CHANNELS.md#1-check-prerequisites).
+Open the HTTPS **Web portal** address printed by the installer;
+see the [HTTPS guide](HTTPS_CONFIGURATION.md) for certificate trust and hostname setup.
 
-Signed releases support Debian 12/13, Ubuntu 22.04/24.04 LTS and Amazon Linux
-2023 on x86_64 and ARM64. Version 4.7.3 adds Rocky Linux 10.2 on x86_64.
-Open `https://YOUR-HOST`, change the initial
-administrator password, and complete the visible setup checks before admitting
-live traffic.
+**Initial credentials:** `admin` / `voxywatch` on fresh installations. Change the
+password at first sign-in. Updates preserve existing accounts and passwords.
+Keep portal access restricted to your intended management users/networks.
 
-Fresh installations use a private certificate authority. Trust its root on each
-browser/API/MCP client, or configure a public hostname or your own certificate
-in **Settings → Web Access**. See the [HTTPS guide](HTTPS_CONFIGURATION.md).
+## Choose what your network can provide
 
-**Initial credentials:** username **admin**, password **voxywatch** on a fresh
-installation. Updates preserve existing users and passwords. Replace
-it when first signing in; protected portal functions require that change.
-Restrict access to your management network.
+- **HEP:** signaling and exported RTP/RTCP; signaling alone does not provide audio.
+- **SIPREC:** supplied recording metadata/media, not the original SIP exchange or original-call ASR/NER/PDD.
+- **Sniffer:** a mirrored interface; visible packets only, not automatic decryption.
 
-## Capture choices
-
-- **HEP** receives approved SIP/RTP/RTCP exporters on UDP or TCP 9060 by default.
-- **SIPREC** is optional and off by default; configure its source and port range
-  explicitly.
-- **Passive Mirror Capture** is opt-in for a read-only SPAN/RSPAN/ERSPAN/VXLAN
-  copy when an exporter is unavailable.
-
-| Input | What you can analyze | Important limit |
-|---|---|---|
-| HEP | Original signaling and any exported media | Audio requires RTP actually exported and correlated |
-| SIPREC | Recorded sessions, supplied metadata and eligible audio/transcripts | Metadata does not recreate original SIP messages or commercial ASR/NER/PDD |
-| Mirror | Visible signaling/media from the mirrored interface | Mirroring cannot decode encrypted SIP/media |
-
-Restrict capture inputs to approved source networks. The HTTPS portal uses TCP
-443; do not expose its local backend.
+Configure **Settings → Capture Sources** and your sender/mirror, then verify a test call.
 
 ## Operator guides
 
+- [First installation and setup](INITIAL_SETUP_CHANNELS.md)
 - [Platform and capture validation](PLATFORM_AND_CAPTURE_VALIDATION.md)
 - [SIPREC validation](PLATFORM_AND_CAPTURE_VALIDATION.md#siprec-validation)
 - [Passive Mirror Capture](PASSIVE_MIRROR_CAPTURE.md)
-- [HTTPS access and certificate trust](HTTPS_CONFIGURATION.md)
-- [Initial setup channels](INITIAL_SETUP_CHANNELS.md)
-- [Integration API](API_REFERENCE.md)
-- [MCP connection](MCP_SERVER.md)
-- [Speech to Text Beta](SPEECH_TO_TEXT_BETA.md)
-- [LLM credentials](AI_CREDENTIALS.md)
-- [Local CLI reference](CLI_REFERENCE.md)
+- [HTTPS access](HTTPS_CONFIGURATION.md) and [local CLI](CLI_REFERENCE.md)
+- [API](API_REFERENCE.md) and [MCP connection](MCP_SERVER.md)
+- [Speech to Text Beta](SPEECH_TO_TEXT_BETA.md) and [LLM credentials](AI_CREDENTIALS.md)
 - [Reports](REPORTS.md) and [available features](FEATURES.md)
 
-AI, MCP and transcription are optional and require explicit administrator
-configuration. VoxyWatch does not automatically send raw SIP, RTP/audio or
-credentials to an external provider.
-
-## Updates
-
-Updates are administrator initiated and verify the signed public release
-manifest before installation. This repository contains operator documentation;
-private engineering records and recovery procedures are not distributed here.
+AI, MCP, recording and transcription need appropriate administrator configuration
+and permission to process the selected data. Review privacy before enabling external providers.
+Updates are administrator-initiated and verify signed releases.
 
 Support: [support@voxywatch.com](mailto:support@voxywatch.com) ·
 [WhatsApp +52 55 9221 7665](https://wa.me/525592217665) ·

@@ -1,5 +1,7 @@
 # VoxyWatch local CLI reference
 
+New installation? Start with the [six-step setup guide](INITIAL_SETUP_CHANNELS.md).
+
 For the passive capture component use `voxywatch logs --unit capture-agent`.
 The historical `--unit probe` spelling remains accepted for existing scripts.
 Standalone **VoxyWatch Capture Agent** installation/help remains at

@@ -7,6 +7,7 @@ Start here: an LLM, AI subscription or MCP is not required for capture, statisti
 3. [Install and sign in](#3-install-and-sign-in).
 4. [Complete the minimum configuration](#4-complete-the-minimum-configuration).
 5. [Verify your first result](#5-verify-your-first-result).
+   - [Find a past call and its SIP trace](#find-a-past-call-and-its-sip-trace).
 6. [Prepare for everyday operation](#6-prepare-for-everyday-operation).
 
 ## 1. Check prerequisites
@@ -117,6 +118,22 @@ provider/settings. A completed call or active service alone proves neither.
 Read-only local checks: `sudo voxywatch status`, `sudo voxywatch capture status`,
 and `sudo voxywatch doctor`. Use each command's `--help` for its coverage.
 Configuration, service health, reception and first-call verification are separate; unknown is not a healthy zero.
+
+### Find a past call and its SIP trace
+
+Open **Calls** or **CDR Base**, select a range that includes the call, confirm the
+displayed time zone, and clear or narrow filters deliberately. Open the matching
+call, then use its **SIP flow** view to inspect the trace that was retained for
+that call. If the result is not where expected, widen the range, check the time
+zone and filters, then retry the query.
+
+CDR history and SIP-trace history have separate retention and storage policies;
+a retained CDR does not guarantee that its complete SIP trace is still available.
+For SIPREC, the portal can show supplied recording-session evidence, but it
+cannot reconstruct the original SIP messages. A partial cache result, a failed
+query, or an unavailable trace is not proof that the call or capture never
+existed. Retry first, then review the effective retention settings and any
+available diagnostics.
 
 ## 6. Prepare for everyday operation
 

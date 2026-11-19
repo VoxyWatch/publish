@@ -61,11 +61,8 @@ turns the detector off, clears its counters and recovers its open incidents.
 
 ## Default configuration
 
-The mode, economic assumptions, window, minimum calls, alert score, sustain and
-recovery values are editable in the UI. The remaining detector gates below are
-conservative runtime defaults managed through the validated settings contract;
-they are documented for interpretation and controlled deployments. Advanced UI
-settings are collapsed by default.
+Configure the mode, window, minimum calls, alert score, sustain and recovery
+in the portal. Advanced settings are collapsed by default.
 
 | Setting | Default | Meaning |
 |---|---:|---|
@@ -80,12 +77,6 @@ settings are collapsed by default.
 | Critical score | 90 | Score classified as critical |
 | Sustain windows | 2 | Consecutive Alerting windows required before opening |
 | Recovery windows | 3 | Consecutive missing windows required before recovery |
-| A2P unit revenue | 0 | Optional displaced-value estimate per probable call |
-| Substitution percentage | 0% | Estimated share replacing billable A2P verification |
-| Currency | USD | ISO 4217 display currency for the estimate |
-
-The economic values are operator-provided estimates, not billing records. A
-zero value disables the monetary estimate without changing detection.
 
 ## Reading a finding
 
@@ -98,12 +89,8 @@ zero value disables the monetary estimate without changing detection.
   the call.
 - **Destination fan-out:** unique destinations divided by probable calls.
 - **Signals:** the exact gates and supporting observations that contributed.
-- **Estimated displaced revenue:** probable calls × configured unit revenue ×
-  substitution percentage.
 
-The source identifier shown to agents and MCP clients is a short installation-
-local hash. Raw source IPs and telephone numbers are not returned by the Flash
-Call specialist.
+Flash Call specialist responses omit raw source IPs and telephone numbers.
 
 ## Safe validation
 
@@ -141,10 +128,8 @@ dominant timing ratio or sustain windows.
 
 ## Incidents and notifications
 
-Alerting uses the existing VoxyWatch incident engine and notification channels.
-One fingerprint exists per trunk/source pattern, preventing repeated alert
-storms. Restart recovery seeds active detector incidents from the database so
-the lifecycle remains consistent after a portal restart.
+Alerting uses the configured notification channels and groups repeated findings
+into incidents. Review the incident's evidence before taking operational action.
 
 The factory runbook is evidence-first: validate the SIP pattern, identify the
 commercial owner and estimate impact. Any blocking or carrier action remains a
@@ -152,10 +137,8 @@ human decision performed outside VoxyWatch.
 
 ## Privacy and retention
 
-The detector works on the bounded in-memory call working set. The Flash Call
-snapshot stores aggregate findings only and is capped at 100 groups. It does not
-retain raw SIP bodies, audio, RTP payloads or DTMF. Incidents retain the
-deterministic aggregate evidence required for audit and recovery.
+Findings contain aggregate evidence, not raw SIP bodies, audio, RTP payloads
+or DTMF. Incidents retain the supporting evidence for review.
 
 The optional `get_flash_call_overview` MCP/agent tool is read-only, requires
 `mcp:read`, returns at most 25 findings and replaces the visible source with a

@@ -1,15 +1,15 @@
 {
-  "version": "4.7.8",
+  "version": "4.7.9",
   "release_date": "2026-11-20",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v4.7.8/voxywatch-v4.7.8-linux-x64.tar.gz",
-    "sha256": "538f2dfe6fcf218ba470ce3186d6205bf80ef74efdeab18379f664e90c3ab168",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v4.7.8/voxywatch-v4.7.8-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v4.7.9/voxywatch-v4.7.9-linux-x64.tar.gz",
+    "sha256": "602b0fd4bcfae7e316376d5f72c5c6eae6e2157c295e015113c242a353dced31",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v4.7.9/voxywatch-v4.7.9-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v4.7.8/voxywatch-v4.7.8-linux-arm64.tar.gz",
-    "sha256": "a4c69416ba45fd6ec006d48295b9be12f3af6cec978a256d900899945c289422",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v4.7.8/voxywatch-v4.7.8-linux-arm64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v4.7.9/voxywatch-v4.7.9-linux-arm64.tar.gz",
+    "sha256": "b80003bb8fd84c28a0e716561d3aa3dad8fd4a0091d76031697d31d1901baa0a",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v4.7.9/voxywatch-v4.7.9-linux-arm64.tar.gz.asc"
   },
   "min_upgrade_from": "1.0.0"
 }

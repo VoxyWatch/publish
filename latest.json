@@ -1,15 +1,15 @@
 {
-  "version": "4.7.12",
-  "release_date": "2026-11-23",
+  "version": "4.7.13",
+  "release_date": "2026-11-24",
   "linux_x64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v4.7.12/voxywatch-v4.7.12-linux-x64.tar.gz",
-    "sha256": "04acaa7953f4495b33162247f46856462662a5a116c13920cfd146ea2d3efe0b",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v4.7.12/voxywatch-v4.7.12-linux-x64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v4.7.13/voxywatch-v4.7.13-linux-x64.tar.gz",
+    "sha256": "e530f971524b66d6c21ee1888298e49732ea3fe66dee91761af88b4a267b5efb",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v4.7.13/voxywatch-v4.7.13-linux-x64.tar.gz.asc"
   },
   "linux_arm64": {
-    "url": "https://github.com/VoxyWatch/publish/releases/download/v4.7.12/voxywatch-v4.7.12-linux-arm64.tar.gz",
-    "sha256": "aee82459d4de0de9aca83f2355d9cc24fa6c6993bf9538925f88a6a229b3db46",
-    "signature": "https://github.com/VoxyWatch/publish/releases/download/v4.7.12/voxywatch-v4.7.12-linux-arm64.tar.gz.asc"
+    "url": "https://github.com/VoxyWatch/publish/releases/download/v4.7.13/voxywatch-v4.7.13-linux-arm64.tar.gz",
+    "sha256": "c0adbf054a903f4fed7c27369a46bab5bcf237976a0ac78b43a2f1a8807f28f1",
+    "signature": "https://github.com/VoxyWatch/publish/releases/download/v4.7.13/voxywatch-v4.7.13-linux-arm64.tar.gz.asc"
   },
   "min_upgrade_from": "1.0.0"
 }
